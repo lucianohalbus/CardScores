@@ -14,7 +14,7 @@ struct MatchesListView: View {
                        MatchCardView(matchFB: match)
                             .padding(.bottom, 10)
                     }
-                 //   .onDelete(perform: delete(indexSet:))
+                    .onDelete(perform: delete(indexSet:))
                     .listRowInsets(EdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                     .listRowBackground(Color.clear)
                 }
@@ -46,18 +46,12 @@ struct MatchesListView: View {
         }
     }
     
-//    private func delete(indexSet: IndexSet) {
-//        indexSet.forEach { index in
-//            let match = matchesDB[index]
-//            context.delete(match)
-//            
-//            do {
-//                try context.save()
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-//        }
-//    }
+    private func delete(indexSet: IndexSet) {
+        indexSet.forEach { index in
+            let match: MatchFB = matchFBListVM.matchesFB[index]
+            matchFBListVM.delete(match: match)
+        }
+    }
     
 }
 

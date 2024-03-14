@@ -15,7 +15,7 @@ struct MatchResumeView: View {
                 
        //         matchResumeViewList
                 
-              //  if !matchFB.gameOver {
+                if !matchFB.gameOver {
                 
                     Button {
                         
@@ -39,7 +39,7 @@ struct MatchResumeView: View {
 //                            .interactiveDismissDisabled()
 //                    })
                 
-              //  }
+                }
             }
         }
         .padding()

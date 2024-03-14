@@ -27,4 +27,14 @@ final class MatchFBListViewModel: ObservableObject {
             }
         }
     }
+    
+    func delete(match: MatchFB) {
+        repo.delete(match: match) { error in
+            if error == nil {
+                self.getMatches()
+            } else {
+                print(error?.localizedDescription ?? "")
+            }
+        }
+    }
 }

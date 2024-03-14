@@ -79,19 +79,19 @@ final class FirebaseRepository {
 //        }
 //    }
 //
-//    func delete(item: Item, completion: @escaping(Error?) -> Void) {
-//
-//        guard let itemId: String = item.id else {
-//            completion(NSError(domain: "Item id is null", code:  105, userInfo: nil))
-//            return
-//        }
-//
-//        db.collection(Constants.pantry).document(itemId).delete { error in
-//            if error == nil {
-//                completion(nil)
-//            }
-//            completion(error)
-//        }
-//    }
+    func delete(match: MatchFB, completion: @escaping(Error?) -> Void) {
+
+        guard let matchId: String = match.id else {
+            completion(NSError(domain: "Match id is null", code:  105, userInfo: nil))
+            return
+        }
+
+        db.collection(Constants.matches).document(matchId).delete { error in
+            if error == nil {
+                completion(nil)
+            }
+            completion(error)
+        }
+    }
     
 }
