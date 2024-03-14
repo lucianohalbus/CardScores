@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CB416CF42BA35FB6005DF9F3 /* UpdateItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB416CF12BA35FB6005DF9F3 /* UpdateItemView.swift */; };
+		CB416CF52BA35FB6005DF9F3 /* AddItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB416CF22BA35FB6005DF9F3 /* AddItemView.swift */; };
+		CB416CF62BA35FB6005DF9F3 /* MatchesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB416CF32BA35FB6005DF9F3 /* MatchesListView.swift */; };
+		CB416CF82BA37924005DF9F3 /* MatchCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB416CF72BA37924005DF9F3 /* MatchCardView.swift */; };
+		CB416CFA2BA37A77005DF9F3 /* MatchResumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB416CF92BA37A77005DF9F3 /* MatchResumeView.swift */; };
 		CBFF67C32BA33F330023A2F8 /* CardScoresApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67C22BA33F330023A2F8 /* CardScoresApp.swift */; };
 		CBFF67C52BA33F330023A2F8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67C42BA33F330023A2F8 /* ContentView.swift */; };
 		CBFF67C72BA33F340023A2F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBFF67C62BA33F340023A2F8 /* Assets.xcassets */; };
 		CBFF67CA2BA33F340023A2F8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBFF67C92BA33F340023A2F8 /* Preview Assets.xcassets */; };
-		CBFF67D42BA33FB10023A2F8 /* Category.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67D22BA33FB10023A2F8 /* Category.swift */; };
 		CBFF67D72BA33FD50023A2F8 /* MatchFB.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67D52BA33FD50023A2F8 /* MatchFB.swift */; };
 		CBFF67D82BA33FD50023A2F8 /* MatchResumeDB.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67D62BA33FD50023A2F8 /* MatchResumeDB.swift */; };
 		CBFF67DB2BA3400B0023A2F8 /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = CBFF67DA2BA3400B0023A2F8 /* FirebaseAnalytics */; };
@@ -21,7 +25,6 @@
 		CBFF67E82BA340440023A2F8 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = CBFF67E72BA340440023A2F8 /* FirebaseCrashlytics */; };
 		CBFF67EA2BA340440023A2F8 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = CBFF67E92BA340440023A2F8 /* FirebaseFirestore */; };
 		CBFF67EC2BA340440023A2F8 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CBFF67EB2BA340440023A2F8 /* FirebaseFirestoreSwift */; };
-		CBFF67F22BA340CB0023A2F8 /* MatchFBViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67EE2BA340CB0023A2F8 /* MatchFBViewModel.swift */; };
 		CBFF67F32BA340CB0023A2F8 /* MatchFBListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67EF2BA340CB0023A2F8 /* MatchFBListViewModel.swift */; };
 		CBFF67F42BA340CB0023A2F8 /* UpdateItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67F02BA340CB0023A2F8 /* UpdateItemViewModel.swift */; };
 		CBFF67F52BA340CB0023A2F8 /* AddItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67F12BA340CB0023A2F8 /* AddItemViewModel.swift */; };
@@ -33,15 +36,18 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CB416CF12BA35FB6005DF9F3 /* UpdateItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateItemView.swift; sourceTree = "<group>"; };
+		CB416CF22BA35FB6005DF9F3 /* AddItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemView.swift; sourceTree = "<group>"; };
+		CB416CF32BA35FB6005DF9F3 /* MatchesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchesListView.swift; sourceTree = "<group>"; };
+		CB416CF72BA37924005DF9F3 /* MatchCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardView.swift; sourceTree = "<group>"; };
+		CB416CF92BA37A77005DF9F3 /* MatchResumeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchResumeView.swift; sourceTree = "<group>"; };
 		CBFF67BF2BA33F330023A2F8 /* CardScores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardScores.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBFF67C22BA33F330023A2F8 /* CardScoresApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardScoresApp.swift; sourceTree = "<group>"; };
 		CBFF67C42BA33F330023A2F8 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CBFF67C62BA33F340023A2F8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CBFF67C92BA33F340023A2F8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		CBFF67D22BA33FB10023A2F8 /* Category.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Category.swift; sourceTree = "<group>"; };
 		CBFF67D52BA33FD50023A2F8 /* MatchFB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchFB.swift; sourceTree = "<group>"; };
 		CBFF67D62BA33FD50023A2F8 /* MatchResumeDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchResumeDB.swift; sourceTree = "<group>"; };
-		CBFF67EE2BA340CB0023A2F8 /* MatchFBViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchFBViewModel.swift; sourceTree = "<group>"; };
 		CBFF67EF2BA340CB0023A2F8 /* MatchFBListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchFBListViewModel.swift; sourceTree = "<group>"; };
 		CBFF67F02BA340CB0023A2F8 /* UpdateItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateItemViewModel.swift; sourceTree = "<group>"; };
 		CBFF67F12BA340CB0023A2F8 /* AddItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemViewModel.swift; sourceTree = "<group>"; };
@@ -70,6 +76,18 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CB416CF02BA35FB6005DF9F3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CB416CF72BA37924005DF9F3 /* MatchCardView.swift */,
+				CB416CF12BA35FB6005DF9F3 /* UpdateItemView.swift */,
+				CB416CF22BA35FB6005DF9F3 /* AddItemView.swift */,
+				CB416CF32BA35FB6005DF9F3 /* MatchesListView.swift */,
+				CB416CF92BA37A77005DF9F3 /* MatchResumeView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		CBFF67B62BA33F330023A2F8 = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +108,7 @@
 		CBFF67C12BA33F330023A2F8 /* CardScores */ = {
 			isa = PBXGroup;
 			children = (
+				CB416CF02BA35FB6005DF9F3 /* Views */,
 				CBFF68022BA345CF0023A2F8 /* Config */,
 				CBFF67F92BA342C80023A2F8 /* Utils */,
 				CBFF67F62BA340F50023A2F8 /* Repository */,
@@ -116,7 +135,6 @@
 			children = (
 				CBFF67D52BA33FD50023A2F8 /* MatchFB.swift */,
 				CBFF67D62BA33FD50023A2F8 /* MatchResumeDB.swift */,
-				CBFF67D22BA33FB10023A2F8 /* Category.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -131,7 +149,6 @@
 		CBFF67ED2BA340CB0023A2F8 /* ViewModels */ = {
 			isa = PBXGroup;
 			children = (
-				CBFF67EE2BA340CB0023A2F8 /* MatchFBViewModel.swift */,
 				CBFF67EF2BA340CB0023A2F8 /* MatchFBListViewModel.swift */,
 				CBFF67F02BA340CB0023A2F8 /* UpdateItemViewModel.swift */,
 				CBFF67F12BA340CB0023A2F8 /* AddItemViewModel.swift */,
@@ -250,17 +267,20 @@
 			files = (
 				CBFF67C52BA33F330023A2F8 /* ContentView.swift in Sources */,
 				CBFF67FD2BA342C80023A2F8 /* Constants.swift in Sources */,
+				CB416CF42BA35FB6005DF9F3 /* UpdateItemView.swift in Sources */,
+				CB416CF62BA35FB6005DF9F3 /* MatchesListView.swift in Sources */,
 				CBFF67D82BA33FD50023A2F8 /* MatchResumeDB.swift in Sources */,
+				CB416CF52BA35FB6005DF9F3 /* AddItemView.swift in Sources */,
 				CBFF67F42BA340CB0023A2F8 /* UpdateItemViewModel.swift in Sources */,
 				CBFF67C32BA33F330023A2F8 /* CardScoresApp.swift in Sources */,
 				CBFF67D72BA33FD50023A2F8 /* MatchFB.swift in Sources */,
-				CBFF67D42BA33FB10023A2F8 /* Category.swift in Sources */,
+				CB416CFA2BA37A77005DF9F3 /* MatchResumeView.swift in Sources */,
 				CBFF67FE2BA342C80023A2F8 /* Color+Extension.swift in Sources */,
 				CBFF67F32BA340CB0023A2F8 /* MatchFBListViewModel.swift in Sources */,
 				CBFF67F52BA340CB0023A2F8 /* AddItemViewModel.swift in Sources */,
 				CBFF67F82BA340F50023A2F8 /* FirebaseRepository.swift in Sources */,
+				CB416CF82BA37924005DF9F3 /* MatchCardView.swift in Sources */,
 				CBFF67FF2BA342C80023A2F8 /* CategoryEnum.swift in Sources */,
-				CBFF67F22BA340CB0023A2F8 /* MatchFBViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
