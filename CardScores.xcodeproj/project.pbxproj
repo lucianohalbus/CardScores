@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CB416CF42BA35FB6005DF9F3 /* UpdateItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB416CF12BA35FB6005DF9F3 /* UpdateItemView.swift */; };
-		CB416CF52BA35FB6005DF9F3 /* AddItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB416CF22BA35FB6005DF9F3 /* AddItemView.swift */; };
+		CB416CF52BA35FB6005DF9F3 /* AddNewMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB416CF22BA35FB6005DF9F3 /* AddNewMatchView.swift */; };
 		CB416CF62BA35FB6005DF9F3 /* MatchesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB416CF32BA35FB6005DF9F3 /* MatchesListView.swift */; };
 		CB416CF82BA37924005DF9F3 /* MatchCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB416CF72BA37924005DF9F3 /* MatchCardView.swift */; };
 		CB416CFA2BA37A77005DF9F3 /* MatchResumeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB416CF92BA37A77005DF9F3 /* MatchResumeView.swift */; };
@@ -37,7 +37,7 @@
 
 /* Begin PBXFileReference section */
 		CB416CF12BA35FB6005DF9F3 /* UpdateItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateItemView.swift; sourceTree = "<group>"; };
-		CB416CF22BA35FB6005DF9F3 /* AddItemView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemView.swift; sourceTree = "<group>"; };
+		CB416CF22BA35FB6005DF9F3 /* AddNewMatchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddNewMatchView.swift; sourceTree = "<group>"; };
 		CB416CF32BA35FB6005DF9F3 /* MatchesListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchesListView.swift; sourceTree = "<group>"; };
 		CB416CF72BA37924005DF9F3 /* MatchCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchCardView.swift; sourceTree = "<group>"; };
 		CB416CF92BA37A77005DF9F3 /* MatchResumeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchResumeView.swift; sourceTree = "<group>"; };
@@ -81,7 +81,7 @@
 			children = (
 				CB416CF72BA37924005DF9F3 /* MatchCardView.swift */,
 				CB416CF12BA35FB6005DF9F3 /* UpdateItemView.swift */,
-				CB416CF22BA35FB6005DF9F3 /* AddItemView.swift */,
+				CB416CF22BA35FB6005DF9F3 /* AddNewMatchView.swift */,
 				CB416CF32BA35FB6005DF9F3 /* MatchesListView.swift */,
 				CB416CF92BA37A77005DF9F3 /* MatchResumeView.swift */,
 			);
@@ -270,7 +270,7 @@
 				CB416CF42BA35FB6005DF9F3 /* UpdateItemView.swift in Sources */,
 				CB416CF62BA35FB6005DF9F3 /* MatchesListView.swift in Sources */,
 				CBFF67D82BA33FD50023A2F8 /* MatchResumeDB.swift in Sources */,
-				CB416CF52BA35FB6005DF9F3 /* AddItemView.swift in Sources */,
+				CB416CF52BA35FB6005DF9F3 /* AddNewMatchView.swift in Sources */,
 				CBFF67F42BA340CB0023A2F8 /* UpdateItemViewModel.swift in Sources */,
 				CBFF67C32BA33F330023A2F8 /* CardScoresApp.swift in Sources */,
 				CBFF67D72BA33FD50023A2F8 /* MatchFB.swift in Sources */,

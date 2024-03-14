@@ -22,25 +22,25 @@ struct MatchesListView: View {
                 .navigationDestination(for: MatchFB.self) { match in
                     MatchResumeView(matchFB: match)
                 }
-//                .toolbar {
-//                    ToolbarItem(placement: .topBarTrailing) {
-//                        Button {
-//                            presentAddNewMatchView.toggle()
-//                        } label: {
-//                            Image(systemName: "plus.circle")
-//                                .foregroundStyle(Color.white, Color.white)
-//                                .bold()
-//                        }
-//                        .buttonStyle(.borderedProminent)
-//                        .padding(.trailing, 20)
-//                        .tint(Color.cardColor)
-//                        .sheet(isPresented: $presentAddNewMatchView, content: {
-//                            AddNewMatchView()
-//                                .presentationDetents([.fraction(0.6)])
-//                                .interactiveDismissDisabled()
-//                        })
-//                    }
-//                }
+                .toolbar {
+                    ToolbarItem(placement: .topBarTrailing) {
+                        Button {
+                            isPresented.toggle()
+                        } label: {
+                            Image(systemName: "plus.circle")
+                                .foregroundStyle(Color.white, Color.white)
+                                .bold()
+                        }
+                        .buttonStyle(.borderedProminent)
+                        .padding(.trailing, 20)
+                        .tint(Color.cardColor)
+                        .sheet(isPresented: $isPresented, content: {
+                            AddNewMatchView()
+                                .presentationDetents([.fraction(0.6)])
+                                .interactiveDismissDisabled()
+                        })
+                    }
+                }
             }
             .navigationTitle("Lista de Partidas")
         }
