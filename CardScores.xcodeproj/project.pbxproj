@@ -27,7 +27,7 @@
 		CBFF67EC2BA340440023A2F8 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = CBFF67EB2BA340440023A2F8 /* FirebaseFirestoreSwift */; };
 		CBFF67F32BA340CB0023A2F8 /* MatchFBListViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67EF2BA340CB0023A2F8 /* MatchFBListViewModel.swift */; };
 		CBFF67F42BA340CB0023A2F8 /* UpdateItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67F02BA340CB0023A2F8 /* UpdateItemViewModel.swift */; };
-		CBFF67F52BA340CB0023A2F8 /* AddItemViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67F12BA340CB0023A2F8 /* AddItemViewModel.swift */; };
+		CBFF67F52BA340CB0023A2F8 /* AddMatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67F12BA340CB0023A2F8 /* AddMatchViewModel.swift */; };
 		CBFF67F82BA340F50023A2F8 /* FirebaseRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67F72BA340F50023A2F8 /* FirebaseRepository.swift */; };
 		CBFF67FD2BA342C80023A2F8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67FA2BA342C80023A2F8 /* Constants.swift */; };
 		CBFF67FE2BA342C80023A2F8 /* Color+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67FB2BA342C80023A2F8 /* Color+Extension.swift */; };
@@ -50,7 +50,7 @@
 		CBFF67D62BA33FD50023A2F8 /* MatchResumeDB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchResumeDB.swift; sourceTree = "<group>"; };
 		CBFF67EF2BA340CB0023A2F8 /* MatchFBListViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MatchFBListViewModel.swift; sourceTree = "<group>"; };
 		CBFF67F02BA340CB0023A2F8 /* UpdateItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UpdateItemViewModel.swift; sourceTree = "<group>"; };
-		CBFF67F12BA340CB0023A2F8 /* AddItemViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddItemViewModel.swift; sourceTree = "<group>"; };
+		CBFF67F12BA340CB0023A2F8 /* AddMatchViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddMatchViewModel.swift; sourceTree = "<group>"; };
 		CBFF67F72BA340F50023A2F8 /* FirebaseRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FirebaseRepository.swift; sourceTree = "<group>"; };
 		CBFF67FA2BA342C80023A2F8 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		CBFF67FB2BA342C80023A2F8 /* Color+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+Extension.swift"; sourceTree = "<group>"; };
@@ -151,7 +151,7 @@
 			children = (
 				CBFF67EF2BA340CB0023A2F8 /* MatchFBListViewModel.swift */,
 				CBFF67F02BA340CB0023A2F8 /* UpdateItemViewModel.swift */,
-				CBFF67F12BA340CB0023A2F8 /* AddItemViewModel.swift */,
+				CBFF67F12BA340CB0023A2F8 /* AddMatchViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -277,7 +277,7 @@
 				CB416CFA2BA37A77005DF9F3 /* MatchResumeView.swift in Sources */,
 				CBFF67FE2BA342C80023A2F8 /* Color+Extension.swift in Sources */,
 				CBFF67F32BA340CB0023A2F8 /* MatchFBListViewModel.swift in Sources */,
-				CBFF67F52BA340CB0023A2F8 /* AddItemViewModel.swift in Sources */,
+				CBFF67F52BA340CB0023A2F8 /* AddMatchViewModel.swift in Sources */,
 				CBFF67F82BA340F50023A2F8 /* FirebaseRepository.swift in Sources */,
 				CB416CF82BA37924005DF9F3 /* MatchCardView.swift in Sources */,
 				CBFF67FF2BA342C80023A2F8 /* CategoryEnum.swift in Sources */,

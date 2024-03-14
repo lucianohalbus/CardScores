@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct AddNewMatchView: View {
-    
+    @ObservedObject var matchFBListVM = MatchFBListViewModel()
     @State private var playerOne: String = ""
     @State private var playerTwo: String = ""
     @State private var playerThree: String = ""
@@ -54,10 +54,16 @@ struct AddNewMatchView: View {
                             gameOver: false
                         )
 
-                        dismiss()
+                        matchFBListVM.add(match: match)
+ 
                     }
                     .buttonStyle(.bordered)
                     .disabled(!isValid)
+                    .onChange(of: matchFBListVM.saved) {
+                        if  matchFBListVM.saved {
+                            dismiss()
+                        }
+                    }
                     
                     Spacer()
                 }
