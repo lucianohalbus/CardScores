@@ -18,7 +18,6 @@ final class BuracoListViewModel: ObservableObject {
     
     init() {
         repo = BuracoFirebaseRepository()
-//        getMatches()
         getUserId()
     }
     
@@ -34,7 +33,6 @@ final class BuracoListViewModel: ObservableObject {
             case .success(let fetchedItems):
                 if let fetchedItems = fetchedItems {
                     DispatchQueue.main.async {
-//                        self.matchesFB.append(contentsOf: fetchedItems)
                         self.matchesVM = fetchedItems.map(BuracoFBViewModel.init)
                     }
                 }
@@ -50,31 +48,9 @@ final class BuracoListViewModel: ObservableObject {
             if error == nil {
                 self.getMatches()
             } else {
-                print(error?.localizedDescription)
+                print(error?.localizedDescription ?? "The Match was not deleted.")
             }
         }
     }
-    
-//    func delete(match: MatchFB, index: Int) {
-//        repo.delete(match: match) { error in
-//            if error == nil {
-//                DispatchQueue.main.async {
-//                    self.getMatches()
-//                }
-//            } else {
-//                print(error?.localizedDescription ?? "")
-//            }
-//        }
-//    }
-    
-    func add(match: MatchFB) {
-        repo.add(match: match) { error in
-            if error == nil {
-                self.getMatches()
-            } else {
-                print(error?.localizedDescription)
-            }
-        }
-    }
-    
+
 }

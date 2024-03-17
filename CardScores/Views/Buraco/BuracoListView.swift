@@ -5,7 +5,8 @@ import FirebaseAuth
 
 struct BuracoListView: View {
     @State private var isPresented: Bool = false
-    @StateObject private var buracoListVM = BuracoListViewModel()
+    @ObservedObject private var buracoListVM = BuracoListViewModel()
+    @ObservedObject private var addNewBuracoMatchVM = AddNewBuracoFBViewModel()
     @ObservedObject private var loginVM = LoginViewModel()
     @Binding var tabSelection: Int
     
@@ -27,10 +28,6 @@ struct BuracoListView: View {
                             })
                             .listRowInsets(EdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                             .listRowBackground(Color.clear)
-                            .sheet(isPresented: $isPresented, content: {
-                                //                        AddNewMatchView()
-                                //                            .interactiveDismissDisabled()
-                            })
                         }
                         .scrollContentBackground(.hidden)
                         .navigationDestination(for: MatchFB.self) { match in
@@ -48,11 +45,18 @@ struct BuracoListView: View {
                                 .buttonStyle(.borderedProminent)
                                 .padding(.trailing, 20)
                                 .tint(Color.cardColor)
+                                .sheet(isPresented: $isPresented, content: {
+                                    AddNewBuracoMatchView()
+                                        .interactiveDismissDisabled()
+                                })
                             }
                         }
                     }
                     .listStyle(.insetGrouped)
                     .navigationTitle("Lista de Partidas")
+                    .onAppear {
+                        buracoListVM.getMatches()
+                    }
                 } else {
                     MainLogo()
                     Button(action: {
@@ -62,7 +66,6 @@ struct BuracoListView: View {
                             .modifier(StandardButton())
                     }
                 }
-                
             }
         }
     }

@@ -20,6 +20,8 @@
 		CB8A39B02BA720BE00EFF71C /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39AF2BA720BE00EFF71C /* ViewModifiers.swift */; };
 		CB9342DC2BA531FB00FB915B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB9342DB2BA531FB00FB915B /* GoogleService-Info.plist */; };
 		CBD142ED2BA762F3000FAA55 /* MainLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142EC2BA762F3000FAA55 /* MainLogo.swift */; };
+		CBD142EF2BA77D27000FAA55 /* AddNewBuracoMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142EE2BA77D27000FAA55 /* AddNewBuracoMatchView.swift */; };
+		CBD142F12BA77D8A000FAA55 /* AddNewBuracoFBViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142F02BA77D8A000FAA55 /* AddNewBuracoFBViewModel.swift */; };
 		CBFF67C32BA33F330023A2F8 /* CardScoresApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67C22BA33F330023A2F8 /* CardScoresApp.swift */; };
 		CBFF67C52BA33F330023A2F8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67C42BA33F330023A2F8 /* MainView.swift */; };
 		CBFF67C72BA33F340023A2F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBFF67C62BA33F340023A2F8 /* Assets.xcassets */; };
@@ -53,6 +55,8 @@
 		CB8A39AF2BA720BE00EFF71C /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		CB9342DB2BA531FB00FB915B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CBD142EC2BA762F3000FAA55 /* MainLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLogo.swift; sourceTree = "<group>"; };
+		CBD142EE2BA77D27000FAA55 /* AddNewBuracoMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBuracoMatchView.swift; sourceTree = "<group>"; };
+		CBD142F02BA77D8A000FAA55 /* AddNewBuracoFBViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBuracoFBViewModel.swift; sourceTree = "<group>"; };
 		CBFF67BF2BA33F330023A2F8 /* CardScores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardScores.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBFF67C22BA33F330023A2F8 /* CardScoresApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardScoresApp.swift; sourceTree = "<group>"; };
 		CBFF67C42BA33F330023A2F8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -101,6 +105,7 @@
 				CB416CF72BA37924005DF9F3 /* BuracoCardView.swift */,
 				CB416CF32BA35FB6005DF9F3 /* BuracoListView.swift */,
 				CB416CF92BA37A77005DF9F3 /* BuracoMatchView.swift */,
+				CBD142EE2BA77D27000FAA55 /* AddNewBuracoMatchView.swift */,
 			);
 			path = Buraco;
 			sourceTree = "<group>";
@@ -110,6 +115,7 @@
 			children = (
 				CB416CFB2BA472F1005DF9F3 /* BuracoFBViewModel.swift */,
 				CBFF67EF2BA340CB0023A2F8 /* BuracoListViewModel.swift */,
+				CBD142F02BA77D8A000FAA55 /* AddNewBuracoFBViewModel.swift */,
 			);
 			path = Buraco;
 			sourceTree = "<group>";
@@ -358,6 +364,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CBFF67C52BA33F330023A2F8 /* MainView.swift in Sources */,
+				CBD142F12BA77D8A000FAA55 /* AddNewBuracoFBViewModel.swift in Sources */,
 				CBFF67FD2BA342C80023A2F8 /* Constants.swift in Sources */,
 				CB8A399C2BA7197400EFF71C /* Login.swift in Sources */,
 				CB8A39B02BA720BE00EFF71C /* ViewModifiers.swift in Sources */,
@@ -373,6 +380,7 @@
 				CB8A39AE2BA71E3500EFF71C /* LoginView.swift in Sources */,
 				CBFF67FE2BA342C80023A2F8 /* Color+Extension.swift in Sources */,
 				CBFF67F32BA340CB0023A2F8 /* BuracoListViewModel.swift in Sources */,
+				CBD142EF2BA77D27000FAA55 /* AddNewBuracoMatchView.swift in Sources */,
 				CB8A39AA2BA71BA200EFF71C /* UserViewModel.swift in Sources */,
 				CBFF67F82BA340F50023A2F8 /* BuracoFirebaseRepository.swift in Sources */,
 				CB416CF82BA37924005DF9F3 /* BuracoCardView.swift in Sources */,

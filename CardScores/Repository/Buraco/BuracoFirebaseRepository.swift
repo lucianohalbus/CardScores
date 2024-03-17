@@ -13,12 +13,21 @@ final class BuracoFirebaseRepository {
        // login(email: "lpuzer@icloud.com", password: "assami05")
     }
     
-    func add(match: MatchFB, completion: @escaping(Error?) -> Void) {
+    func add(match: MatchFB, completion: @escaping (Result<MatchFB?, Error>) -> Void) {
         do {
-            _ = try db.collection(Constants.matches).addDocument(from: match)
+            let ref = try db.collection(Constants.matches).addDocument(from: match)
             
+            ref.getDocument { snapshot, error in
+                guard let snapshot = snapshot, error == nil else {
+                    completion(.failure(error ?? NSError(domain: "snapshot is nil", code: 102, userInfo: nil)))
+                    return
+                }
+                
+                let item = try? snapshot.data(as: MatchFB.self)
+                completion(.success(item))
+            }
         } catch let error {
-            fatalError("Adding a study card failed")
+            print(error)
         }
     }
     
