@@ -1,6 +1,7 @@
 //Created by Halbus Development
 
 import SwiftUI
+import FirebaseAuth
 
 struct LoginView: View {
     @ObservedObject var loginVM = LoginViewModel()
@@ -8,41 +9,44 @@ struct LoginView: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            Text("Card Scores")
-                .font(.title)
-                .fontWeight(.semibold)
-            
-            ZStack{
-                
-                Circle()
-                    .stroke(Color.cardColor, lineWidth: 3)
-                    .frame(width: 120, height: 120)
-                
-                Image("Logo")
-                    .resizable()
-                    .frame(width: 110, height: 110)
-                    .aspectRatio(contentMode: .fit)
-                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                    .shadow(radius: 100)
-                
+            VStack {
+                MainLogo()
             }
-            .padding()
+            .padding(.bottom, 50)
             
             Group {
-                
-              
-                
-                VStack(spacing: 0) {
-                    TextField("e-mail: ", text: $loginVM.email)
-                        .modifier(LoginTextField())
-                        .padding(.bottom, 5)
+                if Auth.auth().currentUser?.uid != nil {
                     
-                    SecureField("Password: ", text: $loginVM.password)
-                        .modifier(LoginTextField())
-                        .padding(.bottom, 20)
+                    Button(action: {
+                        loginVM.signOut()
+                    }) {
+                        VStack (){
+                            ZStack {
+                                Image(systemName: "tray.and.arrow.up.fill")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundStyle(Color.cardColor, Color.cardColor)
+                                
+                            }
+                            
+                            Text("Logout")
+                                .font(.caption)
+                                .foregroundStyle(Color.cardColor)
+                                .bold()
+                        }
+                    }
                     
-                    HStack {
-                        Spacer()
+                } else {
+                    
+                    VStack(spacing: 0) {
+                        TextField("e-mail: ", text: $loginVM.email)
+                            .modifier(LoginTextField())
+                            .padding(.bottom, 5)
+                        
+                        SecureField("Password: ", text: $loginVM.password)
+                            .modifier(LoginTextField())
+                            .padding(.bottom, 20)
+                        
                         Button(action: {
                             loginVM.login(email: loginVM.email, password: loginVM.password)
                         }) {
@@ -60,47 +64,19 @@ struct LoginView: View {
                                     .bold()
                             }
                         }
-                        
-                        Spacer()
+                        .padding(.bottom, 50)
                         
                         Button(action: {
-                            loginVM.signOut()
+                            loginVM.anonymousLogin()
                         }) {
-                            VStack (){
-                                ZStack {
-                                    Image(systemName: "tray.and.arrow.up.fill")
-                                        .resizable()
-                                        .frame(width: 20, height: 20)
-                                        .foregroundStyle(Color.cardColor, Color.cardColor)
-                                    
-                                }
-                                
-                                Text("Logout")
-                                    .font(.caption)
-                                    .foregroundStyle(Color.cardColor)
-                                    .bold()
-                            }
+                            Text("Login Anonymously")
+                                .modifier(StandardButton())
                         }
-                        
-                        Spacer()
                     }
+                    .frame(height: 200)
                 }
-                .frame(height: 200)
-                
             }
-            
-            
             Spacer()
-            
-            Button(action: {
-                loginVM.anonymousLogin()
-            }) {
-                Text("Login Anonymously")
-                    .modifier(StandardButton())
-            }
-
-            Spacer()
-            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(5)

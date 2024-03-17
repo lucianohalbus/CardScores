@@ -53,34 +53,20 @@ struct BuracoListView: View {
                     }
                     .listStyle(.insetGrouped)
                     .navigationTitle("Lista de Partidas")
-                    .onAppear {
-                        buracoListVM.getMatches()
-                        print("##############")
-                        print(Auth.auth().currentUser?.uid ?? "NO USER")
-                        print("##############")
-                    }
                 } else {
-                    EmptyView()
+                    MainLogo()
+                    Button(action: {
+                        self.tabSelection = 1
+                    }) {
+                        Text("Login")
+                            .modifier(StandardButton())
+                    }
                 }
                 
             }
         }
     }
-    
-//    private func delete(indexSet: IndexSet) {
-//        indexSet.forEach { index in
-//            let match: MatchFB = matchFBListVM.matchesFB[index]
-//            matchFBListVM.delete(match: match, index: obtainingTheRowNumber(indexSet: indexSet))
-//        }
-//    }
-    
-//    private func delete(indexSet: IndexSet) {
-//        indexSet.forEach { index in
-//            let match: MatchFB = matchFBListVM.matchesFB[index]
-//            matchFBListVM.delete(match: match, index: obtainingTheRowNumber(indexSet: indexSet))
-//        }
-//    }
-    
+
     private func obtainingTheRowNumber(indexSet: IndexSet) -> Int{
             return indexSet[indexSet.startIndex]
         }

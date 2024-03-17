@@ -19,6 +19,7 @@
 		CB8A39AE2BA71E3500EFF71C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39AD2BA71E3500EFF71C /* LoginView.swift */; };
 		CB8A39B02BA720BE00EFF71C /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39AF2BA720BE00EFF71C /* ViewModifiers.swift */; };
 		CB9342DC2BA531FB00FB915B /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB9342DB2BA531FB00FB915B /* GoogleService-Info.plist */; };
+		CBD142ED2BA762F3000FAA55 /* MainLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142EC2BA762F3000FAA55 /* MainLogo.swift */; };
 		CBFF67C32BA33F330023A2F8 /* CardScoresApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67C22BA33F330023A2F8 /* CardScoresApp.swift */; };
 		CBFF67C52BA33F330023A2F8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67C42BA33F330023A2F8 /* MainView.swift */; };
 		CBFF67C72BA33F340023A2F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBFF67C62BA33F340023A2F8 /* Assets.xcassets */; };
@@ -51,6 +52,7 @@
 		CB8A39AD2BA71E3500EFF71C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		CB8A39AF2BA720BE00EFF71C /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		CB9342DB2BA531FB00FB915B /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CBD142EC2BA762F3000FAA55 /* MainLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLogo.swift; sourceTree = "<group>"; };
 		CBFF67BF2BA33F330023A2F8 /* CardScores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardScores.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBFF67C22BA33F330023A2F8 /* CardScoresApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardScoresApp.swift; sourceTree = "<group>"; };
 		CBFF67C42BA33F330023A2F8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -85,6 +87,7 @@
 		CB416CF02BA35FB6005DF9F3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				CBD142EB2BA762E1000FAA55 /* Logo */,
 				CBFF67C42BA33F330023A2F8 /* MainView.swift */,
 				CB8A39AC2BA71E2700EFF71C /* Login */,
 				CB8A39942BA7131A00EFF71C /* Buraco */,
@@ -167,6 +170,14 @@
 				CB8A39AD2BA71E3500EFF71C /* LoginView.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		CBD142EB2BA762E1000FAA55 /* Logo */ = {
+			isa = PBXGroup;
+			children = (
+				CBD142EC2BA762F3000FAA55 /* MainLogo.swift */,
+			);
+			path = Logo;
 			sourceTree = "<group>";
 		};
 		CBFF67B62BA33F330023A2F8 = {
@@ -365,6 +376,7 @@
 				CB8A39AA2BA71BA200EFF71C /* UserViewModel.swift in Sources */,
 				CBFF67F82BA340F50023A2F8 /* BuracoFirebaseRepository.swift in Sources */,
 				CB416CF82BA37924005DF9F3 /* BuracoCardView.swift in Sources */,
+				CBD142ED2BA762F3000FAA55 /* MainLogo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
