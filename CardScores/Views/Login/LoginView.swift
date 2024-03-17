@@ -4,23 +4,23 @@ import SwiftUI
 
 struct LoginView: View {
     @ObservedObject var loginVM = LoginViewModel()
+    @Binding var tabSelection: Int
     
     var body: some View {
-        VStack {
+        VStack(spacing: 0) {
             Text("Card Scores")
                 .font(.title)
                 .fontWeight(.semibold)
-//                .foregroundColor(Color("Button"))
             
             ZStack{
                 
                 Circle()
                     .stroke(Color.cardColor, lineWidth: 3)
-                    .frame(width: 150, height: 150)
+                    .frame(width: 120, height: 120)
                 
-                Image(systemName: "list.bullet.clipboard")
+                Image("Logo")
                     .resizable()
-                    .frame(width: 140, height: 140)
+                    .frame(width: 110, height: 110)
                     .aspectRatio(contentMode: .fit)
                     .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                     .shadow(radius: 100)
@@ -28,67 +28,86 @@ struct LoginView: View {
             }
             .padding()
             
-            VStack () {
-                TextField("e-mail", text: $loginVM.email)
-                    .modifier(LoginTextField())
-                    .padding(.bottom, 5)
-                SecureField("Password", text: $loginVM.password)
-                    .modifier(LoginTextField())
+            Group {
                 
-                HStack {
-                    Spacer()
-                    Button(action: {
-                        loginVM.login(email: loginVM.email, password: loginVM.password)
-                        
-                        if loginVM.isSignedIn {
-                            //      return viewRouter.currentPage = .newmatchpicker
-                        }
-                    }) {
-                        VStack (){
-                            ZStack {
-                                Image(systemName: "tray.and.arrow.down.fill")
-                                    .resizable()
-                                    .frame(width: 20, height: 20)
+              
+                
+                VStack(spacing: 0) {
+                    TextField("e-mail: ", text: $loginVM.email)
+                        .modifier(LoginTextField())
+                        .padding(.bottom, 5)
+                    
+                    SecureField("Password: ", text: $loginVM.password)
+                        .modifier(LoginTextField())
+                        .padding(.bottom, 20)
+                    
+                    HStack {
+                        Spacer()
+                        Button(action: {
+                            loginVM.login(email: loginVM.email, password: loginVM.password)
+                        }) {
+                            VStack (){
+                                ZStack {
+                                    Image(systemName: "tray.and.arrow.down.fill")
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                        .foregroundStyle(Color.cardColor, Color.cardColor)
+                                }
+                                
+                                Text("Enter")
+                                    .font(.caption)
+                                    .foregroundStyle(Color.cardColor)
+                                    .bold()
                             }
-                            
-                            Text("Enter")
-                                .font(.caption)
-                                .fontWeight(.semibold)
                         }
-                    }
-                    
-                    Spacer()
-                    
-                    Button(action: {
-                        loginVM.unbind()
                         
-                        if loginVM.isSignedIn {
-                            //      return viewRouter.currentPage = .newmatchpicker
-                        }
-                    }) {
-                        VStack (){
-                            ZStack {
-                                Image(systemName: "tray.and.arrow.down.fill")
-                                    .resizable()
-                                    .frame(width: 20, height: 20)
+                        Spacer()
+                        
+                        Button(action: {
+                            loginVM.signOut()
+                        }) {
+                            VStack (){
+                                ZStack {
+                                    Image(systemName: "tray.and.arrow.up.fill")
+                                        .resizable()
+                                        .frame(width: 20, height: 20)
+                                        .foregroundStyle(Color.cardColor, Color.cardColor)
+                                    
+                                }
+                                
+                                Text("Logout")
+                                    .font(.caption)
+                                    .foregroundStyle(Color.cardColor)
+                                    .bold()
                             }
-                            
-                            Text("Logout")
-                                .font(.caption)
-                                .fontWeight(.semibold)
                         }
+                        
+                        Spacer()
                     }
-                    
-                    Spacer()
                 }
+                .frame(height: 200)
+                
             }
-            .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                    .inset(by: 2)
-                    .stroke(Color.cardColor, lineWidth: 2)
-            )
+            
+            
+            Spacer()
+            
+            Button(action: {
+                loginVM.anonymousLogin()
+            }) {
+                Text("Login Anonymously")
+                    .modifier(StandardButton())
+            }
 
+            Spacer()
+            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(5)
+        .onAppear(perform: {
+            print("$$$$$$$$$$$")
+            print(loginVM.userId)
+            print("$$$$$$$$$$$")
+        })
     }
 }

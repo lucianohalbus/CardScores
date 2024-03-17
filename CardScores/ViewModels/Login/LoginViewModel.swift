@@ -9,14 +9,15 @@ class LoginViewModel: ObservableObject {
     @Published var password = ""
     @Published var email = ""
     @Published var loggedUser: Bool = false
+    @Published var userId: String = ""
     
     var handle: AuthStateDidChangeListenerHandle?
     
     init() {
-        Listen()
+        listen()
     }
 
-    func Listen () {
+    func listen () {
         //monitor authentication changes using firebase
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             if auth.currentUser != nil {
@@ -27,17 +28,20 @@ class LoginViewModel: ObservableObject {
         }
     }
     
-    var isSignedIn: Bool {
-        return Auth.auth().currentUser != nil
+    func anonymousLogin() {
+        Auth.auth().signInAnonymously { authResult, error in
+            if let userId = authResult?.user.uid {
+                self.listen()
+            } else {
+                print(error?.localizedDescription ?? "No user found")
+            }
+        }
     }
     
     func login(email: String, password: String) {
         Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
             guard self == nil else { return }
-            
-            self?.Listen()
-            
-            
+            self?.listen()
         }
     }
 
@@ -48,15 +52,10 @@ class LoginViewModel: ObservableObject {
         }
     }
     
-    func unbind() {
-        if let handle = handle {
-            do {
-                try Auth.auth().signOut()
-            } catch { print("already logged out")
-            }
-            
-            
-            //Auth.auth().removeStateDidChangeListener(handle)
+    func signOut() {
+        do {
+            try Auth.auth().signOut()
+        } catch { print("already logged out")
         }
     }
     

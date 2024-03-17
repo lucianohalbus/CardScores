@@ -7,6 +7,7 @@ struct BuracoListView: View {
     @State private var isPresented: Bool = false
     @StateObject private var buracoListVM = BuracoListViewModel()
     @ObservedObject private var loginVM = LoginViewModel()
+    @Binding var tabSelection: Int
     
     var body: some View {
         NavigationStack {
@@ -54,6 +55,9 @@ struct BuracoListView: View {
                     .navigationTitle("Lista de Partidas")
                     .onAppear {
                         buracoListVM.getMatches()
+                        print("##############")
+                        print(Auth.auth().currentUser?.uid ?? "NO USER")
+                        print("##############")
                     }
                 } else {
                     EmptyView()
@@ -81,8 +85,4 @@ struct BuracoListView: View {
             return indexSet[indexSet.startIndex]
         }
     
-}
-
-#Preview {
-    BuracoListView()
 }
