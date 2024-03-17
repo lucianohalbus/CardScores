@@ -8,7 +8,7 @@ struct CardScoresApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var delegate
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView(login: LoginViewModel())
         }
     }
 }
