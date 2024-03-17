@@ -6,7 +6,7 @@ import FirebaseFirestore
 
 struct MatchFB: Identifiable, Hashable, Codable {
     
-    @DocumentID var id: String?
+    var id: String?
     var scoreToWin: String
     var playerOne: String
     var playerTwo: String

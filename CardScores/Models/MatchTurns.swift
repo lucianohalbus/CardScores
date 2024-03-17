@@ -3,7 +3,7 @@
 
 import Foundation
 
-final class MatchResumeDB {
+final class MatchTurns {
     var date: Date
     var partialScoreTeamOne: Int
     var partialScoreTeamTwo: Int

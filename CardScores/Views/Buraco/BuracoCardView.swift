@@ -2,32 +2,32 @@
 
 import SwiftUI
 
-struct MatchCardView: View {
-    let matchFB: MatchFB
+struct BuracoCardView: View {
+    let buracoVM: BuracoFBViewModel
     
     var body: some View {
-        NavigationLink(value: matchFB) {
+        NavigationLink(value: buracoVM) {
             VStack {
-                Text(matchFB.myDate, format: Date.FormatStyle(date: .numeric))
+                Text(buracoVM.myDate, format: Date.FormatStyle(date: .numeric))
                     .foregroundStyle(Color.primary)
                     .font(.title2)
                 
                 HStack {
                     
                     VStack(alignment: .leading) {
-                        Text(matchFB.playerOne)
-                        Text(matchFB.playerTwo)
-                        Text(matchFB.finalScoreOne.description)
-                            .foregroundStyle(matchFB.finalScoreOne >= matchFB.finalScoreTwo ? Color.green : Color.red)
+                        Text(buracoVM.playerOne)
+                        Text(buracoVM.playerTwo)
+                        Text(buracoVM.finalScoreOne.description)
+                            .foregroundStyle(buracoVM.finalScoreOne >= buracoVM.finalScoreTwo ? Color.green : Color.red)
                     }
                     
                     Spacer()
                     
                     VStack(alignment: .trailing) {
-                        Text(matchFB.playerThree)
-                        Text(matchFB.playerFour)
-                        Text(matchFB.finalScoreTwo.description)
-                            .foregroundStyle(matchFB.finalScoreTwo >= matchFB.finalScoreOne ? Color.green : Color.red)
+                        Text(buracoVM.playerThree)
+                        Text(buracoVM.playerFour)
+                        Text(buracoVM.finalScoreTwo.description)
+                            .foregroundStyle(buracoVM.finalScoreTwo >= buracoVM.finalScoreOne ? Color.green : Color.red)
                     }
                 }
                 .foregroundStyle(Color.primary)

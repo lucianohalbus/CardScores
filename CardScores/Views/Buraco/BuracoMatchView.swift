@@ -2,7 +2,7 @@
 
 import SwiftUI
 
-struct MatchResumeView: View {
+struct BuracoMatchView: View {
     var matchFB: MatchFB
     @State private var presentAddNewMatchTurnView: Bool = false
     
