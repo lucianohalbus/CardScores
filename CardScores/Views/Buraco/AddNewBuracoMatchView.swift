@@ -35,14 +35,13 @@ struct AddNewBuracoMatchView: View {
                 
                 Button("Save") {
                    addNewBuracoMatchVM.add(match: MatchFB(scoreToWin: addNewBuracoMatchVM.targetScore, playerOne: addNewBuracoMatchVM.playerOne, playerTwo: addNewBuracoMatchVM.playerTwo, playerThree: addNewBuracoMatchVM.playerThree, playerFour: addNewBuracoMatchVM.playerThree, finalScoreOne: "0", finalScoreTwo: "0", friendsId: [Auth.auth().currentUser?.uid ?? ""], myDate: Date(), registeredUser: false, docId: "", gameOver: false))
-                        
-
-                        dismiss()
-                    
-                    addNewBuracoMatchVM.addNewSaved = true
-                    
                 }
                 .buttonStyle(.bordered)
+                .onChange(of: addNewBuracoMatchVM.addNewSaved) {
+                    if  addNewBuracoMatchVM.addNewSaved{
+                        dismiss()
+                    }
+                }
                 
                 Spacer()
             }
@@ -57,6 +56,7 @@ struct AddNewBuracoMatchView: View {
         .navigationTitle("Iniciar uma nova partida")
     }
     
+    @ViewBuilder
     private var addNewMatchViewHeader: some View {
         VStack {
             Text("Digite a Pontuação Mínima de Vitória")
@@ -80,6 +80,7 @@ struct AddNewBuracoMatchView: View {
         )
     }
     
+    @ViewBuilder
     private var addNewMatchViewTeams: some View {
         HStack {
             VStack(alignment: .leading) {

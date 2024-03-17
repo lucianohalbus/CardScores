@@ -18,10 +18,13 @@ final class AddNewBuracoFBViewModel: ObservableObject {
     func add(match: MatchFB) {
         repo.add(match: match) { result in
             switch result {
-            case .success(let fetcheredItem):
-                print("New match was added")
-            case .failure(let err):
-               print(err)
+            case .success(let item):
+                DispatchQueue.main.async {
+                    self.addNewSaved = item == nil ? false : true
+                }
+                
+            case .failure(let error):
+                print(error.localizedDescription)
             }
         }
     }

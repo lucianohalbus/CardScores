@@ -3,8 +3,9 @@
 import SwiftUI
 
 struct BuracoMatchView: View {
-    var matchFB: MatchFB
+    var matchFB: BuracoFBViewModel
     @State private var presentAddNewMatchTurnView: Bool = false
+    @ObservedObject private var buracoListVM = BuracoListViewModel()
     
     var body: some View {
         VStack {
@@ -13,7 +14,7 @@ struct BuracoMatchView: View {
             
             ScrollView {
                 
-       //         matchResumeViewList
+       //        matchResumeViewList
                 
                 if !matchFB.gameOver {
                 
@@ -46,6 +47,7 @@ struct BuracoMatchView: View {
         
     }
     
+    @ViewBuilder
     private var matchResumeViewHeader: some View {
         VStack {
             Text(!matchFB.gameOver ? "Pontuação" : "Partida Encerrada")

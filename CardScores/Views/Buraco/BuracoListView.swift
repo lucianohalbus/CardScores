@@ -12,66 +12,64 @@ struct BuracoListView: View {
     
     var body: some View {
         NavigationStack {
-            Group {
-                if loginVM.loggedUser {
-                    VStack {
-                        List {
-                            ForEach(buracoListVM.maches) { match in
-                                BuracoCardView(buracoVM: match)
-                                    .padding(.bottom, 10)
-                            }
-                            .onDelete(perform: { idxSet in
-                                idxSet.forEach { idx in
-                                    let match = buracoListVM.matchesVM[idx]
-                                    buracoListVM.delete(matchFB: match)
+            if loginVM.loggedUser {
+                VStack {
+                    List {
+                        ForEach(buracoListVM.maches) { match in
+                            BuracoCardView(buracoVM: match)
+                                .padding(.bottom, 10)
+                                .navigationDestination(for: BuracoFBViewModel.self) { item in
+                                    BuracoMatchView(matchFB: item)
+                                        .navigationTitle("")
                                 }
+                        }
+                        .onDelete(perform: { idxSet in
+                            idxSet.forEach { idx in
+                                let match = buracoListVM.matchesVM[idx]
+                                buracoListVM.delete(matchFB: match)
+                            }
+                        })
+                        .listRowInsets(EdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                        .listRowBackground(Color.clear)
+                    }
+                    .scrollContentBackground(.hidden)
+                    .toolbar {
+                        ToolbarItem(placement: .topBarTrailing) {
+                            Button {
+                                isPresented.toggle()
+                            } label: {
+                                Image(systemName: "plus.circle")
+                                    .foregroundStyle(Color.white, Color.white)
+                                    .bold()
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .padding(.trailing, 20)
+                            .tint(Color.cardColor)
+                            .sheet(isPresented: $isPresented, content: {
+                                AddNewBuracoMatchView()
+                                    .interactiveDismissDisabled()
                             })
-                            .listRowInsets(EdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                            .listRowBackground(Color.clear)
-                        }
-                        .scrollContentBackground(.hidden)
-                        .navigationDestination(for: MatchFB.self) { match in
-                            BuracoMatchView(matchFB: match)
-                        }
-                        .toolbar {
-                            ToolbarItem(placement: .topBarTrailing) {
-                                Button {
-                                    isPresented.toggle()
-                                } label: {
-                                    Image(systemName: "plus.circle")
-                                        .foregroundStyle(Color.white, Color.white)
-                                        .bold()
-                                }
-                                .buttonStyle(.borderedProminent)
-                                .padding(.trailing, 20)
-                                .tint(Color.cardColor)
-                                .sheet(isPresented: $isPresented, content: {
-                                    AddNewBuracoMatchView()
-                                        .interactiveDismissDisabled()
-                                })
-                            }
                         }
                     }
-                    .listStyle(.insetGrouped)
-                    .navigationTitle("Lista de Partidas")
-                    .onAppear {
-                        buracoListVM.getMatches()
-                    }
-                } else {
-                    MainLogo()
-                    Button(action: {
-                        self.tabSelection = 1
-                    }) {
-                        Text("Login")
-                            .modifier(StandardButton())
-                    }
+                }
+                .listStyle(.insetGrouped)
+                .onAppear {
+                    buracoListVM.getMatches()
+                }
+            } else {
+                MainLogo()
+                Button(action: {
+                    self.tabSelection = 1
+                }) {
+                    Text("Login")
+                        .modifier(StandardButton())
                 }
             }
         }
     }
-
+    
     private func obtainingTheRowNumber(indexSet: IndexSet) -> Int{
-            return indexSet[indexSet.startIndex]
-        }
+        return indexSet[indexSet.startIndex]
+    }
     
 }
