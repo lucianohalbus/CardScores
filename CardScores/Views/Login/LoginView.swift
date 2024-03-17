@@ -80,10 +80,5 @@ struct LoginView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(5)
-        .onAppear(perform: {
-            print("$$$$$$$$$$$")
-            print(loginVM.userId)
-            print("$$$$$$$$$$$")
-        })
     }
 }
