@@ -21,6 +21,7 @@
 		CBD142ED2BA762F3000FAA55 /* MainLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142EC2BA762F3000FAA55 /* MainLogo.swift */; };
 		CBD142EF2BA77D27000FAA55 /* AddNewBuracoMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142EE2BA77D27000FAA55 /* AddNewBuracoMatchView.swift */; };
 		CBD142F12BA77D8A000FAA55 /* AddNewBuracoFBViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142F02BA77D8A000FAA55 /* AddNewBuracoFBViewModel.swift */; };
+		CBD142F92BA89BCE000FAA55 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CBD142F82BA89BCE000FAA55 /* GoogleService-Info.plist */; };
 		CBFF67C32BA33F330023A2F8 /* CardScoresApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67C22BA33F330023A2F8 /* CardScoresApp.swift */; };
 		CBFF67C52BA33F330023A2F8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67C42BA33F330023A2F8 /* MainView.swift */; };
 		CBFF67C72BA33F340023A2F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBFF67C62BA33F340023A2F8 /* Assets.xcassets */; };
@@ -55,6 +56,7 @@
 		CBD142EC2BA762F3000FAA55 /* MainLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLogo.swift; sourceTree = "<group>"; };
 		CBD142EE2BA77D27000FAA55 /* AddNewBuracoMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBuracoMatchView.swift; sourceTree = "<group>"; };
 		CBD142F02BA77D8A000FAA55 /* AddNewBuracoFBViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBuracoFBViewModel.swift; sourceTree = "<group>"; };
+		CBD142F82BA89BCE000FAA55 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CBFF67BF2BA33F330023A2F8 /* CardScores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardScores.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBFF67C22BA33F330023A2F8 /* CardScoresApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardScoresApp.swift; sourceTree = "<group>"; };
 		CBFF67C42BA33F330023A2F8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 		CBFF68022BA345CF0023A2F8 /* Config */ = {
 			isa = PBXGroup;
 			children = (
+				CBD142F82BA89BCE000FAA55 /* GoogleService-Info.plist */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -349,6 +352,7 @@
 			files = (
 				CBFF67CA2BA33F340023A2F8 /* Preview Assets.xcassets in Resources */,
 				CBFF67C72BA33F340023A2F8 /* Assets.xcassets in Resources */,
+				CBD142F92BA89BCE000FAA55 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
