@@ -1,22 +1,12 @@
 //Created by Halbus Development
 
 import Foundation
-import SwiftUI
 import FirebaseAuth
 //
 final class BuracoListViewModel: ObservableObject {
     private var repo: BuracoFirebaseRepository
     @Published var matchesVM: [BuracoFBViewModel] = []
     private var userId: String = ""
-    @Published var saved: Bool = false
-    
-    @Published var playerOne: String = ""
-    @Published var playerTwo: String = ""
-    @Published var playerThree: String = ""
-    @Published var playerFour: String = ""
-    @Published var targetScore: String = ""
-    @Published var addNewSaved: Bool = false
-
     
     init() {
         repo = BuracoFirebaseRepository()
@@ -36,7 +26,6 @@ final class BuracoListViewModel: ObservableObject {
                 if let fetchedItems = fetchedItems {
                     DispatchQueue.main.async {
                         self.matchesVM = fetchedItems.map(BuracoFBViewModel.init)
-                        self.saved.toggle()
                     }
                 }
                 
@@ -52,22 +41,6 @@ final class BuracoListViewModel: ObservableObject {
                 self.getMatches()
             } else {
                 print(error?.localizedDescription ?? "The Match was not deleted.")
-            }
-        }
-    }
-    
-    func add() {
-        repo.add(match: MatchFB(scoreToWin: targetScore, playerOne: playerOne, playerTwo: playerTwo, playerThree: playerThree, playerFour: playerFour, finalScoreOne: "0", finalScoreTwo: "0", friendsId: [Auth.auth().currentUser?.uid ?? ""], myDate: Date(), registeredUser: false, docId: "", gameOver: false)) { result in
-            switch result {
-            case .success(let item):
-                self.addNewSaved = item == nil ? false : true
-
-                    if self.addNewSaved {
-                        self.getMatches()
-                    }
-                
-            case .failure(let error):
-                print(error.localizedDescription)
             }
         }
     }

@@ -2,12 +2,6 @@
 
 import Foundation
 
-//struct Constants {
-//    static let turns: String = "Turns"
-//    static let user: String = "User"
-//    static let matches: String = "scoresModel"
-//}
-
 struct Constants {
     static let matches = "scoresModel"
    

@@ -12,24 +12,6 @@ final class BuracoFirebaseRepository {
         db = Firestore.firestore()
     }
     
-    func add(match: MatchFB, completion: @escaping (Result<MatchFB?, Error>) -> Void) {
-        do {
-            let ref = try db.collection(Constants.matches).addDocument(from: match)
-            
-            ref.getDocument { snapshot, error in
-                guard let snapshot = snapshot, error == nil else {
-                    completion(.failure(error ?? NSError(domain: "snapshot is nil", code: 102, userInfo: nil)))
-                    return
-                }
-                
-                let item = try? snapshot.data(as: MatchFB.self)
-                completion(.success(item))
-            }
-        } catch let error {
-            print(error)
-        }
-    }
-    
     func get(completion: @escaping (Result<[MatchFB]?, Error>) -> Void) {
         if let friendID = Auth.auth().currentUser?.uid {
             db.collection(Constants.matches)
@@ -56,9 +38,21 @@ final class BuracoFirebaseRepository {
         }
     }
     
-    func login(email: String, password: String) {
-        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
-            guard self != nil else { return }
+    func add(match: MatchFB, completion: @escaping (Result<MatchFB?, Error>) -> Void) {
+        do {
+            let ref = try db.collection(Constants.matches).addDocument(from: match)
+            
+            ref.getDocument { snapshot, error in
+                guard let snapshot = snapshot, error == nil else {
+                    completion(.failure(error ?? NSError(domain: "snapshot is nil", code: 102, userInfo: nil)))
+                    return
+                }
+                
+                let item = try? snapshot.data(as: MatchFB.self)
+                completion(.success(item))
+            }
+        } catch let error {
+            print(error)
         }
     }
     

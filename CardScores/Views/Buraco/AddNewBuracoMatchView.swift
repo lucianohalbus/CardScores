@@ -1,7 +1,6 @@
 //Created by Halbus Development
 
 import SwiftUI
-import FirebaseAuth
 
 struct AddNewBuracoMatchView: View {
     @StateObject private var addNewMatchVM = AddNewBuracoFBViewModel()

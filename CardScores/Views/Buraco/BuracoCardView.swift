@@ -42,6 +42,5 @@ struct BuracoCardView: View {
                     .stroke(Color.cardColor, lineWidth: 2)
             )
         }
-
     }
 }
