@@ -10,16 +10,6 @@ final class BuracoFirebaseRepository {
     
     init() {
         db = Firestore.firestore()
-       // login(email: "lpuzer@icloud.com", password: "assami05")
-    }
-    
-    func add(match: MatchFB, completion: @escaping(Error?) -> Void) {
-        do {
-            _ = try db.collection(Constants.matches).addDocument(from: match)
-            
-        } catch let error {
-            fatalError("Adding a study card failed")
-        }
     }
     
     func get(completion: @escaping (Result<[MatchFB]?, Error>) -> Void) {
@@ -48,9 +38,21 @@ final class BuracoFirebaseRepository {
         }
     }
     
-    func login(email: String, password: String) {
-        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
-            guard self != nil else { return }
+    func add(match: MatchFB, completion: @escaping (Result<MatchFB?, Error>) -> Void) {
+        do {
+            let ref = try db.collection(Constants.matches).addDocument(from: match)
+            
+            ref.getDocument { snapshot, error in
+                guard let snapshot = snapshot, error == nil else {
+                    completion(.failure(error ?? NSError(domain: "snapshot is nil", code: 102, userInfo: nil)))
+                    return
+                }
+                
+                let item = try? snapshot.data(as: MatchFB.self)
+                completion(.success(item))
+            }
+        } catch let error {
+            print(error)
         }
     }
     
