@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>API_KEY</key>
+	<string>AIzaSyCtKTfSjY_0Uh5DQcuPmyo8NFvAbwY376E</string>
+	<key>GCM_SENDER_ID</key>
+	<string>700927880338</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>halbus.CardScores</string>
+	<key>PROJECT_ID</key>
+	<string>digitalscores-36003</string>
+	<key>STORAGE_BUCKET</key>
+	<string>digitalscores-36003.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:700927880338:ios:3679c43a872936f03aca4b</string>
+</dict>
+</plist>

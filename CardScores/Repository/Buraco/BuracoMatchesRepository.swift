@@ -5,7 +5,7 @@ import Firebase
 import FirebaseFirestoreSwift
 import FirebaseAuth
 
-final class BuracoFirebaseRepository {
+final class BuracoMatchesRepository {
     private var db: Firestore
     
     init() {
