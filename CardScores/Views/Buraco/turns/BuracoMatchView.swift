@@ -6,6 +6,7 @@ struct BuracoMatchView: View {
     var matchFB: BuracoFBViewModel
     @State private var presentAddNewMatchTurnView: Bool = false
     @ObservedObject private var buracoListVM = BuracoListViewModel()
+    @StateObject private var buracoTurnVM = BuracoTurnsViewModel()
     
     var body: some View {
         VStack {
@@ -14,7 +15,7 @@ struct BuracoMatchView: View {
             
             ScrollView {
                 
-       //        matchResumeViewList
+                matchResumeViewList
                 
                 if !matchFB.gameOver {
                 
@@ -33,17 +34,20 @@ struct BuracoMatchView: View {
                             .bold()
                             .padding(.top, 20)
                     }
-//                    .sheet(isPresented: $presentAddNewMatchTurnView, content: {
-//                        
-//                        AddNewMatchTurnView(match: matchFB)
-//                            .presentationDetents([.fraction(0.7)])
-//                            .interactiveDismissDisabled()
-//                    })
+                    .sheet(isPresented: $presentAddNewMatchTurnView, content: {
+                        
+                        AddNewMatchTurnView(matchFB: matchFB)
+                            .presentationDetents([.fraction(0.7)])
+                            .interactiveDismissDisabled()
+                    })
                 
                 }
             }
         }
         .padding()
+        .onAppear(perform: {
+            buracoTurnVM.getTurn()
+        })
         
     }
     
@@ -91,32 +95,45 @@ struct BuracoMatchView: View {
         }
     }
     
-//    private var matchResumeViewList: some View {
-//        VStack(spacing: 5) {
-//            ForEach(matchDB.matchResumeDB) { matchResume in
-//
-//                HStack(spacing: 5) {
-//
-//                    Text(matchResume.partialScoreTeamOne.description)
-//                    Spacer()
-//                    
-//                    Text(matchResume.date.formatted(date: .abbreviated, time: .shortened))
-//                    
-//                    Spacer()
-//                    Text(matchResume.partialScoreTeamTwo.description)
-//
-//                }
-//                .font(.callout)
-//                .padding(.horizontal, 15)
-//            }
-//        }
-//        .frame(maxWidth: .infinity, maxHeight: .infinity)
-//        .padding(.vertical, 10)
-//        .cornerRadius(20)
-//        .overlay(
-//            RoundedRectangle(cornerRadius: 20)
-//                .inset(by: 2)
-//                .stroke(Color.cardColor, lineWidth: 2)
-//        )
-//    }
+    private var matchResumeViewList: some View {
+        VStack(spacing: 5) {
+            ForEach(buracoTurnVM.turns) { matchResume in
+                if matchResume.turnId == matchFB.docId {
+                    
+                HStack(spacing: 5) {
+
+                    VStack {
+                        Text(matchResume.scoresTurnOne)
+                    }
+                    .frame(width: 50, alignment: .leading)
+                    
+                    Spacer()
+                    
+                    VStack {
+                        Text(matchResume.myTime.formatted(date: .abbreviated, time: .shortened))
+                    }
+                    .frame(width: 180, alignment: .center)
+                    
+                    Spacer()
+                    
+                    VStack {
+                        Text(matchResume.scoresTurnTwo)
+                    }
+                    .frame(width: 50, alignment: .trailing)
+                    
+                }
+                .font(.callout)
+                .padding(.horizontal, 15)
+            }
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .padding(.vertical, 10)
+        .cornerRadius(20)
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .inset(by: 2)
+                .stroke(Color.cardColor, lineWidth: 2)
+        )
+    }
 }

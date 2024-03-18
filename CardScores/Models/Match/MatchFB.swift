@@ -1,7 +1,6 @@
 //Created by Halbus Development
 
 import Foundation
-import SwiftUI
 import FirebaseFirestore
 
 struct MatchFB: Identifiable, Hashable, Codable {

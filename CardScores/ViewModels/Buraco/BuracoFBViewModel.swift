@@ -2,6 +2,7 @@
 
 import Foundation
 import FirebaseFirestore
+// Handling the data to be presented at BuracoListView
 
 struct BuracoFBViewModel: Hashable, Identifiable {
     

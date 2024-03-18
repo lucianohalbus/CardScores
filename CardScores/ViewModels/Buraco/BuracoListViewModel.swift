@@ -1,15 +1,17 @@
 //Created by Halbus Development
 
+// handling data from and to Firestore
+
 import Foundation
 import FirebaseAuth
-//
+
 final class BuracoListViewModel: ObservableObject {
-    private var repo: BuracoFirebaseRepository
+    private var repo: BuracoMatchesRepository
     @Published var matchesVM: [BuracoFBViewModel] = []
     private var userId: String = ""
     
     init() {
-        repo = BuracoFirebaseRepository()
+        repo = BuracoMatchesRepository()
         getUserId()
     }
     

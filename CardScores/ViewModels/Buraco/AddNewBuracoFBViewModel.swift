@@ -1,10 +1,12 @@
 //Created by Halbus Development
 
+// Handlind new matches to be added in Firestore
+
 import Foundation
 import FirebaseAuth
 
 final class AddNewBuracoFBViewModel: ObservableObject {
-    @Published var repo: BuracoFirebaseRepository
+    @Published var repo: BuracoMatchesRepository
     @Published var playerOne: String = ""
     @Published var playerTwo: String = ""
     @Published var playerThree: String = ""
@@ -14,7 +16,7 @@ final class AddNewBuracoFBViewModel: ObservableObject {
     @Published var userId: String = ""
     
     init() {
-        repo = BuracoFirebaseRepository()
+        repo = BuracoMatchesRepository()
         getUserId()
     }
     
