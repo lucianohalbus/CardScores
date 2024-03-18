@@ -5,7 +5,6 @@ import FirebaseAuth
 
 struct AddNewBuracoMatchView: View {
     @ObservedObject private var buracoListVM = BuracoListViewModel()
-    @ObservedObject private var addNewBuracoMatchVM = AddNewBuracoFBViewModel()
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -34,11 +33,11 @@ struct AddNewBuracoMatchView: View {
                 Spacer()
                 
                 Button("Save") {
-                   addNewBuracoMatchVM.add(match: MatchFB(scoreToWin: addNewBuracoMatchVM.targetScore, playerOne: addNewBuracoMatchVM.playerOne, playerTwo: addNewBuracoMatchVM.playerTwo, playerThree: addNewBuracoMatchVM.playerThree, playerFour: addNewBuracoMatchVM.playerThree, finalScoreOne: "0", finalScoreTwo: "0", friendsId: [Auth.auth().currentUser?.uid ?? ""], myDate: Date(), registeredUser: false, docId: "", gameOver: false))
+                    buracoListVM.add()
                 }
                 .buttonStyle(.bordered)
-                .onChange(of: addNewBuracoMatchVM.addNewSaved) {
-                    if  addNewBuracoMatchVM.addNewSaved{
+                .onChange(of: buracoListVM.addNewSaved) {
+                    if  buracoListVM.addNewSaved{
                         dismiss()
                     }
                 }
@@ -61,7 +60,7 @@ struct AddNewBuracoMatchView: View {
         VStack {
             Text("Digite a Pontuação Mínima de Vitória")
                 .font(.title3)
-            TextField("Digite a pontuação", text: $addNewBuracoMatchVM.targetScore)
+            TextField("Digite a pontuação", text: $buracoListVM.targetScore)
                 .keyboardType(.numberPad)
                 .textFieldStyle(.roundedBorder)
                 .multilineTextAlignment(TextAlignment.center)
@@ -86,12 +85,12 @@ struct AddNewBuracoMatchView: View {
             VStack(alignment: .leading) {
                 Text("Dupla 1")
                     .font(.title)
-                TextField("Nome do Jogador 1", text: $addNewBuracoMatchVM.playerOne)
+                TextField("Nome do Jogador 1", text: $buracoListVM.playerOne)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.textFieldBorderColor)
                     )
-                TextField("Nome do Jogador 2", text: $addNewBuracoMatchVM.playerTwo)
+                TextField("Nome do Jogador 2", text: $buracoListVM.playerTwo)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.textFieldBorderColor)
@@ -103,12 +102,12 @@ struct AddNewBuracoMatchView: View {
             VStack(alignment: .trailing) {
                 Text("Dupla 2")
                     .font(.title)
-                TextField("Nome do Jogador 1", text: $addNewBuracoMatchVM.playerThree)
+                TextField("Nome do Jogador 1", text: $buracoListVM.playerThree)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.textFieldBorderColor)
                     )
-                TextField("Nome do Jogador 2", text: $addNewBuracoMatchVM.playerFour)
+                TextField("Nome do Jogador 2", text: $buracoListVM.playerFour)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.textFieldBorderColor)
