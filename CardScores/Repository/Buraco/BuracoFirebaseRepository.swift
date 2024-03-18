@@ -10,7 +10,6 @@ final class BuracoFirebaseRepository {
     
     init() {
         db = Firestore.firestore()
-       // login(email: "lpuzer@icloud.com", password: "assami05")
     }
     
     func add(match: MatchFB, completion: @escaping (Result<MatchFB?, Error>) -> Void) {

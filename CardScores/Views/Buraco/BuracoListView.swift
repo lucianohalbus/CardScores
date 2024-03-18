@@ -5,8 +5,8 @@ import FirebaseAuth
 
 struct BuracoListView: View {
     @State private var isPresented: Bool = false
-    @ObservedObject private var buracoListVM = BuracoListViewModel()
-    @ObservedObject private var loginVM = LoginViewModel()
+    @StateObject private var buracoListVM = BuracoListViewModel()
+    @StateObject private var loginVM = LoginViewModel()
     @Binding var tabSelection: Int
     
     var body: some View {
@@ -43,6 +43,9 @@ struct BuracoListView: View {
                             .sheet(isPresented: $isPresented, content: {
                                 AddNewBuracoMatchView()
                                     .interactiveDismissDisabled()
+                                    .onDisappear(perform: {
+                                        buracoListVM.getMatches()
+                                    })
                             })
                         }
                     }
