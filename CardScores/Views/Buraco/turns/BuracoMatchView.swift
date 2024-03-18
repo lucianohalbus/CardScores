@@ -15,8 +15,9 @@ struct BuracoMatchView: View {
                 .padding(.bottom, 20)
             
             ScrollView {
-                
-                matchResumeViewList
+                if !buracoTurnVM.turns.isEmpty {
+                    matchResumeViewList
+                }
                 
                 if !matchFB.gameOver {
                     
