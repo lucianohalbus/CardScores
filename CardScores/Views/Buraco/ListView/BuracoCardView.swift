@@ -18,8 +18,7 @@ struct BuracoCardView: View {
                         Text(buracoVM.playerOne)
                         Text(buracoVM.playerTwo)
                         Text(buracoVM.finalScoreOne.description)
-                            .fontWeight(buracoVM.finalScoreOne > buracoVM.finalScoreTwo ? .bold : .regular)
-                            .foregroundStyle(Color.cardColor)
+                            .foregroundStyle(Int(buracoVM.finalScoreOne) ?? 0 < 0 ? Color.red : Color.cardColor)
                     }
                     .minimumScaleFactor(0.4)
                     .lineLimit(1)
@@ -30,8 +29,7 @@ struct BuracoCardView: View {
                         Text(buracoVM.playerThree)
                         Text(buracoVM.playerFour)
                         Text(buracoVM.finalScoreTwo.description)
-                            .fontWeight(buracoVM.finalScoreTwo > buracoVM.finalScoreOne ? .bold : .regular)
-                            .foregroundStyle(Color.cardColor)
+                            .foregroundStyle(Int(buracoVM.finalScoreTwo) ?? 0 < 0 ? Color.red : Color.cardColor)
                     }
                     .minimumScaleFactor(0.4)
                     .lineLimit(1)

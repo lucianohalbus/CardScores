@@ -68,8 +68,8 @@ struct BuracoMatchView: View {
                 VStack (alignment: .leading) {
                     Text(matchFB.playerOne)
                     Text(matchFB.playerTwo)
-                    Text(matchFB.finalScoreOne)
-                        .foregroundStyle(Color.cardColor)
+                    Text("\(abs(Int(matchFB.finalScoreOne) ?? 0))")
+                        .foregroundStyle(Int(matchFB.finalScoreOne) ?? 0 < 0 ? Color.red : Color.cardColor)
                         .bold()
                 }
                 .foregroundStyle(Color.black)
@@ -85,8 +85,8 @@ struct BuracoMatchView: View {
                 VStack(alignment: .trailing) {
                     Text(matchFB.playerThree)
                     Text(matchFB.playerFour)
-                    Text(matchFB.finalScoreTwo)
-                        .foregroundStyle(Color.cardColor)
+                    Text("\(abs(Int(matchFB.finalScoreTwo) ?? 0))")
+                        .foregroundStyle(Int(matchFB.finalScoreTwo) ?? 0 < 0 ? Color.red : Color.cardColor)
                         .bold()
                 }
                 .foregroundStyle(Color.black)
@@ -113,7 +113,8 @@ struct BuracoMatchView: View {
                         HStack(spacing: 5) {
                             
                             VStack {
-                                Text(matchResume.scoresTurnOne)
+                                Text("\(abs(Int(matchResume.scoresTurnOne) ?? 0))")
+                                    .foregroundStyle(Int(matchResume.scoresTurnOne) ?? 0 < 0 ? Color.red : Color.cardColor)
                             }
                             .frame(width: 50, alignment: .leading)
                             
@@ -127,7 +128,8 @@ struct BuracoMatchView: View {
                             Spacer()
                             
                             VStack {
-                                Text(matchResume.scoresTurnTwo)
+                                Text("\(abs(Int(matchResume.scoresTurnTwo) ?? 0))")
+                                    .foregroundStyle(Int(matchResume.scoresTurnTwo) ?? 0 < 0 ? Color.red : Color.cardColor)
                             }
                             .frame(width: 50, alignment: .trailing)
                             
