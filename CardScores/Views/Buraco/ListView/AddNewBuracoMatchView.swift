@@ -11,7 +11,8 @@ struct AddNewBuracoMatchView: View {
         VStack {
             Text("Criar Nova Partida")
                 .font(.title2)
-                .foregroundStyle(Color.primary)
+                .foregroundStyle(Color.cardColor)
+                .bold()
                 .padding(.bottom, 20 )
             
             addNewMatchViewHeader
@@ -50,9 +51,12 @@ struct AddNewBuracoMatchView: View {
     @ViewBuilder
     private var addNewMatchViewHeader: some View {
         VStack {
-            Text("Digite a Pontuação Mínima de Vitória")
+            Text("Pontuação Mínima de Vitória")
                 .font(.title3)
+                .foregroundStyle(Color.cardColor)
             TextField("Digite a pontuação", text: $addNewMatchVM.targetScore)
+                .frame(width: 100)
+                .cornerRadius(10)
                 .keyboardType(.numberPad)
                 .textFieldStyle(.roundedBorder)
                 .multilineTextAlignment(TextAlignment.center)
@@ -64,11 +68,6 @@ struct AddNewBuracoMatchView: View {
         .frame(height: 100)
         .frame(maxWidth: .infinity)
         .padding(10)
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .inset(by: 2)
-                .stroke(Color.cardColor, lineWidth: 2)
-        )
     }
     
     @ViewBuilder
@@ -77,33 +76,53 @@ struct AddNewBuracoMatchView: View {
             VStack(alignment: .leading) {
                 Text("Dupla 1")
                     .font(.title)
+                    .foregroundStyle(Color.cardColor)
+                
                 TextField("Nome do Jogador 1", text: $addNewMatchVM.playerOne)
+                    .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.textFieldBorderColor)
                     )
+                    .minimumScaleFactor(0.4)
+                    
                 TextField("Nome do Jogador 2", text: $addNewMatchVM.playerTwo)
+                    .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.textFieldBorderColor)
                     )
+                    .minimumScaleFactor(0.4)
             }
             .multilineTextAlignment(TextAlignment.leading)
             .textFieldStyle(.roundedBorder)
             
+            VStack {
+                Text("")
+            }
+            .frame(width: 30)
+            
             VStack(alignment: .trailing) {
                 Text("Dupla 2")
                     .font(.title)
+                    .foregroundStyle(Color.cardColor)
+                
                 TextField("Nome do Jogador 1", text: $addNewMatchVM.playerThree)
+                    .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.textFieldBorderColor)
                     )
+                    .minimumScaleFactor(0.4)
+                
                 TextField("Nome do Jogador 2", text: $addNewMatchVM.playerFour)
+                    .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.textFieldBorderColor)
                     )
+                    .minimumScaleFactor(0.4)
+                
             }
             .multilineTextAlignment(TextAlignment.trailing)
             .textFieldStyle(.roundedBorder)
@@ -113,6 +132,7 @@ struct AddNewBuracoMatchView: View {
             RoundedRectangle(cornerRadius: 20)
                 .inset(by: 2)
                 .stroke(Color.cardColor, lineWidth: 2)
+               
         )
     }
 

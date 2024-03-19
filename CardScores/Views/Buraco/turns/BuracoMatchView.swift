@@ -26,20 +26,18 @@ struct BuracoMatchView: View {
                         presentAddNewMatchTurnView.toggle()
                         
                     } label: {
-                        Text("Adinonar nova rodada")
+                        Text("Adinonar pontos da rodada")
                             .font(.title2)
                             .frame(maxWidth: .infinity)
                             .frame(height: 50)
                             .background(Color.cardColor)
                             .cornerRadius(20)
                             .foregroundStyle(Color.white)
-                            .bold()
                             .padding(.top, 20)
                     }
                     .sheet(isPresented: $presentAddNewMatchTurnView, content: {
                         
                         AddNewMatchTurnView(matchFB: matchFB)
-                            .presentationDetents([.fraction(0.7)])
                             .interactiveDismissDisabled()
                             .onDisappear(perform: {
                                 buracoTurnVM.getTurn()
@@ -54,29 +52,22 @@ struct BuracoMatchView: View {
         .onAppear(perform: {
             buracoTurnVM.getTurn()
         })
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .inset(by: 2)
-                .stroke(Color.gray, lineWidth: 5)
-        )
-        
     }
     
     @ViewBuilder
     private var matchResumeViewHeader: some View {
         VStack {
-            Text(!matchFB.gameOver ? "Pontuação" : "Partida Encerrada")
+            Text(!matchFB.gameOver ? "Partida Em Andamento" : "Partida Encerrada")
                 .font(.title)
                 .foregroundColor(.cardColor)
-                .bold()
             
             HStack {
                 
                 VStack (alignment: .leading) {
                     Text(matchFB.playerOne)
                     Text(matchFB.playerTwo)
-                    Text(matchFB.finalScoreOne)
-                        .foregroundStyle(Color.cardColor)
+                    Text("\(abs(Int(matchFB.finalScoreOne) ?? 0))")
+                        .foregroundStyle(Int(matchFB.finalScoreOne) ?? 0 < 0 ? Color.red : Color.cardColor)
                         .bold()
                 }
                 .foregroundStyle(Color.black)
@@ -92,8 +83,8 @@ struct BuracoMatchView: View {
                 VStack(alignment: .trailing) {
                     Text(matchFB.playerThree)
                     Text(matchFB.playerFour)
-                    Text(matchFB.finalScoreTwo)
-                        .foregroundStyle(Color.cardColor)
+                    Text("\(abs(Int(matchFB.finalScoreTwo) ?? 0))")
+                        .foregroundStyle(Int(matchFB.finalScoreTwo) ?? 0 < 0 ? Color.red : Color.cardColor)
                         .bold()
                 }
                 .foregroundStyle(Color.black)
@@ -101,7 +92,7 @@ struct BuracoMatchView: View {
             .font(.title)
             .foregroundColor(.white)
             .padding(15)
-            .background(Color.textViewBackgroundColor)
+            .background(Color.cardBackgroundColor)
             .cornerRadius(20)
         }
     }
@@ -120,7 +111,8 @@ struct BuracoMatchView: View {
                         HStack(spacing: 5) {
                             
                             VStack {
-                                Text(matchResume.scoresTurnOne)
+                                Text("\(abs(Int(matchResume.scoresTurnOne) ?? 0))")
+                                    .foregroundStyle(Int(matchResume.scoresTurnOne) ?? 0 < 0 ? Color.red : Color.cardColor)
                             }
                             .frame(width: 50, alignment: .leading)
                             
@@ -134,7 +126,8 @@ struct BuracoMatchView: View {
                             Spacer()
                             
                             VStack {
-                                Text(matchResume.scoresTurnTwo)
+                                Text("\(abs(Int(matchResume.scoresTurnTwo) ?? 0))")
+                                    .foregroundStyle(Int(matchResume.scoresTurnTwo) ?? 0 < 0 ? Color.red : Color.cardColor)
                             }
                             .frame(width: 50, alignment: .trailing)
                             
@@ -150,7 +143,7 @@ struct BuracoMatchView: View {
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
                     .inset(by: 2)
-                    .stroke(Color.cardColor, lineWidth: 2)
+                    .stroke(Color.textFieldBorderColor, lineWidth: 2)
             )
         }
     }

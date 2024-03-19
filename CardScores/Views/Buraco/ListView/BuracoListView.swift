@@ -13,6 +13,7 @@ struct BuracoListView: View {
         NavigationStack {
             if loginVM.loggedUser {
                 VStack {
+                    
                     List {
                         ForEach(buracoListVM.matchesVM) { match in
                             BuracoCardView(buracoVM: match)
@@ -34,10 +35,9 @@ struct BuracoListView: View {
                                 isPresented.toggle()
                             } label: {
                                 Image(systemName: "plus.circle")
-                                    .foregroundStyle(Color.white, Color.white)
                                     .bold()
                             }
-                            .buttonStyle(.borderedProminent)
+                            .buttonStyle(.borderless)
                             .padding(.trailing, 20)
                             .tint(Color.cardColor)
                             .sheet(isPresented: $isPresented, content: {

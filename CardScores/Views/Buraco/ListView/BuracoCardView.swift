@@ -10,7 +10,7 @@ struct BuracoCardView: View {
             VStack {
                 Text(buracoVM.myDate, format: Date.FormatStyle(date: .numeric))
                     .foregroundStyle(Color.primary)
-                    .font(.title2)
+                    .font(.title3)
                 
                 HStack {
                     
@@ -18,8 +18,10 @@ struct BuracoCardView: View {
                         Text(buracoVM.playerOne)
                         Text(buracoVM.playerTwo)
                         Text(buracoVM.finalScoreOne.description)
-                            .foregroundStyle(buracoVM.finalScoreOne >= buracoVM.finalScoreTwo ? Color.green : Color.red)
+                            .foregroundStyle(Int(buracoVM.finalScoreOne) ?? 0 < 0 ? Color.red : Color.cardColor)
                     }
+                    .minimumScaleFactor(0.4)
+                    .lineLimit(1)
                     
                     Spacer()
                     
@@ -27,15 +29,19 @@ struct BuracoCardView: View {
                         Text(buracoVM.playerThree)
                         Text(buracoVM.playerFour)
                         Text(buracoVM.finalScoreTwo.description)
-                            .foregroundStyle(buracoVM.finalScoreTwo >= buracoVM.finalScoreOne ? Color.green : Color.red)
+                            .foregroundStyle(Int(buracoVM.finalScoreTwo) ?? 0 < 0 ? Color.red : Color.cardColor)
                     }
+                    .minimumScaleFactor(0.4)
+                    .lineLimit(1)
                 }
-                .foregroundStyle(Color.primary)
-                .font(.title2)
+                .foregroundStyle(Color.black)
+                .font(.title3)
                 .padding(.horizontal, 10)
                 .padding(.bottom, 20)
             }
             .padding(.top, 10)
+            .background(Color.cardBackgroundColor)
+            .cornerRadius(20)
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
                     .inset(by: 2)
