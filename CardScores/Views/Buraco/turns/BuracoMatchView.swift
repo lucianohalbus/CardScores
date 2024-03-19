@@ -26,14 +26,13 @@ struct BuracoMatchView: View {
                         presentAddNewMatchTurnView.toggle()
                         
                     } label: {
-                        Text("Adinonar nova rodada")
+                        Text("Adinonar pontos da rodada")
                             .font(.title2)
                             .frame(maxWidth: .infinity)
                             .frame(height: 50)
                             .background(Color.cardColor)
                             .cornerRadius(20)
                             .foregroundStyle(Color.white)
-                            .bold()
                             .padding(.top, 20)
                     }
                     .sheet(isPresented: $presentAddNewMatchTurnView, content: {
@@ -58,10 +57,9 @@ struct BuracoMatchView: View {
     @ViewBuilder
     private var matchResumeViewHeader: some View {
         VStack {
-            Text(!matchFB.gameOver ? "Pontuação" : "Partida Encerrada")
+            Text(!matchFB.gameOver ? "Partida Em Andamento" : "Partida Encerrada")
                 .font(.title)
                 .foregroundColor(.cardColor)
-                .bold()
             
             HStack {
                 
