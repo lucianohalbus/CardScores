@@ -4,6 +4,7 @@ import SwiftUI
 
 struct BuracoCardView: View {
     let buracoVM: BuracoFBViewModel
+    @EnvironmentObject var buracoListVM: BuracoListViewModel
     
     var body: some View {
         NavigationLink(value: buracoVM) {

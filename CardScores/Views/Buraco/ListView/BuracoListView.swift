@@ -5,7 +5,7 @@ import FirebaseAuth
 
 struct BuracoListView: View {
     @State private var isPresented: Bool = false
-    @StateObject private var buracoListVM = BuracoListViewModel()
+    @EnvironmentObject var buracoListVM: BuracoListViewModel
     @StateObject private var loginVM = LoginViewModel()
     @Binding var tabSelection: Int
     
@@ -13,7 +13,6 @@ struct BuracoListView: View {
         NavigationStack {
             if loginVM.loggedUser {
                 VStack {
-                    
                     List {
                         ForEach(buracoListVM.matchesVM) { match in
                             BuracoCardView(buracoVM: match)
@@ -53,6 +52,10 @@ struct BuracoListView: View {
                 .navigationDestination(for: BuracoFBViewModel.self) { item in
                     BuracoMatchView(matchFB: item)
                         .navigationTitle("")
+                        .onTapGesture(perform: {
+                            buracoListVM.scoreOne = item.finalScoreOne
+                            buracoListVM.scoreTwo = item.finalScoreTwo
+                        })
                 }
                 .listStyle(.insetGrouped)
                 .onAppear {

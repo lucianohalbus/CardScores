@@ -5,7 +5,7 @@ import SwiftUI
 struct AddNewMatchTurnView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var buracoTurnsVM = BuracoTurnsViewModel()
-    @StateObject var buracoListVM = BuracoListViewModel()
+    @EnvironmentObject var buracoListVM: BuracoListViewModel
     @State private var totalScoreOne: String = ""
     @State private var totalScoreTwo: String = ""
     
@@ -87,18 +87,21 @@ struct AddNewMatchTurnView: View {
                     Button("Save") {
 
                         let calculatedTotalScoreOne: Int = buracoTurnsVM.calculateTotalScore(
-                            dbScore: Int(matchFB.finalScoreOne) ?? 0,
+                            dbScore: Int(buracoListVM.scoreOne) ?? 0,
                             canastraScore: self.canastraScoreOne ?? 0,
                             cardScore: self.cardScoreOne ?? 0,
                             negativeScore: self.negativeScoreOne ?? 0
                         )
+                        
+                        buracoListVM.scoreOne = calculatedTotalScoreOne.description
 
                         let calculatedTotalScoreTwo: Int = buracoTurnsVM.calculateTotalScore(
-                            dbScore: Int(matchFB.finalScoreTwo) ?? 0,
+                            dbScore: Int(buracoListVM.scoreTwo) ?? 0,
                             canastraScore: self.canastraScoreTwo ?? 0,
                             cardScore: self.cardScoreTwo ?? 0,
                             negativeScore: self.negativeScoreTwo ?? 0
                         )
+                        buracoListVM.scoreTwo = calculatedTotalScoreTwo.description
 
                         let partialScoreOne: Int = buracoTurnsVM.calculatePartialScore(
                             canastraScore: self.canastraScoreOne ?? 0,

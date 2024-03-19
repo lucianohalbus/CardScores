@@ -10,6 +10,8 @@ final class BuracoListViewModel: ObservableObject {
     @Published var matchesVM: [BuracoFBViewModel] = []
     private var userId: String = ""
     @Published var saved: Bool = false
+    @Published var scoreOne: String = ""
+    @Published var scoreTwo: String = ""
     
     init() {
         repo = BuracoMatchesRepository()

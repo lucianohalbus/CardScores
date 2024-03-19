@@ -5,7 +5,7 @@ import SwiftUI
 struct BuracoMatchView: View {
     var matchFB: BuracoFBViewModel
     @State private var presentAddNewMatchTurnView: Bool = false
-    @ObservedObject private var buracoListVM = BuracoListViewModel()
+    @EnvironmentObject var buracoListVM: BuracoListViewModel
     @StateObject private var buracoTurnVM = BuracoTurnsViewModel()
     
     var body: some View {
@@ -66,7 +66,7 @@ struct BuracoMatchView: View {
                 VStack (alignment: .leading) {
                     Text(matchFB.playerOne)
                     Text(matchFB.playerTwo)
-                    Text("\(abs(Int(matchFB.finalScoreOne) ?? 0))")
+                    Text("\(abs(Int(buracoListVM.scoreOne) ?? 0))")
                         .foregroundStyle(Int(matchFB.finalScoreOne) ?? 0 < 0 ? Color.red : Color.cardColor)
                         .bold()
                 }
@@ -83,7 +83,7 @@ struct BuracoMatchView: View {
                 VStack(alignment: .trailing) {
                     Text(matchFB.playerThree)
                     Text(matchFB.playerFour)
-                    Text("\(abs(Int(matchFB.finalScoreTwo) ?? 0))")
+                    Text("\(abs(Int(buracoListVM.scoreTwo) ?? 0))")
                         .foregroundStyle(Int(matchFB.finalScoreTwo) ?? 0 < 0 ? Color.red : Color.cardColor)
                         .bold()
                 }
