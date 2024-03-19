@@ -37,7 +37,7 @@ struct AddNewMatchTurnView: View {
                     VStack {
             
                         Text("Digite a Pontuação da Rodada")
-                            .font(.title2)
+                            .font(.title3)
                             .bold()
                             .padding(.top, 10)
                         
@@ -173,34 +173,34 @@ struct AddNewMatchTurnView: View {
     private var scoresLeftSide: some View {
         VStack(alignment: .leading) {
             Text(matchFB.playerOne)
-                .font(.title2)
+                .font(.caption)
                 .bold()
             
             Text(matchFB.playerTwo)
-                .font(.title2)
+                .font(.caption)
                 .bold()
             
             Text(matchFB.finalScoreOne)
-                .font(.title2)
+                .font(.caption)
                 .bold()
                 .padding(.bottom, 10)
             
             Text("Pontos de Canastras")
-                .font(.headline)
+                .font(.caption)
             
             TextField("Pontos", value: $canastraScoreOne, format: .number)
                 .keyboardType(.numberPad)
                 .padding(.bottom, 20)
             
             Text("Pontos das Cartas")
-                .font(.headline)
+                .font(.caption)
             
             TextField("Pontos", value: $cardScoreOne, format: .number)
                 .keyboardType(.numberPad)
                 .padding(.bottom, 20)
             
             Text("Pontos à descontar")
-                .font(.headline)
+                .font(.caption)
             
             TextField("Pontos", value: $negativeScoreOne, format: .number)
                 .keyboardType(.numberPad)
@@ -213,34 +213,34 @@ struct AddNewMatchTurnView: View {
     private var scoresRightSide: some View {
         VStack(alignment: .trailing) {
             Text(matchFB.playerThree)
-                .font(.title2)
+                .font(.caption)
                 .bold()
             
             Text(matchFB.playerFour)
-                .font(.title2)
+                .font(.caption)
                 .bold()
             
             Text(matchFB.finalScoreTwo)
-                .font(.title2)
+                .font(.caption)
                 .bold()
                 .padding(.bottom, 10)
             
             Text("Pontos de Canastras")
-                .font(.headline)
+                .font(.caption)
             
             TextField("Pontos", value: $canastraScoreTwo, format: .number)
                 .keyboardType(.numberPad)
                 .padding(.bottom, 20)
             
             Text("Pontos das Cartas")
-                .font(.headline)
+                .font(.caption)
             
             TextField("Pontos", value: $cardScoreTwo, format: .number)
                 .keyboardType(.numberPad)
                 .padding(.bottom, 20)
             
             Text("Pontos à descontar")
-                .font(.headline)
+                .font(.caption)
             
             TextField("Pontos", value: $negativeScoreTwo, format: .number)
                 .keyboardType(.numberPad)

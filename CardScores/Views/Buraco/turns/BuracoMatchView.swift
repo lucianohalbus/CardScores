@@ -39,7 +39,6 @@ struct BuracoMatchView: View {
                     .sheet(isPresented: $presentAddNewMatchTurnView, content: {
                         
                         AddNewMatchTurnView(matchFB: matchFB)
-                            .presentationDetents([.fraction(0.7)])
                             .interactiveDismissDisabled()
                             .onDisappear(perform: {
                                 buracoTurnVM.getTurn()
@@ -54,12 +53,6 @@ struct BuracoMatchView: View {
         .onAppear(perform: {
             buracoTurnVM.getTurn()
         })
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .inset(by: 2)
-                .stroke(Color.gray, lineWidth: 5)
-        )
-        
     }
     
     @ViewBuilder
@@ -101,7 +94,7 @@ struct BuracoMatchView: View {
             .font(.title)
             .foregroundColor(.white)
             .padding(15)
-            .background(Color.textViewBackgroundColor)
+            .background(Color.cardBackgroundColor)
             .cornerRadius(20)
         }
     }
@@ -150,7 +143,7 @@ struct BuracoMatchView: View {
             .overlay(
                 RoundedRectangle(cornerRadius: 20)
                     .inset(by: 2)
-                    .stroke(Color.cardColor, lineWidth: 2)
+                    .stroke(Color.textFieldBorderColor, lineWidth: 2)
             )
         }
     }
