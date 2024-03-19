@@ -11,7 +11,8 @@ struct AddNewBuracoMatchView: View {
         VStack {
             Text("Criar Nova Partida")
                 .font(.title2)
-                .foregroundStyle(Color.primary)
+                .foregroundStyle(Color.cardColor)
+                .bold()
                 .padding(.bottom, 20 )
             
             addNewMatchViewHeader
@@ -52,6 +53,7 @@ struct AddNewBuracoMatchView: View {
         VStack {
             Text("Pontuação Mínima de Vitória")
                 .font(.title3)
+                .foregroundStyle(Color.cardColor)
             TextField("Digite a pontuação", text: $addNewMatchVM.targetScore)
                 .frame(width: 100, height: 40)
                 .keyboardType(.numberPad)
@@ -65,11 +67,11 @@ struct AddNewBuracoMatchView: View {
         .frame(height: 100)
         .frame(maxWidth: .infinity)
         .padding(10)
-        .overlay(
-            RoundedRectangle(cornerRadius: 20)
-                .inset(by: 2)
-                .stroke(Color.cardColor, lineWidth: 2)
-        )
+//        .overlay(
+//            RoundedRectangle(cornerRadius: 20)
+//                .inset(by: 2)
+//                .stroke(Color.cardColor, lineWidth: 2)
+//        )
     }
     
     @ViewBuilder
@@ -78,6 +80,8 @@ struct AddNewBuracoMatchView: View {
             VStack(alignment: .leading) {
                 Text("Dupla 1")
                     .font(.title)
+                    .foregroundStyle(Color.cardColor)
+                
                 TextField("Nome do Jogador 1", text: $addNewMatchVM.playerOne)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
@@ -103,6 +107,8 @@ struct AddNewBuracoMatchView: View {
             VStack(alignment: .trailing) {
                 Text("Dupla 2")
                     .font(.title)
+                    .foregroundStyle(Color.cardColor)
+                
                 TextField("Nome do Jogador 1", text: $addNewMatchVM.playerThree)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
