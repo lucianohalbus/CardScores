@@ -41,6 +41,10 @@ struct BuracoMatchView: View {
                         AddNewMatchTurnView(matchFB: matchFB)
                             .presentationDetents([.fraction(0.7)])
                             .interactiveDismissDisabled()
+                            .onDisappear(perform: {
+                                buracoTurnVM.getTurn()
+                                buracoListVM.getMatches()
+                            })
                     })
                     
                 }
@@ -102,6 +106,7 @@ struct BuracoMatchView: View {
         }
     }
     
+    @ViewBuilder
     private var matchResumeViewList: some View {
         VStack(spacing: 5) {
             Text("Pontuação das Rodadas")
@@ -110,7 +115,7 @@ struct BuracoMatchView: View {
             
             VStack {
                 ForEach(buracoTurnVM.turns) { matchResume in
-                    if matchResume.turnId == matchFB.docId {
+                    if matchResume.turnId == matchFB.id {
                         
                         HStack(spacing: 5) {
                             

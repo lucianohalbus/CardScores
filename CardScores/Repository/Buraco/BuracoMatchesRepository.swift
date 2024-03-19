@@ -71,4 +71,21 @@ final class BuracoMatchesRepository {
         }
     }
     
+    func update(matchId: String, matchFB: MatchFB, completion: @escaping(Result<Bool, Error>) -> Void) {
+        if matchId.isEmpty {
+            completion(.failure(NSError(domain: "Invalid item id", code:  104, userInfo: nil)))
+            return
+        }
+        
+        do {
+            try db.collection(Constants.matches)
+            .document(matchId)
+            .setData(from: matchFB)
+            completion(.success(true))
+        } catch let error {
+            completion(.failure(error))
+        }
+    }
+    
+    
 }

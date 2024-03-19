@@ -5,20 +5,29 @@ import SwiftUI
 struct AddNewMatchTurnView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var buracoTurnsVM = BuracoTurnsViewModel()
+    @StateObject var buracoListVM = BuracoListViewModel()
+    @State private var totalScoreOne: String = ""
+    @State private var totalScoreTwo: String = ""
+    
     var matchFB: BuracoFBViewModel
-    @State private var gameOver: Bool = false
+    @State var cardScoreOne: Int? = nil
+    @State var canastraScoreOne: Int? = nil
+    @State var negativeScoreOne: Int? = nil
+    @State var cardScoreTwo: Int? = nil
+    @State var canastraScoreTwo: Int? = nil
+    @State var negativeScoreTwo: Int? = nil
     
     init(matchFB: BuracoFBViewModel) {
         self.matchFB = matchFB
     }
     
     private var isValid: Bool {
-        buracoTurnsVM.cardScoreOne != nil  &&
-        buracoTurnsVM.cardScoreTwo != nil  &&
-        buracoTurnsVM.canastraScoreOne != nil  &&
-        buracoTurnsVM.canastraScoreTwo != nil  &&
-        buracoTurnsVM.negativeScoreOne != nil  &&
-        buracoTurnsVM.negativeScoreTwo != nil
+        self.cardScoreOne != nil  &&
+        self.cardScoreTwo != nil  &&
+        self.canastraScoreOne != nil  &&
+        self.canastraScoreTwo != nil  &&
+        self.negativeScoreOne != nil  &&
+        self.negativeScoreTwo != nil
     }
 
     var body: some View {
@@ -76,70 +85,58 @@ struct AddNewMatchTurnView: View {
                     Spacer()
                     
                     Button("Save") {
+
+                        let calculatedTotalScoreOne: Int = buracoTurnsVM.calculateTotalScore(
+                            dbScore: Int(matchFB.finalScoreOne) ?? 0,
+                            canastraScore: self.canastraScoreOne ?? 0,
+                            cardScore: self.cardScoreOne ?? 0,
+                            negativeScore: self.negativeScoreOne ?? 0
+                        )
+
+                        let calculatedTotalScoreTwo: Int = buracoTurnsVM.calculateTotalScore(
+                            dbScore: Int(matchFB.finalScoreTwo) ?? 0,
+                            canastraScore: self.canastraScoreTwo ?? 0,
+                            cardScore: self.cardScoreTwo ?? 0,
+                            negativeScore: self.negativeScoreTwo ?? 0
+                        )
                         
+                        let partialScoreOne: Int = buracoTurnsVM.calculatePartialScore(
+                            canastraScore: self.canastraScoreOne ?? 0,
+                            cardScore: self.cardScoreOne ?? 0,
+                            negativeScore: self.negativeScoreOne ?? 0
+                        )
                         
-//                        let totalScoreOne: Int = calculateTotalScore(
-//                            dbScore: Int(matchFB.finalScoreOne) ?? 0,
-//                            canastraScore: buracoTurnsVM.canastraScoreOne ?? 0,
-//                            cardScore: buracoTurnsVM.cardScoreOne ?? 0,
-//                            negativeScore: buracoTurnsVM.negativeScoreOne ?? 0
-//                        )
-//                        
-//                        
-//
-//                        let totalScoreTwo: Int = calculateTotalScore(
-//                            dbScore: Int(matchFB.finalScoreTwo) ?? 0,
-//                            canastraScore: buracoTurnsVM.canastraScoreTwo ?? 0,
-//                            cardScore: buracoTurnsVM.cardScoreTwo ?? 0,
-//                            negativeScore: buracoTurnsVM.negativeScoreTwo ?? 0
-//                        )
-//
-//                        if totalScoreOne >= Int(matchFB.scoreToWin) ?? 0 || totalScoreTwo >=  Int(matchFB.scoreToWin) ?? 0 {
-//                            self.gameOver = true
-//                        }
-//                        
-                        do {
-//                            
-//                            let partialScoreTeamOne: Int = calculatePartialScore(
-//                                canastraScore: buracoTurnsVM.canastraScoreOne ?? 0,
-//                                cardScore: buracoTurnsVM.cardScoreOne ?? 0,
-//                                negativeScore: buracoTurnsVM.negativeScoreOne ?? 0
-//                            )
-//                            
-//                            let partialScoreTeamTwo: Int = calculatePartialScore(
-//                                canastraScore: buracoTurnsVM.canastraScoreTwo ?? 0,
-//                                cardScore: buracoTurnsVM.cardScoreTwo ?? 0,
-//                                negativeScore: buracoTurnsVM.negativeScoreTwo ?? 0
-//                            )
-//                            
-//                            let matchTurn: MatchTurn = MatchTurn(
-//                                myTime: Date(),
-//                                scoresTurnOne: partialScoreTeamOne.description,
-//                                scoresTurnTwo: partialScoreTeamTwo.description,
-//                                turnId: matchFB.id ?? "",
-//                                friendsId: matchFB.friendsId
-//                            )
-//                            
-//                            let matchFB: MatchFB = MatchFB(
-//                                scoreToWin: matchFB.scoreToWin,
-//                                playerOne: matchFB.playerOne,
-//                                playerTwo: matchFB.playerTwo,
-//                                playerThree: matchFB.playerThree,
-//                                playerFour: matchFB.playerFour,
-//                                finalScoreOne: self.scoreTeamOne?.description ?? "",
-//                                finalScoreTwo: self.scoreTeamTwo?.description ?? "",
-//                                friendsId: matchFB.friendsId,
-//                                myDate: matchFB.myDate,
-//                                registeredUser: matchFB.registeredUser,
-//                                docId: matchFB.docId,
-//                                gameOver: self.gameOver
-//                            )
-                           
-                            
-                        } catch {
-                            print(error.localizedDescription)
-                        }
+                        let partialScoreTwo: Int = buracoTurnsVM.calculatePartialScore(
+                            canastraScore: self.canastraScoreTwo ?? 0,
+                            cardScore: self.cardScoreTwo ?? 0,
+                            negativeScore: self.negativeScoreTwo ?? 0
+                        )
                         
+                        let match: MatchFB = MatchFB(
+                            scoreToWin: matchFB.scoreToWin,
+                            playerOne: matchFB.playerOne,
+                            playerTwo: matchFB.playerTwo,
+                            playerThree: matchFB.playerThree,
+                            playerFour: matchFB.playerFour,
+                            finalScoreOne: calculatedTotalScoreOne.description,
+                            finalScoreTwo: calculatedTotalScoreTwo.description,
+                            friendsId: matchFB.friendsId,
+                            myDate: matchFB.myDate,
+                            registeredUser: matchFB.registeredUser,
+                            docId: matchFB.id,
+                            gameOver: checkGameOver(calculatedTotalScoreOne, calculatedTotalScoreTwo, Int(matchFB.scoreToWin) ?? 3000) ? true : false
+                        )
+                        
+                        buracoListVM.update(matchId: matchFB.id, matchFB: match)
+                        
+                        buracoTurnsVM.addTurn(matchTurn: MatchTurn(
+                            myTime: Date(),
+                            scoresTurnOne: partialScoreOne.description,
+                            scoresTurnTwo: partialScoreTwo.description,
+                            turnId: matchFB.id,
+                            friendsId: matchFB.friendsId
+                        ))
+
                         dismiss()
                     }
                     .buttonStyle(.bordered)
@@ -191,21 +188,21 @@ struct AddNewMatchTurnView: View {
             Text("Pontos de Canastras")
                 .font(.headline)
             
-            TextField("Pontos", value: $buracoTurnsVM.canastraScoreOne, format: .number)
+            TextField("Pontos", value: $canastraScoreOne, format: .number)
                 .keyboardType(.numberPad)
                 .padding(.bottom, 20)
             
             Text("Pontos das Cartas")
                 .font(.headline)
             
-            TextField("Pontos", value: $buracoTurnsVM.cardScoreOne, format: .number)
+            TextField("Pontos", value: $cardScoreOne, format: .number)
                 .keyboardType(.numberPad)
                 .padding(.bottom, 20)
             
             Text("Pontos à descontar")
                 .font(.headline)
             
-            TextField("Pontos", value: $buracoTurnsVM.negativeScoreOne, format: .number)
+            TextField("Pontos", value: $negativeScoreOne, format: .number)
                 .keyboardType(.numberPad)
                 .padding(.bottom, 20)
         }
@@ -231,26 +228,36 @@ struct AddNewMatchTurnView: View {
             Text("Pontos de Canastras")
                 .font(.headline)
             
-            TextField("Pontos", value: $buracoTurnsVM.canastraScoreTwo, format: .number)
+            TextField("Pontos", value: $canastraScoreTwo, format: .number)
                 .keyboardType(.numberPad)
                 .padding(.bottom, 20)
             
             Text("Pontos das Cartas")
                 .font(.headline)
             
-            TextField("Pontos", value: $buracoTurnsVM.cardScoreTwo, format: .number)
+            TextField("Pontos", value: $cardScoreTwo, format: .number)
                 .keyboardType(.numberPad)
                 .padding(.bottom, 20)
             
             Text("Pontos à descontar")
                 .font(.headline)
             
-            TextField("Pontos", value: $buracoTurnsVM.negativeScoreTwo, format: .number)
+            TextField("Pontos", value: $negativeScoreTwo, format: .number)
                 .keyboardType(.numberPad)
                 .padding(.bottom, 20)
         }
         .textFieldStyle(.roundedBorder)
         .multilineTextAlignment(TextAlignment.trailing)
+    }
+    
+    private func checkGameOver(_ scoreOne: Int, _ scoreTwo: Int, _ scoreToWin: Int) -> Bool {
+        if scoreOne >= scoreToWin ||
+            scoreTwo >= scoreToWin {
+            return true
+        } else {
+            return false
+        }
+        
     }
 
 }

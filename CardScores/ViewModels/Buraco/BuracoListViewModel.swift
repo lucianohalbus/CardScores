@@ -9,6 +9,7 @@ final class BuracoListViewModel: ObservableObject {
     private var repo: BuracoMatchesRepository
     @Published var matchesVM: [BuracoFBViewModel] = []
     private var userId: String = ""
+    @Published var saved: Bool = false
     
     init() {
         repo = BuracoMatchesRepository()
@@ -43,6 +44,19 @@ final class BuracoListViewModel: ObservableObject {
                 self.getMatches()
             } else {
                 print(error?.localizedDescription ?? "The Match was not deleted.")
+            }
+        }
+    }
+    
+    func update(matchId: String, matchFB: MatchFB) {
+        repo.update(matchId: matchId, matchFB: matchFB) { result in
+            switch result {
+            case .success(let success):
+                DispatchQueue.main.async {
+                    self.saved = success
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
             }
         }
     }
