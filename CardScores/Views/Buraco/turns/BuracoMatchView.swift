@@ -75,7 +75,7 @@ struct BuracoMatchView: View {
                 VStack (alignment: .leading) {
                     Text(matchFB.playerOne)
                     Text(matchFB.playerTwo)
-                    Text(matchFB.finalScoreOne.description)
+                    Text(matchFB.finalScoreOne)
                         .foregroundStyle(Color.cardColor)
                         .bold()
                 }
@@ -92,7 +92,7 @@ struct BuracoMatchView: View {
                 VStack(alignment: .trailing) {
                     Text(matchFB.playerThree)
                     Text(matchFB.playerFour)
-                    Text(matchFB.finalScoreTwo.description)
+                    Text(matchFB.finalScoreTwo)
                         .foregroundStyle(Color.cardColor)
                         .bold()
                 }

@@ -99,7 +99,7 @@ struct AddNewMatchTurnView: View {
                             cardScore: self.cardScoreTwo ?? 0,
                             negativeScore: self.negativeScoreTwo ?? 0
                         )
-                        
+
                         let partialScoreOne: Int = buracoTurnsVM.calculatePartialScore(
                             canastraScore: self.canastraScoreOne ?? 0,
                             cardScore: self.cardScoreOne ?? 0,

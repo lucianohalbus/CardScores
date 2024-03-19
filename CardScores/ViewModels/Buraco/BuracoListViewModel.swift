@@ -42,6 +42,9 @@ final class BuracoListViewModel: ObservableObject {
         repo.delete(item: MatchFB(id: matchFB.id, scoreToWin: matchFB.scoreToWin, playerOne: matchFB.playerOne, playerTwo: matchFB.playerTwo, playerThree: matchFB.playerThree, playerFour: matchFB.playerFour, myDate: matchFB.myDate, registeredUser: matchFB.registeredUser, docId: matchFB.docId, gameOver: matchFB.gameOver)) { error in
             if error == nil {
                 self.getMatches()
+                
+                
+                
             } else {
                 print(error?.localizedDescription ?? "The Match was not deleted.")
             }
