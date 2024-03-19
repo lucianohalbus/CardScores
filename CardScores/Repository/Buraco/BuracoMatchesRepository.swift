@@ -65,10 +65,55 @@ final class BuracoMatchesRepository {
         
         db.collection(Constants.matches).document(itemId).delete { error in
             if error == nil {
-                completion(nil)
+                
+                
+                self.deleteTurns(turnId: itemId) { error in
+                    if error == nil {
+                        completion(nil)
+                    }
+                }
+                completion(error)
             }
             completion(error)
         }
     }
+    
+    func deleteTurns(turnId: String, completion: @escaping(Error?) -> Void) {
+        
+        if turnId.isEmpty {
+            completion(NSError(domain: "Item id is null", code:  105, userInfo: nil))
+            return
+        }
+        let batch = db.batch()
+        let ref = db.collection(Constants.turns).whereField("turnId", isEqualTo: turnId)
+        ref.getDocuments { snapshot, error in
+            guard let snapshot = snapshot, error == nil else {
+                print(error?.localizedDescription ?? "No specific error detected...")
+                return
+            }
+            
+            snapshot.documents.forEach { item in
+                batch.deleteDocument(item.reference)
+            }
+            return batch.commit()
+        }
+    }
+    
+    func update(matchId: String, matchFB: MatchFB, completion: @escaping(Result<Bool, Error>) -> Void) {
+        if matchId.isEmpty {
+            completion(.failure(NSError(domain: "Invalid item id", code:  104, userInfo: nil)))
+            return
+        }
+        
+        do {
+            try db.collection(Constants.matches)
+            .document(matchId)
+            .setData(from: matchFB)
+            completion(.success(true))
+        } catch let error {
+            completion(.failure(error))
+        }
+    }
+    
     
 }

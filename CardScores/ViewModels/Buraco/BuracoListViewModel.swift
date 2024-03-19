@@ -9,6 +9,7 @@ final class BuracoListViewModel: ObservableObject {
     private var repo: BuracoMatchesRepository
     @Published var matchesVM: [BuracoFBViewModel] = []
     private var userId: String = ""
+    @Published var saved: Bool = false
     
     init() {
         repo = BuracoMatchesRepository()
@@ -41,8 +42,24 @@ final class BuracoListViewModel: ObservableObject {
         repo.delete(item: MatchFB(id: matchFB.id, scoreToWin: matchFB.scoreToWin, playerOne: matchFB.playerOne, playerTwo: matchFB.playerTwo, playerThree: matchFB.playerThree, playerFour: matchFB.playerFour, myDate: matchFB.myDate, registeredUser: matchFB.registeredUser, docId: matchFB.docId, gameOver: matchFB.gameOver)) { error in
             if error == nil {
                 self.getMatches()
+                
+                
+                
             } else {
                 print(error?.localizedDescription ?? "The Match was not deleted.")
+            }
+        }
+    }
+    
+    func update(matchId: String, matchFB: MatchFB) {
+        repo.update(matchId: matchId, matchFB: matchFB) { result in
+            switch result {
+            case .success(let success):
+                DispatchQueue.main.async {
+                    self.saved = success
+                }
+            case .failure(let err):
+                print(err.localizedDescription)
             }
         }
     }
