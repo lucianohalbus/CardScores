@@ -13,6 +13,7 @@ struct BuracoListView: View {
         NavigationStack {
             if loginVM.loggedUser {
                 VStack {
+                    
                     List {
                         ForEach(buracoListVM.matchesVM) { match in
                             BuracoCardView(buracoVM: match)

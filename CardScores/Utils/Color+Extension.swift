@@ -5,9 +5,11 @@ import SwiftUI
 extension Color {
   
     /// RGB: #008F51
-    static let cardColor: Color = Color(hex: "008F51")
+    static let cardColor: Color = Color(hex: "#008F51")
+    static let cardBackgroundColor: Color = Color(hex: "#EAEAEA")
     static let textFieldBorderColor: Color = Color(hex: "#75BE99")
     static let textViewBackgroundColor: Color = Color(hex: "#DEEFE6")
+ 
 }
 
 extension Color {
