@@ -55,7 +55,8 @@ struct AddNewBuracoMatchView: View {
                 .font(.title3)
                 .foregroundStyle(Color.cardColor)
             TextField("Digite a pontuação", text: $addNewMatchVM.targetScore)
-                .frame(width: 100, height: 40)
+                .frame(width: 100)
+                .cornerRadius(10)
                 .keyboardType(.numberPad)
                 .textFieldStyle(.roundedBorder)
                 .multilineTextAlignment(TextAlignment.center)
@@ -67,11 +68,6 @@ struct AddNewBuracoMatchView: View {
         .frame(height: 100)
         .frame(maxWidth: .infinity)
         .padding(10)
-//        .overlay(
-//            RoundedRectangle(cornerRadius: 20)
-//                .inset(by: 2)
-//                .stroke(Color.cardColor, lineWidth: 2)
-//        )
     }
     
     @ViewBuilder
@@ -83,6 +79,7 @@ struct AddNewBuracoMatchView: View {
                     .foregroundStyle(Color.cardColor)
                 
                 TextField("Nome do Jogador 1", text: $addNewMatchVM.playerOne)
+                    .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.textFieldBorderColor)
@@ -90,6 +87,7 @@ struct AddNewBuracoMatchView: View {
                     .minimumScaleFactor(0.4)
                     
                 TextField("Nome do Jogador 2", text: $addNewMatchVM.playerTwo)
+                    .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.textFieldBorderColor)
@@ -110,6 +108,7 @@ struct AddNewBuracoMatchView: View {
                     .foregroundStyle(Color.cardColor)
                 
                 TextField("Nome do Jogador 1", text: $addNewMatchVM.playerThree)
+                    .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.textFieldBorderColor)
@@ -117,6 +116,7 @@ struct AddNewBuracoMatchView: View {
                     .minimumScaleFactor(0.4)
                 
                 TextField("Nome do Jogador 2", text: $addNewMatchVM.playerFour)
+                    .cornerRadius(10)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.textFieldBorderColor)
