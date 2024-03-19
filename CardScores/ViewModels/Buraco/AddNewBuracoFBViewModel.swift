@@ -11,7 +11,7 @@ final class AddNewBuracoFBViewModel: ObservableObject {
     @Published var playerTwo: String = ""
     @Published var playerThree: String = ""
     @Published var playerFour: String = ""
-    @Published var targetScore: String = ""
+    @Published var targetScore: String = "3000"
     @Published var addNewSaved: Bool = false
     @Published var userId: String = ""
     

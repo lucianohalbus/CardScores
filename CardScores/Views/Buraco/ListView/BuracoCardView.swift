@@ -21,6 +21,8 @@ struct BuracoCardView: View {
                             .fontWeight(buracoVM.finalScoreOne > buracoVM.finalScoreTwo ? .bold : .regular)
                             .foregroundStyle(Color.cardColor)
                     }
+                    .minimumScaleFactor(0.4)
+                    .lineLimit(1)
                     
                     Spacer()
                     
@@ -31,6 +33,8 @@ struct BuracoCardView: View {
                             .fontWeight(buracoVM.finalScoreTwo > buracoVM.finalScoreOne ? .bold : .regular)
                             .foregroundStyle(Color.cardColor)
                     }
+                    .minimumScaleFactor(0.4)
+                    .lineLimit(1)
                 }
                 .foregroundStyle(Color.black)
                 .font(.title3)

@@ -50,9 +50,10 @@ struct AddNewBuracoMatchView: View {
     @ViewBuilder
     private var addNewMatchViewHeader: some View {
         VStack {
-            Text("Digite a Pontuação Mínima de Vitória")
+            Text("Pontuação Mínima de Vitória")
                 .font(.title3)
             TextField("Digite a pontuação", text: $addNewMatchVM.targetScore)
+                .frame(width: 100, height: 40)
                 .keyboardType(.numberPad)
                 .textFieldStyle(.roundedBorder)
                 .multilineTextAlignment(TextAlignment.center)
@@ -82,14 +83,22 @@ struct AddNewBuracoMatchView: View {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.textFieldBorderColor)
                     )
+                    .minimumScaleFactor(0.4)
+                    
                 TextField("Nome do Jogador 2", text: $addNewMatchVM.playerTwo)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.textFieldBorderColor)
                     )
+                    .minimumScaleFactor(0.4)
             }
             .multilineTextAlignment(TextAlignment.leading)
             .textFieldStyle(.roundedBorder)
+            
+            VStack {
+                Text("")
+            }
+            .frame(width: 30)
             
             VStack(alignment: .trailing) {
                 Text("Dupla 2")
@@ -99,11 +108,15 @@ struct AddNewBuracoMatchView: View {
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.textFieldBorderColor)
                     )
+                    .minimumScaleFactor(0.4)
+                
                 TextField("Nome do Jogador 2", text: $addNewMatchVM.playerFour)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
                             .stroke(Color.textFieldBorderColor)
                     )
+                    .minimumScaleFactor(0.4)
+                
             }
             .multilineTextAlignment(TextAlignment.trailing)
             .textFieldStyle(.roundedBorder)
@@ -113,6 +126,7 @@ struct AddNewBuracoMatchView: View {
             RoundedRectangle(cornerRadius: 20)
                 .inset(by: 2)
                 .stroke(Color.cardColor, lineWidth: 2)
+               
         )
     }
 
