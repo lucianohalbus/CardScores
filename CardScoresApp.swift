@@ -9,6 +9,7 @@ struct CardScoresApp: App {
     var body: some Scene {
         WindowGroup {
             MainView(login: LoginViewModel())
+                .environmentObject(BuracoListViewModel())
         }
     }
 }

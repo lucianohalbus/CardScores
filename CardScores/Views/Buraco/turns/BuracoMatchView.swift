@@ -5,7 +5,7 @@ import SwiftUI
 struct BuracoMatchView: View {
     var matchFB: BuracoFBViewModel
     @State private var presentAddNewMatchTurnView: Bool = false
-    @ObservedObject private var buracoListVM = BuracoListViewModel()
+    @EnvironmentObject var buracoListVM: BuracoListViewModel
     @StateObject private var buracoTurnVM = BuracoTurnsViewModel()
     
     var body: some View {
@@ -19,7 +19,7 @@ struct BuracoMatchView: View {
                     matchResumeViewList
                 }
                 
-                if !matchFB.gameOver {
+                if !buracoListVM.gameOver {
                     
                     Button {
                         
@@ -51,13 +51,16 @@ struct BuracoMatchView: View {
         .padding()
         .onAppear(perform: {
             buracoTurnVM.getTurn()
+            buracoListVM.scoreOne = matchFB.finalScoreOne
+            buracoListVM.scoreTwo = matchFB.finalScoreTwo
+            buracoListVM.gameOver = matchFB.gameOver
         })
     }
     
     @ViewBuilder
     private var matchResumeViewHeader: some View {
         VStack {
-            Text(!matchFB.gameOver ? "Partida Em Andamento" : "Partida Encerrada")
+            Text(!buracoListVM.gameOver ? "Partida Em Andamento" : "Partida Encerrada")
                 .font(.title)
                 .foregroundColor(.cardColor)
             
@@ -66,9 +69,9 @@ struct BuracoMatchView: View {
                 VStack (alignment: .leading) {
                     Text(matchFB.playerOne)
                     Text(matchFB.playerTwo)
-                    Text("\(abs(Int(matchFB.finalScoreOne) ?? 0))")
-                        .foregroundStyle(Int(matchFB.finalScoreOne) ?? 0 < 0 ? Color.red : Color.cardColor)
-                        .bold()
+                    Text(buracoListVM.scoreOne)
+                        .foregroundStyle(Int(buracoListVM.scoreOne) ?? 0 < 0 ? Color.red : Color.cardColor)
+                        .fontWeight(Int(buracoListVM.scoreOne) ?? 0 > Int(buracoListVM.scoreTwo) ?? 0 ? .bold : .regular)
                 }
                 .foregroundStyle(Color.black)
                 
@@ -83,9 +86,9 @@ struct BuracoMatchView: View {
                 VStack(alignment: .trailing) {
                     Text(matchFB.playerThree)
                     Text(matchFB.playerFour)
-                    Text("\(abs(Int(matchFB.finalScoreTwo) ?? 0))")
-                        .foregroundStyle(Int(matchFB.finalScoreTwo) ?? 0 < 0 ? Color.red : Color.cardColor)
-                        .bold()
+                    Text(buracoListVM.scoreTwo)
+                        .foregroundStyle(Int(buracoListVM.scoreTwo) ?? 0 < 0 ? Color.red : Color.cardColor)
+                        .fontWeight(Int(buracoListVM.scoreTwo) ?? 0 > Int(buracoListVM.scoreOne) ?? 0 ? .bold : .regular)
                 }
                 .foregroundStyle(Color.black)
             }

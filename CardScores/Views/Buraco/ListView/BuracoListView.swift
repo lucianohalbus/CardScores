@@ -5,7 +5,7 @@ import FirebaseAuth
 
 struct BuracoListView: View {
     @State private var isPresented: Bool = false
-    @StateObject private var buracoListVM = BuracoListViewModel()
+    @EnvironmentObject var buracoListVM: BuracoListViewModel
     @StateObject private var loginVM = LoginViewModel()
     @Binding var tabSelection: Int
     
@@ -13,11 +13,10 @@ struct BuracoListView: View {
         NavigationStack {
             if loginVM.loggedUser {
                 VStack {
-                    
                     List {
                         ForEach(buracoListVM.matchesVM) { match in
                             BuracoCardView(buracoVM: match)
-                                .padding(.bottom, 10)
+                                .padding(.bottom, 10) 
                         }
                         .onDelete(perform: { idxSet in
                             idxSet.forEach { idx in
