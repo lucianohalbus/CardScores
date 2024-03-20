@@ -1,6 +1,8 @@
 //Created by Halbus Development
 
 import SwiftUI
+import PhotosUI
+import UIKit
 
 struct BuracoMatchView: View {
     var matchFB: BuracoFBViewModel
@@ -8,43 +10,20 @@ struct BuracoMatchView: View {
     @EnvironmentObject var buracoListVM: BuracoListViewModel
     @StateObject private var buracoTurnVM = BuracoTurnsViewModel()
     
+    @State private var shouldPresentImagePicker = false
+    @State private var shouldPresentActionScheet = false
+    @State private var shouldPresentCamera = false
+    @State private var image: Image? = Image("camera.circle")
+    
     var body: some View {
         VStack {
             
             matchResumeViewHeader
-                .padding(.bottom, 20)
+                .padding(.bottom, 5)
             
             ScrollView {
                 if !buracoTurnVM.turns.isEmpty {
                     matchResumeViewList
-                }
-                
-                if !buracoListVM.gameOver {
-                    
-                    Button {
-                        
-                        presentAddNewMatchTurnView.toggle()
-                        
-                    } label: {
-                        Text("Adinonar pontos da rodada")
-                            .font(.title2)
-                            .frame(maxWidth: .infinity)
-                            .frame(height: 50)
-                            .background(Color.cardColor)
-                            .cornerRadius(20)
-                            .foregroundStyle(Color.white)
-                            .padding(.top, 20)
-                    }
-                    .sheet(isPresented: $presentAddNewMatchTurnView, content: {
-                        
-                        AddNewMatchTurnView(matchFB: matchFB)
-                            .interactiveDismissDisabled()
-                            .onDisappear(perform: {
-                                buracoTurnVM.getTurn()
-                                buracoListVM.getMatches()
-                            })
-                    })
-                    
                 }
             }
         }
@@ -55,21 +34,86 @@ struct BuracoMatchView: View {
             buracoListVM.scoreTwo = matchFB.finalScoreTwo
             buracoListVM.gameOver = matchFB.gameOver
         })
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                HStack {
+                    
+                    Spacer()
+                    
+                    Image(systemName: "camera.fill")
+                        .resizable()
+                        .frame(width: 25, height: 20)
+                        .foregroundStyle(Color.cardColor)
+                        .onTapGesture { self.shouldPresentActionScheet = true }
+                        .sheet(isPresented: $shouldPresentImagePicker) {
+                            
+                            SUImagePickerView(sourceType: self.shouldPresentCamera ? .camera : .photoLibrary,
+                                              image: self.$image,
+                                              isPresented: self.$shouldPresentImagePicker
+                            )
+                        }
+                        .actionSheet(isPresented: $shouldPresentActionScheet) { () -> ActionSheet in
+                            ActionSheet(title: Text("Choose mode"),
+                                        message: Text("Choose a mode to set your profile image"),
+                                        buttons: [ActionSheet.Button.default(Text("Camera"), action: {
+                                self.shouldPresentImagePicker = true
+                                self.shouldPresentCamera = true
+                            }),
+                                                  
+                            ActionSheet.Button.default(Text("Photo Library"), action: {
+                                self.shouldPresentImagePicker = true
+                                self.shouldPresentCamera = false
+                            }),
+                                                  
+                            ActionSheet.Button.cancel()])
+                        }
+
+                        if !buracoListVM.gameOver {
+                            
+                            Spacer()
+                            
+                            
+                            Button {
+                                presentAddNewMatchTurnView.toggle()
+                            } label: {
+                                Image(systemName: "plus.circle")
+                                    .bold()
+                            }
+                            .buttonStyle(.borderless)
+                            .padding(.trailing, 20)
+                            .tint(Color.cardColor)
+                            .sheet(isPresented: $presentAddNewMatchTurnView, content: {
+                                
+                                AddNewMatchTurnView(matchFB: matchFB)
+                                    .interactiveDismissDisabled()
+                                    .onDisappear(perform: {
+                                        buracoTurnVM.getTurn()
+                                        buracoListVM.getMatches()
+                                    })
+                            })
+                            
+                            Spacer()
+                        }
+                }
+            }
+        }
     }
     
     @ViewBuilder
     private var matchResumeViewHeader: some View {
         VStack {
-            Text(!buracoListVM.gameOver ? "Partida Em Andamento" : "Partida Encerrada")
-                .font(.title)
-                .foregroundColor(.cardColor)
+            VStack {
+                Text(!buracoListVM.gameOver ? "Partida Em Andamento" : "Partida Encerrada")
+                    .font(.title3)
+                    .foregroundColor(.cardColor)
+            }
             
             HStack {
-                
                 VStack (alignment: .leading) {
                     Text(matchFB.playerOne)
                     Text(matchFB.playerTwo)
                     Text(buracoListVM.scoreOne)
+                        .font(.title3)
                         .foregroundStyle(Int(buracoListVM.scoreOne) ?? 0 < 0 ? Color.red : Color.cardColor)
                         .fontWeight(Int(buracoListVM.scoreOne) ?? 0 > Int(buracoListVM.scoreTwo) ?? 0 ? .bold : .regular)
                 }
@@ -87,26 +131,23 @@ struct BuracoMatchView: View {
                     Text(matchFB.playerThree)
                     Text(matchFB.playerFour)
                     Text(buracoListVM.scoreTwo)
+                        .font(.title3)
                         .foregroundStyle(Int(buracoListVM.scoreTwo) ?? 0 < 0 ? Color.red : Color.cardColor)
                         .fontWeight(Int(buracoListVM.scoreTwo) ?? 0 > Int(buracoListVM.scoreOne) ?? 0 ? .bold : .regular)
                 }
                 .foregroundStyle(Color.black)
             }
-            .font(.title)
+            .font(.headline)
             .foregroundColor(.white)
             .padding(15)
             .background(Color.cardBackgroundColor)
-            .cornerRadius(20)
+            .cornerRadius(10)
         }
     }
     
     @ViewBuilder
     private var matchResumeViewList: some View {
         VStack(spacing: 5) {
-            Text("Pontuação das Rodadas")
-                .font(.title2)
-                .foregroundColor(.cardColor)
-            
             VStack {
                 ForEach(buracoTurnVM.turns) { matchResume in
                     if matchResume.turnId == matchFB.id {
@@ -142,12 +183,24 @@ struct BuracoMatchView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(.vertical, 10)
-            .cornerRadius(20)
+            .cornerRadius(10)
             .overlay(
-                RoundedRectangle(cornerRadius: 20)
+                RoundedRectangle(cornerRadius: 10)
                     .inset(by: 2)
                     .stroke(Color.textFieldBorderColor, lineWidth: 2)
             )
+
+            image!
+                .resizable()
+                .aspectRatio(contentMode: .fill)
+                .frame(maxWidth: .infinity)
+                .frame(height: 200)
+                .cornerRadius(10)
+                .clipShape(Rectangle())
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                    .stroke(Color.textViewBackgroundColor, lineWidth: 1))
+                .shadow(radius: 10)
         }
     }
 }
