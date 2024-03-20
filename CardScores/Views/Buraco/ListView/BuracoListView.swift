@@ -16,7 +16,7 @@ struct BuracoListView: View {
                     List {
                         ForEach(buracoListVM.matchesVM) { match in
                             BuracoCardView(buracoVM: match)
-                                .padding(.bottom, 10)
+                                .padding(.bottom, 10) 
                         }
                         .onDelete(perform: { idxSet in
                             idxSet.forEach { idx in
@@ -52,10 +52,6 @@ struct BuracoListView: View {
                 .navigationDestination(for: BuracoFBViewModel.self) { item in
                     BuracoMatchView(matchFB: item)
                         .navigationTitle("")
-                        .onTapGesture(perform: {
-                            buracoListVM.scoreOne = item.finalScoreOne
-                            buracoListVM.scoreTwo = item.finalScoreTwo
-                        })
                 }
                 .listStyle(.insetGrouped)
                 .onAppear {

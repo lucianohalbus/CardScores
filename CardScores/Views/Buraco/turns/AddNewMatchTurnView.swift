@@ -256,6 +256,7 @@ struct AddNewMatchTurnView: View {
     private func checkGameOver(_ scoreOne: Int, _ scoreTwo: Int, _ scoreToWin: Int) -> Bool {
         if scoreOne >= scoreToWin ||
             scoreTwo >= scoreToWin {
+            buracoListVM.gameOver = true
             return true
         } else {
             return false

@@ -12,6 +12,7 @@ final class BuracoListViewModel: ObservableObject {
     @Published var saved: Bool = false
     @Published var scoreOne: String = ""
     @Published var scoreTwo: String = ""
+    @Published var gameOver: Bool = false
     
     init() {
         repo = BuracoMatchesRepository()
