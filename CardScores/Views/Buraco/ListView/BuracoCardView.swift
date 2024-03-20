@@ -10,7 +10,7 @@ struct BuracoCardView: View {
         NavigationLink(value: buracoVM) {
             VStack {
                 Text(buracoVM.myDate, format: Date.FormatStyle(date: .numeric))
-                    .foregroundStyle(Color.primary)
+                    .foregroundStyle(Color.black)
                     .font(.title3)
                 
                 HStack {
