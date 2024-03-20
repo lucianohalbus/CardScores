@@ -1,12 +1,14 @@
 //Created by Halbus Development
 
 import SwiftUI
+import PhotosUI
 
 struct BuracoMatchView: View {
     var matchFB: BuracoFBViewModel
     @State private var presentAddNewMatchTurnView: Bool = false
     @EnvironmentObject var buracoListVM: BuracoListViewModel
     @StateObject private var buracoTurnVM = BuracoTurnsViewModel()
+    @StateObject private var photoPickerVM = PhotoPickerViewModel()
     
     var body: some View {
         VStack {
@@ -20,11 +22,8 @@ struct BuracoMatchView: View {
                 }
                 
                 if !buracoListVM.gameOver {
-                    
                     Button {
-                        
                         presentAddNewMatchTurnView.toggle()
-                        
                     } label: {
                         Text("Adinonar pontos da rodada")
                             .font(.title2)
@@ -44,8 +43,15 @@ struct BuracoMatchView: View {
                                 buracoListVM.getMatches()
                             })
                     })
-                    
                 }
+            }
+ 
+            if let image = photoPickerVM.selectedImage {
+                Image(uiImage: image)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 300, height: 200)
+                    .cornerRadius(10)
             }
         }
         .padding()
@@ -60,10 +66,15 @@ struct BuracoMatchView: View {
     @ViewBuilder
     private var matchResumeViewHeader: some View {
         VStack {
-            Text(!buracoListVM.gameOver ? "Partida Em Andamento" : "Partida Encerrada")
-                .font(.title)
-                .foregroundColor(.cardColor)
-            
+            HStack {
+                Text(!buracoListVM.gameOver ? "Partida Em Andamento" : "Partida Encerrada")
+                    .font(.title)
+                    .foregroundColor(.cardColor)
+                
+                PhotosPicker(selection: $photoPickerVM.imageSelection, matching: .images) {
+                    Image(systemName: "camera.fill")
+                }
+            }
             HStack {
                 
                 VStack (alignment: .leading) {
