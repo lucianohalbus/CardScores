@@ -9,11 +9,13 @@ struct BuracoMatchView: View {
     @State private var presentAddNewMatchTurnView: Bool = false
     @EnvironmentObject var buracoListVM: BuracoListViewModel
     @StateObject private var buracoTurnVM = BuracoTurnsViewModel()
+    @StateObject private var storageVM = StorageViewModel()
     
     @State private var shouldPresentImagePicker = false
     @State private var shouldPresentActionScheet = false
     @State private var shouldPresentCamera = false
-    @State private var image: Image? = Image("camera.circle")
+    @State private var selectedImage: Image? = nil
+    @State private var url: URL? = nil
     
     var body: some View {
         VStack {
@@ -47,8 +49,8 @@ struct BuracoMatchView: View {
                         .onTapGesture { self.shouldPresentActionScheet = true }
                         .sheet(isPresented: $shouldPresentImagePicker) {
                             
-                            SUImagePickerView(sourceType: self.shouldPresentCamera ? .camera : .photoLibrary,
-                                              image: self.$image,
+                        SUImagePickerView(sourceType: self.shouldPresentCamera ? .camera : .photoLibrary,
+                                              image: self.$selectedImage,
                                               isPresented: self.$shouldPresentImagePicker
                             )
                         }
@@ -67,7 +69,14 @@ struct BuracoMatchView: View {
                                                   
                             ActionSheet.Button.cancel()])
                         }
-
+                        .onChange(of: selectedImage) { oldValue, newValue in
+                            if let newValue {
+                            let uiimage: UIImage = newValue.asUIImage()
+                                
+                                storageVM.saveMatchImage(userId: "\(buracoListVM.userId)", item: uiimage, matchId: matchFB.id)
+                            }
+                        }
+                    
                         if !buracoListVM.gameOver {
                             
                             Spacer()
@@ -189,18 +198,58 @@ struct BuracoMatchView: View {
                     .inset(by: 2)
                     .stroke(Color.textFieldBorderColor, lineWidth: 2)
             )
+            
+            if let urlString = matchFB.imagePath, let url = URL(string: urlString) {
+                AsyncImage(url: url) { image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(maxWidth: .infinity)
+                        .cornerRadius(10)
+                        .clipShape(Rectangle())
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                            .stroke(Color.textViewBackgroundColor, lineWidth: 1))
+                        .shadow(radius: 10)
+                } placeholder: {
+                    ProgressView()
+                        .frame(width: 150, height: 150)
+                }
+            }     
+        }
+    }
+}
 
-            image!
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(maxWidth: .infinity)
-                .frame(height: 200)
-                .cornerRadius(10)
-                .clipShape(Rectangle())
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                    .stroke(Color.textViewBackgroundColor, lineWidth: 1))
-                .shadow(radius: 10)
+
+extension View {
+// This function changes our View to UIView, then calls another function
+// to convert the newly-made UIView to a UIImage.
+    public func asUIImage() -> UIImage {
+        let controller = UIHostingController(rootView: self)
+        
+ // Set the background to be transparent incase the image is a PNG, WebP or (Static) GIF
+        controller.view.backgroundColor = .clear
+        
+        controller.view.frame = CGRect(x: 0, y: CGFloat(Int.max), width: 1, height: 1)
+        UIApplication.shared.windows.first!.rootViewController?.view.addSubview(controller.view)
+        
+        let size = controller.sizeThatFits(in: UIScreen.main.bounds.size)
+        controller.view.bounds = CGRect(origin: .zero, size: size)
+        controller.view.sizeToFit()
+        
+// here is the call to the function that converts UIView to UIImage: `.asUIImage()`
+        let image = controller.view.asUIImage()
+        controller.view.removeFromSuperview()
+        return image
+    }
+}
+
+extension UIView {
+// This is the function to convert UIView to UIImage
+    public func asUIImage() -> UIImage {
+        let renderer = UIGraphicsImageRenderer(bounds: bounds)
+        return renderer.image { rendererContext in
+            layer.render(in: rendererContext.cgContext)
         }
     }
 }

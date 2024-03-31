@@ -8,10 +8,11 @@ struct BuracoListView: View {
     @EnvironmentObject var buracoListVM: BuracoListViewModel
     @StateObject private var loginVM = LoginViewModel()
     @Binding var tabSelection: Int
+    @Binding var IsUserAuthenticated: Bool
     
     var body: some View {
         NavigationStack {
-            if loginVM.loggedUser {
+            if IsUserAuthenticated {
                 VStack {
                     List {
                         ForEach(buracoListVM.matchesVM) { match in
@@ -60,7 +61,7 @@ struct BuracoListView: View {
             } else {
                 MainLogo()
                 Button(action: {
-                    self.tabSelection = 1
+                    self.tabSelection = 2
                 }) {
                     Text("Login")
                         .modifier(StandardButton())
@@ -68,9 +69,4 @@ struct BuracoListView: View {
             }
         }
     }
-    
-    private func obtainingTheRowNumber(indexSet: IndexSet) -> Int{
-        return indexSet[indexSet.startIndex]
-    }
-    
 }

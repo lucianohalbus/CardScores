@@ -10,9 +10,7 @@ class UserRepository: ObservableObject {
     @Published var userModel: [UserModel] = []
 
     init() {
-
        get()
-
     }
     
     func get() {
