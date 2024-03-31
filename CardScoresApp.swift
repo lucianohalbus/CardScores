@@ -10,6 +10,10 @@ struct CardScoresApp: App {
         WindowGroup {
             MainView(login: LoginViewModel())
                 .environmentObject(BuracoListViewModel())
+            
+//            profileView()
+            
+            
         }
     }
 }

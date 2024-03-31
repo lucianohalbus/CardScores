@@ -8,7 +8,7 @@ import FirebaseAuth
 final class BuracoListViewModel: ObservableObject {
     private var repo: BuracoMatchesRepository
     @Published var matchesVM: [BuracoFBViewModel] = []
-    private var userId: String = ""
+    @Published var userId: String = ""
     @Published var saved: Bool = false
     @Published var scoreOne: String = ""
     @Published var scoreTwo: String = ""
@@ -42,11 +42,9 @@ final class BuracoListViewModel: ObservableObject {
     }
     
     func delete(matchFB: BuracoFBViewModel) {
-        repo.delete(item: MatchFB(id: matchFB.id, scoreToWin: matchFB.scoreToWin, playerOne: matchFB.playerOne, playerTwo: matchFB.playerTwo, playerThree: matchFB.playerThree, playerFour: matchFB.playerFour, myDate: matchFB.myDate, registeredUser: matchFB.registeredUser, docId: matchFB.docId, gameOver: matchFB.gameOver)) { error in
+        repo.delete(item: MatchFB(id: matchFB.id, scoreToWin: matchFB.scoreToWin, playerOne: matchFB.playerOne, playerTwo: matchFB.playerTwo, playerThree: matchFB.playerThree, playerFour: matchFB.playerFour, finalScoreOne: matchFB.finalScoreOne, finalScoreTwo: matchFB.finalScoreTwo, friendsId: matchFB.friendsId, myDate: matchFB.myDate, registeredUser: matchFB.registeredUser, docId: matchFB.docId, gameOver: matchFB.gameOver)) { error in
             if error == nil {
                 self.getMatches()
-                
-                
                 
             } else {
                 print(error?.localizedDescription ?? "The Match was not deleted.")

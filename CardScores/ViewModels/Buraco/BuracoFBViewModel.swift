@@ -59,5 +59,9 @@ struct BuracoFBViewModel: Hashable, Identifiable {
     var gameOver: Bool {
         matchFB.gameOver
     }
+    
+    var imagePath: String? {
+        matchFB.imagePath ?? ""
+    }
 
 }

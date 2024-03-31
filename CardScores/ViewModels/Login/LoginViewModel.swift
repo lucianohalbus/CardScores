@@ -5,7 +5,7 @@ import Firebase
 import FirebaseAuth
 
 class LoginViewModel: ObservableObject {
-    @Published var login:[Login] = []
+    @Published var login: [Login] = []
     @Published var password = ""
     @Published var email = ""
     @Published var loggedUser: Bool = false
@@ -47,8 +47,7 @@ class LoginViewModel: ObservableObject {
 
     func register(email: String, password: String) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
-            guard result != nil, error == nil else {
-                return}
+            guard result != nil, error == nil else { return }
         }
     }
     
