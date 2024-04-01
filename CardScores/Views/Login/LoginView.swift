@@ -6,59 +6,57 @@ import FirebaseAuth
 struct LoginView: View {
     @ObservedObject var loginVM = LoginViewModel()
     @StateObject private var authenticationVM = AuthenticationViewModel()
-    @Binding var tabSelection: Int
-    @Binding var isUserAuthenticated: Bool
+    @Binding var showLoginView: Bool
     @State private var showCreateAccount: Bool = false
     
     var body: some View {
         VStack(spacing: 0) {
-           
+            
             MainLogo()
-
-            if isUserAuthenticated {
-                logoutButton
-
-            } else {
-                VStack(spacing: 0) {
-                   
-                    loginButonsView
+            
+            VStack(spacing: 0) {
+                
+                loginButonsView
+                
+                Button(action: {
                     
-                    Button(action: {
-                        loginVM.anonymousLogin()
-                    }) {
-                        Text("Login Anonymously")
-                            .modifier(StandardButton())
+                    loginVM.anonymousLogin()
+                    showLoginView = false
+                }) {
+                    Text("Login Anonymously")
+                        .modifier(StandardButton())
+                }
+                .padding(.bottom, 10)
+                
+                Button(action: {
+                    
+                }) {
+                    VStack(spacing: -5){
+                        Text("Reset Password")
+                            .font(.callout)
+                            .foregroundStyle(Color.cardColor)
+                            .bold()
                     }
                 }
-                .frame(height: 200)
-                .padding(.top, 100)
+                
+                Spacer()
+                
             }
-        
+            .frame(height: 200)
+            .padding(.top, 100)
+            .onDisappear {
+                
+            }
+            
             Spacer()
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(5)
-    }
-    
-    var logoutButton: some View {
-        VStack {
-            Button(action: {
-                Task {
-                    do {
-                        try authenticationVM.logOut()
-                        isUserAuthenticated = false
-                    } catch {
-                        print(error)
-                    }
-                }
-            }) {
-                VStack (){
-                    Text("Logout")
-                        .font(.caption)
-                        .foregroundStyle(Color.cardColor)
-                        .bold()
-                }
-            }
+        .alert(isPresented: $loginVM.showAlertError) {
+            Alert(
+                title: Text(loginVM.errorString),
+                message: Text(loginVM.errorSuggestion),
+                dismissButton: .default(Text("OK")))
         }
     }
     
@@ -67,38 +65,26 @@ struct LoginView: View {
             TextField("e-mail: ", text: $loginVM.email)
                 .font(.title3)
                 .modifier(LoginTextField())
+                .padding(5)
                 .padding(.bottom, 5)
             
             SecureField("Password: ", text: $loginVM.password)
                 .font(.title3)
                 .modifier(LoginTextField())
+                .padding(5)
                 .padding(.bottom, 20)
             
             HStack {
                 Spacer()
                 
                 Button(action: {
-                    loginVM.login(email: loginVM.email, password: loginVM.password)
+                    if !loginVM.email.isEmpty, !loginVM.password.isEmpty {
+                        loginVM.login(email: loginVM.email, password: loginVM.password)
+                        showLoginView = false
+                    }
                 }) {
                     VStack(spacing: -5){
                         Text("Login")
-                            .font(.title3)
-                            .foregroundStyle(Color.cardColor)
-                            .bold()
-                    }
-                }
-                
-                Spacer()
-                
-                Button(action: {
-                    
-                }) {
-                    VStack(spacing: -5){
-                        Text("Reset")
-                            .font(.title3)
-                            .foregroundStyle(Color.cardColor)
-                            .bold()
-                        Text("Password")
                             .font(.title3)
                             .foregroundStyle(Color.cardColor)
                             .bold()
