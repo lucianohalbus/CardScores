@@ -14,41 +14,33 @@ struct LoginView: View {
             
             MainLogo()
             
-            VStack(spacing: 0) {
+            loginButonsView
+            
+            Spacer()
+
+            Button(action: {
                 
-                loginButonsView
-                
-                Button(action: {
-                    
-                    loginVM.anonymousLogin()
-                    showLoginView = false
-                }) {
-                    Text("Login Anonymously")
-                        .modifier(StandardButton())
-                }
-                .padding(.bottom, 10)
-                
-                Button(action: {
-                    
-                }) {
-                    VStack(spacing: -5){
-                        Text("Reset Password")
-                            .font(.callout)
-                            .foregroundStyle(Color.cardColor)
-                            .bold()
-                    }
-                }
-                
-                Spacer()
-                
+                loginVM.anonymousLogin()
+                showLoginView = false
+            }) {
+                Text("Login Anonymously")
+                    .modifier(StandardButton())
             }
-            .frame(height: 200)
-            .padding(.top, 100)
-            .onDisappear {
+            .padding(.bottom, 20)
+            
+            Button(action: {
                 
+            }) {
+                VStack(spacing: -5){
+                    Text("Reset Password")
+                        .font(.callout)
+                        .foregroundStyle(Color.cardColor)
+                        .bold()
+                }
             }
             
             Spacer()
+            
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(5)
@@ -72,11 +64,10 @@ struct LoginView: View {
                 .font(.title3)
                 .modifier(LoginTextField())
                 .padding(5)
-                .padding(.bottom, 20)
+                .padding(.bottom, 5)
             
             HStack {
-                Spacer()
-                
+  
                 Button(action: {
                     if !loginVM.email.isEmpty, !loginVM.password.isEmpty {
                         loginVM.login(email: loginVM.email, password: loginVM.password)
@@ -91,27 +82,23 @@ struct LoginView: View {
                     }
                 }
                 
-                Spacer()
-                
-                Button(action: {
-                    self.showCreateAccount.toggle()
-                }) {
-                    VStack(spacing: -5){
-                        Text("Create")
-                            .font(.title3)
-                            .foregroundStyle(Color.cardColor)
-                            .bold()
-                        
-                        Text("Account")
-                            .font(.title3)
-                            .foregroundStyle(Color.cardColor)
-                            .bold()
-                    }
-                }
-                
-                Spacer()
+//                Button(action: {
+//                    self.showCreateAccount.toggle()
+//                }) {
+//                    VStack(spacing: -5){
+//                        Text("Create")
+//                            .font(.title3)
+//                            .foregroundStyle(Color.cardColor)
+//                            .bold()
+//                        
+//                        Text("Account")
+//                            .font(.title3)
+//                            .foregroundStyle(Color.cardColor)
+//                            .bold()
+//                    }
+//                }
+
             }
         }
-        .padding(.bottom, 30)
     }
 }

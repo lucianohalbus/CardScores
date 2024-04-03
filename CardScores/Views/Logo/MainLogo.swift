@@ -4,25 +4,26 @@ import SwiftUI
 
 struct MainLogo: View {
     var body: some View {
-
-        Text("Card Scores")
-            .font(.title)
-            .fontWeight(.semibold)
-        
-        ZStack{
+        VStack {
+            Text("Card Scores")
+                .font(.title)
+                .fontWeight(.semibold)
             
-            Circle()
-                .stroke(Color.cardColor, lineWidth: 3)
-                .frame(width: 120, height: 120)
-            
-            Image("Logo")
-                .resizable()
-                .frame(width: 110, height: 110)
-                .aspectRatio(contentMode: .fit)
-                .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                .shadow(radius: 100)
+            ZStack{
+                
+                Circle()
+                    .stroke(Color.cardColor, lineWidth: 3)
+                    .frame(width: 120, height: 120)
+                
+                Image("Logo")
+                    .resizable()
+                    .frame(width: 110, height: 110)
+                    .aspectRatio(contentMode: .fit)
+                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                    .shadow(radius: 100)
+            }
+            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 200, alignment: .top)
         }
-        .padding(5)
     }
 }
 
@@ -68,5 +69,5 @@ struct MiniLogo: View {
 }
 
 #Preview {
-    MiniLogo()
+    MainLogo()
 }
