@@ -9,9 +9,9 @@ class LoginViewModel: ObservableObject {
     @Published var password = ""
     @Published var email = ""
     @Published var userId: String = ""
-    @Published var errorString: String = ""
-    @Published var errorSuggestion: String = ""
-    @Published var showAlertError: Bool = false
+    @Published var alertMessage: String = ""
+    @Published var alertSuggestion: String = ""
+    @Published var showAlert: Bool = false
     @Published var userAuthenticated: Bool = false
     
     var handle: AuthStateDidChangeListenerHandle?
@@ -50,19 +50,19 @@ class LoginViewModel: ObservableObject {
                 let err = returnedError as NSError
                 switch err.code {
                 case AuthErrorCode.wrongPassword.rawValue:
-                    self.errorString = "Wrong Email and/or Password"
-                    self.errorSuggestion = "Check the entered email and/or password"
+                    self.alertMessage = "Wrong Email and/or Password"
+                    self.alertSuggestion = "Check the entered email and/or password"
                 case AuthErrorCode.invalidEmail.rawValue:
-                    self.errorString = "Wrong Email and/or Password"
-                    self.errorSuggestion = "Check the entered email and/or password"
+                    self.alertMessage = "Wrong Email and/or Password"
+                    self.alertSuggestion = "Check the entered email and/or password"
                 case AuthErrorCode.userNotFound.rawValue:
-                    self.errorString = "User not found"
-                    self.errorSuggestion = "Check your email address or create an account"
+                    self.alertMessage = "User not found"
+                    self.alertSuggestion = "Check your email address or create an account"
                 default:
-                    self.errorString = "Error"
-                    self.errorSuggestion = "\(err.localizedDescription)"
+                    self.alertMessage = "Error"
+                    self.alertSuggestion = "\(err.localizedDescription)"
                 }
-                self.showAlertError = true     
+                self.showAlert = true     
             } else {
                 if let _ = auth?.user {
                     self.listen()
@@ -81,19 +81,19 @@ class LoginViewModel: ObservableObject {
                 let err = returnedError as NSError
                 switch err.code {
                 case AuthErrorCode.invalidEmail.rawValue:
-                    self.errorString = "Invalid Email"
-                    self.errorSuggestion = "Enter a valid email address"
+                    self.alertMessage = "Invalid Email"
+                    self.alertSuggestion = "Enter a valid email address"
                 case AuthErrorCode.emailAlreadyInUse.rawValue:
-                    self.errorString = "Email is already in use"
-                    self.errorSuggestion = "If this is your email, reset the password"
+                    self.alertMessage = "Email is already in use"
+                    self.alertSuggestion = "If this is your email, reset the password"
                 case AuthErrorCode.weakPassword.rawValue:
-                    self.errorString = "Weak Password"
-                    self.errorSuggestion = "Password must be 6 characters long or more"
+                    self.alertMessage = "Weak Password"
+                    self.alertSuggestion = "Password must be 6 characters long or more"
                 default:
-                    self.errorString = "Error"
-                    self.errorSuggestion = "\(err.localizedDescription)"
+                    self.alertMessage = "Error"
+                    self.alertSuggestion = "\(err.localizedDescription)"
                 }
-                self.showAlertError = true
+                self.showAlert = true
             } else {
                 if let _ = result?.user {
                     self.listen()
@@ -118,9 +118,27 @@ class LoginViewModel: ObservableObject {
         }
     }
     
-    func resetPassword(email: String) async throws {
-        
-        try await Auth.auth().sendPasswordReset(withEmail: email)
+    func resetPassword(email: String)  {
+        Auth.auth().sendPasswordReset(withEmail: email, completion: { (anyError) in
+            
+            if let returnedError = anyError {
+                let err = returnedError as NSError
+                switch err.code {
+                case AuthErrorCode.invalidEmail.rawValue:
+                    self.alertMessage = "Error"
+                    self.alertSuggestion = "There is no user record corresponding to this identifier"
+                default:
+                    self.alertMessage = "Error"
+                    self.alertSuggestion = "There is no user record corresponding to this identifier"
+                }
+                self.showAlert = true
+            } else {
+                
+                self.alertMessage = "Success"
+                self.alertSuggestion = "A link to reset your password has been sent to your email."
+                self.showAlert = true
+            }
+        })
     }
     
 }

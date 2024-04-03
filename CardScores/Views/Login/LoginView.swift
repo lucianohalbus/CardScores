@@ -29,20 +29,14 @@ struct LoginView: View {
             .padding(.bottom, 20)
             
             Button(action: {
-                Task {
-                    do {
-                        guard !loginVM.email.isEmpty else {
-                            showResetEmailAlert = true
-                            print(showResetEmailAlert)
-                            return
-                        }
-                        
-                        try await loginVM.resetPassword(email: loginVM.email)
-                        
-                    } catch {
-                       print(error)
-                    }
+                guard !loginVM.email.isEmpty else {
+                    showResetEmailAlert = true
+                    print(showResetEmailAlert)
+                    return
                 }
+                
+                loginVM.resetPassword(email: loginVM.email)
+
             }) {
                 VStack {
                     Text("Reset Password")
@@ -114,10 +108,10 @@ struct LoginView: View {
             }
             .frame(maxWidth: .infinity)
             .padding(.horizontal)
-            .alert(isPresented: $loginVM.showAlertError) {
+            .alert(isPresented: $loginVM.showAlert) {
                 Alert(
-                    title: Text(loginVM.errorString),
-                    message: Text(loginVM.errorSuggestion),
+                    title: Text(loginVM.alertMessage),
+                    message: Text(loginVM.alertSuggestion),
                     dismissButton: .default(Text("OK")))
             }
         }

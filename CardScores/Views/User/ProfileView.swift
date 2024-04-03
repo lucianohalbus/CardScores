@@ -27,10 +27,10 @@ struct ProfileView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .padding(5)
-        .alert(isPresented: $loginVM.showAlertError) {
+        .alert(isPresented: $loginVM.showAlert) {
             Alert(
-                title: Text(loginVM.errorString),
-                message: Text(loginVM.errorSuggestion),
+                title: Text(loginVM.alertMessage),
+                message: Text(loginVM.alertSuggestion),
                 dismissButton: .default(Text("OK")))
         }
 
