@@ -80,9 +80,9 @@ class LoginViewModel: ObservableObject {
             if let returnedError = error {
                 let err = returnedError as NSError
                 switch err.code {
-                case AuthErrorCode.wrongPassword.rawValue:
-                    self.errorString = "Wrong Email and/or Password"
-                    self.errorSuggestion = "Check the entered email and/or password"
+                case AuthErrorCode.invalidEmail.rawValue:
+                    self.errorString = "Invalid Email"
+                    self.errorSuggestion = "Enter a valid email address"
                 case AuthErrorCode.emailAlreadyInUse.rawValue:
                     self.errorString = "Email is already in use"
                     self.errorSuggestion = "If this is your email, reset the password"
@@ -116,6 +116,11 @@ class LoginViewModel: ObservableObject {
             print("already logged out")
             self.userAuthenticated = false
         }
+    }
+    
+    func resetPassword(email: String) async throws {
+        
+        try await Auth.auth().sendPasswordReset(withEmail: email)
     }
     
 }
