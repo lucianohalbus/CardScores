@@ -17,6 +17,9 @@ struct BuracoMatchView: View {
     @State private var selectedImage: Image? = nil
     @State private var url: URL? = nil
     
+    @State private var starteImage: Image? = nil
+    @State private var presentSelectedImage: Bool = false
+    
     var body: some View {
         VStack {
             
@@ -26,6 +29,43 @@ struct BuracoMatchView: View {
             ScrollView {
                 if !buracoTurnVM.turns.isEmpty {
                     matchResumeViewList
+                        .padding(.bottom, 5)
+                    
+                    if presentSelectedImage {
+
+                        if let starteImage {
+                            
+                            starteImage
+                                .resizable()
+                                .scaledToFit()
+                                .frame(maxWidth: .infinity)
+                                .cornerRadius(10)
+                                .clipShape(Rectangle())
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.textViewBackgroundColor, lineWidth: 1))
+                                .shadow(radius: 10)
+                        }
+                    } else {
+                        if let urlString = matchFB.imagePath, let url = URL(string: urlString) {
+                            AsyncImage(url: url) { image in
+                                image
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(maxWidth: .infinity)
+                                    .cornerRadius(10)
+                                    .clipShape(Rectangle())
+                                    .overlay(
+                                        RoundedRectangle(cornerRadius: 10)
+                                        .stroke(Color.textViewBackgroundColor, lineWidth: 1))
+                                    .shadow(radius: 10)
+                            } placeholder: {
+                                ProgressView()
+                                    .frame(width: 150, height: 150)
+                            }
+                        }
+                    }
+        
                 }
             }
         }
@@ -71,17 +111,23 @@ struct BuracoMatchView: View {
                         }
                         .onChange(of: selectedImage) { oldValue, newValue in
                             if let newValue {
+   
                             let uiimage: UIImage = newValue.asUIImage()
                                 
-                                storageVM.saveMatchImage(userId: "\(buracoListVM.userId)", item: uiimage, matchId: matchFB.id)
+                                if let imageData = storageVM.resizeImage(image: uiimage, targetSize: CGSize(width: 800, height: 800)) {
+                                    storageVM.saveMatchImage(userId: "\(buracoListVM.userId)", item: imageData, matchId: matchFB.id)
+                                }
+                                
+                                self.starteImage = Image(uiImage: uiimage)
                             }
+                            
+                            self.presentSelectedImage.toggle()
                         }
                     
                         if !buracoListVM.gameOver {
                             
                             Spacer()
-                            
-                            
+ 
                             Button {
                                 presentAddNewMatchTurnView.toggle()
                             } label: {
@@ -198,58 +244,7 @@ struct BuracoMatchView: View {
                     .inset(by: 2)
                     .stroke(Color.textFieldBorderColor, lineWidth: 2)
             )
-            
-            if let urlString = matchFB.imagePath, let url = URL(string: urlString) {
-                AsyncImage(url: url) { image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(maxWidth: .infinity)
-                        .cornerRadius(10)
-                        .clipShape(Rectangle())
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.textViewBackgroundColor, lineWidth: 1))
-                        .shadow(radius: 10)
-                } placeholder: {
-                    ProgressView()
-                        .frame(width: 150, height: 150)
-                }
-            }     
         }
     }
-}
-
-
-extension View {
-// This function changes our View to UIView, then calls another function
-// to convert the newly-made UIView to a UIImage.
-    public func asUIImage() -> UIImage {
-        let controller = UIHostingController(rootView: self)
-        
- // Set the background to be transparent incase the image is a PNG, WebP or (Static) GIF
-        controller.view.backgroundColor = .clear
-        
-        controller.view.frame = CGRect(x: 0, y: CGFloat(Int.max), width: 1, height: 1)
-        UIApplication.shared.windows.first!.rootViewController?.view.addSubview(controller.view)
-        
-        let size = controller.sizeThatFits(in: UIScreen.main.bounds.size)
-        controller.view.bounds = CGRect(origin: .zero, size: size)
-        controller.view.sizeToFit()
-        
-// here is the call to the function that converts UIView to UIImage: `.asUIImage()`
-        let image = controller.view.asUIImage()
-        controller.view.removeFromSuperview()
-        return image
-    }
-}
-
-extension UIView {
-// This is the function to convert UIView to UIImage
-    public func asUIImage() -> UIImage {
-        let renderer = UIGraphicsImageRenderer(bounds: bounds)
-        return renderer.image { rendererContext in
-            layer.render(in: rendererContext.cgContext)
-        }
-    }
+    
 }

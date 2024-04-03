@@ -3,4 +3,98 @@
    uuid = "618553BE-3739-400E-91EA-A070EC026FA8"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "DD9ED8DD-3A53-4954-A00A-D5193790DE8B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CardScores/Components/Camera/PhotoPickerViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "21"
+            endingLineNumber = "21"
+            landmarkName = "setImage(from:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DD9ED8DD-3A53-4954-A00A-D5193790DE8B - 4f9718c8992dd4fd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) suspend resume partial function for closure #1 @Sendable () async -&gt; () in CardScores.PhotoPickerViewModel.setImage(from: Swift.Optional&lt;_PhotosUI_SwiftUI.PhotosPickerItem&gt;) -&gt; ()"
+                  moduleName = "CardScores"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/Components/Camera/PhotoPickerViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21">
+               </Location>
+               <Location
+                  uuid = "DD9ED8DD-3A53-4954-A00A-D5193790DE8B - 6aac108837b976fe"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async -&gt; () in CardScores.PhotoPickerViewModel.setImage(from: Swift.Optional&lt;_PhotosUI_SwiftUI.PhotosPickerItem&gt;) -&gt; ()"
+                  moduleName = "CardScores"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/Components/Camera/PhotoPickerViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "21"
+                  endingLineNumber = "21">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "02031813-F541-474C-97B3-4885F66E5142"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CardScores/Components/Camera/PhotoPickerViewModel.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "11"
+            endingLineNumber = "11"
+            landmarkName = "imageSelection"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "02031813-F541-474C-97B3-4885F66E5142 - 9b544ddf26eff0ac"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CardScores.PhotoPickerViewModel.imageSelection.didset : Swift.Optional&lt;_PhotosUI_SwiftUI.PhotosPickerItem&gt;"
+                  moduleName = "CardScores"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/Components/Camera/PhotoPickerViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11">
+               </Location>
+               <Location
+                  uuid = "02031813-F541-474C-97B3-4885F66E5142 - 9b544ddf26eff0ac"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CardScores.PhotoPickerViewModel.imageSelection.didset : Swift.Optional&lt;_PhotosUI_SwiftUI.PhotosPickerItem&gt;"
+                  moduleName = "CardScores"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/Components/Camera/PhotoPickerViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "11"
+                  endingLineNumber = "11">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

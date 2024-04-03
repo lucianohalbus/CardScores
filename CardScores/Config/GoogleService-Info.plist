@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>API_KEY</key>
-	<string>AIzaSyCtKTfSjY_0Uh5DQcuPmyo8NFvAbwY376E</string>
+	<string>AIzaSyB7QxNnj8Yym4qqUXFuSymXKy3lhoxX0tU</string>
 	<key>GCM_SENDER_ID</key>
 	<string>700927880338</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>halbus.CardScores</string>
+	<string>halbus.Score</string>
 	<key>PROJECT_ID</key>
 	<string>digitalscores-36003</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:700927880338:ios:3679c43a872936f03aca4b</string>
+	<string>1:700927880338:ios:0180eb22830c549e3aca4b</string>
 </dict>
 </plist>
