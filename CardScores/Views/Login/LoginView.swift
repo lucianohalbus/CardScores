@@ -69,10 +69,12 @@ struct LoginView: View {
             HStack {
   
                 Button(action: {
-                    if !loginVM.email.isEmpty, !loginVM.password.isEmpty {
+                    
                         loginVM.login(email: loginVM.email, password: loginVM.password)
+                    if loginVM.userAuthenticated {
                         showLoginView = false
                     }
+                    
                 }) {
                     VStack(spacing: -5){
                         Text("Login")
@@ -82,21 +84,26 @@ struct LoginView: View {
                     }
                 }
                 
-//                Button(action: {
-//                    self.showCreateAccount.toggle()
-//                }) {
-//                    VStack(spacing: -5){
-//                        Text("Create")
-//                            .font(.title3)
-//                            .foregroundStyle(Color.cardColor)
-//                            .bold()
-//                        
-//                        Text("Account")
-//                            .font(.title3)
-//                            .foregroundStyle(Color.cardColor)
-//                            .bold()
-//                    }
-//                }
+                Button(action: {
+                  
+                        loginVM.register(email: loginVM.email, password: loginVM.password)
+                    if loginVM.userAuthenticated {
+                        showLoginView = false
+                    }
+                    
+                }) {
+                    VStack(spacing: -5){
+                        Text("Create")
+                            .font(.title3)
+                            .foregroundStyle(Color.cardColor)
+                            .bold()
+                        
+                        Text("Account")
+                            .font(.title3)
+                            .foregroundStyle(Color.cardColor)
+                            .bold()
+                    }
+                }
 
             }
         }

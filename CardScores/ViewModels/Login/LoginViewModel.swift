@@ -59,36 +59,50 @@ class LoginViewModel: ObservableObject {
                     self.errorString = "User not found"
                     self.errorSuggestion = "Check your email address or create an account"
                 default:
-                    self.errorString = "unknown error: \(err.localizedDescription)"
+                    self.errorString = "Error"
+                    self.errorSuggestion = "\(err.localizedDescription)"
                 }
                 self.showAlertError = true     
             } else {
                 if let _ = auth?.user {
                     self.listen()
-                    self.userAuthenticated = true
+                    self.userAuthenticated.toggle()
                     
                 } else {
                     print("no authd user")
                 }
             }
         })
-        
-//        Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
-//            
-//            if let error = error {
-//                self?.errorString = error.localizedDescription
-//            }
-//            
-//            guard self == nil else { return }
-//            self?.listen()
-//            
-//        }
     }
 
     func register(email: String, password: String) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
-            guard result != nil, error == nil else { return }
-            self.userAuthenticated = true
+            if let returnedError = error {
+                let err = returnedError as NSError
+                switch err.code {
+                case AuthErrorCode.wrongPassword.rawValue:
+                    self.errorString = "Wrong Email and/or Password"
+                    self.errorSuggestion = "Check the entered email and/or password"
+                case AuthErrorCode.emailAlreadyInUse.rawValue:
+                    self.errorString = "Email is already in use"
+                    self.errorSuggestion = "If this is your email, reset the password"
+                case AuthErrorCode.weakPassword.rawValue:
+                    self.errorString = "Weak Password"
+                    self.errorSuggestion = "Password must be 6 characters long or more"
+                default:
+                    self.errorString = "Error"
+                    self.errorSuggestion = "\(err.localizedDescription)"
+                }
+                self.showAlertError = true
+            } else {
+                if let _ = result?.user {
+                    self.listen()
+                    self.userAuthenticated.toggle()
+                    
+                } else {
+                    print("no authd user")
+                }
+            }
         }
     }
     
