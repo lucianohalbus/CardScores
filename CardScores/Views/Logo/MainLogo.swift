@@ -70,5 +70,5 @@ struct MiniLogo: View {
 }
 
 #Preview {
-    MainLogo()
+    MiniLogo()
 }

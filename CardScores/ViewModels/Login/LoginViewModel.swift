@@ -25,9 +25,9 @@ class LoginViewModel: ObservableObject {
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             if auth.currentUser != nil {
                 print("SUCCESSFULLY LOGGED")
-                self.userAuthenticated = true
+                self.userAuthenticated.toggle()
             } else {
-                print("ERROR TRYING TO LOG IN")
+                print("USER NOT FOUND")
             }
         }
     }
@@ -37,7 +37,6 @@ class LoginViewModel: ObservableObject {
             if let userId = authResult?.user.uid {
                 print(userId)
                 self.listen()
-                self.userAuthenticated = true
             } else {
                 print(error?.localizedDescription ?? "No user found")
             }
@@ -64,13 +63,7 @@ class LoginViewModel: ObservableObject {
                 }
                 self.showAlert = true     
             } else {
-                if let _ = auth?.user {
-                    self.listen()
-                    self.userAuthenticated.toggle()
-                    
-                } else {
-                    print("no authd user")
-                }
+                self.listen()
             }
         })
     }
@@ -95,13 +88,7 @@ class LoginViewModel: ObservableObject {
                 }
                 self.showAlert = true
             } else {
-                if let _ = result?.user {
-                    self.listen()
-                    self.userAuthenticated.toggle()
-                    
-                } else {
-                    print("no authd user")
-                }
+                self.listen()
             }
         }
     }

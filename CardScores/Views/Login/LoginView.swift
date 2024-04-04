@@ -22,7 +22,7 @@ struct LoginView: View {
                 Button(action: {
                     
                     loginVM.anonymousLogin()
-                    showLoginView = false
+                    
                 }) {
                     Text("Login Anonymously")
                         .modifier(StandardButton())
@@ -58,6 +58,11 @@ struct LoginView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(.horizontal, 5)
+            .onChange(of: loginVM.userAuthenticated) { oldValue, newValue in
+                if newValue {
+                    showLoginView = false
+                }
+            }
         }
         .hideKeyboardWhenTappedAround()
         
@@ -76,10 +81,12 @@ struct LoginView: View {
             
             HStack(alignment: .top) {
                 Button(action: {
-                    loginVM.login(email: loginVM.email, password: loginVM.password)
-                    if loginVM.userAuthenticated {
-                        showLoginView = false
+                    Task {
+                        do {
+                            loginVM.login(email: loginVM.email, password: loginVM.password)
+                        } 
                     }
+                  
                 }) {
                     VStack {
                         Text("Login")
@@ -93,9 +100,6 @@ struct LoginView: View {
                 
                 Button(action: {
                     loginVM.register(email: loginVM.email, password: loginVM.password)
-                    if loginVM.userAuthenticated {
-                        showLoginView = false
-                    }
                 }) {
                     VStack {
                         Text("Create")

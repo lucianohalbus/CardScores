@@ -11,7 +11,7 @@ struct ProfileView: View {
     @State private var showDeleteButtonAlert: Bool = false
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack() {
            
             MiniLogo()
                 .padding(.bottom, 10)
@@ -21,13 +21,12 @@ struct ProfileView: View {
                 .frame(maxWidth: .infinity)
                 .background(Color.textFieldBorderColor)
             
-
-            
             logoutButton
+            
             deleteButton
 
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding(5)
         .alert(isPresented:$showDeleteButtonAlert) {
                     Alert(
@@ -50,7 +49,7 @@ struct ProfileView: View {
     }
     
     var logoutButton: some View {
-        VStack {
+        VStack(alignment: .leading) {
             Button(action: {
                 Task {
                     do {
