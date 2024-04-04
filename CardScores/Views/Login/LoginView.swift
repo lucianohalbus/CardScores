@@ -10,53 +10,57 @@ struct LoginView: View {
     @State private var showResetEmailAlert: Bool = false
     
     var body: some View {
-        VStack {
-            
-            MainLogo()
-            
-            loginButonsView
-            
-            Spacer()
-
-            Button(action: {
+        ScrollView {
+            VStack {
                 
-                loginVM.anonymousLogin()
-                showLoginView = false
-            }) {
-                Text("Login Anonymously")
-                    .modifier(StandardButton())
-            }
-            .padding(.bottom, 20)
-            
-            Button(action: {
-                guard !loginVM.email.isEmpty else {
-                    showResetEmailAlert = true
-                    print(showResetEmailAlert)
-                    return
+                MainLogo()
+                
+                loginButonsView
+                
+                Spacer()
+                
+                Button(action: {
+                    
+                    loginVM.anonymousLogin()
+                    showLoginView = false
+                }) {
+                    Text("Login Anonymously")
+                        .modifier(StandardButton())
+                }
+                .padding(.bottom, 20)
+                
+                Button(action: {
+                    guard !loginVM.email.isEmpty else {
+                        showResetEmailAlert = true
+                        print(showResetEmailAlert)
+                        return
+                    }
+                    
+                    loginVM.resetPassword(email: loginVM.email)
+                    
+                }) {
+                    VStack {
+                        Text("Reset Password")
+                            .font(.callout)
+                            .foregroundStyle(Color.cardColor)
+                            .bold()
+                    }
+                }
+                .alert(isPresented: $showResetEmailAlert) {
+                    Alert(
+                        title: Text("Wrong Email"),
+                        message: Text("Enter a valid email address to reset the password"),
+                        dismissButton: .default(Text("OK")))
                 }
                 
-                loginVM.resetPassword(email: loginVM.email)
-
-            }) {
-                VStack {
-                    Text("Reset Password")
-                        .font(.callout)
-                        .foregroundStyle(Color.cardColor)
-                        .bold()
-                }
+                Spacer()
+                
             }
-            .alert(isPresented: $showResetEmailAlert) {
-                Alert(
-                    title: Text("Wrong Email"),
-                    message: Text("Enter a valid email address to reset the password"),
-                    dismissButton: .default(Text("OK")))
-            }
-            
-            Spacer()
-            
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(.horizontal, 5)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(.horizontal, 5)
+        .hideKeyboardWhenTappedAround()
+        
     }
     
     var loginButonsView: some View {
@@ -115,5 +119,6 @@ struct LoginView: View {
                     dismissButton: .default(Text("OK")))
             }
         }
+        .padding(.bottom, 30)
     }
 }

@@ -22,8 +22,9 @@ struct MainLogo: View {
                     .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                     .shadow(radius: 100)
             }
-            .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 200, alignment: .top)
         }
+        .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 200, alignment: .top)
+        .hideKeyboardWhenTappedAround()
     }
 }
 
