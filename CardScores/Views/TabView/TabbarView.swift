@@ -12,8 +12,8 @@ struct TabbarView: View {
               BuracoListView()
             }
             .tabItem {
-                Image(systemName: "cart")
-                Text("Products")
+                Image(systemName: "lanyardcard.fill")
+                Text("Buraco")
             }
             
             NavigationStack {
@@ -24,6 +24,7 @@ struct TabbarView: View {
                 Text("Profile")
             }
         }
+        .tint(Color.cardColor)
     }
 }
 

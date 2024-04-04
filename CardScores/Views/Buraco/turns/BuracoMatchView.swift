@@ -40,11 +40,6 @@ struct BuracoMatchView: View {
                                 .scaledToFit()
                                 .frame(maxWidth: .infinity)
                                 .cornerRadius(10)
-                                .clipShape(Rectangle())
-                                .overlay(
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.textViewBackgroundColor, lineWidth: 1))
-                                .shadow(radius: 10)
                         }
                     } else {
                         if let urlString = matchFB.imagePath, let url = URL(string: urlString) {
@@ -54,11 +49,6 @@ struct BuracoMatchView: View {
                                     .scaledToFit()
                                     .frame(maxWidth: .infinity)
                                     .cornerRadius(10)
-                                    .clipShape(Rectangle())
-                                    .overlay(
-                                        RoundedRectangle(cornerRadius: 10)
-                                        .stroke(Color.textViewBackgroundColor, lineWidth: 1))
-                                    .shadow(radius: 10)
                             } placeholder: {
                                 ProgressView()
                                     .frame(width: 150, height: 150)
@@ -108,7 +98,7 @@ struct BuracoMatchView: View {
                                                   
                                                   ActionSheet.Button.cancel()])
                         }
-                        .onChange(of: selectedImage) { oldValue, newValue in
+                        .onChange(of: selectedImage) { newValue in
                             if let newValue {
                                 
                                 let uiimage: UIImage = newValue.asUIImage()

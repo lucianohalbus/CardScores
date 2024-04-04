@@ -55,7 +55,7 @@ struct BuracoListView: View {
             .onAppear {
                 buracoListVM.getMatches()
             }
-            .onChange(of: loginVM.userAuthenticated) { oldValue, newValue in
+            .onChange(of: loginVM.userAuthenticated) { newValue in
                 if newValue {
                     buracoListVM.getMatches()
                 }
