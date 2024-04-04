@@ -58,7 +58,7 @@ struct LoginView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(.horizontal, 5)
-            .onChange(of: loginVM.userAuthenticated) { oldValue, newValue in
+            .onChange(of: loginVM.userAuthenticated) { newValue in
                 if newValue {
                     showLoginView = false
                 }
@@ -80,6 +80,10 @@ struct LoginView: View {
                 .modifier(LoginTextField())
             
             HStack(alignment: .top) {
+                
+                Spacer()
+                Spacer()
+                
                 Button(action: {
                     Task {
                         do {
@@ -110,9 +114,12 @@ struct LoginView: View {
                         Text("Account")
                             .font(.title3)
                             .foregroundStyle(Color.cardColor)
-                            .bold()
+                            .fontWeight(.bold)
                     }
                 }
+                
+                Spacer()
+                Spacer()
             }
             .frame(maxWidth: .infinity)
             .padding(.horizontal)
@@ -123,6 +130,8 @@ struct LoginView: View {
                     dismissButton: .default(Text("OK")))
             }
         }
+        .frame(maxWidth: .infinity)
+        .padding(.horizontal)
         .padding(.bottom, 30)
     }
 }

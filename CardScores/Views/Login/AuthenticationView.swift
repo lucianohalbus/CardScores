@@ -27,7 +27,7 @@ struct AuthenticationView: View {
                     Text("Login")
                         .font(.caption)
                         .foregroundStyle(Color.cardColor)
-                        .bold()
+                        .fontWeight(.bold)
                 }
             }
             

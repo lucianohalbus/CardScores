@@ -24,6 +24,7 @@ struct MainLogo: View {
             }
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 200, alignment: .top)
+        .padding(.bottom, 20)
         .hideKeyboardWhenTappedAround()
     }
 }
