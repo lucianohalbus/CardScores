@@ -8,9 +8,10 @@ struct ProfileView: View {
     @StateObject private var authenticationVM = AuthenticationViewModel()
     @Binding var showLoginView: Bool
     @State private var showCreateAccount: Bool = false
+    @State private var showDeleteButtonAlert: Bool = false
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(alignment: .leading) {
            
             MiniLogo()
                 .padding(.bottom, 10)
@@ -20,19 +21,31 @@ struct ProfileView: View {
                 .frame(maxWidth: .infinity)
                 .background(Color.textFieldBorderColor)
             
-            Spacer()
+
             
             logoutButton
+            deleteButton
 
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding(5)
-        .alert(isPresented: $loginVM.showAlert) {
-            Alert(
-                title: Text(loginVM.alertMessage),
-                message: Text(loginVM.alertSuggestion),
-                dismissButton: .default(Text("OK")))
-        }
+        .alert(isPresented:$showDeleteButtonAlert) {
+                    Alert(
+                        title: Text("Warning!"),
+                        message: Text("This action will permanently delete all your data, including your saved match data"),
+                        primaryButton: .destructive(Text("Continue")) {
+                            Task {
+                                do {
+                                    try await authenticationVM.deleteAccount()
+                                    showLoginView = true
+                                } catch {
+                                   print(error)
+                                }
+                            }
+                        },
+                        secondaryButton: .cancel()
+                    )
+                }
 
     }
     
@@ -63,5 +76,27 @@ struct ProfileView: View {
             }
         }
     }
-}
+    
+    var deleteButton: some View {
+        VStack {
+            
+            Button {
+                self.showDeleteButtonAlert = true
 
+            } label: {
+                VStack (){
+                    Text("DELETE ACCOUNT")
+                        .font(.title3)
+                        .foregroundStyle(.red)
+                        .padding(5)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.textFieldBorderColor)
+                        )
+                        
+                }
+                .padding(.top, 10)
+            }
+        }
+    }
+}

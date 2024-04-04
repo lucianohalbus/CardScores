@@ -17,7 +17,7 @@ struct BuracoMatchView: View {
     @State private var selectedImage: Image? = nil
     @State private var url: URL? = nil
     
-    @State private var starteImage: Image? = nil
+    @State private var freshImage: Image? = nil
     @State private var presentSelectedImage: Bool = false
     
     var body: some View {
@@ -33,9 +33,9 @@ struct BuracoMatchView: View {
                     
                     if presentSelectedImage {
 
-                        if let starteImage {
+                        if let freshImage {
                             
-                            starteImage
+                            freshImage
                                 .resizable()
                                 .scaledToFit()
                                 .frame(maxWidth: .infinity)
@@ -79,17 +79,16 @@ struct BuracoMatchView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 HStack {
-                    
-                    Spacer()
-                    
+                    if !buracoTurnVM.turns.isEmpty {
                     Image(systemName: "camera.fill")
                         .resizable()
                         .frame(width: 25, height: 20)
+                        .padding(.trailing, 20)
                         .foregroundStyle(Color.cardColor)
                         .onTapGesture { self.shouldPresentActionScheet = true }
                         .sheet(isPresented: $shouldPresentImagePicker) {
                             
-                        SUImagePickerView(sourceType: self.shouldPresentCamera ? .camera : .photoLibrary,
+                            SUImagePickerView(sourceType: self.shouldPresentCamera ? .camera : .photoLibrary,
                                               image: self.$selectedImage,
                                               isPresented: self.$shouldPresentImagePicker
                             )
@@ -102,31 +101,30 @@ struct BuracoMatchView: View {
                                 self.shouldPresentCamera = true
                             }),
                                                   
-                            ActionSheet.Button.default(Text("Photo Library"), action: {
+                                                  ActionSheet.Button.default(Text("Photo Library"), action: {
                                 self.shouldPresentImagePicker = true
                                 self.shouldPresentCamera = false
                             }),
                                                   
-                            ActionSheet.Button.cancel()])
+                                                  ActionSheet.Button.cancel()])
                         }
                         .onChange(of: selectedImage) { oldValue, newValue in
                             if let newValue {
-   
-                            let uiimage: UIImage = newValue.asUIImage()
+                                
+                                let uiimage: UIImage = newValue.asUIImage()
                                 
                                 if let imageData = storageVM.resizeImage(image: uiimage, targetSize: CGSize(width: 800, height: 800)) {
                                     storageVM.saveMatchImage(userId: "\(buracoListVM.userId)", item: imageData, matchId: matchFB.id)
                                 }
                                 
-                                self.starteImage = Image(uiImage: uiimage)
+                                self.freshImage = Image(uiImage: uiimage)
                             }
                             
                             self.presentSelectedImage.toggle()
                         }
+                }
                     
                         if !buracoListVM.gameOver {
-                            
-                            Spacer()
  
                             Button {
                                 presentAddNewMatchTurnView.toggle()
@@ -146,8 +144,6 @@ struct BuracoMatchView: View {
                                         buracoListVM.getMatches()
                                     })
                             })
-                            
-                            Spacer()
                         }
                 }
             }

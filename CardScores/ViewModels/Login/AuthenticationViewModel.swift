@@ -57,4 +57,9 @@ final class AuthenticationViewModel: ObservableObject {
         try repo.signOut()
         self.listen()
     }
+    
+    func deleteAccount() async throws {
+        try await repo.delete()
+        self.listen()
+    }
 }
