@@ -27,7 +27,7 @@ final class StorageManager {
     }
     
     func getImages(userId: String, path: String) async throws -> Data {
-        try await userReference(userId: userId).child(path).data(maxSize: 3 * 1024 * 1024)
+        try await userReference(userId: userId).child(path).data(maxSize: 800 * 800)
     }
     
     func updateUserImagePath(matchId: String, path: String) async throws {

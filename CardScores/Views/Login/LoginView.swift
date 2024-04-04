@@ -7,16 +7,17 @@ struct LoginView: View {
     @ObservedObject var loginVM = LoginViewModel()
     @StateObject private var authenticationVM = AuthenticationViewModel()
     @Binding var showLoginView: Bool
-    @State private var showCreateAccount: Bool = false
+    @State private var showResetEmailAlert: Bool = false
     
     var body: some View {
-        VStack(spacing: 0) {
-            
-            MainLogo()
-            
-            VStack(spacing: 0) {
+        ScrollView {
+            VStack {
+                
+                MainLogo()
                 
                 loginButonsView
+                
+                Spacer()
                 
                 Button(action: {
                     
@@ -26,38 +27,40 @@ struct LoginView: View {
                     Text("Login Anonymously")
                         .modifier(StandardButton())
                 }
-                .padding(.bottom, 10)
+                .padding(.bottom, 20)
                 
                 Button(action: {
+                    guard !loginVM.email.isEmpty else {
+                        showResetEmailAlert = true
+                        print(showResetEmailAlert)
+                        return
+                    }
+                    
+                    loginVM.resetPassword(email: loginVM.email)
                     
                 }) {
-                    VStack(spacing: -5){
+                    VStack {
                         Text("Reset Password")
                             .font(.callout)
                             .foregroundStyle(Color.cardColor)
                             .bold()
                     }
                 }
+                .alert(isPresented: $showResetEmailAlert) {
+                    Alert(
+                        title: Text("Wrong Email"),
+                        message: Text("Enter a valid email address to reset the password"),
+                        dismissButton: .default(Text("OK")))
+                }
                 
                 Spacer()
                 
             }
-            .frame(height: 200)
-            .padding(.top, 100)
-            .onDisappear {
-                
-            }
-            
-            Spacer()
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .padding(.horizontal, 5)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .padding(5)
-        .alert(isPresented: $loginVM.showAlertError) {
-            Alert(
-                title: Text(loginVM.errorString),
-                message: Text(loginVM.errorSuggestion),
-                dismissButton: .default(Text("OK")))
-        }
+        .hideKeyboardWhenTappedAround()
+        
     }
     
     var loginButonsView: some View {
@@ -65,25 +68,20 @@ struct LoginView: View {
             TextField("e-mail: ", text: $loginVM.email)
                 .font(.title3)
                 .modifier(LoginTextField())
-                .padding(5)
                 .padding(.bottom, 5)
             
             SecureField("Password: ", text: $loginVM.password)
                 .font(.title3)
                 .modifier(LoginTextField())
-                .padding(5)
-                .padding(.bottom, 20)
             
-            HStack {
-                Spacer()
-                
+            HStack(alignment: .top) {
                 Button(action: {
-                    if !loginVM.email.isEmpty, !loginVM.password.isEmpty {
-                        loginVM.login(email: loginVM.email, password: loginVM.password)
+                    loginVM.login(email: loginVM.email, password: loginVM.password)
+                    if loginVM.userAuthenticated {
                         showLoginView = false
                     }
                 }) {
-                    VStack(spacing: -5){
+                    VStack {
                         Text("Login")
                             .font(.title3)
                             .foregroundStyle(Color.cardColor)
@@ -94,9 +92,12 @@ struct LoginView: View {
                 Spacer()
                 
                 Button(action: {
-                    self.showCreateAccount.toggle()
+                    loginVM.register(email: loginVM.email, password: loginVM.password)
+                    if loginVM.userAuthenticated {
+                        showLoginView = false
+                    }
                 }) {
-                    VStack(spacing: -5){
+                    VStack {
                         Text("Create")
                             .font(.title3)
                             .foregroundStyle(Color.cardColor)
@@ -108,8 +109,14 @@ struct LoginView: View {
                             .bold()
                     }
                 }
-                
-                Spacer()
+            }
+            .frame(maxWidth: .infinity)
+            .padding(.horizontal)
+            .alert(isPresented: $loginVM.showAlert) {
+                Alert(
+                    title: Text(loginVM.alertMessage),
+                    message: Text(loginVM.alertSuggestion),
+                    dismissButton: .default(Text("OK")))
             }
         }
         .padding(.bottom, 30)
