@@ -36,6 +36,7 @@
 		CBD143792BAB7CE6000FAA55 /* AuthenticationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD143782BAB7CE6000FAA55 /* AuthenticationManager.swift */; };
 		CBD1437B2BAB81D7000FAA55 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD1437A2BAB81D7000FAA55 /* AuthenticationViewModel.swift */; };
 		CBD1437D2BABCFC1000FAA55 /* AuthenticationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD1437C2BABCFC1000FAA55 /* AuthenticationView.swift */; };
+		CBDDE7132BC014CA0095FCD5 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = CBDDE7122BC014CA0095FCD5 /* PrivacyInfo.xcprivacy */; };
 		CBFF67C32BA33F330023A2F8 /* CardScoresApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67C22BA33F330023A2F8 /* CardScoresApp.swift */; };
 		CBFF67C52BA33F330023A2F8 /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBFF67C42BA33F330023A2F8 /* MainView.swift */; };
 		CBFF67C72BA33F340023A2F8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CBFF67C62BA33F340023A2F8 /* Assets.xcassets */; };
@@ -83,6 +84,7 @@
 		CBD1437A2BAB81D7000FAA55 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		CBD1437C2BABCFC1000FAA55 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
 		CBDDE7112BBF9AC00095FCD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		CBDDE7122BC014CA0095FCD5 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		CBFF67BF2BA33F330023A2F8 /* CardScores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardScores.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBFF67C22BA33F330023A2F8 /* CardScoresApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardScoresApp.swift; sourceTree = "<group>"; };
 		CBFF67C42BA33F330023A2F8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -297,6 +299,7 @@
 		CBFF67B62BA33F330023A2F8 = {
 			isa = PBXGroup;
 			children = (
+				CBDDE7122BC014CA0095FCD5 /* PrivacyInfo.xcprivacy */,
 				CBFF67C22BA33F330023A2F8 /* CardScoresApp.swift */,
 				CBFF67C12BA33F330023A2F8 /* CardScores */,
 				CBFF67C02BA33F330023A2F8 /* Products */,
@@ -465,6 +468,7 @@
 			files = (
 				CBFF67CA2BA33F340023A2F8 /* Preview Assets.xcassets in Resources */,
 				CB36E23D2BBDC6A000323907 /* GoogleService-Info.plist in Resources */,
+				CBDDE7132BC014CA0095FCD5 /* PrivacyInfo.xcprivacy in Resources */,
 				CBFF67C72BA33F340023A2F8 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
