@@ -12,7 +12,7 @@ final class StorageViewModel: ObservableObject {
         Task {
             let (path, name) = try await StorageManager.shared.saveUIImage(userId: userId, image: item)
             let url = try await StorageManager.shared.getUrlForImage(path: path)
-            try await StorageManager.shared.updateUserImagePath(matchId: matchId, path: url.absoluteString)
+            try await StorageManager.shared.updateUserImagePath(matchId: matchId, path: path, url: url.absoluteString)
         }
     }
     
@@ -39,4 +39,10 @@ final class StorageViewModel: ObservableObject {
         return newImage
     }
     
+    func deleteProfileImage(path: String, matchId: String) {
+        Task {
+            try await StorageManager.shared.deleteImage(path: path)
+            try await StorageManager.shared.updateUserImagePath(matchId: matchId, path: nil, url: nil)
+        }
+    }
 }

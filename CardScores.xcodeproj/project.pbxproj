@@ -82,6 +82,7 @@
 		CBD143782BAB7CE6000FAA55 /* AuthenticationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationManager.swift; sourceTree = "<group>"; };
 		CBD1437A2BAB81D7000FAA55 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
 		CBD1437C2BABCFC1000FAA55 /* AuthenticationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationView.swift; sourceTree = "<group>"; };
+		CBDDE7112BBF9AC00095FCD5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		CBFF67BF2BA33F330023A2F8 /* CardScores.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CardScores.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CBFF67C22BA33F330023A2F8 /* CardScoresApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardScoresApp.swift; sourceTree = "<group>"; };
 		CBFF67C42BA33F330023A2F8 /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
@@ -314,6 +315,7 @@
 		CBFF67C12BA33F330023A2F8 /* CardScores */ = {
 			isa = PBXGroup;
 			children = (
+				CBDDE7112BBF9AC00095FCD5 /* Info.plist */,
 				CBD143422BAB11D1000FAA55 /* Components */,
 				CBFF67F62BA340F50023A2F8 /* Firebase */,
 				CBFF67ED2BA340CB0023A2F8 /* ViewModels */,
@@ -644,9 +646,11 @@
 				DEVELOPMENT_TEAM = 683K774GP4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CardScores/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CardScores;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Need camera";
+				INFOPLIST_KEY_NSCameraUsageDescription = "CardScores precisa usar sua câmera. Com essa permissão você será capaz de salvar fotos de momentos de suas partidas de buraco. Você poderá deletar as fotos a qualquer momento.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "CardScores precisa acessar sua biblioteca de fotos. Com essa permissão  você será capaz de escolher fotos para serem salvas com suas partidas de buraco. Você poderá deletar as fotos a qualquer momento.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -681,9 +685,11 @@
 				DEVELOPMENT_TEAM = 683K774GP4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CardScores/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = CardScores;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.entertainment";
-				INFOPLIST_KEY_NSCameraUsageDescription = "Need camera";
+				INFOPLIST_KEY_NSCameraUsageDescription = "CardScores precisa usar sua câmera. Com essa permissão você será capaz de salvar fotos de momentos de suas partidas de buraco. Você poderá deletar as fotos a qualquer momento.";
+				INFOPLIST_KEY_NSPhotoLibraryAddUsageDescription = "CardScores precisa acessar sua biblioteca de fotos. Com essa permissão  você será capaz de escolher fotos para serem salvas com suas partidas de buraco. Você poderá deletar as fotos a qualquer momento.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

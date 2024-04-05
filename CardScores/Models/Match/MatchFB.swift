@@ -21,8 +21,9 @@ struct MatchFB: Identifiable, Hashable, Codable {
     var gameOver:Bool
     var profileImagePathUrl: URL? = nil
     var imagePath: String?
+    var imagePathUrl: String?
     
-    init(id: String? = nil, scoreToWin: String, playerOne: String, playerTwo: String, playerThree: String, playerFour: String, finalScoreOne: String, finalScoreTwo: String, friendsId: [String], createdTime: Timestamp? = nil, myDate: Date, registeredUser: Bool, docId: String, gameOver: Bool, profileImagePathUrl: URL? = nil, imagePath: String? = nil) {
+    init(id: String? = nil, scoreToWin: String, playerOne: String, playerTwo: String, playerThree: String, playerFour: String, finalScoreOne: String, finalScoreTwo: String, friendsId: [String], createdTime: Timestamp? = nil, myDate: Date, registeredUser: Bool, docId: String, gameOver: Bool, profileImagePathUrl: URL? = nil, imagePath: String? = nil, imagePathUrl: String? = nil) {
         self.id = id
         self.scoreToWin = scoreToWin
         self.playerOne = playerOne
@@ -39,6 +40,7 @@ struct MatchFB: Identifiable, Hashable, Codable {
         self.gameOver = gameOver
         self.profileImagePathUrl = profileImagePathUrl
         self.imagePath = imagePath
+        self.imagePathUrl = imagePathUrl
     }
     
     enum CodingKeys: String, CodingKey {
@@ -58,6 +60,7 @@ struct MatchFB: Identifiable, Hashable, Codable {
         case gameOver = "gameOver"
         case profileImagePathUrl = "profileImagePathUrl"
         case imagePath = "image_path"
+        case imagePathUrl = "image_path_url"
     }
     
 }

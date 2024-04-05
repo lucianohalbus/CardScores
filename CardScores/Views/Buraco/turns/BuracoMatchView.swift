@@ -19,6 +19,8 @@ struct BuracoMatchView: View {
     
     @State private var freshImage: Image? = nil
     @State private var presentSelectedImage: Bool = false
+    @State private var deleteImage: Bool = false
+    
     
     var body: some View {
         VStack {
@@ -32,30 +34,48 @@ struct BuracoMatchView: View {
                         .padding(.bottom, 5)
                     
                     if presentSelectedImage {
-
-                        if let freshImage {
-                            
-                            freshImage
-                                .resizable()
-                                .scaledToFit()
-                                .frame(maxWidth: .infinity)
-                                .cornerRadius(10)
-                        }
-                    } else {
-                        if let urlString = matchFB.imagePath, let url = URL(string: urlString) {
-                            AsyncImage(url: url) { image in
-                                image
+                        
+                        VStack(spacing: 0) {
+                            if let freshImage {
+                                
+                                freshImage
                                     .resizable()
                                     .scaledToFit()
                                     .frame(maxWidth: .infinity)
                                     .cornerRadius(10)
-                            } placeholder: {
-                                ProgressView()
-                                    .frame(width: 150, height: 150)
+                            }
+                        }
+                    } else {
+                        VStack(spacing: 0) {
+                            if var urlString = matchFB.imagePathUrl, let url = URL(string: urlString) {
+                                if !self.deleteImage {
+                                    AsyncImage(url: url) { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(maxWidth: .infinity)
+                                            .cornerRadius(10)
+                                        
+                                        
+                                    } placeholder: {
+                                        ProgressView()
+                                            .frame(width: 150, height: 150)
+                                    }
+                                    
+                                    Button("Delete Image") {
+                                        storageVM.deleteProfileImage(path: matchFB.imagePath ?? "", matchId: matchFB.id)
+                                        self.deleteImage = true
+                                    }
+                                    .font(.title)
+                                    .fontWeight(.bold)
+                                    .foregroundStyle(.primary)
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
+                                    
+                                }
                             }
                         }
                     }
-        
+                    
                 }
             }
         }
@@ -70,71 +90,71 @@ struct BuracoMatchView: View {
             ToolbarItem(placement: .topBarTrailing) {
                 HStack {
                     if !buracoTurnVM.turns.isEmpty {
-                    Image(systemName: "camera.fill")
-                        .resizable()
-                        .frame(width: 25, height: 20)
-                        .padding(.trailing, 20)
-                        .foregroundStyle(Color.cardColor)
-                        .onTapGesture { self.shouldPresentActionScheet = true }
-                        .sheet(isPresented: $shouldPresentImagePicker) {
-                            
-                            SUImagePickerView(sourceType: self.shouldPresentCamera ? .camera : .photoLibrary,
-                                              image: self.$selectedImage,
-                                              isPresented: self.$shouldPresentImagePicker
-                            )
-                        }
-                        .actionSheet(isPresented: $shouldPresentActionScheet) { () -> ActionSheet in
-                            ActionSheet(title: Text("Choose mode"),
-                                        message: Text("Choose a mode to set your profile image"),
-                                        buttons: [ActionSheet.Button.default(Text("Camera"), action: {
-                                self.shouldPresentImagePicker = true
-                                self.shouldPresentCamera = true
-                            }),
-                                                  
-                                                  ActionSheet.Button.default(Text("Photo Library"), action: {
-                                self.shouldPresentImagePicker = true
-                                self.shouldPresentCamera = false
-                            }),
-                                                  
-                                                  ActionSheet.Button.cancel()])
-                        }
-                        .onChange(of: selectedImage) { newValue in
-                            if let newValue {
+                        Image(systemName: "camera.fill")
+                            .resizable()
+                            .frame(width: 25, height: 20)
+                            .padding(.trailing, 20)
+                            .foregroundStyle(Color.cardColor)
+                            .onTapGesture { self.shouldPresentActionScheet = true }
+                            .sheet(isPresented: $shouldPresentImagePicker) {
                                 
-                                let uiimage: UIImage = newValue.asUIImage()
-                                
-                                if let imageData = storageVM.resizeImage(image: uiimage, targetSize: CGSize(width: 800, height: 800)) {
-                                    storageVM.saveMatchImage(userId: "\(buracoListVM.userId)", item: imageData, matchId: matchFB.id)
+                                SUImagePickerView(sourceType: self.shouldPresentCamera ? .camera : .photoLibrary,
+                                                  image: self.$selectedImage,
+                                                  isPresented: self.$shouldPresentImagePicker
+                                )
+                            }
+                            .actionSheet(isPresented: $shouldPresentActionScheet) { () -> ActionSheet in
+                                ActionSheet(title: Text("Choose mode"),
+                                            message: Text("Choose a mode to set your profile image"),
+                                            buttons: [ActionSheet.Button.default(Text("Camera"), action: {
+                                    self.shouldPresentImagePicker = true
+                                    self.shouldPresentCamera = true
+                                }),
+                                                      
+                                                      ActionSheet.Button.default(Text("Photo Library"), action: {
+                                    self.shouldPresentImagePicker = true
+                                    self.shouldPresentCamera = false
+                                }),
+                                                      
+                                                      ActionSheet.Button.cancel()])
+                            }
+                            .onChange(of: selectedImage) { newValue in
+                                if let newValue {
+                                    
+                                    let uiimage: UIImage = newValue.asUIImage()
+                                    
+                                    if let imageData = storageVM.resizeImage(image: uiimage, targetSize: CGSize(width: 800, height: 800)) {
+                                        storageVM.saveMatchImage(userId: "\(buracoListVM.userId)", item: imageData, matchId: matchFB.id)
+                                    }
+                                    
+                                    self.freshImage = Image(uiImage: uiimage)
                                 }
                                 
-                                self.freshImage = Image(uiImage: uiimage)
+                                self.presentSelectedImage.toggle()
                             }
-                            
-                            self.presentSelectedImage.toggle()
-                        }
-                }
+                    }
                     
-                        if !buracoListVM.gameOver {
- 
-                            Button {
-                                presentAddNewMatchTurnView.toggle()
-                            } label: {
-                                Image(systemName: "plus.circle")
-                                    .bold()
-                            }
-                            .buttonStyle(.borderless)
-                            .padding(.trailing, 20)
-                            .tint(Color.cardColor)
-                            .sheet(isPresented: $presentAddNewMatchTurnView, content: {
-                                
-                                AddNewMatchTurnView(matchFB: matchFB)
-                                    .interactiveDismissDisabled()
-                                    .onDisappear(perform: {
-                                        buracoTurnVM.getTurn()
-                                        buracoListVM.getMatches()
-                                    })
-                            })
+                    if !buracoListVM.gameOver {
+                        
+                        Button {
+                            presentAddNewMatchTurnView.toggle()
+                        } label: {
+                            Image(systemName: "plus.circle")
+                                .bold()
                         }
+                        .buttonStyle(.borderless)
+                        .padding(.trailing, 20)
+                        .tint(Color.cardColor)
+                        .sheet(isPresented: $presentAddNewMatchTurnView, content: {
+                            
+                            AddNewMatchTurnView(matchFB: matchFB)
+                                .interactiveDismissDisabled()
+                                .onDisappear(perform: {
+                                    buracoTurnVM.getTurn()
+                                    buracoListVM.getMatches()
+                                })
+                        })
+                    }
                 }
             }
         }

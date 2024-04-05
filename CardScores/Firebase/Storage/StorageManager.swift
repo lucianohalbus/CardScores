@@ -30,9 +30,10 @@ final class StorageManager {
         try await userReference(userId: userId).child(path).data(maxSize: 800 * 800)
     }
     
-    func updateUserImagePath(matchId: String, path: String) async throws {
+    func updateUserImagePath(matchId: String, path: String?, url: String?) async throws {
         let data: [String:Any] = [
-            DBImages.CodingKeys.imagePath.rawValue : path,
+            DBImages.CodingKeys.imagePath.rawValue : path ?? "",
+            DBImages.CodingKeys.imagePathUrl.rawValue : url ?? "",
         ]
         
         try await MatchDocument(matchId: matchId).updateData(data)
@@ -59,21 +60,33 @@ final class StorageManager {
         
         return try await saveImage(userId: userId, data: data)
     }
+    
+    func deleteImage(path: String) async throws {
+        try await getPathForImage(path: path).delete()
+    }
+    
+    func getPathForImage(path: String) -> StorageReference {
+        Storage.storage().reference(withPath: path)
+    }
 }
 
 struct DBImages: Codable {
     let imagePath: String?
+    let imagePathUrl: String?
     
-    init(imagePath: String? = nil) {
+    init(imagePath: String? = nil, imagePathUrl: String? = nil) {
         self.imagePath = imagePath
+        self.imagePathUrl = imagePathUrl
     }
     
     enum CodingKeys: String, CodingKey {
         case imagePath = "image_path"
+        case imagePathUrl = "image_path_url"
     }
     
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         self.imagePath = try container.decodeIfPresent(String.self, forKey: .imagePath)
+        self.imagePathUrl = try container.decodeIfPresent(String.self, forKey: .imagePathUrl)
     }
 }

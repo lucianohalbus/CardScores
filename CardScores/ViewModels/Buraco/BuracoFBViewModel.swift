@@ -63,5 +63,9 @@ struct BuracoFBViewModel: Hashable, Identifiable {
     var imagePath: String? {
         matchFB.imagePath ?? ""
     }
+    
+    var imagePathUrl: String? {
+        matchFB.imagePathUrl ?? ""
+    }
 
 }
