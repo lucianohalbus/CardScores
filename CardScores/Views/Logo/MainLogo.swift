@@ -51,6 +51,7 @@ struct MiniLogo: View {
             Text("Card Scores")
                 .font(.title)
                 .fontWeight(.semibold)
+                .foregroundStyle(Color.white)
             
             ZStack{
                 

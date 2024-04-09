@@ -37,7 +37,7 @@ struct BuracoListView: View {
                         .buttonStyle(.borderless)
                         .padding(.trailing, 20)
                         .tint(Color.cardColor)
-                        .sheet(isPresented: $isPresented, content: {
+                        .fullScreenCover(isPresented: $isPresented, content: {
                             AddNewBuracoMatchView()
                                 .interactiveDismissDisabled()
                                 .onDisappear(perform: {

@@ -8,64 +8,77 @@ struct AddNewBuracoMatchView: View {
     
     var body: some View {
         NavigationStack {
-        VStack {
-            Text("Criar Nova Partida")
-                .font(.title2)
-                .foregroundStyle(Color.cardColor)
-                .bold()
-                .padding(.bottom, 20 )
-            
-            addNewMatchViewHeader
-                .padding(.bottom, 10)
-            
-            addNewMatchViewTeams
-                .padding(.bottom, 20)
-            
-            HStack {
-                
-                Spacer()
-                
-                Button("Cancel", role: .destructive) {
-                    dismiss()
+            ZStack {
+                VStack {
+                    MiniLogo()
+                        .padding(.bottom, 10)
+                    
+                    Divider()
+                        .frame(height: 1)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.black)
+                        .foregroundStyle(Color.white)
+                    
+                    Text("Criar Nova Partida")
+                        .font(.title2)
+                        .foregroundStyle(Color.cardColor)
+                        .bold()
+                        .padding(.bottom, 20 )
+                    
+                    addNewMatchViewHeader
+                    
+                    addNewMatchViewTeams
+                    
+                    HStack {
+                        
+                        Spacer()
+                        
+                        Button("Cancel", role: .destructive) {
+                            dismiss()
+                        }
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .tint(.green.opacity(0.9))
+                        .controlSize(.regular)
+                        .buttonStyle(.borderedProminent)
+                        
+                        Spacer()
+                        
+                        Button("Save") {
+                            addNewMatchVM.add()
+                            dismiss()
+                        }
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .tint(.green.opacity(0.9))
+                        .controlSize(.regular)
+                        .buttonStyle(.borderedProminent)
+                        
+                        Spacer()
+                    }
+                    
+                    Spacer()
                 }
-                .buttonStyle(.bordered)
-                
-                Spacer()
-                
-                Button("Save") {
-                    addNewMatchVM.add()
-                    dismiss()
-                }
-                .buttonStyle(.bordered)
-                
-                Spacer()
             }
-            
-            Spacer()
+            .background(Color.cardColor)
         }
-        .padding(10)
-    }
         .navigationTitle("Iniciar uma nova partida")
     }
     
     @ViewBuilder
     private var addNewMatchViewHeader: some View {
-        VStack {
-            Text("Pontuação Mínima de Vitória")
-                .font(.title3)
-                .foregroundStyle(Color.cardColor)
+        VStack(spacing: 0) {
+            Text("Digite a Pontuação Mínima de Vitória")
+                .font(.headline)
+                .foregroundStyle(Color.white)
             TextField("Digite a pontuação", text: $addNewMatchVM.targetScore)
-                .frame(width: 100)
+                .frame(maxWidth: .infinity)
+                .frame(height: 50)
                 .cornerRadius(10)
                 .keyboardType(.numberPad)
                 .textFieldStyle(.roundedBorder)
                 .multilineTextAlignment(TextAlignment.center)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.textFieldBorderColor)
-                )
         }
-        .frame(height: 100)
         .frame(maxWidth: .infinity)
         .padding(10)
     }
@@ -76,20 +89,20 @@ struct AddNewBuracoMatchView: View {
             VStack(alignment: .leading) {
                 Text("Dupla 1")
                     .font(.title)
-                    .foregroundStyle(Color.cardColor)
+                    .foregroundStyle(Color.white)
                 
                 TextField("Nome do Jogador 1", text: $addNewMatchVM.playerOne)
-                    .cornerRadius(10)
+                    .cornerRadius(6)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 10)
+                        RoundedRectangle(cornerRadius: 6)
                             .stroke(Color.textFieldBorderColor)
                     )
                     .minimumScaleFactor(0.4)
-                    
+                
                 TextField("Nome do Jogador 2", text: $addNewMatchVM.playerTwo)
-                    .cornerRadius(10)
+                    .cornerRadius(6)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 10)
+                        RoundedRectangle(cornerRadius: 6)
                             .stroke(Color.textFieldBorderColor)
                     )
                     .minimumScaleFactor(0.4)
@@ -105,20 +118,20 @@ struct AddNewBuracoMatchView: View {
             VStack(alignment: .trailing) {
                 Text("Dupla 2")
                     .font(.title)
-                    .foregroundStyle(Color.cardColor)
+                    .foregroundStyle(Color.white)
                 
                 TextField("Nome do Jogador 1", text: $addNewMatchVM.playerThree)
-                    .cornerRadius(10)
+                    .cornerRadius(6)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 10)
+                        RoundedRectangle(cornerRadius: 6)
                             .stroke(Color.textFieldBorderColor)
                     )
                     .minimumScaleFactor(0.4)
                 
                 TextField("Nome do Jogador 2", text: $addNewMatchVM.playerFour)
-                    .cornerRadius(10)
+                    .cornerRadius(6)
                     .overlay(
-                        RoundedRectangle(cornerRadius: 10)
+                        RoundedRectangle(cornerRadius: 6)
                             .stroke(Color.textFieldBorderColor)
                     )
                     .minimumScaleFactor(0.4)
@@ -127,13 +140,15 @@ struct AddNewBuracoMatchView: View {
             .multilineTextAlignment(TextAlignment.trailing)
             .textFieldStyle(.roundedBorder)
         }
+        .frame(maxWidth: .infinity)
         .padding(20)
         .overlay(
-            RoundedRectangle(cornerRadius: 20)
+            RoundedRectangle(cornerRadius: 10)
                 .inset(by: 2)
-                .stroke(Color.cardColor, lineWidth: 2)
-               
+                .stroke(Color.white, lineWidth: 2)
+            
         )
+        .padding(.horizontal, 10)
     }
-
+    
 }
