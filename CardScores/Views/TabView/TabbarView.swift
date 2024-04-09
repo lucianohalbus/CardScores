@@ -11,21 +11,26 @@ struct TabbarView: View {
         GeometryReader { proxy in
             ZStack {
                 TabView {
-                    NavigationStack {
-                        BuracoListView(addNewMatchIsPresented: $addNewMatchIsPresented)
+                    Group {
+                        NavigationStack {
+                            BuracoListView(addNewMatchIsPresented: $addNewMatchIsPresented)
+                        }
+                        .tabItem {
+                            Image(systemName: "lanyardcard.fill")
+                            Text("Buraco")
+                        }
+                        
+                        NavigationStack {
+                            ProfileView(showLoginView: $showLoginView)
+                        }
+                        .tabItem {
+                            Image(systemName: "person")
+                            Text("Profile")
+                        }
                     }
-                    .tabItem {
-                        Image(systemName: "lanyardcard.fill")
-                        Text("Buraco")
-                    }
-                    
-                    NavigationStack {
-                        ProfileView(showLoginView: $showLoginView)
-                    }
-                    .tabItem {
-                        Image(systemName: "person")
-                        Text("Profile")
-                    }
+                    .toolbarBackground(Color.cardColor.opacity(0.2), for: .tabBar)
+                    .toolbarBackground(.visible, for: .tabBar)
+                    .toolbarColorScheme(.light, for: .tabBar)
                 }
                 .tint(Color.cardColor)
                 
@@ -35,8 +40,19 @@ struct TabbarView: View {
                     ZStack{
                         
                         Circle()
-                            .stroke(Color.cardColor, lineWidth: 3)
+                            .stroke(Color.gray, lineWidth: 3)
                             .frame(width: 55, height: 55)
+                            .shadow(radius: 100)
+                        
+                        Circle()
+                            .stroke(Color.cardColor, lineWidth: 3)
+                            .frame(width: 50, height: 50)
+                            .shadow(radius: 100)
+                        
+                        Circle()
+                            .frame(width: 30, height: 30)
+                            .background(.black)
+                            .foregroundColor(Color.cardColor)
                         
                         Image(systemName: "plus.circle.fill")
                             .resizable()
@@ -44,10 +60,10 @@ struct TabbarView: View {
                             .aspectRatio(contentMode: .fit)
                             .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                             .shadow(radius: 100)
-                            .tint(Color.cardColor)
+                            .tint(Color.mainButtonColor)
                     }
                 }
-                .offset(y: proxy.size.height / 2.25)
+                .offset(y: proxy.size.height / 2.2)
             }
         }
     }

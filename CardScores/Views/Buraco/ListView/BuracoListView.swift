@@ -12,6 +12,15 @@ struct BuracoListView: View {
         NavigationStack {
             ZStack {
                 VStack {
+                    MiniLogo()
+                        .padding(.bottom, 10)
+                    
+                    Divider()
+                        .frame(height: 1)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.black)
+                        .foregroundStyle(Color.white)
+                    
                     List {
                         ForEach(buracoListVM.matchesVM) { match in
                             BuracoCardView(buracoVM: match)
