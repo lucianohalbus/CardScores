@@ -233,7 +233,7 @@ struct BuracoMatchView: View {
                                 Text(matchResume.myTime.formatted(date: .abbreviated, time: .shortened))
                                     .foregroundStyle(.white)
                             }
-                            .frame(width: 180, alignment: .center)
+                            .frame(width: 200, alignment: .center)
                             
                             Spacer()
                             

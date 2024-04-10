@@ -115,13 +115,9 @@ final class BuracoMatchesRepository {
             MatchFB.CodingKeys.finalScoreTwo.rawValue : matchFB.finalScoreTwo,
             MatchFB.CodingKeys.gameOver.rawValue : matchFB.gameOver,
         ]
-            
-        do {
-            MatchDocument(matchId: matchId).updateData(data)
-            completion(.success(true))
-        } catch let error {
-            completion(.failure(error))
-        }
+        
+        MatchDocument(matchId: matchId).updateData(data)
+//        completion(.success(true))
     }
     
 }
