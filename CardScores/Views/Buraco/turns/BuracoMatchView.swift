@@ -219,13 +219,13 @@ struct BuracoMatchView: View {
                 ForEach(buracoTurnVM.turns) { matchResume in
                     if matchResume.turnId == matchFB.id {
                         
-                        HStack(spacing: 5) {
+                        HStack {
                             
                             VStack {
                                 Text("\(abs(Int(matchResume.scoresTurnOne) ?? 0))")
                                     .foregroundStyle(Int(matchResume.scoresTurnOne) ?? 0 < 0 ? Color.red : Color.white)
                             }
-                            .frame(width: 50, alignment: .leading)
+                            .frame(width: 60, alignment: .leading)
                             
                             Spacer()
                             
@@ -241,11 +241,11 @@ struct BuracoMatchView: View {
                                 Text("\(abs(Int(matchResume.scoresTurnTwo) ?? 0))")
                                     .foregroundStyle(Int(matchResume.scoresTurnTwo) ?? 0 < 0 ? Color.red : Color.white)
                             }
-                            .frame(width: 50, alignment: .trailing)
+                            .frame(width: 60, alignment: .trailing)
                             
                         }
                         .font(.callout)
-                        .padding(.horizontal, 15)
+                        .padding(.horizontal)
                     }
                 }
             }
