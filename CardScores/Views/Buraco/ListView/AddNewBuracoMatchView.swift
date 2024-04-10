@@ -7,62 +7,58 @@ struct AddNewBuracoMatchView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                VStack {
-                    MiniLogo()
-                        .padding(.bottom, 10)
+        ZStack {
+            VStack {
+                MiniLogo()
+                
+                Divider()
+                    .frame(height: 1)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.black)
+                    .foregroundStyle(Color.white)
+                
+                Text("Criar Nova Partida")
+                    .font(.title2)
+                    .foregroundStyle(Color.white)
+                    .bold()
+                    .padding(.bottom, 10 )
+                
+                addNewMatchViewHeader
+                
+                addNewMatchViewTeams
+                
+                HStack {
                     
-                    Divider()
-                        .frame(height: 1)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.black)
-                        .foregroundStyle(Color.white)
+                    Spacer()
                     
-                    Text("Criar Nova Partida")
-                        .font(.title2)
-                        .foregroundStyle(Color.cardColor)
-                        .bold()
-                        .padding(.bottom, 20 )
-                    
-                    addNewMatchViewHeader
-                    
-                    addNewMatchViewTeams
-                    
-                    HStack {
-                        
-                        Spacer()
-                        
-                        Button("Cancel", role: .destructive) {
-                            dismiss()
-                        }
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .tint(.green.opacity(0.9))
-                        .controlSize(.regular)
-                        .buttonStyle(.borderedProminent)
-                        
-                        Spacer()
-                        
-                        Button("Save") {
-                            addNewMatchVM.add()
-                            dismiss()
-                        }
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .tint(.green.opacity(0.9))
-                        .controlSize(.regular)
-                        .buttonStyle(.borderedProminent)
-                        
-                        Spacer()
+                    Button("Cancel", role: .destructive) {
+                        dismiss()
                     }
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .tint(.green.opacity(0.9))
+                    .controlSize(.regular)
+                    .buttonStyle(.borderedProminent)
+                    
+                    Spacer()
+                    
+                    Button("Save") {
+                        addNewMatchVM.add()
+                        dismiss()
+                    }
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .tint(.green.opacity(0.9))
+                    .controlSize(.regular)
+                    .buttonStyle(.borderedProminent)
                     
                     Spacer()
                 }
+                
+                Spacer()
             }
-            .background(Color.cardColor)
         }
-        .navigationTitle("Iniciar uma nova partida")
+        .background(Color.cardColor)
     }
     
     @ViewBuilder

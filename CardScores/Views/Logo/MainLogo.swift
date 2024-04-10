@@ -71,6 +71,26 @@ struct MiniLogo: View {
     }
 }
 
+struct ToolBarLogo: View {
+    var body: some View {
+        HStack {
+            ZStack{
+                
+                Circle()
+                    .stroke(Color.cardColor, lineWidth: 3)
+                    .frame(width: 30, height: 30)
+                
+                Image("Logo")
+                    .resizable()
+                    .frame(width: 28, height: 28)
+                    .aspectRatio(contentMode: .fit)
+                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                    .shadow(radius: 25)
+            }
+        }
+    }
+}
+
 #Preview {
     MiniLogo()
 }

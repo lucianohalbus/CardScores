@@ -32,7 +32,7 @@ struct TabbarView: View {
                     .toolbarBackground(.visible, for: .tabBar)
                     .toolbarColorScheme(.light, for: .tabBar)
                 }
-                .tint(Color.cardColor)
+                .tint(Color.white)
                 
                 Button (action: {
                     self.addNewMatchIsPresented = true

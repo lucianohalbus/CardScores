@@ -69,6 +69,7 @@ struct ProfileView: View {
                 VStack {
                     Text("Logout")
                         .font(.title3)
+                        .fontWeight(.bold)
                         .foregroundStyle(Color.cardColor)
                         .padding(5)
                         .overlay(
@@ -93,6 +94,7 @@ struct ProfileView: View {
                 VStack (){
                     Text("DELETE ACCOUNT")
                         .font(.title3)
+                        .fontWeight(.bold)
                         .foregroundStyle(.red)
                         .padding(5)
                         .overlay(
