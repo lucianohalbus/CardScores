@@ -23,6 +23,7 @@
 		CB8A39AA2BA71BA200EFF71C /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39A92BA71BA200EFF71C /* UserViewModel.swift */; };
 		CB8A39AE2BA71E3500EFF71C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39AD2BA71E3500EFF71C /* LoginView.swift */; };
 		CB8A39B02BA720BE00EFF71C /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39AF2BA720BE00EFF71C /* ViewModifiers.swift */; };
+		CBB0D4D72BC6BEE3002CC88D /* DBImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB0D4D62BC6BEE3002CC88D /* DBImages.swift */; };
 		CBD142ED2BA762F3000FAA55 /* MainLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142EC2BA762F3000FAA55 /* MainLogo.swift */; };
 		CBD142EF2BA77D27000FAA55 /* AddNewBuracoMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142EE2BA77D27000FAA55 /* AddNewBuracoMatchView.swift */; };
 		CBD142F12BA77D8A000FAA55 /* AddNewBuracoFBViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142F02BA77D8A000FAA55 /* AddNewBuracoFBViewModel.swift */; };
@@ -71,6 +72,7 @@
 		CB8A39A92BA71BA200EFF71C /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		CB8A39AD2BA71E3500EFF71C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		CB8A39AF2BA720BE00EFF71C /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
+		CBB0D4D62BC6BEE3002CC88D /* DBImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBImages.swift; sourceTree = "<group>"; };
 		CBD142EC2BA762F3000FAA55 /* MainLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLogo.swift; sourceTree = "<group>"; };
 		CBD142EE2BA77D27000FAA55 /* AddNewBuracoMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBuracoMatchView.swift; sourceTree = "<group>"; };
 		CBD142F02BA77D8A000FAA55 /* AddNewBuracoFBViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBuracoFBViewModel.swift; sourceTree = "<group>"; };
@@ -198,6 +200,7 @@
 			children = (
 				CBFF67D52BA33FD50023A2F8 /* MatchFB.swift */,
 				CBFF67D62BA33FD50023A2F8 /* MatchTurn.swift */,
+				CBB0D4D62BC6BEE3002CC88D /* DBImages.swift */,
 			);
 			path = Match;
 			sourceTree = "<group>";
@@ -480,6 +483,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CBB0D4D72BC6BEE3002CC88D /* DBImages.swift in Sources */,
 				CBFF67C52BA33F330023A2F8 /* MainView.swift in Sources */,
 				CBD142F12BA77D8A000FAA55 /* AddNewBuracoFBViewModel.swift in Sources */,
 				CBD143792BAB7CE6000FAA55 /* AuthenticationManager.swift in Sources */,

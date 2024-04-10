@@ -63,4 +63,25 @@ struct MatchFB: Identifiable, Hashable, Codable {
         case imagePathUrl = "image_path_url"
     }
     
+    init(from decoder: any Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        self.id = try container.decodeIfPresent(String.self, forKey: .id)
+        self.scoreToWin = try container.decode(String.self, forKey: .scoreToWin)
+        self.playerOne = try container.decode(String.self, forKey: .playerOne)
+        self.playerTwo = try container.decode(String.self, forKey: .playerTwo)
+        self.playerThree = try container.decode(String.self, forKey: .playerThree)
+        self.playerFour = try container.decode(String.self, forKey: .playerFour)
+        self.finalScoreOne = try container.decode(String.self, forKey: .finalScoreOne)
+        self.finalScoreTwo = try container.decode(String.self, forKey: .finalScoreTwo)
+        self.friendsId = try container.decode([String].self, forKey: .friendsId)
+        self._createdTime = try container.decode(ServerTimestamp<Timestamp>.self, forKey: .createdTime)
+        self.myDate = try container.decode(Date.self, forKey: .myDate)
+        self.registeredUser = try container.decode(Bool.self, forKey: .registeredUser)
+        self.docId = try container.decode(String.self, forKey: .docId)
+        self.gameOver = try container.decode(Bool.self, forKey: .gameOver)
+        self.profileImagePathUrl = try container.decodeIfPresent(URL.self, forKey: .profileImagePathUrl)
+        self.imagePath = try container.decodeIfPresent(String.self, forKey: .imagePath)
+        self.imagePathUrl = try container.decodeIfPresent(String.self, forKey: .imagePathUrl)
+    }
+    
 }

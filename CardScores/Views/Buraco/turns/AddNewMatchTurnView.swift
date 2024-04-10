@@ -134,7 +134,10 @@ struct AddNewMatchTurnView: View {
                             myDate: matchFB.myDate,
                             registeredUser: matchFB.registeredUser,
                             docId: matchFB.id,
-                            gameOver: checkGameOver(calculatedTotalScoreOne, calculatedTotalScoreTwo, Int(matchFB.scoreToWin) ?? 3000) ? true : false
+                            gameOver: checkGameOver(calculatedTotalScoreOne, calculatedTotalScoreTwo, Int(matchFB.scoreToWin) ?? 3000) ? true : false,
+                            imagePath: matchFB.imagePath,
+                            imagePathUrl: matchFB.imagePathUrl
+    
                         )
                         
                         buracoListVM.update(matchId: matchFB.id, matchFB: match)
