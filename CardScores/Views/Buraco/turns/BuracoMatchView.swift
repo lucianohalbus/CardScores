@@ -222,7 +222,7 @@ struct BuracoMatchView: View {
                         HStack {
                             
                             VStack {
-                                Text("\(abs(Int(matchResume.scoresTurnOne) ?? 0))")
+                                Text(matchResume.scoresTurnOne)
                                     .foregroundStyle(Int(matchResume.scoresTurnOne) ?? 0 < 0 ? Color.red : Color.white)
                             }
                             .frame(width: 60, alignment: .leading)
@@ -238,7 +238,7 @@ struct BuracoMatchView: View {
                             Spacer()
                             
                             VStack {
-                                Text("\(abs(Int(matchResume.scoresTurnTwo) ?? 0))")
+                                Text(matchResume.scoresTurnTwo)
                                     .foregroundStyle(Int(matchResume.scoresTurnTwo) ?? 0 < 0 ? Color.red : Color.white)
                             }
                             .frame(width: 60, alignment: .trailing)
