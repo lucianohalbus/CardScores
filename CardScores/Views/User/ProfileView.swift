@@ -11,41 +11,47 @@ struct ProfileView: View {
     @State private var showDeleteButtonAlert: Bool = false
     
     var body: some View {
-        VStack() {
-           
-            MiniLogo()
-                .padding(.bottom, 10)
-            
-            Divider()
-                .frame(height: 1)
-                .frame(maxWidth: .infinity)
-                .background(Color.textFieldBorderColor)
-            
-            logoutButton
-            
-            deleteButton
-
-        }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .padding(5)
-        .alert(isPresented:$showDeleteButtonAlert) {
-                    Alert(
-                        title: Text("Warning!"),
-                        message: Text("This action will permanently delete all your data, including your saved match data"),
-                        primaryButton: .destructive(Text("Continue")) {
-                            Task {
-                                do {
-                                    try await authenticationVM.deleteAccount()
-                                    showLoginView = true
-                                } catch {
-                                   print(error)
-                                }
-                            }
-                        },
-                        secondaryButton: .cancel()
-                    )
+        ZStack {
+            VStack {
+                
+                MiniLogo()
+                    .padding(.bottom, 10)
+                
+                Divider()
+                    .frame(height: 1)
+                    .frame(maxWidth: .infinity)
+                    .background(Color.textFieldBorderColor)
+                
+                VStack(alignment: .leading) {
+                    logoutButton
+                    
+                    deleteButton
                 }
-
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal)
+                
+            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+            .padding(5)
+            .alert(isPresented:$showDeleteButtonAlert) {
+                Alert(
+                    title: Text("Warning!"),
+                    message: Text("This action will permanently delete all your data, including your saved match data"),
+                    primaryButton: .destructive(Text("Continue")) {
+                        Task {
+                            do {
+                                try await authenticationVM.deleteAccount()
+                                showLoginView = true
+                            } catch {
+                                print(error)
+                            }
+                        }
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
+        }
+        .background(Color.cardColor)
     }
     
     var logoutButton: some View {
@@ -60,16 +66,18 @@ struct ProfileView: View {
                     }
                 }
             }) {
-                VStack (){
+                VStack {
                     Text("Logout")
                         .font(.title3)
+                        .fontWeight(.bold)
                         .foregroundStyle(Color.cardColor)
                         .padding(5)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.textFieldBorderColor)
                         )
-                        
+                        .background(.white)
+                        .cornerRadius(10)
                 }
                 .padding(.top, 10)
             }
@@ -81,18 +89,21 @@ struct ProfileView: View {
             
             Button {
                 self.showDeleteButtonAlert = true
-
+                
             } label: {
                 VStack (){
                     Text("DELETE ACCOUNT")
                         .font(.title3)
+                        .fontWeight(.bold)
                         .foregroundStyle(.red)
                         .padding(5)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
                                 .stroke(Color.textFieldBorderColor)
                         )
-                        
+                        .background(.white)
+                        .cornerRadius(10)
+                    
                 }
                 .padding(.top, 10)
             }

@@ -7,49 +7,48 @@ struct BuracoCardView: View {
     @EnvironmentObject var buracoListVM: BuracoListViewModel
     
     var body: some View {
-        NavigationLink(value: buracoVM) {
-            VStack {
-                Text(buracoVM.myDate, format: Date.FormatStyle(date: .numeric))
-                    .foregroundStyle(Color.black)
-                    .font(.title3)
-                
-                HStack {
-                    
-                    VStack(alignment: .leading) {
-                        Text(buracoVM.playerOne)
-                        Text(buracoVM.playerTwo)
-                        Text(buracoVM.finalScoreOne.description)
-                            .foregroundStyle(Int(buracoVM.finalScoreOne) ?? 0 < 0 ? Color.red : Color.cardColor)
-                            .fontWeight(Int(buracoVM.finalScoreOne) ?? 0 > Int(buracoVM.finalScoreTwo) ?? 0 ? .bold : .regular)
-                    }
-                    .minimumScaleFactor(0.4)
-                    .lineLimit(1)
-                    
-                    Spacer()
-                    
-                    VStack(alignment: .trailing) {
-                        Text(buracoVM.playerThree)
-                        Text(buracoVM.playerFour)
-                        Text(buracoVM.finalScoreTwo.description)
-                            .foregroundStyle(Int(buracoVM.finalScoreTwo) ?? 0 < 0 ? Color.red : Color.cardColor)
-                            .fontWeight(Int(buracoVM.finalScoreTwo) ?? 0 > Int(buracoVM.finalScoreOne) ?? 0 ? .bold : .regular)
-                    }
-                    .minimumScaleFactor(0.4)
-                    .lineLimit(1)
-                }
+        VStack(spacing: 0) {
+            NavigationLink(value: buracoVM) { }
+            
+            Text(buracoVM.myDate, format: Date.FormatStyle(date: .numeric))
                 .foregroundStyle(Color.black)
                 .font(.title3)
-                .padding(.horizontal, 10)
-                .padding(.bottom, 20)
+            
+            HStack {
+                
+                VStack(alignment: .leading) {
+                    Text(buracoVM.playerOne)
+                    Text(buracoVM.playerTwo)
+                    Text(buracoVM.finalScoreOne.description)
+                        .foregroundStyle(Int(buracoVM.finalScoreOne) ?? 0 < 0 ? Color.red : Color.cardColor)
+                        .fontWeight(Int(buracoVM.finalScoreOne) ?? 0 > Int(buracoVM.finalScoreTwo) ?? 0 ? .bold : .regular)
+                }
+                .minimumScaleFactor(0.4)
+                .lineLimit(1)
+                
+                Spacer()
+                
+                VStack(alignment: .trailing) {
+                    Text(buracoVM.playerThree)
+                    Text(buracoVM.playerFour)
+                    Text(buracoVM.finalScoreTwo.description)
+                        .foregroundStyle(Int(buracoVM.finalScoreTwo) ?? 0 < 0 ? Color.red : Color.cardColor)
+                        .fontWeight(Int(buracoVM.finalScoreTwo) ?? 0 > Int(buracoVM.finalScoreOne) ?? 0 ? .bold : .regular)
+                }
+                .minimumScaleFactor(0.4)
+                .lineLimit(1)
             }
-            .padding(.top, 10)
-            .background(Color.cardBackgroundColor)
-            .cornerRadius(20)
-            .overlay(
-                RoundedRectangle(cornerRadius: 20)
-                    .inset(by: 2)
-                    .stroke(Color.cardColor, lineWidth: 2)
-            )
+            .foregroundStyle(Color.black)
+            .font(.title3)
+            .padding(.horizontal, 10)
+            .padding(.bottom, 10)
         }
+        .background(Color.cardBackgroundColor)
+        .cornerRadius(20)
+        .overlay(
+            RoundedRectangle(cornerRadius: 20)
+                .inset(by: 2)
+                .stroke(Color.cardColor, lineWidth: 2)
+        )
     }
 }

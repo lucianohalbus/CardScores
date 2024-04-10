@@ -51,6 +51,7 @@ struct MiniLogo: View {
             Text("Card Scores")
                 .font(.title)
                 .fontWeight(.semibold)
+                .foregroundStyle(Color.white)
             
             ZStack{
                 
@@ -66,6 +67,26 @@ struct MiniLogo: View {
                     .shadow(radius: 40)
             }
             .padding(5)
+        }
+    }
+}
+
+struct ToolBarLogo: View {
+    var body: some View {
+        HStack {
+            ZStack{
+                
+                Circle()
+                    .stroke(Color.cardColor, lineWidth: 3)
+                    .frame(width: 30, height: 30)
+                
+                Image("Logo")
+                    .resizable()
+                    .frame(width: 28, height: 28)
+                    .aspectRatio(contentMode: .fit)
+                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                    .shadow(radius: 25)
+            }
         }
     }
 }

@@ -9,6 +9,9 @@ extension Color {
     static let cardBackgroundColor: Color = Color(hex: "#EAEAEA")
     static let textFieldBorderColor: Color = Color(hex: "#75BE99")
     static let textViewBackgroundColor: Color = Color(hex: "#DEEFE6")
+    static let mainButtonColor: Color = Color(hex:  "#BFE1D0")
+    
+   
  
 }
 
