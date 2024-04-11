@@ -11,12 +11,6 @@ struct AddNewBuracoMatchView: View {
             VStack {
                 MiniLogo()
                 
-                Divider()
-                    .frame(height: 1)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.black)
-                    .foregroundStyle(Color.white)
-                
                 Text("Criar Nova Partida")
                     .font(.title2)
                     .foregroundStyle(Color.white)

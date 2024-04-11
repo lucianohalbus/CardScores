@@ -46,8 +46,6 @@ struct MiniLogo: View {
                         .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                         .shadow(radius: 20)
                 }
-                .padding(5)
-                
                 
                 Text("Card Scores")
                     .font(.title)
@@ -67,7 +65,6 @@ struct MiniLogo: View {
                         .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
                         .shadow(radius: 20)
                 }
-                .padding(5)
             }
             
             Divider()
@@ -76,6 +73,7 @@ struct MiniLogo: View {
                 .background(Color.black)
                 .foregroundStyle(Color.white)
         }
+        .padding(.bottom, 10)
     }
 }
 
