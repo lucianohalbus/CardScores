@@ -8,6 +8,7 @@ class UserRepository: ObservableObject {
     private let path: String = "User"
     private let db = Firestore.firestore()
     @Published var userModel: [UserModel] = []
+    @Published var user: ProfileModel
     @Published var userName: String = ""
     @Published var password = ""
     @Published var email = ""
@@ -16,12 +17,70 @@ class UserRepository: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var isUserCreated: Bool = false
     var handle: AuthStateDidChangeListenerHandle?
-
+    
+    var createdTime: Date = Date()
+    
     init() {
-       getUser()
+        
+        user = ProfileModel(
+            userName: "",
+            userEmail: "",
+            userId: "",
+            friendsMail: [],
+            friendsName: [],
+            createdTime: Date()
+        )
+        
+        listen()
+        
+        getUser()
+    }
+    
+    func listen() {
+        //monitor authentication changes using firebase
+        handle = Auth.auth().addStateDidChangeListener { (auth, user) in
+            if auth.currentUser != nil {
+                self.createdTime = auth.currentUser?.metadata.creationDate ?? Date()
+                
+            } else {
+                print("USER NOT FOUND")
+            }
+        }
     }
     
     func getUser() {
+        if let userId = Auth.auth().currentUser?.uid {
+        db.collection(path)
+                .whereField("userId", isEqualTo: userId)
+            .addSnapshotListener{ (snapshot, error) in
+                if let snapshot = snapshot {
+                    self.userModel = snapshot.documents.compactMap { document in
+                        do {
+                            let returnedUser = try document.data(as: UserModel.self)
+                            self.isUserCreated = true
+   
+                            self.user = ProfileModel(
+                                userName: returnedUser.userName,
+                                userEmail: returnedUser.userEmail,
+                                userId: returnedUser.userId,
+                                friendsMail: returnedUser.friendsMail,
+                                friendsName: returnedUser.friendsName,
+                                createdTime: self.createdTime
+                            )
+                            
+                            return returnedUser
+                        }
+                        catch {
+                            print(error)
+                        }
+                        return nil
+                    }
+                }
+            }
+        }
+    }
+    
+    func getAllUsers() {
         if let myEmail = Auth.auth().currentUser?.email {
         db.collection(path)
             .order(by: "numberOfWins", descending: true)
@@ -79,8 +138,7 @@ class UserRepository: ObservableObject {
                         averageScores: 0,
                         numberOfMatches: 0,
                         friendsMail: [email],
-                        friendsName: [],
-                        createdTime: Date()
+                        friendsName: []
                     )
                 )
             }

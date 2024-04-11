@@ -4,8 +4,9 @@ import SwiftUI
 import FirebaseAuth
 
 struct ProfileView: View {
-    @ObservedObject var loginVM = LoginViewModel()
-    @StateObject private var authenticationVM = AuthenticationViewModel()
+    @StateObject var loginVM = LoginViewModel()
+    @StateObject var authenticationVM = AuthenticationViewModel()
+    @StateObject var userRepo = UserRepository()
     @Binding var showLoginView: Bool
     @State private var showCreateAccount: Bool = false
     @State private var showDeleteButtonAlert: Bool = false
@@ -15,14 +16,19 @@ struct ProfileView: View {
             VStack {
                 
                 MiniLogo()
-                    .padding(.bottom, 10)
-                
-                Divider()
-                    .frame(height: 1)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.textFieldBorderColor)
-                
+            
                 VStack(alignment: .leading) {
+                    
+                    VStack(alignment: .leading) {
+                        Text("Nome: \(userRepo.user.userName)")
+                        Text("Email: \(userRepo.user.userEmail)")
+                        Text("Id: \(userRepo.user.userId ?? "")")
+                        Text("Conta criada em: \(userRepo.user.createdTime.formatted(date: .abbreviated, time: .omitted))")
+                    }
+                    .font(.callout)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(Color.white)
+
                     logoutButton
                     
                     deleteButton
@@ -32,7 +38,9 @@ struct ProfileView: View {
                 
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .padding(5)
+            .onAppear {
+                userRepo.getUser()
+            }
             .alert(isPresented:$showDeleteButtonAlert) {
                 Alert(
                     title: Text("Warning!"),
@@ -109,4 +117,11 @@ struct ProfileView: View {
             }
         }
     }
+}
+
+#Preview {
+    ProfileView(
+        loginVM: LoginViewModel(),
+        showLoginView: .constant(false)
+    )
 }

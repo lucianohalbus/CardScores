@@ -6,7 +6,6 @@ import Firebase
 class UserViewModel: ObservableObject {
     
     @Published var userRepository = UserRepository()
-    @Published var user: [User] = []
     @Published var userName: String
     @Published var userEmail: String
     @Published var userId: String
