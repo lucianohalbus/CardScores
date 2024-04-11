@@ -20,21 +20,32 @@ struct ProfileView: View {
                 VStack(alignment: .leading) {
                     
                     VStack(alignment: .leading) {
-                        Text("Nome: \(userRepo.user.userName)")
+                        Text("Bem-Vindo: \(userRepo.user.userName)")
+                            .padding(.bottom, 10)
+                        
+                        
+                        Text("Informações da Conta")
+                            .foregroundStyle(.yellow)
                         Text("Email: \(userRepo.user.userEmail)")
                         Text("Id: \(userRepo.user.userId ?? "")")
                         Text("Conta criada em: \(userRepo.user.createdTime.formatted(date: .abbreviated, time: .omitted))")
+
                     }
                     .font(.callout)
                     .fontWeight(.semibold)
                     .foregroundStyle(Color.white)
+                    .padding(.horizontal)
+                    
+                    Divider()
+                        .frame(height: 1)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.black)
 
                     logoutButton
                     
                     deleteButton
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal)
                 
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
@@ -90,6 +101,7 @@ struct ProfileView: View {
                 .padding(.top, 10)
             }
         }
+        .padding(.horizontal)
     }
     
     var deleteButton: some View {
@@ -116,6 +128,7 @@ struct ProfileView: View {
                 .padding(.top, 10)
             }
         }
+        .padding(.horizontal)
     }
 }
 

@@ -37,14 +37,14 @@ struct MiniLogo: View {
                     
                     Circle()
                         .stroke(Color.cardColor, lineWidth: 3)
-                        .frame(width: 50, height: 50)
+                        .frame(width: 30, height: 30)
                     
                     Image("Logo")
                         .resizable()
-                        .frame(width: 45, height: 45)
+                        .frame(width: 25, height: 25)
                         .aspectRatio(contentMode: .fit)
                         .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                        .shadow(radius: 40)
+                        .shadow(radius: 20)
                 }
                 .padding(5)
                 
@@ -58,14 +58,14 @@ struct MiniLogo: View {
                     
                     Circle()
                         .stroke(Color.cardColor, lineWidth: 3)
-                        .frame(width: 50, height: 50)
+                        .frame(width: 30, height: 30)
                     
                     Image("Logo")
                         .resizable()
-                        .frame(width: 45, height: 45)
+                        .frame(width: 25, height: 25)
                         .aspectRatio(contentMode: .fit)
                         .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                        .shadow(radius: 40)
+                        .shadow(radius: 20)
                 }
                 .padding(5)
             }
