@@ -10,6 +10,7 @@ struct LoginView: View {
     @State private var showResetEmailAlert: Bool = false
     
     var body: some View {
+        ZStack {
         ScrollView {
             VStack {
                 
@@ -42,7 +43,7 @@ struct LoginView: View {
                     VStack {
                         Text("Reset Password")
                             .font(.callout)
-                            .foregroundStyle(Color.cardColor)
+                            .foregroundStyle(Color.white)
                             .bold()
                     }
                 }
@@ -65,19 +66,29 @@ struct LoginView: View {
             }
         }
         .hideKeyboardWhenTappedAround()
+    }
+        .background(Color.cardColor)
         
     }
     
     var loginButonsView: some View {
         VStack {
-            TextField("e-mail: ", text: $loginVM.email)
-                .font(.title3)
-                .modifier(LoginTextField())
-                .padding(.bottom, 5)
+            TextField(
+                "e-mail: ",
+                text: $loginVM.email,
+                prompt: Text("e-mail").foregroundColor(Color.gray.opacity(0.5))
+            )
+            .font(.title3)
+            .modifier(LoginTextField())
+            .padding(.bottom, 5)
             
-            SecureField("Password: ", text: $loginVM.password)
-                .font(.title3)
-                .modifier(LoginTextField())
+            SecureField(
+                "Password: ",
+                text: $loginVM.password,
+                prompt: Text("password").foregroundColor(Color.gray.opacity(0.5))
+            )
+            .font(.title3)
+            .modifier(LoginTextField())
             
             HStack(alignment: .top) {
                 
@@ -95,7 +106,7 @@ struct LoginView: View {
                     VStack {
                         Text("Login")
                             .font(.title3)
-                            .foregroundStyle(Color.cardColor)
+                            .foregroundStyle(Color.white)
                             .bold()
                     }
                 }
@@ -108,7 +119,7 @@ struct LoginView: View {
                     VStack {
                         Text("Create")
                             .font(.title3)
-                            .foregroundStyle(Color.cardColor)
+                            .foregroundStyle(Color.white)
                             .bold()
                         
                         Text("Account")
