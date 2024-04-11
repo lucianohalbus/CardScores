@@ -25,7 +25,7 @@ struct BuracoMatchView: View {
     var body: some View {
         ZStack {
             VStack {
-            
+                
                 matchResumeViewHeader
                 
                 ScrollView {
@@ -47,7 +47,7 @@ struct BuracoMatchView: View {
                             .padding(.horizontal)
                         } else {
                             VStack(spacing: 0) {
-                                if var urlString = matchFB.imagePathUrl, let url = URL(string: urlString) {
+                                if let urlString = matchFB.imagePathUrl, let url = URL(string: urlString) {
                                     if !self.deleteImage {
                                         AsyncImage(url: url) { image in
                                             image
@@ -89,8 +89,6 @@ struct BuracoMatchView: View {
                         
                         ToolBarLogo()
                             .padding(.trailing, 20)
-                        
-                      
                         
                         if !buracoTurnVM.turns.isEmpty {
                             Image(systemName: "camera.fill")
@@ -146,7 +144,6 @@ struct BuracoMatchView: View {
                                     .bold()
                             }
                             .buttonStyle(.borderless)
-                            .padding(.trailing, 20)
                             .tint(Color.white)
                             .sheet(isPresented: $presentAddNewMatchTurnView, content: {
                                 
@@ -168,11 +165,10 @@ struct BuracoMatchView: View {
     @ViewBuilder
     private var matchResumeViewHeader: some View {
         VStack {
-            VStack {
-                Text(!buracoListVM.gameOver ? "Partida Em Andamento" : "Partida Encerrada")
-                    .font(.title3)
-                    .foregroundColor(.white)
-            }
+            
+            Text(!buracoListVM.gameOver ? "Partida Em Andamento" : "Partida Encerrada")
+                .font(.title3)
+                .foregroundColor(.white)
             
             HStack {
                 VStack (alignment: .leading) {
@@ -184,12 +180,6 @@ struct BuracoMatchView: View {
                         .fontWeight(Int(buracoListVM.scoreOne) ?? 0 > Int(buracoListVM.scoreTwo) ?? 0 ? .bold : .regular)
                 }
                 .foregroundStyle(Color.black)
-                
-                Spacer()
-                
-                Divider()
-                    .frame(width: 1, height: 50)
-                    .background(Color.white)
                 
                 Spacer()
                 
@@ -218,44 +208,43 @@ struct BuracoMatchView: View {
             VStack {
                 ForEach(buracoTurnVM.turns) { matchResume in
                     if matchResume.turnId == matchFB.id {
-                        
-                        HStack {
-                            
+                        HStack(spacing: 5) {
                             VStack {
-                                Text(matchResume.scoresTurnOne)
-                                    .foregroundStyle(Int(matchResume.scoresTurnOne) ?? 0 < 0 ? Color.red : Color.white)
+                                Text("\(abs(Int(matchResume.scoresTurnOne) ?? 0))")
+                                    .foregroundStyle(Int(matchResume.scoresTurnOne) ?? 0 < 0 ? Color.red : Color.black)
                             }
-                            .frame(width: 60, alignment: .leading)
+                            .frame(width: 50, alignment: .leading)
                             
                             Spacer()
                             
                             VStack {
                                 Text(matchResume.myTime.formatted(date: .abbreviated, time: .shortened))
-                                    .foregroundStyle(.white)
+                                    .foregroundStyle(.black)
                             }
-                            .frame(width: 200, alignment: .center)
+                            .frame(width: 180, alignment: .center)
                             
                             Spacer()
                             
                             VStack {
-                                Text(matchResume.scoresTurnTwo)
-                                    .foregroundStyle(Int(matchResume.scoresTurnTwo) ?? 0 < 0 ? Color.red : Color.white)
+                                Text("\(abs(Int(matchResume.scoresTurnTwo) ?? 0))")
+                                    .foregroundStyle(Int(matchResume.scoresTurnTwo) ?? 0 < 0 ? Color.red : Color.black)
                             }
-                            .frame(width: 60, alignment: .trailing)
+                            .frame(width: 50, alignment: .trailing)
                             
                         }
                         .font(.callout)
-                        .padding(.horizontal)
+                        .padding(.horizontal, 15)
                     }
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .padding(.vertical, 10)
+            .background(Color.mainButtonColor)
             .cornerRadius(10)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)
                     .inset(by: 2)
-                    .stroke(Color.white, lineWidth: 2)
+                    .stroke(Color.gray, lineWidth: 2)
             )
         }
         .padding(.horizontal)

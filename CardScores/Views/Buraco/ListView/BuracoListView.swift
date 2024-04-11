@@ -21,6 +21,7 @@ struct BuracoListView: View {
                     
                     VStack {
                         if buracoListVM.matchesVM.isEmpty {
+                            
                             ZStack {
                                 RoundedRectangle(cornerRadius: 20)
                                     .frame(width: 380, height: 130)
@@ -31,6 +32,7 @@ struct BuracoListView: View {
                                             .inset(by: 2)
                                             .stroke(Color.cardColor, lineWidth: 2)
                                     )
+                                   
                                 
                                 VStack {
                                     Text("Você ainda não")
