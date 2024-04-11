@@ -7,7 +7,10 @@ struct LoginView: View {
     @StateObject var loginVM = LoginViewModel()
     @StateObject private var authenticationVM = AuthenticationViewModel()
     @Binding var showLoginView: Bool
+    @State var showCreateUserView: Bool = false
     @State private var showResetEmailAlert: Bool = false
+    @State private var email: String = ""
+    @State private var password: String = ""
     
     var body: some View {
         ZStack {
@@ -64,6 +67,15 @@ struct LoginView: View {
                     showLoginView = false
                 }
             }
+            .fullScreenCover(isPresented: $showCreateUserView, content: {
+                CreateUserView(email: $email, password: $password, showCreatedUserView: $showCreateUserView)
+                    .interactiveDismissDisabled()
+                    .onDisappear(perform: {
+                        loginVM.listen()
+                        self.email = ""
+                        self.password = ""
+                    })
+            })
         }
         .hideKeyboardWhenTappedAround()
     }
@@ -75,7 +87,7 @@ struct LoginView: View {
         VStack {
             TextField(
                 "e-mail: ",
-                text: $loginVM.email,
+                text: $email,
                 prompt: Text("e-mail").foregroundColor(Color.gray.opacity(0.5))
             )
             .font(.title3)
@@ -84,7 +96,7 @@ struct LoginView: View {
             
             SecureField(
                 "Password: ",
-                text: $loginVM.password,
+                text: $password,
                 prompt: Text("password").foregroundColor(Color.gray.opacity(0.5))
             )
             .font(.title3)
@@ -98,7 +110,7 @@ struct LoginView: View {
                 Button(action: {
                     Task {
                         do {
-                            loginVM.login(email: loginVM.email, password: loginVM.password)
+                            loginVM.login(email: email, password: password)
                         } 
                     }
                   
@@ -114,7 +126,8 @@ struct LoginView: View {
                 Spacer()
                 
                 Button(action: {
-                    loginVM.register(email: loginVM.email, password: loginVM.password)
+                    self.showCreateUserView = true
+                    
                 }) {
                     VStack {
                         Text("Create")

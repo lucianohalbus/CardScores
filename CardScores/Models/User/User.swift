@@ -13,5 +13,6 @@ struct UserModel: Identifiable, Codable {
     let numberOfMatches: Int64
     let friendsMail: [String]
     let friendsName: [String]
+    let createdTime: Date
 }
 

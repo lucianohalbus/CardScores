@@ -6,6 +6,7 @@ import FirebaseAuth
 
 class LoginViewModel: ObservableObject {
     @Published var login: [Login] = []
+    @Published var userName: String = ""
     @Published var password = ""
     @Published var email = ""
     @Published var userId: String = ""

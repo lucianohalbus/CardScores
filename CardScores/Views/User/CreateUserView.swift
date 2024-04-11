@@ -4,8 +4,12 @@ import SwiftUI
 
 struct CreateUserView: View {
     @Environment(\.dismiss) private var dismiss
+    @StateObject var userRepository = UserRepository()
     @StateObject var loginVM = LoginViewModel()
     @State var userName: String = ""
+    @Binding var email: String
+    @Binding var password: String
+    @Binding var showCreatedUserView: Bool
     
     var body: some View {
         ZStack {
@@ -23,6 +27,14 @@ struct CreateUserView: View {
                 createUserButtons
 
                 Spacer()
+            }
+            .onChange(of: userRepository.isUserCreated) { newValue in
+                if newValue {
+                    self.showCreatedUserView = false
+                    self.userName = ""
+                    self.email = ""
+                    self.password = ""
+                }
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -42,16 +54,16 @@ struct CreateUserView: View {
             
             TextField(
                 "e-mail: ",
-                text: $loginVM.email,
+                text: $email,
                 prompt: Text("E-mail: ").foregroundColor(Color.gray.opacity(0.5))
             )
             .font(.title3)
             .modifier(LoginTextField())
             .padding(.bottom, 5)
             
-            TextField(
+            SecureField(
                 "senha",
-                text: $loginVM.password,
+                text: $password,
                 prompt: Text("Senha: ").foregroundColor(Color.gray.opacity(0.5))
             )
             .font(.title3)
@@ -77,8 +89,8 @@ struct CreateUserView: View {
             Spacer()
             
             Button("Registrar") {
-                
-                dismiss()
+                userRepository.register(email: email, password: password)
+                userRepository.userName = self.userName
             }
             .font(.title3)
             .fontWeight(.bold)
@@ -93,5 +105,9 @@ struct CreateUserView: View {
 }
 
 #Preview {
-    CreateUserView()
+    CreateUserView(
+        email: .constant(""),
+        password: .constant(""),
+        showCreatedUserView: .constant(false)
+    )
 }
