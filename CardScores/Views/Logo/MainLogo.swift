@@ -31,42 +31,50 @@ struct MainLogo: View {
 
 struct MiniLogo: View {
     var body: some View {
-        HStack {
-            ZStack{
+        VStack {
+            HStack {
+                ZStack{
+                    
+                    Circle()
+                        .stroke(Color.cardColor, lineWidth: 3)
+                        .frame(width: 50, height: 50)
+                    
+                    Image("Logo")
+                        .resizable()
+                        .frame(width: 45, height: 45)
+                        .aspectRatio(contentMode: .fit)
+                        .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                        .shadow(radius: 40)
+                }
+                .padding(5)
                 
-                Circle()
-                    .stroke(Color.cardColor, lineWidth: 3)
-                    .frame(width: 50, height: 50)
                 
-                Image("Logo")
-                    .resizable()
-                    .frame(width: 45, height: 45)
-                    .aspectRatio(contentMode: .fit)
-                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                    .shadow(radius: 40)
+                Text("Card Scores")
+                    .font(.title)
+                    .fontWeight(.semibold)
+                    .foregroundStyle(Color.white)
+                
+                ZStack{
+                    
+                    Circle()
+                        .stroke(Color.cardColor, lineWidth: 3)
+                        .frame(width: 50, height: 50)
+                    
+                    Image("Logo")
+                        .resizable()
+                        .frame(width: 45, height: 45)
+                        .aspectRatio(contentMode: .fit)
+                        .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
+                        .shadow(radius: 40)
+                }
+                .padding(5)
             }
-            .padding(5)
             
-            
-            Text("Card Scores")
-                .font(.title)
-                .fontWeight(.semibold)
+            Divider()
+                .frame(height: 1)
+                .frame(maxWidth: .infinity)
+                .background(Color.black)
                 .foregroundStyle(Color.white)
-            
-            ZStack{
-                
-                Circle()
-                    .stroke(Color.cardColor, lineWidth: 3)
-                    .frame(width: 50, height: 50)
-                
-                Image("Logo")
-                    .resizable()
-                    .frame(width: 45, height: 45)
-                    .aspectRatio(contentMode: .fit)
-                    .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                    .shadow(radius: 40)
-            }
-            .padding(5)
         }
     }
 }

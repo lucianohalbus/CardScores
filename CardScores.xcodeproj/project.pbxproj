@@ -16,6 +16,7 @@
 		CB5578F42BBA324A005A643D /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5578F32BBA324A005A643D /* View+Extension.swift */; };
 		CB5578F72BBB1AE2005A643D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5578F62BBB1AE2005A643D /* ProfileView.swift */; };
 		CB5578FA2BBB1D70005A643D /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5578F92BBB1D70005A643D /* TabbarView.swift */; };
+		CB64FCB42BC83F0000067744 /* CreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCB32BC83F0000067744 /* CreateUserView.swift */; };
 		CB8A399C2BA7197400EFF71C /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A399B2BA7197400EFF71C /* Login.swift */; };
 		CB8A39A02BA71A1000EFF71C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A399F2BA71A1000EFF71C /* LoginViewModel.swift */; };
 		CB8A39A52BA71AE600EFF71C /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39A42BA71AE600EFF71C /* UserRepository.swift */; };
@@ -65,6 +66,7 @@
 		CB5578F32BBA324A005A643D /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		CB5578F62BBB1AE2005A643D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		CB5578F92BBB1D70005A643D /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
+		CB64FCB32BC83F0000067744 /* CreateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserView.swift; sourceTree = "<group>"; };
 		CB8A399B2BA7197400EFF71C /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		CB8A399F2BA71A1000EFF71C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		CB8A39A42BA71AE600EFF71C /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 			isa = PBXGroup;
 			children = (
 				CB5578F62BBB1AE2005A643D /* ProfileView.swift */,
+				CB64FCB32BC83F0000067744 /* CreateUserView.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -508,6 +511,7 @@
 				CBD142FD2BA8A1F8000FAA55 /* BuracoTurnsRepository.swift in Sources */,
 				CB416CFA2BA37A77005DF9F3 /* BuracoMatchView.swift in Sources */,
 				CB8A39AE2BA71E3500EFF71C /* LoginView.swift in Sources */,
+				CB64FCB42BC83F0000067744 /* CreateUserView.swift in Sources */,
 				CB5578FA2BBB1D70005A643D /* TabbarView.swift in Sources */,
 				CBFF67FE2BA342C80023A2F8 /* Color+Extension.swift in Sources */,
 				CB5578F72BBB1AE2005A643D /* ProfileView.swift in Sources */,

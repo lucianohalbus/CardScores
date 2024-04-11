@@ -4,7 +4,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct LoginView: View {
-    @ObservedObject var loginVM = LoginViewModel()
+    @StateObject var loginVM = LoginViewModel()
     @StateObject private var authenticationVM = AuthenticationViewModel()
     @Binding var showLoginView: Bool
     @State private var showResetEmailAlert: Bool = false
