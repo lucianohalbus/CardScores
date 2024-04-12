@@ -39,13 +39,14 @@ struct StandardButton: ViewModifier {
 }
 
 struct FriendsButton: ViewModifier {
+    var backColor: Color
     func body(content: Content) -> some View {
         return content
             .font(.headline)
             .padding(5)
             .frame(width: 100, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             .foregroundColor(Color.cardColor)
-            .background(Color.white)
+            .background(backColor)
             .cornerRadius(10)
             .overlay(
                 RoundedRectangle(cornerRadius: 10)

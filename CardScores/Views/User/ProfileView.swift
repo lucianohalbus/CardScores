@@ -7,13 +7,22 @@ struct ProfileView: View {
     @StateObject var loginVM = LoginViewModel()
     @StateObject var authenticationVM = AuthenticationViewModel()
     @StateObject var userRepo = UserRepository()
+    @StateObject var addNewBuracoVM = AddNewBuracoFBViewModel()
+    
     @Binding var showLoginView: Bool
+    
     @State private var showCreateAccount: Bool = false
     @State private var showDeleteButtonAlert: Bool = false
-    @State private var isFriendSelected: Bool = false
+    @State var isButtonIniciarClicked: Bool = false
     
-    @State var friendsArray: [String] = []
+    @State var teamOne: [String] = []
+    @State var teamTwo: [String] = []
+    @State var shouldCleanTeams: Bool = false
+    @State var setTeamOneColor: Bool = false
+    @State var setTeamTwoColor: Bool = false
     
+    @State var cleanButtonColor: Color = Color.black
+
     var gridItems = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -25,7 +34,9 @@ struct ProfileView: View {
             VStack {
                 
                 MiniLogo()
-            
+                
+                ScrollView {
+                    
                 VStack(alignment: .leading) {
                     
                     VStack(alignment: .leading) {
@@ -38,7 +49,7 @@ struct ProfileView: View {
                         Text("Email: \(userRepo.user.userEmail)")
                         Text("Id: \(userRepo.user.userId ?? "")")
                         Text("Conta criada em: \(userRepo.user.createdTime.formatted(date: .abbreviated, time: .omitted))")
-
+                        
                     }
                     .font(.callout)
                     .fontWeight(.semibold)
@@ -57,7 +68,7 @@ struct ProfileView: View {
                         Spacer()
                         
                         Button {
-                            
+                           
                         } label: {
                             Text("Iniciar")
                         }
@@ -69,10 +80,42 @@ struct ProfileView: View {
                         
                         Spacer()
                         
+                        Button {
+                            shouldCleanTeams = true
+                            cleanButtonColor = Color.white
+                            print("teamOne: \(teamOne)")
+                            print("teamTwo: \(teamTwo)")
+                            print("shouldCleanTeams: \(shouldCleanTeams)")
+                        } label: {
+                            Text("Limpar")
+                        }
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .tint(.green.opacity(0.9))
+                        .controlSize(.regular)
+                        .buttonStyle(.borderedProminent)
+                        
+                        Spacer()
+                        
                     }
+                    
+                    logoutButton
+                    deleteButton
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
+            }
                 
+            }
+            .onChange(of: shouldCleanTeams) { newValue in
+                if newValue {
+                    teamOne.removeAll()
+                    teamTwo.removeAll()
+                    shouldCleanTeams = false
+                }
+                
+                print("teamOne: \(teamOne)")
+                print("teamTwo: \(teamTwo)")
+                print("shouldCleanTeams: \(shouldCleanTeams)")
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .onAppear {
@@ -167,12 +210,31 @@ struct ProfileView: View {
             
             LazyVGrid(columns: gridItems, spacing: 10) {
                 ForEach(userRepo.user.friendsName, id: \.self) { friend in
-                    FriendGridItem(isFriendSelected: $isFriendSelected, friend: friend) {
-                        friendsArray.append(friend)
-                        print(friendsArray)
+                    
+                    FriendGridItem(friend: friend, setTeamOneColor: $setTeamOneColor, setTeamTwoColor: $setTeamTwoColor, cleanButtonColor: $cleanButtonColor) {
+                        if teamOne.count < 2 {
+                            teamOne.append(friend)
+                            setTeamOneColor = true
+                            setTeamTwoColor = false
+                            cleanButtonColor = Color.black
+                        } else if teamOne.count >= 2 && teamTwo.count < 2 {
+                            teamTwo.append(friend)
+                            setTeamOneColor = false
+                            setTeamTwoColor = true
+                        } else if teamOne.count == 2 && teamTwo.count == 2 {
+                            setTeamOneColor = false
+                            setTeamTwoColor = false
+                        }
+                        
+                        print("teamOne: \(teamOne)")
+                        print("teamTwo: \(teamTwo)")
+                        print("shouldCleanTeams: \(shouldCleanTeams)")
+                        print("setTeamOneColor: \(setTeamOneColor)")
+                        print("setTeamTwoColor: \(setTeamTwoColor)")
+                        
+                        
                     } actionRemove: {
-                        friendsArray.removeAll { $0 == friend }
-                        print(friendsArray)
+ 
                     }
                 } 
             }
@@ -182,40 +244,42 @@ struct ProfileView: View {
 }
 
 struct FriendGridItem: View {
-    @Binding var isFriendSelected: Bool
-    @State var selectedFriend: Bool = false
-    @StateObject var addNewBuracoVM = AddNewBuracoFBViewModel()
     var friend: String
+    @Binding var setTeamOneColor: Bool
+    @Binding var setTeamTwoColor: Bool
+    @Binding var cleanButtonColor: Color
+    
+    @State var backColor: Color = Color.white
     var actionAppend: () -> Void
     var actionRemove: () -> Void
     
     var body: some View {
         VStack(alignment: .center) {
             Button {
-                self.isFriendSelected.toggle()
-                self.selectedFriend.toggle()
+                actionAppend()
+                actionRemove()
                 
-                if selectedFriend {
-                    actionAppend()
-                } else {
-                    actionRemove()
+                if setTeamOneColor {
+                    backColor = Color.yellow
+                } else if setTeamTwoColor {
+                    backColor = Color.red
                 }
                 
+                print("cleanButtonColor: \(cleanButtonColor)")
             } label: {
                 ZStack {
-                    
                     Text(friend)
-                    
-                    Image(systemName: selectedFriend ? "circle.fill" : "circle")
-                        .resizable()
-                        .frame(width: 15, height: 15)
-                        .cornerRadius(2)
-                        .offset(x: 38, y: -18)
                 }
                 
             }
-            .modifier(FriendsButton())
+            .modifier(FriendsButton(backColor: backColor))
         }
         .padding(.horizontal)
+        .onChange(of: cleanButtonColor) { newValue in
+            if newValue == Color.white {
+                self.backColor = newValue
+            }
+        }
+       
     }
 }
