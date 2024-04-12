@@ -12,6 +12,8 @@ struct ProfileView: View {
     @State private var showDeleteButtonAlert: Bool = false
     @State private var isFriendSelected: Bool = false
     
+    @State var friendsArray: [String] = []
+    
     var gridItems = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -165,9 +167,14 @@ struct ProfileView: View {
             
             LazyVGrid(columns: gridItems, spacing: 10) {
                 ForEach(userRepo.user.friendsName, id: \.self) { friend in
-                    FriendGridItem(friend: friend)
-                }
-                
+                    FriendGridItem(isFriendSelected: $isFriendSelected, friend: friend) {
+                        friendsArray.append(friend)
+                        print(friendsArray)
+                    } actionRemove: {
+                        friendsArray.removeAll { $0 == friend }
+                        print(friendsArray)
+                    }
+                } 
             }
         }
         .padding(.horizontal)
@@ -175,30 +182,31 @@ struct ProfileView: View {
 }
 
 struct FriendGridItem: View {
-    @State private var isFriendSelected: Bool = false
+    @Binding var isFriendSelected: Bool
+    @State var selectedFriend: Bool = false
     @StateObject var addNewBuracoVM = AddNewBuracoFBViewModel()
     var friend: String
+    var actionAppend: () -> Void
+    var actionRemove: () -> Void
     
     var body: some View {
         VStack(alignment: .center) {
             Button {
                 self.isFriendSelected.toggle()
-                print(isFriendSelected)
+                self.selectedFriend.toggle()
                 
-                if isFriendSelected {
-                    addNewBuracoVM.playersOfTheMatch.append(friend)
+                if selectedFriend {
+                    actionAppend()
                 } else {
-                    addNewBuracoVM.playersOfTheMatch.removeAll { $0 == friend }
+                    actionRemove()
                 }
-                
-                print(addNewBuracoVM.playersOfTheMatch)
                 
             } label: {
                 ZStack {
                     
                     Text(friend)
                     
-                    Image(systemName: isFriendSelected ? "circle.fill" : "circle")
+                    Image(systemName: selectedFriend ? "circle.fill" : "circle")
                         .resizable()
                         .frame(width: 15, height: 15)
                         .cornerRadius(2)
