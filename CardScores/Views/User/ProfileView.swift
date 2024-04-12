@@ -10,6 +10,13 @@ struct ProfileView: View {
     @Binding var showLoginView: Bool
     @State private var showCreateAccount: Bool = false
     @State private var showDeleteButtonAlert: Bool = false
+    @State private var isFriendSelected: Bool = false
+    
+    var gridItems = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
     
     var body: some View {
         ZStack {
@@ -40,10 +47,27 @@ struct ProfileView: View {
                         .frame(height: 1)
                         .frame(maxWidth: .infinity)
                         .background(Color.black)
-
-                    logoutButton
                     
-                    deleteButton
+                    listOfFriends
+                    
+                    HStack {
+                        
+                        Spacer()
+                        
+                        Button {
+                            
+                        } label: {
+                            Text("Iniciar")
+                        }
+                        .font(.title3)
+                        .fontWeight(.bold)
+                        .tint(.green.opacity(0.9))
+                        .controlSize(.regular)
+                        .buttonStyle(.borderedProminent)
+                        
+                        Spacer()
+                        
+                    }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
                 
@@ -102,6 +126,7 @@ struct ProfileView: View {
             }
         }
         .padding(.horizontal)
+        .padding(.top, 10)
     }
     
     var deleteButton: some View {
@@ -130,11 +155,59 @@ struct ProfileView: View {
         }
         .padding(.horizontal)
     }
+    
+    var listOfFriends: some View {
+        VStack(alignment: .center) {
+            
+            Text("Lista de Amigos")
+                .foregroundStyle(Color.yellow)
+                .font(.callout)
+            
+            LazyVGrid(columns: gridItems, spacing: 10) {
+                ForEach(userRepo.user.friendsName, id: \.self) { friend in
+                    FriendGridItem(friend: friend)
+                }
+                
+            }
+        }
+        .padding(.horizontal)
+    }
 }
 
-#Preview {
-    ProfileView(
-        loginVM: LoginViewModel(),
-        showLoginView: .constant(false)
-    )
+struct FriendGridItem: View {
+    @State private var isFriendSelected: Bool = false
+    @StateObject var addNewBuracoVM = AddNewBuracoFBViewModel()
+    var friend: String
+    
+    var body: some View {
+        VStack(alignment: .center) {
+            Button {
+                self.isFriendSelected.toggle()
+                print(isFriendSelected)
+                
+                if isFriendSelected {
+                    addNewBuracoVM.playersOfTheMatch.append(friend)
+                } else {
+                    addNewBuracoVM.playersOfTheMatch.removeAll { $0 == friend }
+                }
+                
+                print(addNewBuracoVM.playersOfTheMatch)
+                
+            } label: {
+                ZStack {
+                    
+                    Text(friend)
+                    
+                    Image(systemName: isFriendSelected ? "circle.fill" : "circle")
+                        .resizable()
+                        .frame(width: 15, height: 15)
+                        .cornerRadius(2)
+                        .offset(x: 38, y: -18)
+                }
+                
+            }
+            .modifier(FriendsButton())
+        }
+        .padding(.horizontal)
+    }
 }
