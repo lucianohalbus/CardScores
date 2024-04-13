@@ -202,6 +202,15 @@ class UserRepository: ObservableObject {
         }
     }
     
+    func removeFriend(friend: String) {
+        if let userId = Auth.auth().currentUser?.uid {
+            let friendRef = db.collection("User").document(userId)
+            friendRef.updateData([
+                "friendsName": FieldValue.arrayRemove([friend])
+            ])
+        }
+    }
+    
     
     func updateRankingFriends(_ emailFriend:String, scoreFriend:Double) {
         db.collection("User")

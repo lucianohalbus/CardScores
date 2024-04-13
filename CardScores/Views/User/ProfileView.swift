@@ -11,12 +11,14 @@ struct ProfileView: View {
     
     @Binding var showLoginView: Bool
     
+    @State var friendToRemove: String = ""
     @State private var showDeleteButtonAlert: Bool = false
     @State var isButtonIniciarClicked: Bool = false
     @State var showAddFriends: Bool = false
+    @State var showRemoveFriendAlert: Bool = false
+    
 
     var gridItems = [
-        GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -55,10 +57,20 @@ struct ProfileView: View {
                         .background(Color.black)
                     
                     listOfFriends
-
-                    logoutButton
                     
-                    deleteButton
+                    Divider()
+                        .frame(height: 1)
+                        .frame(maxWidth: .infinity)
+                        .background(Color.black)
+
+                    
+                    HStack {
+                        Spacer()
+                        logoutButton
+                        Spacer()
+                        deleteButton
+                        Spacer()
+                    }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
@@ -80,6 +92,22 @@ struct ProfileView: View {
                             } catch {
                                 print(error)
                             }
+                        }
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
+            .alert(isPresented:$showRemoveFriendAlert) {
+                Alert(
+                    title: Text("Remove Friend"),
+                    message: Text("Essa ação removerá esse nome da sua lista de amigos"),
+                    primaryButton: .destructive(Text("Continuar")) {
+                        Task {
+                            print("antes \(friendToRemove)")
+                            userRepo.removeFriend(friend: friendToRemove)
+                            userRepo.getUser()
+                            self.friendToRemove = ""
+                            print("depois \(friendToRemove)")
                         }
                     },
                     secondaryButton: .cancel()
@@ -167,7 +195,7 @@ struct ProfileView: View {
                     Text(friend)
                         .font(.caption)
                         .padding(5)
-                        .frame(width: 85, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .frame(width: 100, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                         .foregroundColor(Color.cardColor)
                         .background(Color.white)
                         .cornerRadius(5)
@@ -175,8 +203,13 @@ struct ProfileView: View {
                             RoundedRectangle(cornerRadius: 5)
                                 .stroke(Color.gray)
                         )
+                        .onTapGesture {}.onLongPressGesture(minimumDuration: 0.2) {
+                            showRemoveFriendAlert = true
+                            self.friendToRemove = friend
+                        }
                 }
             }
+            .padding(.bottom, 10)
             
             Button {
                 showAddFriends.toggle()
