@@ -37,12 +37,10 @@ struct ProfileView: View {
                     VStack(alignment: .leading) {
                         Text("Bem-Vindo: \(userRepo.user.userName)")
                             .padding(.bottom, 10)
-                        
-                        
+
                         Text("Informações da Conta")
                             .foregroundStyle(.yellow)
                         Text("Email: \(userRepo.user.userEmail)")
-                        Text("Id: \(userRepo.user.userId ?? "")")
                         Text("Conta criada em: \(userRepo.user.createdTime.formatted(date: .abbreviated, time: .omitted))")
                         
                     }
@@ -136,9 +134,8 @@ struct ProfileView: View {
                 }
             }) {
                 VStack {
-                    Text("Logout")
+                    Text("Sair    ")
                         .font(.title3)
-                        .fontWeight(.bold)
                         .foregroundStyle(Color.cardColor)
                         .padding(5)
                         .overlay(
@@ -163,9 +160,8 @@ struct ProfileView: View {
                 
             } label: {
                 VStack (){
-                    Text("DELETE ACCOUNT")
+                    Text("Apagar a Conta")
                         .font(.title3)
-                        .fontWeight(.bold)
                         .foregroundStyle(.red)
                         .padding(5)
                         .overlay(
@@ -215,9 +211,9 @@ struct ProfileView: View {
                 showAddFriends.toggle()
             } label: {
                 Text("Adicionar Amigos")
-                    .font(.caption)
+                    .font(.callout)
                     .padding(5)
-                    .frame(width: 200, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .frame(width: 200, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
                     .foregroundColor(Color.black)
                     .background(Color.mainButtonColor)
                     .cornerRadius(5)
