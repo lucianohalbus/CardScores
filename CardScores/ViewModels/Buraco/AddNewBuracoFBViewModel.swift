@@ -14,6 +14,7 @@ final class AddNewBuracoFBViewModel: ObservableObject {
     @Published var targetScore: String = "3000"
     @Published var addNewSaved: Bool = false
     @Published var userId: String = ""
+    @Published var playersOfTheMatch: [String] = []
     
     init() {
         repo = BuracoMatchesRepository()

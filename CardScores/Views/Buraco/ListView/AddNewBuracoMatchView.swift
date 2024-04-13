@@ -4,28 +4,37 @@ import SwiftUI
 
 struct AddNewBuracoMatchView: View {
     @StateObject private var addNewMatchVM = AddNewBuracoFBViewModel()
+    @StateObject var userRepo = UserRepository()
     @Environment(\.dismiss) private var dismiss
+    
+    @State var teamOne: [String] = []
+    @State var teamTwo: [String] = []
+    @State var shouldCleanTeams: Bool = false
+    @State var setSelectedButtonColor: Bool = false
+    @State var cleanButtonColor: Color = Color.black
+    
+    @State var placeholderOne: String = "Nome do Jogador 1"
+    @State var placeholderTwo: String = "Nome do Jogador 2"
+    @State var placeholderThree: String = "Nome do Jogador 3"
+    @State var placeholderFour: String = "Nome do Jogador 4"
+    
+    var gridItems = [
+        GridItem(.flexible()),
+        GridItem(.flexible()),
+        GridItem(.flexible())
+    ]
     
     var body: some View {
         ZStack {
+            ScrollView {
             VStack {
                 MiniLogo()
-                
-                Divider()
-                    .frame(height: 1)
-                    .frame(maxWidth: .infinity)
-                    .background(Color.black)
-                    .foregroundStyle(Color.white)
-                
-                Text("Criar Nova Partida")
-                    .font(.title2)
-                    .foregroundStyle(Color.white)
-                    .bold()
-                    .padding(.bottom, 10 )
                 
                 addNewMatchViewHeader
                 
                 addNewMatchViewTeams
+                
+                addedFriends
                 
                 HStack {
                     
@@ -33,6 +42,28 @@ struct AddNewBuracoMatchView: View {
                     
                     Button("Cancel", role: .destructive) {
                         dismiss()
+                    }
+                    .font(.title3)
+                    .fontWeight(.bold)
+                    .tint(.green.opacity(0.9))
+                    .controlSize(.regular)
+                    .buttonStyle(.borderedProminent)
+                    
+                    Spacer()
+                    
+                    Button("Limpar", role: .destructive) {
+                        shouldCleanTeams = true
+                        cleanButtonColor = Color.white
+                        placeholderOne = "Nome do Jogador 1"
+                        addNewMatchVM.playerOne = ""
+                        placeholderTwo = "Nome do Jogador 2"
+                        addNewMatchVM.playerTwo = ""
+                        placeholderThree = "Nome do Jogador 3"
+                        addNewMatchVM.playerThree = ""
+                        placeholderFour = "Nome do Jogador 4"
+                        addNewMatchVM.playerFour = ""
+                        setSelectedButtonColor = false
+                        cleanButtonColor = Color.white
                     }
                     .font(.title3)
                     .fontWeight(.bold)
@@ -54,9 +85,19 @@ struct AddNewBuracoMatchView: View {
                     
                     Spacer()
                 }
+                .padding(.top, 20)
                 
                 Spacer()
             }
+            .onAppear {
+                userRepo.getUser()
+            }
+            .onChange(of: shouldCleanTeams) { newValue in
+                if newValue {
+                    shouldCleanTeams = false
+                }
+            }
+        }
         }
         .background(Color.cardColor)
     }
@@ -84,10 +125,10 @@ struct AddNewBuracoMatchView: View {
         HStack {
             VStack(alignment: .leading) {
                 Text("Dupla 1")
-                    .font(.title)
+                    .font(.title2)
                     .foregroundStyle(Color.white)
                 
-                TextField("Nome do Jogador 1", text: $addNewMatchVM.playerOne)
+                TextField(placeholderOne, text: $addNewMatchVM.playerOne)
                     .cornerRadius(6)
                     .overlay(
                         RoundedRectangle(cornerRadius: 6)
@@ -95,7 +136,7 @@ struct AddNewBuracoMatchView: View {
                     )
                     .minimumScaleFactor(0.4)
                 
-                TextField("Nome do Jogador 2", text: $addNewMatchVM.playerTwo)
+                TextField(placeholderTwo, text: $addNewMatchVM.playerTwo)
                     .cornerRadius(6)
                     .overlay(
                         RoundedRectangle(cornerRadius: 6)
@@ -113,10 +154,10 @@ struct AddNewBuracoMatchView: View {
             
             VStack(alignment: .trailing) {
                 Text("Dupla 2")
-                    .font(.title)
+                    .font(.title2)
                     .foregroundStyle(Color.white)
                 
-                TextField("Nome do Jogador 1", text: $addNewMatchVM.playerThree)
+                TextField(placeholderThree, text: $addNewMatchVM.playerThree)
                     .cornerRadius(6)
                     .overlay(
                         RoundedRectangle(cornerRadius: 6)
@@ -124,7 +165,7 @@ struct AddNewBuracoMatchView: View {
                     )
                     .minimumScaleFactor(0.4)
                 
-                TextField("Nome do Jogador 2", text: $addNewMatchVM.playerFour)
+                TextField(placeholderFour, text: $addNewMatchVM.playerFour)
                     .cornerRadius(6)
                     .overlay(
                         RoundedRectangle(cornerRadius: 6)
@@ -145,6 +186,45 @@ struct AddNewBuracoMatchView: View {
             
         )
         .padding(.horizontal, 10)
+    }
+    
+    var addedFriends: some View {
+        VStack(alignment: .center) {
+            
+            Text("Lista de Amigos")
+                .foregroundStyle(Color.yellow)
+                .font(.callout)
+            
+            LazyVGrid(columns: gridItems, spacing: 10) {
+                ForEach(userRepo.listOfFriends, id: \.self) { friend in
+                    
+                    FriendGridItem(friend: friend, setSelectedButtonColor: $setSelectedButtonColor, cleanButtonColor: $cleanButtonColor) {
+                        
+                        if addNewMatchVM.playerOne.isEmpty {
+                            placeholderOne = friend
+                            addNewMatchVM.playerOne = friend
+                            setSelectedButtonColor = true
+                            cleanButtonColor = Color.black
+                        } else if addNewMatchVM.playerTwo.isEmpty {
+                            placeholderTwo = friend
+                            addNewMatchVM.playerTwo = friend
+                            setSelectedButtonColor = true
+                        } else if addNewMatchVM.playerThree.isEmpty {
+                            placeholderThree = friend
+                            addNewMatchVM.playerThree = friend
+                            setSelectedButtonColor = true
+                        } else if addNewMatchVM.playerFour.isEmpty {
+                            placeholderFour = friend
+                            addNewMatchVM.playerFour = friend
+                            setSelectedButtonColor = true
+                        } else {
+                            setSelectedButtonColor = false
+                        }
+                    }
+                }
+            }
+        }
+        .padding(.horizontal)
     }
     
 }

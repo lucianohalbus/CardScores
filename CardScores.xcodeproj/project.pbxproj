@@ -16,10 +16,13 @@
 		CB5578F42BBA324A005A643D /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5578F32BBA324A005A643D /* View+Extension.swift */; };
 		CB5578F72BBB1AE2005A643D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5578F62BBB1AE2005A643D /* ProfileView.swift */; };
 		CB5578FA2BBB1D70005A643D /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5578F92BBB1D70005A643D /* TabbarView.swift */; };
+		CB64FCB42BC83F0000067744 /* CreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCB32BC83F0000067744 /* CreateUserView.swift */; };
+		CB64FCB62BC87BFF00067744 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCB52BC87BFF00067744 /* ProfileModel.swift */; };
+		CB64FCB92BCA0D6700067744 /* FriendGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCB82BCA0D6700067744 /* FriendGridItem.swift */; };
 		CB8A399C2BA7197400EFF71C /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A399B2BA7197400EFF71C /* Login.swift */; };
 		CB8A39A02BA71A1000EFF71C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A399F2BA71A1000EFF71C /* LoginViewModel.swift */; };
 		CB8A39A52BA71AE600EFF71C /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39A42BA71AE600EFF71C /* UserRepository.swift */; };
-		CB8A39A72BA71B3C00EFF71C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39A62BA71B3C00EFF71C /* User.swift */; };
+		CB8A39A72BA71B3C00EFF71C /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39A62BA71B3C00EFF71C /* UserModel.swift */; };
 		CB8A39AA2BA71BA200EFF71C /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39A92BA71BA200EFF71C /* UserViewModel.swift */; };
 		CB8A39AE2BA71E3500EFF71C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39AD2BA71E3500EFF71C /* LoginView.swift */; };
 		CB8A39B02BA720BE00EFF71C /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39AF2BA720BE00EFF71C /* ViewModifiers.swift */; };
@@ -65,10 +68,13 @@
 		CB5578F32BBA324A005A643D /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		CB5578F62BBB1AE2005A643D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		CB5578F92BBB1D70005A643D /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
+		CB64FCB32BC83F0000067744 /* CreateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserView.swift; sourceTree = "<group>"; };
+		CB64FCB52BC87BFF00067744 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
+		CB64FCB82BCA0D6700067744 /* FriendGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendGridItem.swift; sourceTree = "<group>"; };
 		CB8A399B2BA7197400EFF71C /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		CB8A399F2BA71A1000EFF71C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		CB8A39A42BA71AE600EFF71C /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
-		CB8A39A62BA71B3C00EFF71C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		CB8A39A62BA71B3C00EFF71C /* UserModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
 		CB8A39A92BA71BA200EFF71C /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		CB8A39AD2BA71E3500EFF71C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		CB8A39AF2BA720BE00EFF71C /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
@@ -135,6 +141,7 @@
 			isa = PBXGroup;
 			children = (
 				CB5578F62BBB1AE2005A643D /* ProfileView.swift */,
+				CB64FCB32BC83F0000067744 /* CreateUserView.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -146,6 +153,14 @@
 				CB5578F92BBB1D70005A643D /* TabbarView.swift */,
 			);
 			path = TabView;
+			sourceTree = "<group>";
+		};
+		CB64FCB72BCA0D5800067744 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				CB64FCB82BCA0D6700067744 /* FriendGridItem.swift */,
+			);
+			path = SubViews;
 			sourceTree = "<group>";
 		};
 		CB8A39942BA7131A00EFF71C /* Buraco */ = {
@@ -160,6 +175,7 @@
 		CB8A39952BA717F300EFF71C /* Buraco */ = {
 			isa = PBXGroup;
 			children = (
+				CB64FCB72BCA0D5800067744 /* SubViews */,
 				CB416CFB2BA472F1005DF9F3 /* BuracoFBViewModel.swift */,
 				CBFF67EF2BA340CB0023A2F8 /* BuracoListViewModel.swift */,
 				CBD142F02BA77D8A000FAA55 /* AddNewBuracoFBViewModel.swift */,
@@ -190,7 +206,8 @@
 			isa = PBXGroup;
 			children = (
 				CB8A399B2BA7197400EFF71C /* Login.swift */,
-				CB8A39A62BA71B3C00EFF71C /* User.swift */,
+				CB8A39A62BA71B3C00EFF71C /* UserModel.swift */,
+				CB64FCB52BC87BFF00067744 /* ProfileModel.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -494,7 +511,7 @@
 				CB8A399C2BA7197400EFF71C /* Login.swift in Sources */,
 				CB8A39B02BA720BE00EFF71C /* ViewModifiers.swift in Sources */,
 				CB416CF62BA35FB6005DF9F3 /* BuracoListView.swift in Sources */,
-				CB8A39A72BA71B3C00EFF71C /* User.swift in Sources */,
+				CB8A39A72BA71B3C00EFF71C /* UserModel.swift in Sources */,
 				CBFF67D82BA33FD50023A2F8 /* MatchTurn.swift in Sources */,
 				CB5578F42BBA324A005A643D /* View+Extension.swift in Sources */,
 				CBD142FB2BA8A0DF000FAA55 /* BuracoTurnsViewModel.swift in Sources */,
@@ -508,6 +525,9 @@
 				CBD142FD2BA8A1F8000FAA55 /* BuracoTurnsRepository.swift in Sources */,
 				CB416CFA2BA37A77005DF9F3 /* BuracoMatchView.swift in Sources */,
 				CB8A39AE2BA71E3500EFF71C /* LoginView.swift in Sources */,
+				CB64FCB42BC83F0000067744 /* CreateUserView.swift in Sources */,
+				CB64FCB92BCA0D6700067744 /* FriendGridItem.swift in Sources */,
+				CB64FCB62BC87BFF00067744 /* ProfileModel.swift in Sources */,
 				CB5578FA2BBB1D70005A643D /* TabbarView.swift in Sources */,
 				CBFF67FE2BA342C80023A2F8 /* Color+Extension.swift in Sources */,
 				CB5578F72BBB1AE2005A643D /* ProfileView.swift in Sources */,

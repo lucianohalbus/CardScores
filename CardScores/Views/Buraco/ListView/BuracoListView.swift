@@ -14,11 +14,6 @@ struct BuracoListView: View {
                 VStack {
                     MiniLogo()
                     
-                    Divider()
-                        .frame(height: 1)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.black)
-                    
                     VStack {
                         if buracoListVM.matchesVM.isEmpty {
                             
@@ -32,7 +27,7 @@ struct BuracoListView: View {
                                             .inset(by: 2)
                                             .stroke(Color.cardColor, lineWidth: 2)
                                     )
-                                   
+                                
                                 
                                 VStack {
                                     Text("Você ainda não")
@@ -41,32 +36,35 @@ struct BuracoListView: View {
                                 .foregroundColor(Color.cardColor)
                                 .font(.headline)
                             }
+                        } else {
+                            List {
+                                ForEach(buracoListVM.matchesVM) { match in
+                                    BuracoCardView(buracoVM: match)
+                                        .padding(.bottom, 10)
+                                }
+                                .onDelete(perform: { idxSet in
+                                    idxSet.forEach { idx in
+                                        let match = buracoListVM.matchesVM[idx]
+                                        buracoListVM.delete(matchFB: match)
+                                    }
+                                })
+                                .listRowInsets(EdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                                .listRowBackground(Color.clear)
+                                
+                            }
+                            .scrollContentBackground(.hidden)
                         }
                         
-                        List {
-                            ForEach(buracoListVM.matchesVM) { match in
-                                BuracoCardView(buracoVM: match)
-                                    .padding(.bottom, 10)
-                            }
-                            .onDelete(perform: { idxSet in
-                                idxSet.forEach { idx in
-                                    let match = buracoListVM.matchesVM[idx]
-                                    buracoListVM.delete(matchFB: match)
-                                }
-                            })
-                            .listRowInsets(EdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                            .listRowBackground(Color.clear)
-                            
-                        }
-                        .scrollContentBackground(.hidden)
-                        .fullScreenCover(isPresented: $addNewMatchIsPresented, content: {
-                            AddNewBuracoMatchView()
-                                .interactiveDismissDisabled()
-                                .onDisappear(perform: {
-                                    buracoListVM.getMatches()
-                                })
-                        })
+                        Spacer()
                     }
+                    .fullScreenCover(isPresented: $addNewMatchIsPresented, content: {
+                        AddNewBuracoMatchView()
+                            .interactiveDismissDisabled()
+                            .onDisappear(perform: {
+                                buracoListVM.getMatches()
+                            })
+                    })
+                    
                 }
                 .navigationDestination(for: BuracoFBViewModel.self) { item in
                     BuracoMatchView(matchFB: item)
@@ -82,6 +80,7 @@ struct BuracoListView: View {
                 }
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.cardColor)
     }
 }

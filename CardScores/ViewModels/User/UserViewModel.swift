@@ -6,7 +6,6 @@ import Firebase
 class UserViewModel: ObservableObject {
     
     @Published var userRepository = UserRepository()
-    @Published var user: [User] = []
     @Published var userName: String
     @Published var userEmail: String
     @Published var userId: String
@@ -37,8 +36,8 @@ class UserViewModel: ObservableObject {
         return Auth.auth().currentUser != nil
     }
     
-    func addUserFriends(_ myFriend: String) {
-        userRepository.addUserFriend(myFriend)
+    func addFriends(friend: String) {
+        userRepository.addFriend(friend: friend)
         }
     
     func addWin(_ d: Double, _ friend:String) {
