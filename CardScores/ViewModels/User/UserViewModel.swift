@@ -36,8 +36,8 @@ class UserViewModel: ObservableObject {
         return Auth.auth().currentUser != nil
     }
     
-    func addUserFriends(_ myFriend: String) {
-        userRepository.addUserFriend(myFriend)
+    func addFriends(friend: String) {
+        userRepository.addFriend(friend: friend)
         }
     
     func addWin(_ d: Double, _ friend:String) {

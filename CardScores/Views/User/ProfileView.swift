@@ -11,19 +11,12 @@ struct ProfileView: View {
     
     @Binding var showLoginView: Bool
     
-    @State private var showCreateAccount: Bool = false
     @State private var showDeleteButtonAlert: Bool = false
     @State var isButtonIniciarClicked: Bool = false
-    
-    @State var teamOne: [String] = []
-    @State var teamTwo: [String] = []
-    @State var shouldCleanTeams: Bool = false
-    @State var setTeamOneColor: Bool = false
-    @State var setTeamTwoColor: Bool = false
-    
-    @State var cleanButtonColor: Color = Color.black
+    @State var showAddFriends: Bool = false
 
     var gridItems = [
+        GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible())
@@ -62,60 +55,14 @@ struct ProfileView: View {
                         .background(Color.black)
                     
                     listOfFriends
-                    
-                    HStack {
-                        
-                        Spacer()
-                        
-                        Button {
-                           
-                        } label: {
-                            Text("Iniciar")
-                        }
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .tint(.green.opacity(0.9))
-                        .controlSize(.regular)
-                        .buttonStyle(.borderedProminent)
-                        
-                        Spacer()
-                        
-                        Button {
-                            shouldCleanTeams = true
-                            cleanButtonColor = Color.white
-                            print("teamOne: \(teamOne)")
-                            print("teamTwo: \(teamTwo)")
-                            print("shouldCleanTeams: \(shouldCleanTeams)")
-                        } label: {
-                            Text("Limpar")
-                        }
-                        .font(.title3)
-                        .fontWeight(.bold)
-                        .tint(.green.opacity(0.9))
-                        .controlSize(.regular)
-                        .buttonStyle(.borderedProminent)
-                        
-                        Spacer()
-                        
-                    }
-                    
+
                     logoutButton
+                    
                     deleteButton
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
             }
                 
-            }
-            .onChange(of: shouldCleanTeams) { newValue in
-                if newValue {
-                    teamOne.removeAll()
-                    teamTwo.removeAll()
-                    shouldCleanTeams = false
-                }
-                
-                print("teamOne: \(teamOne)")
-                print("teamTwo: \(teamTwo)")
-                print("shouldCleanTeams: \(shouldCleanTeams)")
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .onAppear {
@@ -123,9 +70,9 @@ struct ProfileView: View {
             }
             .alert(isPresented:$showDeleteButtonAlert) {
                 Alert(
-                    title: Text("Warning!"),
-                    message: Text("This action will permanently delete all your data, including your saved match data"),
-                    primaryButton: .destructive(Text("Continue")) {
+                    title: Text("Atenção!"),
+                    message: Text("Essa ação irá deletar permanentemente todos os seus dados"),
+                    primaryButton: .destructive(Text("Continuar")) {
                         Task {
                             do {
                                 try await authenticationVM.deleteAccount()
@@ -137,6 +84,12 @@ struct ProfileView: View {
                     },
                     secondaryButton: .cancel()
                 )
+            }
+            .sheet(isPresented: $showAddFriends, onDismiss: {
+                userRepo.getUser()
+            }) {
+                AddFriend()
+                    .presentationDetents([.medium])
             }
         }
         .background(Color.cardColor)
@@ -203,83 +156,98 @@ struct ProfileView: View {
     
     var listOfFriends: some View {
         VStack(alignment: .center) {
-            
+
             Text("Lista de Amigos")
-                .foregroundStyle(Color.yellow)
                 .font(.callout)
-            
+                .foregroundStyle(Color.yellow)
+                .fontWeight(.bold)
+
             LazyVGrid(columns: gridItems, spacing: 10) {
-                ForEach(userRepo.user.friendsName, id: \.self) { friend in
-                    
-                    FriendGridItem(friend: friend, setTeamOneColor: $setTeamOneColor, setTeamTwoColor: $setTeamTwoColor, cleanButtonColor: $cleanButtonColor) {
-                        if teamOne.count < 2 {
-                            teamOne.append(friend)
-                            setTeamOneColor = true
-                            setTeamTwoColor = false
-                            cleanButtonColor = Color.black
-                        } else if teamOne.count >= 2 && teamTwo.count < 2 {
-                            teamTwo.append(friend)
-                            setTeamOneColor = false
-                            setTeamTwoColor = true
-                        } else if teamOne.count == 2 && teamTwo.count == 2 {
-                            setTeamOneColor = false
-                            setTeamTwoColor = false
-                        }
-                        
-                        print("teamOne: \(teamOne)")
-                        print("teamTwo: \(teamTwo)")
-                        print("shouldCleanTeams: \(shouldCleanTeams)")
-                        print("setTeamOneColor: \(setTeamOneColor)")
-                        print("setTeamTwoColor: \(setTeamTwoColor)")
-                        
-                        
-                    } actionRemove: {
- 
-                    }
-                } 
+                ForEach(userRepo.listOfFriends, id: \.self) { friend in
+                    Text(friend)
+                        .font(.caption)
+                        .padding(5)
+                        .frame(width: 85, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                        .foregroundColor(Color.cardColor)
+                        .background(Color.white)
+                        .cornerRadius(5)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 5)
+                                .stroke(Color.gray)
+                        )
+                }
+            }
+            
+            Button {
+                showAddFriends.toggle()
+            } label: {
+                Text("Adicionar Amigos")
+                    .font(.caption)
+                    .padding(5)
+                    .frame(width: 200, height: 20, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                    .foregroundColor(Color.black)
+                    .background(Color.mainButtonColor)
+                    .cornerRadius(5)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 5)
+                            .stroke(Color.gray)
+                    )
             }
         }
         .padding(.horizontal)
     }
 }
 
-struct FriendGridItem: View {
-    var friend: String
-    @Binding var setTeamOneColor: Bool
-    @Binding var setTeamTwoColor: Bool
-    @Binding var cleanButtonColor: Color
-    
-    @State var backColor: Color = Color.white
-    var actionAppend: () -> Void
-    var actionRemove: () -> Void
+struct AddFriend: View {
+    @Environment(\.dismiss) private var dismiss
+    @StateObject var userRepo = UserRepository()
+    @State var friendName: String = ""
     
     var body: some View {
-        VStack(alignment: .center) {
-            Button {
-                actionAppend()
-                actionRemove()
+        VStack {
+            TextField("Nome", text: $friendName)
+                .frame(maxWidth: .infinity)
+                .frame(height: 30)
+                .padding()
+                .font(.title)
+                .foregroundStyle(Color.cardColor)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.textFieldBorderColor)
+                )
+            
+            HStack {
                 
-                if setTeamOneColor {
-                    backColor = Color.yellow
-                } else if setTeamTwoColor {
-                    backColor = Color.red
+                Spacer()
+                
+                Button("Cancel", role: .destructive) {
+                    dismiss()
                 }
+                .font(.title3)
+                .fontWeight(.bold)
+                .tint(.green.opacity(0.9))
+                .controlSize(.regular)
+                .buttonStyle(.borderedProminent)
                 
-                print("cleanButtonColor: \(cleanButtonColor)")
-            } label: {
-                ZStack {
-                    Text(friend)
+                Spacer()
+                
+                Button("Save") {
+                    if !friendName.isEmpty {
+                        userRepo.addFriend(friend: friendName)
+                    }
+                    
+                    dismiss()
                 }
+                .font(.title3)
+                .fontWeight(.bold)
+                .tint(.green.opacity(0.9))
+                .controlSize(.regular)
+                .buttonStyle(.borderedProminent)
                 
+                Spacer()
             }
-            .modifier(FriendsButton(backColor: backColor))
         }
         .padding(.horizontal)
-        .onChange(of: cleanButtonColor) { newValue in
-            if newValue == Color.white {
-                self.backColor = newValue
-            }
-        }
-       
     }
 }

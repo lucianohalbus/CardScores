@@ -16,6 +16,7 @@ class UserRepository: ObservableObject {
     @Published var alertSuggestion: String = ""
     @Published var showAlert: Bool = false
     @Published var isUserCreated: Bool = false
+    @Published var listOfFriends: [String] = []
     var handle: AuthStateDidChangeListenerHandle?
     
     var createdTime: Date = Date()
@@ -58,6 +59,8 @@ class UserRepository: ObservableObject {
                         do {
                             let returnedUser = try document.data(as: UserModel.self)
                             self.isUserCreated = true
+                            
+                            self.listOfFriends = returnedUser.friendsName
    
                             self.user = ProfileModel(
                                 userName: returnedUser.userName,
@@ -181,11 +184,20 @@ class UserRepository: ObservableObject {
     }
     
     
-    func addUserFriend(_ myFriend:String) {
+    func addFriend(friend: String) {
         if let userId = Auth.auth().currentUser?.uid {
             let friendRef = db.collection("User").document(userId)
             friendRef.updateData([
-                "friendsMail": FieldValue.arrayUnion([myFriend])
+                "friendsName": FieldValue.arrayUnion([friend])
+            ])
+        }
+    }
+    
+    func addFriendEmail(email: String) {
+        if let userId = Auth.auth().currentUser?.uid {
+            let friendRef = db.collection("User").document(userId)
+            friendRef.updateData([
+                "friendsMail": FieldValue.arrayUnion([email])
             ])
         }
     }

@@ -44,7 +44,7 @@ struct FriendsButton: ViewModifier {
         return content
             .font(.headline)
             .padding(5)
-            .frame(width: 100, height: 60, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+            .frame(width: 100, height: 30, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
             .foregroundColor(Color.cardColor)
             .background(backColor)
             .cornerRadius(10)
