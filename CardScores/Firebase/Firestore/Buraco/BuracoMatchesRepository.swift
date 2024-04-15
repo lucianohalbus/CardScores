@@ -42,15 +42,19 @@ final class BuracoMatchesRepository {
     func add(match: MatchFB, completion: @escaping (Result<MatchFB?, Error>) -> Void) {
         do {
             let ref = try db.collection(Constants.matches).addDocument(from: match)
-            
+ 
+            let refId: String = ref.documentID
             ref.getDocument { snapshot, error in
                 guard let snapshot = snapshot, error == nil else {
                     completion(.failure(error ?? NSError(domain: "snapshot is nil", code: 102, userInfo: nil)))
                     return
                 }
-                
                 let item = try? snapshot.data(as: MatchFB.self)
-                completion(.success(item))
+                
+                if let item = item {
+                    let returnedItem = MatchFB(id: refId, scoreToWin: item.scoreToWin, playerOne: item.playerOne, playerTwo: item.playerTwo, playerThree: item.playerThree, playerFour: item.playerFour, finalScoreOne: item.finalScoreOne, finalScoreTwo: item.finalScoreTwo, friendsId: item.friendsId, myDate: item.myDate, registeredUser: item.registeredUser, docId: refId, gameOver: item.gameOver)
+                    completion(.success(returnedItem))
+                }   
             }
         } catch let error {
             print(error)
@@ -117,7 +121,6 @@ final class BuracoMatchesRepository {
         ]
         
         MatchDocument(matchId: matchId).updateData(data)
-//        completion(.success(true))
     }
     
 }

@@ -123,6 +123,7 @@ struct AddNewMatchTurnView: View {
                         )
                         
                         let match: MatchFB = MatchFB(
+                            id: matchFB.id,
                             scoreToWin: matchFB.scoreToWin,
                             playerOne: matchFB.playerOne,
                             playerTwo: matchFB.playerTwo,
