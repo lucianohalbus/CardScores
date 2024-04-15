@@ -36,6 +36,8 @@ struct AddNewBuracoMatchView: View {
                         
                         addNewMatchViewTeams
                         
+                        footNotes
+                        
                         addedFriends
                         
                         HStack {
@@ -88,13 +90,44 @@ struct AddNewBuracoMatchView: View {
                         }
                     }
                     .navigationDestination(isPresented: $isDocCreated) {
-                        BuracoMatchView(matchFB: BuracoFBViewModel(matchFB: MatchFB(id: addNewMatchVM.createdItem.id, scoreToWin: addNewMatchVM.createdItem.scoreToWin, playerOne: addNewMatchVM.createdItem.playerOne, playerTwo: addNewMatchVM.createdItem.playerTwo, playerThree: addNewMatchVM.createdItem.playerThree, playerFour: addNewMatchVM.createdItem.playerFour, finalScoreOne: addNewMatchVM.createdItem.finalScoreOne, finalScoreTwo: addNewMatchVM.createdItem.finalScoreTwo, friendsId: addNewMatchVM.createdItem.friendsId, myDate: addNewMatchVM.createdItem.myDate, registeredUser: addNewMatchVM.createdItem.registeredUser, docId: addNewMatchVM.createdItem.docId, gameOver: addNewMatchVM.createdItem.gameOver)))
+                        BuracoMatchView(matchFB: BuracoFBViewModel(
+                            matchFB: MatchFB(
+                                id: addNewMatchVM.createdItem.id,
+                                scoreToWin: addNewMatchVM.createdItem.scoreToWin,
+                                playerOne: addNewMatchVM.createdItem.playerOne,
+                                playerTwo: addNewMatchVM.createdItem.playerTwo, 
+                                playerThree: addNewMatchVM.createdItem.playerThree,
+                                playerFour: addNewMatchVM.createdItem.playerFour,
+                                finalScoreOne: addNewMatchVM.createdItem.finalScoreOne,
+                                finalScoreTwo: addNewMatchVM.createdItem.finalScoreTwo,
+                                friendsId: addNewMatchVM.createdItem.friendsId,
+                                myDate: addNewMatchVM.createdItem.myDate,
+                                registeredUser: addNewMatchVM.createdItem.registeredUser,
+                                docId: addNewMatchVM.createdItem.docId,
+                                gameOver: addNewMatchVM.createdItem.gameOver
+                            )
+                        ))
                     }
                 }
                 .onChange(of: addNewMatchVM.addNewSaved) { newValue in
                     if newValue {
                         self.isDocCreated = true
                     }
+                }
+                .onDisappear {
+                    shouldCleanTeams = true
+                    cleanButtonColor = Color.white
+                    placeholderOne = "Nome do Jogador 1"
+                    addNewMatchVM.playerOne = ""
+                    placeholderTwo = "Nome do Jogador 2"
+                    addNewMatchVM.playerTwo = ""
+                    placeholderThree = "Nome do Jogador 3"
+                    addNewMatchVM.playerThree = ""
+                    placeholderFour = "Nome do Jogador 4"
+                    addNewMatchVM.playerFour = ""
+                    setSelectedButtonColor = false
+                    cleanButtonColor = Color.white
+                    addNewMatchVM.addNewSaved = false
                 }
             }
             .background(Color.cardColor)
@@ -193,6 +226,7 @@ struct AddNewBuracoMatchView: View {
             Text("Lista de Amigos")
                 .foregroundStyle(Color.yellow)
                 .font(.callout)
+                .fontWeight(.bold)
             
             LazyVGrid(columns: gridItems, spacing: 10) {
                 ForEach(userRepo.listOfFriends, id: \.self) { friend in
@@ -222,8 +256,25 @@ struct AddNewBuracoMatchView: View {
                     }
                 }
             }
+            .padding()
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .inset(by: 2)
+                    .stroke(Color.white, lineWidth: 2)
+                
+            )
+            
         }
         .padding(.horizontal)
     }
     
+    var footNotes: some View {
+        VStack {
+            Text("Preencha ou selecione os nomes das duplas.")
+            Text("No Profile você pode adicionar novos amigos à lista.")
+        }
+        .font(.caption)
+        .foregroundStyle(Color.white)
+        .padding(.bottom, 20)
+    }
 }
