@@ -17,6 +17,7 @@ struct AddNewBuracoMatchView: View {
     @State var placeholderTwo: String = "Nome do Jogador 2"
     @State var placeholderThree: String = "Nome do Jogador 3"
     @State var placeholderFour: String = "Nome do Jogador 4"
+    @State var isDocCreated: Bool = false
     
     var gridItems = [
         GridItem(.flexible()),
@@ -25,81 +26,79 @@ struct AddNewBuracoMatchView: View {
     ]
     
     var body: some View {
-        ZStack {
-            ScrollView {
-            VStack {
-                MiniLogo()
-                
-                addNewMatchViewHeader
-                
-                addNewMatchViewTeams
-                
-                addedFriends
-                
-                HStack {
-                    
-                    Spacer()
-                    
-                    Button("Cancel", role: .destructive) {
-                        dismiss()
+        NavigationStack {
+            ZStack {
+                ScrollView {
+                    VStack {
+                        MiniLogo()
+                        
+                        addNewMatchViewHeader
+                        
+                        addNewMatchViewTeams
+                        
+                        addedFriends
+                        
+                        HStack {
+                            
+                            Spacer()
+                            
+                            Button("Limpar", role: .destructive) {
+                                shouldCleanTeams = true
+                                cleanButtonColor = Color.white
+                                placeholderOne = "Nome do Jogador 1"
+                                addNewMatchVM.playerOne = ""
+                                placeholderTwo = "Nome do Jogador 2"
+                                addNewMatchVM.playerTwo = ""
+                                placeholderThree = "Nome do Jogador 3"
+                                addNewMatchVM.playerThree = ""
+                                placeholderFour = "Nome do Jogador 4"
+                                addNewMatchVM.playerFour = ""
+                                setSelectedButtonColor = false
+                                cleanButtonColor = Color.white
+                            }
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .tint(.green.opacity(0.9))
+                            .controlSize(.regular)
+                            .buttonStyle(.borderedProminent)
+                            
+                            Spacer()
+                            
+                            Button("Iniciar") {
+                                addNewMatchVM.add()
+                            }
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .tint(.green.opacity(0.9))
+                            .controlSize(.regular)
+                            .buttonStyle(.borderedProminent)
+                            
+                            Spacer()
+                        }
+                        .padding(.top, 20)
+                        
+                        Spacer()
                     }
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .tint(.green.opacity(0.9))
-                    .controlSize(.regular)
-                    .buttonStyle(.borderedProminent)
-                    
-                    Spacer()
-                    
-                    Button("Limpar", role: .destructive) {
-                        shouldCleanTeams = true
-                        cleanButtonColor = Color.white
-                        placeholderOne = "Nome do Jogador 1"
-                        addNewMatchVM.playerOne = ""
-                        placeholderTwo = "Nome do Jogador 2"
-                        addNewMatchVM.playerTwo = ""
-                        placeholderThree = "Nome do Jogador 3"
-                        addNewMatchVM.playerThree = ""
-                        placeholderFour = "Nome do Jogador 4"
-                        addNewMatchVM.playerFour = ""
-                        setSelectedButtonColor = false
-                        cleanButtonColor = Color.white
+                    .onAppear {
+                        userRepo.getUser()
                     }
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .tint(.green.opacity(0.9))
-                    .controlSize(.regular)
-                    .buttonStyle(.borderedProminent)
-                    
-                    Spacer()
-                    
-                    Button("Save") {
-                        addNewMatchVM.add()
-                        dismiss()
+                    .onChange(of: shouldCleanTeams) { newValue in
+                        if newValue {
+                            shouldCleanTeams = false
+                        }
                     }
-                    .font(.title3)
-                    .fontWeight(.bold)
-                    .tint(.green.opacity(0.9))
-                    .controlSize(.regular)
-                    .buttonStyle(.borderedProminent)
-                    
-                    Spacer()
+                    .navigationDestination(isPresented: $isDocCreated) {
+                        BuracoMatchView(matchFB: BuracoFBViewModel(matchFB: MatchFB(id: addNewMatchVM.createdItem.id, scoreToWin: addNewMatchVM.createdItem.scoreToWin, playerOne: addNewMatchVM.createdItem.playerOne, playerTwo: addNewMatchVM.createdItem.playerTwo, playerThree: addNewMatchVM.createdItem.playerThree, playerFour: addNewMatchVM.createdItem.playerFour, finalScoreOne: addNewMatchVM.createdItem.finalScoreOne, finalScoreTwo: addNewMatchVM.createdItem.finalScoreTwo, friendsId: addNewMatchVM.createdItem.friendsId, myDate: addNewMatchVM.createdItem.myDate, registeredUser: addNewMatchVM.createdItem.registeredUser, docId: addNewMatchVM.createdItem.docId, gameOver: addNewMatchVM.createdItem.gameOver)))
+                    }
                 }
-                .padding(.top, 20)
-                
-                Spacer()
-            }
-            .onAppear {
-                userRepo.getUser()
-            }
-            .onChange(of: shouldCleanTeams) { newValue in
-                if newValue {
-                    shouldCleanTeams = false
+                .onChange(of: addNewMatchVM.addNewSaved) { newValue in
+                    if newValue {
+                        self.isDocCreated = true
+                    }
                 }
             }
+            .background(Color.cardColor)
         }
-        }
-        .background(Color.cardColor)
     }
     
     @ViewBuilder

@@ -4,13 +4,16 @@ import SwiftUI
 import FirebaseAuth
 
 struct BuracoListView: View {
-    @Binding var addNewMatchIsPresented: Bool
     @EnvironmentObject var buracoListVM: BuracoListViewModel
     @StateObject private var loginVM = LoginViewModel()
+    @StateObject private var addNewBuracoVM = AddNewBuracoFBViewModel()
     
+    @State private var path = NavigationPath()
+    @State var match: BuracoFBViewModel = BuracoFBViewModel(matchFB: MatchFB(scoreToWin: "", playerOne: "", playerTwo: "", playerThree: "", playerFour: "", finalScoreOne: "", finalScoreTwo: "", friendsId: [""], myDate: Date(), registeredUser: false, docId: "", gameOver: false))
+
     var body: some View {
         ZStack {
-            NavigationStack {
+            NavigationStack(path: $path) {
                 VStack {
                     MiniLogo()
                     
@@ -38,9 +41,14 @@ struct BuracoListView: View {
                             }
                         } else {
                             List {
-                                ForEach(buracoListVM.matchesVM) { match in
-                                    BuracoCardView(buracoVM: match)
-                                        .padding(.bottom, 10)
+                                ForEach(buracoListVM.matchesVM) { matchFB in
+                                    Button {
+                                        self.match = matchFB
+                                        path.append("BuracoMatchView")
+                                    } label: {
+                                        BuracoCardView(buracoVM: matchFB)
+                                            .padding(.bottom, 10)
+                                    }
                                 }
                                 .onDelete(perform: { idxSet in
                                     idxSet.forEach { idx in
@@ -57,23 +65,22 @@ struct BuracoListView: View {
                         
                         Spacer()
                     }
-                    .fullScreenCover(isPresented: $addNewMatchIsPresented, content: {
-                        AddNewBuracoMatchView()
-                            .interactiveDismissDisabled()
-                            .onDisappear(perform: {
-                                buracoListVM.getMatches()
-                            })
-                    })
-                    
                 }
-                .navigationDestination(for: BuracoFBViewModel.self) { item in
-                    BuracoMatchView(matchFB: item)
+                .navigationDestination(for: String.self) { view in
+                    if view == "BuracoMatchView" {
+                        BuracoMatchView(matchFB: self.match)
+                    }
                 }
                 .listStyle(.insetGrouped)
                 .onAppear {
                     buracoListVM.getMatches()
                 }
                 .onChange(of: loginVM.userAuthenticated) { newValue in
+                    if newValue {
+                        buracoListVM.getMatches()
+                    }
+                }
+                .onChange(of: addNewBuracoVM.addNewSaved) { newValue in
                     if newValue {
                         buracoListVM.getMatches()
                     }
