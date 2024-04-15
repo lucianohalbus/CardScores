@@ -17,6 +17,8 @@ final class AddNewBuracoFBViewModel: ObservableObject {
     @Published var playersOfTheMatch: [String] = []
     @Published var createdItem: MatchFB = MatchFB(scoreToWin: "", playerOne: "", playerTwo: "", playerThree: "", playerFour: "", finalScoreOne: "", finalScoreTwo: "", friendsId: [], myDate: Date(), registeredUser: false, docId: "", gameOver: false)
     
+    @Published var createdMMatch: BuracoFBViewModel = BuracoFBViewModel(matchFB: MatchFB(scoreToWin: "", playerOne: "", playerTwo: "", playerThree: "", playerFour: "", finalScoreOne: "", finalScoreTwo: "", friendsId: [""], myDate: Date(), registeredUser: false, docId: "", gameOver: false))
+    
     init() {
         repo = BuracoMatchesRepository()
         getUserId()
