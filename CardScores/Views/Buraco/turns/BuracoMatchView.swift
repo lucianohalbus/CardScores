@@ -5,12 +5,14 @@ import PhotosUI
 import UIKit
 
 struct BuracoMatchView: View {
-    var matchFB: BuracoFBViewModel
-    @State private var presentAddNewMatchTurnView: Bool = false
+    @State var matchFB: BuracoFBViewModel
+    
+    @EnvironmentObject var addNewMatchVM: AddNewBuracoFBViewModel
     @EnvironmentObject var buracoListVM: BuracoListViewModel
+    
+    @State private var presentAddNewMatchTurnView: Bool = false
     @StateObject private var buracoTurnVM = BuracoTurnsViewModel()
     @StateObject private var storageVM = StorageViewModel()
-    @StateObject private var addNewBuracoVM = AddNewBuracoFBViewModel()
     
     @State private var shouldPresentImagePicker = false
     @State private var shouldPresentActionScheet = false
@@ -80,13 +82,32 @@ struct BuracoMatchView: View {
                     }
                 }
             }
-            .onChange(of: addNewBuracoVM.recreatedItem) { newValue in
+            .onChange(of: addNewMatchVM.recreatedItem) { newValue in
                 if newValue {
                   
                 }
             }
             .onAppear(perform: {
                 buracoTurnVM.getTurn()
+                
+                let matchInView: BuracoFBViewModel = BuracoFBViewModel(matchFB: MatchFB(
+                    id: addNewMatchVM.createdItem.id,
+                    scoreToWin: addNewMatchVM.createdItem.scoreToWin,
+                    playerOne: addNewMatchVM.createdItem.playerOne,
+                    playerTwo: addNewMatchVM.createdItem.playerTwo,
+                    playerThree: addNewMatchVM.createdItem.playerThree,
+                    playerFour: addNewMatchVM.createdItem.playerFour,
+                    finalScoreOne: addNewMatchVM.createdItem.finalScoreOne,
+                    finalScoreTwo: addNewMatchVM.createdItem.finalScoreTwo,
+                    friendsId: addNewMatchVM.createdItem.friendsId,
+                    myDate: addNewMatchVM.createdItem.myDate,
+                    registeredUser: addNewMatchVM.createdItem.registeredUser,
+                    docId: addNewMatchVM.createdItem.docId,
+                    gameOver: addNewMatchVM.createdItem.gameOver
+                ))
+                
+                self.matchFB = matchInView
+                
                 buracoListVM.scoreOne = matchFB.finalScoreOne
                 buracoListVM.scoreTwo = matchFB.finalScoreTwo
                 buracoListVM.gameOver = matchFB.gameOver
@@ -145,7 +166,7 @@ struct BuracoMatchView: View {
                           
                         Button {
                             if buracoListVM.gameOver {
-                                addNewBuracoVM.recreateMatch(matchFB: MatchFB(scoreToWin: matchFB.scoreToWin, playerOne: matchFB.playerOne, playerTwo: matchFB.playerTwo, playerThree: matchFB.playerThree, playerFour: matchFB.playerFour, finalScoreOne: "", finalScoreTwo: "", friendsId: matchFB.friendsId, myDate: Date(), registeredUser: matchFB.registeredUser, docId: "", gameOver: false))
+                                addNewMatchVM.recreateMatch(matchFB: MatchFB(scoreToWin: matchFB.scoreToWin, playerOne: matchFB.playerOne, playerTwo: matchFB.playerTwo, playerThree: matchFB.playerThree, playerFour: matchFB.playerFour, finalScoreOne: "", finalScoreTwo: "", friendsId: matchFB.friendsId, myDate: Date(), registeredUser: matchFB.registeredUser, docId: "", gameOver: false))
                             } else {
                                 presentAddNewMatchTurnView.toggle()
                             }

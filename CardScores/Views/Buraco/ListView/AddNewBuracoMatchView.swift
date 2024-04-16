@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct AddNewBuracoMatchView: View {
-    @StateObject private var addNewMatchVM = AddNewBuracoFBViewModel()
+    @EnvironmentObject var addNewMatchVM: AddNewBuracoFBViewModel
     @StateObject var userRepo = UserRepository()
     @Environment(\.dismiss) private var dismiss
     

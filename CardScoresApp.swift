@@ -10,6 +10,7 @@ struct CardScoresApp: App {
         WindowGroup {
             MainView()
                 .environmentObject(BuracoListViewModel())
+                .environmentObject(AddNewBuracoFBViewModel())
         }
     }
 }

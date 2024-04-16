@@ -29,7 +29,7 @@ struct TabbarView: View {
                             }
                             .tag(Tab.inicio)
                         
-                        BuracoListView()
+                        BuracoListView(path: $mainNavigationStack)
                             .tabItem {
                                 Image(systemName: "list.bullet.circle.fill")
                                 Text("Partidas")
