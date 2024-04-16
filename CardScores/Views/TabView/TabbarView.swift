@@ -2,39 +2,46 @@
 
 import SwiftUI
 
+enum MainNavigation: Hashable {
+  case child(BuracoFBViewModel)
+ }
+
 struct TabbarView: View {
-    
     @Binding var showLoginView: Bool
+    
+    enum Tab {
+      case inicio, partidas, profile
+     }
+    
+    @State private var selectedTab: Tab = .inicio
+    @State private var mainNavigationStack: [MainNavigation] = []
     
     var body: some View {
         GeometryReader { proxy in
             ZStack {
-                TabView {
+                TabView(selection: tabSelection()) {
                     Group {
+
+                        AddNewBuracoMatchView(path: $mainNavigationStack)
+                            .tabItem {
+                                Image(systemName: "house.circle.fill")
+                                Text("Inicio")
+                            }
+                            .tag(Tab.inicio)
                         
-                        NavigationStack {
-                            AddNewBuracoMatchView()
-                        }
-                        .tabItem {
-                            Image(systemName: "house.circle.fill")
-                            Text("Inicio")
-                        }
+                        BuracoListView()
+                            .tabItem {
+                                Image(systemName: "list.bullet.circle.fill")
+                                Text("Partidas")
+                            }
+                            .tag(Tab.partidas)
                         
-                        NavigationStack {
-                            BuracoListView()
-                        }
-                        .tabItem {
-                            Image(systemName: "list.bullet.circle.fill")
-                            Text("Partidas")
-                        }
-                        
-                        NavigationStack {
-                            ProfileView(showLoginView: $showLoginView)
-                        }
-                        .tabItem {
-                            Image(systemName: "person.crop.circle.fill")
-                            Text("Profile")
-                        }
+                        ProfileView(showLoginView: $showLoginView)
+                            .tabItem {
+                                Image(systemName: "person.crop.circle.fill")
+                                Text("Profile")
+                            }
+                            .tag(Tab.profile)
                     }
                     .toolbarBackground(Color.cardColor.opacity(0.2), for: .tabBar)
                     .toolbarBackground(.visible, for: .tabBar)
@@ -48,4 +55,29 @@ struct TabbarView: View {
 
 #Preview {
     TabbarView(showLoginView: .constant(false))
+}
+
+extension TabbarView {
+    
+    private func tabSelection() -> Binding<Tab> {
+        Binding { //this is the get block
+            self.selectedTab
+        } set: { tappedTab in
+            
+            if tappedTab == self.selectedTab {
+                //User tapped on the currently active tab icon => Pop to root/Scroll to top
+                
+                if mainNavigationStack.isEmpty {
+                    //User already on home view, scroll to top
+                } else {
+                    //Pop to root view by clearing the stack
+                    mainNavigationStack = []
+                }
+            }
+            
+            //Set the current tab to the user selected tab
+            self.selectedTab = tappedTab
+        }
+    }
+    
 }

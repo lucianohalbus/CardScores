@@ -8,12 +8,12 @@ struct BuracoListView: View {
     @StateObject private var loginVM = LoginViewModel()
     @StateObject private var addNewBuracoVM = AddNewBuracoFBViewModel()
     
-    @State private var path = NavigationPath()
+   // @State var path = [String]()
     @State var createdMMatch: BuracoFBViewModel = BuracoFBViewModel(matchFB: MatchFB(scoreToWin: "", playerOne: "", playerTwo: "", playerThree: "", playerFour: "", finalScoreOne: "", finalScoreTwo: "", friendsId: [""], myDate: Date(), registeredUser: false, docId: "", gameOver: false))
 
     var body: some View {
         ZStack {
-            NavigationStack(path: $path) {
+            NavigationStack {
                 VStack {
                     MiniLogo()
                     
@@ -43,8 +43,8 @@ struct BuracoListView: View {
                             List {
                                 ForEach(buracoListVM.matchesVM) { matchFB in
                                     Button {
-                                        addNewBuracoVM.createdMMatch =  matchFB
-                                        path.append("BuracoMatchView")
+                                      //  addNewBuracoVM.createdMMatch =  matchFB
+                                     //   path.append("BuracoMatchView")
                                     } label: {
                                         BuracoCardView(buracoVM: matchFB)
                                             .padding(.bottom, 10)
@@ -66,28 +66,29 @@ struct BuracoListView: View {
                         Spacer()
                     }
                 }
-                .navigationDestination(for: String.self) { view in
-                    if view == "BuracoMatchView" {
-                        
-                        BuracoMatchView(matchFB: BuracoFBViewModel(matchFB:
-                            MatchFB(
-                                id: addNewBuracoVM.createdMMatch.id,
-                                scoreToWin: addNewBuracoVM.createdMMatch.scoreToWin,
-                                playerOne: addNewBuracoVM.createdMMatch.playerOne,
-                                playerTwo: addNewBuracoVM.createdMMatch.playerTwo,
-                                playerThree: addNewBuracoVM.createdMMatch.playerThree,
-                                playerFour: addNewBuracoVM.createdMMatch.playerFour,
-                                finalScoreOne: addNewBuracoVM.createdMMatch.finalScoreOne,
-                                finalScoreTwo: addNewBuracoVM.createdMMatch.finalScoreTwo,
-                                friendsId: addNewBuracoVM.createdMMatch.friendsId,
-                                myDate: addNewBuracoVM.createdMMatch.myDate,
-                                registeredUser: addNewBuracoVM.createdMMatch.registeredUser,
-                                docId: addNewBuracoVM.createdMMatch.docId,
-                                gameOver: addNewBuracoVM.createdMMatch.gameOver
-                            )
-                        ))
-                    }
-                }
+//                .navigationDestination(for: String.self) { view in
+//                    if view == "BuracoMatchView" {
+//                        
+//                        BuracoMatchView(matchFB: BuracoFBViewModel(matchFB:
+//                            MatchFB(
+//                                id: addNewBuracoVM.createdMMatch.id,
+//                                scoreToWin: addNewBuracoVM.createdMMatch.scoreToWin,
+//                                playerOne: addNewBuracoVM.createdMMatch.playerOne,
+//                                playerTwo: addNewBuracoVM.createdMMatch.playerTwo,
+//                                playerThree: addNewBuracoVM.createdMMatch.playerThree,
+//                                playerFour: addNewBuracoVM.createdMMatch.playerFour,
+//                                finalScoreOne: addNewBuracoVM.createdMMatch.finalScoreOne,
+//                                finalScoreTwo: addNewBuracoVM.createdMMatch.finalScoreTwo,
+//                                friendsId: addNewBuracoVM.createdMMatch.friendsId,
+//                                myDate: addNewBuracoVM.createdMMatch.myDate,
+//                                registeredUser: addNewBuracoVM.createdMMatch.registeredUser,
+//                                docId: addNewBuracoVM.createdMMatch.docId,
+//                                gameOver: addNewBuracoVM.createdMMatch.gameOver
+//                            )
+//                          )
+//                        )
+//                    }
+//                }
                 .listStyle(.insetGrouped)
                 .onAppear {
                     buracoListVM.getMatches()

@@ -18,6 +18,9 @@ struct AddNewBuracoMatchView: View {
     @State var placeholderThree: String = "Nome do Jogador 3"
     @State var placeholderFour: String = "Nome do Jogador 4"
     @State var isDocCreated: Bool = false
+    // @State var path = [String]()
+    
+    @Binding var path: [MainNavigation]
     
     var gridItems = [
         GridItem(.flexible()),
@@ -26,7 +29,7 @@ struct AddNewBuracoMatchView: View {
     ]
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             ZStack {
                 ScrollView {
                     VStack {
@@ -65,16 +68,40 @@ struct AddNewBuracoMatchView: View {
                             .buttonStyle(.borderedProminent)
                             
                             Spacer()
-                            
-                            Button("Iniciar") {
-                                addNewMatchVM.add()
+                        
+                            NavigationLink(value: MainNavigation.child(BuracoFBViewModel(matchFB: addNewMatchVM.createdItem))) {
+                                Text("Iniciar")
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                                    .tint(.green.opacity(0.9))
+                                    .controlSize(.regular)
+                                    .buttonStyle(.borderedProminent)
                             }
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .tint(.green.opacity(0.9))
-                            .controlSize(.regular)
-                            .buttonStyle(.borderedProminent)
-                            
+                            .simultaneousGesture(TapGesture().onEnded {
+                                addNewMatchVM.add()
+                            })
+                            .navigationDestination(for: MainNavigation.self) { view in
+                                switch view {
+                                case .child:
+                                    BuracoMatchView(matchFB: BuracoFBViewModel(
+                                        matchFB: MatchFB(
+                                            id: addNewMatchVM.createdItem.id,
+                                            scoreToWin: addNewMatchVM.createdItem.scoreToWin,
+                                            playerOne: addNewMatchVM.createdItem.playerOne,
+                                            playerTwo: addNewMatchVM.createdItem.playerTwo,
+                                            playerThree: addNewMatchVM.createdItem.playerThree,
+                                            playerFour: addNewMatchVM.createdItem.playerFour,
+                                            finalScoreOne: addNewMatchVM.createdItem.finalScoreOne,
+                                            finalScoreTwo: addNewMatchVM.createdItem.finalScoreTwo,
+                                            friendsId: addNewMatchVM.createdItem.friendsId,
+                                            myDate: addNewMatchVM.createdItem.myDate,
+                                            registeredUser: addNewMatchVM.createdItem.registeredUser,
+                                            docId: addNewMatchVM.createdItem.docId,
+                                            gameOver: addNewMatchVM.createdItem.gameOver
+                                        )
+                                    ))
+                                }
+                            }
                             Spacer()
                         }
                         .padding(.top, 20)
@@ -88,30 +115,6 @@ struct AddNewBuracoMatchView: View {
                         if newValue {
                             shouldCleanTeams = false
                         }
-                    }
-                    .navigationDestination(isPresented: $isDocCreated) {
-                        BuracoMatchView(matchFB: BuracoFBViewModel(
-                            matchFB: MatchFB(
-                                id: addNewMatchVM.createdItem.id,
-                                scoreToWin: addNewMatchVM.createdItem.scoreToWin,
-                                playerOne: addNewMatchVM.createdItem.playerOne,
-                                playerTwo: addNewMatchVM.createdItem.playerTwo, 
-                                playerThree: addNewMatchVM.createdItem.playerThree,
-                                playerFour: addNewMatchVM.createdItem.playerFour,
-                                finalScoreOne: addNewMatchVM.createdItem.finalScoreOne,
-                                finalScoreTwo: addNewMatchVM.createdItem.finalScoreTwo,
-                                friendsId: addNewMatchVM.createdItem.friendsId,
-                                myDate: addNewMatchVM.createdItem.myDate,
-                                registeredUser: addNewMatchVM.createdItem.registeredUser,
-                                docId: addNewMatchVM.createdItem.docId,
-                                gameOver: addNewMatchVM.createdItem.gameOver
-                            )
-                        ))
-                    }
-                }
-                .onChange(of: addNewMatchVM.addNewSaved) { newValue in
-                    if newValue {
-                        self.isDocCreated = true
                     }
                 }
                 .onDisappear {
@@ -130,6 +133,7 @@ struct AddNewBuracoMatchView: View {
                     addNewMatchVM.addNewSaved = false
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.cardColor)
         }
     }

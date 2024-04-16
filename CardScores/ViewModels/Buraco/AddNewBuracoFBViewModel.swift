@@ -17,7 +17,7 @@ final class AddNewBuracoFBViewModel: ObservableObject {
     @Published var playersOfTheMatch: [String] = []
     @Published var createdItem: MatchFB = MatchFB(scoreToWin: "", playerOne: "", playerTwo: "", playerThree: "", playerFour: "", finalScoreOne: "", finalScoreTwo: "", friendsId: [], myDate: Date(), registeredUser: false, docId: "", gameOver: false)
     
-    @Published var createdMMatch: BuracoFBViewModel = BuracoFBViewModel(matchFB: MatchFB(scoreToWin: "", playerOne: "", playerTwo: "", playerThree: "", playerFour: "", finalScoreOne: "", finalScoreTwo: "", friendsId: [""], myDate: Date(), registeredUser: false, docId: "", gameOver: false))
+    @Published var recreatedItem: Bool = false
     
     init() {
         repo = BuracoMatchesRepository()
@@ -40,6 +40,26 @@ final class AddNewBuracoFBViewModel: ObservableObject {
                     
                     DispatchQueue.main.async {
                         self.addNewSaved = true
+                    }
+                }
+  
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
+    func recreateMatch(matchFB: MatchFB) {
+        if !userId.isEmpty {
+            repo.add(match: matchFB) { result in
+                switch result {
+                case .success(let item):
+                if let item = item {
+                    self.createdItem = item
+                    
+                    DispatchQueue.main.async {
+                        self.recreatedItem = true
                     }
                 }
   

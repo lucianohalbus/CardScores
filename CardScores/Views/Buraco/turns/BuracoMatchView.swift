@@ -10,6 +10,7 @@ struct BuracoMatchView: View {
     @EnvironmentObject var buracoListVM: BuracoListViewModel
     @StateObject private var buracoTurnVM = BuracoTurnsViewModel()
     @StateObject private var storageVM = StorageViewModel()
+    @StateObject private var addNewBuracoVM = AddNewBuracoFBViewModel()
     
     @State private var shouldPresentImagePicker = false
     @State private var shouldPresentActionScheet = false
@@ -20,6 +21,8 @@ struct BuracoMatchView: View {
     @State private var freshImage: Image? = nil
     @State private var presentSelectedImage: Bool = false
     @State private var deleteImage: Bool = false
+    
+  
     
     
     var body: some View {
@@ -75,6 +78,11 @@ struct BuracoMatchView: View {
                             .padding(.horizontal)
                         }
                     }
+                }
+            }
+            .onChange(of: addNewBuracoVM.recreatedItem) { newValue in
+                if newValue {
+                  
                 }
             }
             .onAppear(perform: {
@@ -134,27 +142,29 @@ struct BuracoMatchView: View {
                                     self.presentSelectedImage.toggle()
                                 }
                         }
-                        
-                        if !buracoListVM.gameOver {
-                            
-                            Button {
+                          
+                        Button {
+                            if buracoListVM.gameOver {
+                                addNewBuracoVM.recreateMatch(matchFB: MatchFB(scoreToWin: matchFB.scoreToWin, playerOne: matchFB.playerOne, playerTwo: matchFB.playerTwo, playerThree: matchFB.playerThree, playerFour: matchFB.playerFour, finalScoreOne: "", finalScoreTwo: "", friendsId: matchFB.friendsId, myDate: Date(), registeredUser: matchFB.registeredUser, docId: "", gameOver: false))
+                            } else {
                                 presentAddNewMatchTurnView.toggle()
-                            } label: {
-                                Image(systemName: "plus.circle")
-                                    .bold()
                             }
-                            .buttonStyle(.borderless)
-                            .tint(Color.white)
-                            .sheet(isPresented: $presentAddNewMatchTurnView, content: {
-                                
-                                AddNewMatchTurnView(matchFB: matchFB)
-                                    .interactiveDismissDisabled()
-                                    .onDisappear(perform: {
-                                        buracoTurnVM.getTurn()
-                                        buracoListVM.getMatches()
-                                    })
-                            })
+                        } label: {
+                            Image(systemName: "plus.circle")
+                                .bold()
                         }
+                        .buttonStyle(.borderless)
+                        .tint(Color.white)
+                        .sheet(isPresented: $presentAddNewMatchTurnView, content: {
+                            
+                            AddNewMatchTurnView(matchFB: matchFB)
+                                .interactiveDismissDisabled()
+                                .onDisappear(perform: {
+                                    buracoTurnVM.getTurn()
+                                    buracoListVM.getMatches()
+                                })
+                        })
+                        
                     }
                 }
             }
