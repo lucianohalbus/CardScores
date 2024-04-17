@@ -267,12 +267,12 @@ struct BuracoMatchView: View {
                     } label: {
                         VStack {
                             Text("Recriar essa partida.")
-                                .foregroundStyle(.black)
+                                .foregroundStyle(Color.mainButtonColor)
                                 .font(.callout)
                         }
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                         .padding(.vertical, 10)
-                        .background(Color.mainButtonColor)
+                        .background(Color.black)
                         .cornerRadius(10)
                         .overlay(
                             RoundedRectangle(cornerRadius: 10)
