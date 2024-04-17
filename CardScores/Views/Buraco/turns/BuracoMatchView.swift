@@ -5,22 +5,20 @@ import PhotosUI
 import UIKit
 
 struct BuracoMatchView: View {
-    var matchFB: BuracoFBViewModel
-    @State private var presentAddNewMatchTurnView: Bool = false
-    @EnvironmentObject var buracoListVM: BuracoListViewModel
-    @StateObject private var buracoTurnVM = BuracoTurnsViewModel()
+    @EnvironmentObject var buracoMatchVM: BuracoMatchViewModel
+    @EnvironmentObject private var buracoTurnVM: BuracoTurnsViewModel
     @StateObject private var storageVM = StorageViewModel()
     
+    @State var matchFB: BuracoFBViewModel
+    @State private var presentAddNewMatchTurnView: Bool = false
     @State private var shouldPresentImagePicker = false
     @State private var shouldPresentActionScheet = false
     @State private var shouldPresentCamera = false
     @State private var selectedImage: Image? = nil
     @State private var url: URL? = nil
-    
     @State private var freshImage: Image? = nil
     @State private var presentSelectedImage: Bool = false
     @State private var deleteImage: Bool = false
-    
     
     var body: some View {
         ZStack {
@@ -29,59 +27,66 @@ struct BuracoMatchView: View {
                 matchResumeViewHeader
                 
                 ScrollView {
-                    if !buracoTurnVM.turns.isEmpty {
-                        matchResumeViewList
+                    matchResumeViewList
+                    
+                    if presentSelectedImage {
                         
-                        if presentSelectedImage {
-                            
-                            VStack(spacing: 0) {
-                                if let freshImage {
-                                    
-                                    freshImage
-                                        .resizable()
-                                        .scaledToFit()
-                                        .frame(maxWidth: .infinity)
-                                        .cornerRadius(10)
-                                }
+                        VStack(spacing: 0) {
+                            if let freshImage {
+                                
+                                freshImage
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(maxWidth: .infinity)
+                                    .cornerRadius(10)
                             }
-                            .padding(.horizontal)
-                        } else {
-                            VStack(spacing: 0) {
-                                if let urlString = matchFB.imagePathUrl, let url = URL(string: urlString) {
-                                    if !self.deleteImage {
-                                        AsyncImage(url: url) { image in
-                                            image
-                                                .resizable()
-                                                .scaledToFit()
-                                                .frame(maxWidth: .infinity)
-                                                .cornerRadius(10)
-                                            
-                                            
-                                        } placeholder: {
-                                            ProgressView()
-                                                .frame(width: 150, height: 150)
-                                        }
-                                        
-                                        Button("Delete Image") {
-                                            storageVM.deleteProfileImage(path: matchFB.imagePath ?? "", matchId: matchFB.id)
-                                            self.deleteImage = true
-                                        }
-                                        .font(.headline)
-                                        .foregroundStyle(.white)
-                                        .frame(maxWidth: .infinity, alignment: .trailing)
-                                    }
-                                }
-                            }
-                            .padding(.horizontal)
                         }
+                        .padding(.horizontal)
+                    } else {
+                        VStack(spacing: 0) {
+                            if let urlString = matchFB.imagePathUrl, let url = URL(string: urlString) {
+                                if !self.deleteImage {
+                                    AsyncImage(url: url) { image in
+                                        image
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(maxWidth: .infinity)
+                                            .cornerRadius(10)
+                                        
+                                        
+                                    } placeholder: {
+                                        ProgressView()
+                                            .frame(width: 150, height: 150)
+                                    }
+                                    
+                                    Button("Delete Image") {
+                                        storageVM.deleteProfileImage(path: matchFB.imagePath ?? "", matchId: matchFB.id)
+                                        self.deleteImage = true
+                                    }
+                                    .font(.headline)
+                                    .foregroundStyle(.white)
+                                    .frame(maxWidth: .infinity, alignment: .trailing)
+                                }
+                            }
+                        }
+                        .padding(.horizontal)
                     }
                 }
             }
+            .onChange(of: buracoMatchVM.isMatchRecreated) { newValue in
+                if newValue {
+                    self.matchFB = BuracoFBViewModel(matchFB: buracoMatchVM.createdItem)
+                    buracoTurnVM.getTurn(matchId: matchFB.id)
+                    buracoMatchVM.scoreOne = matchFB.finalScoreOne
+                    buracoMatchVM.scoreTwo = matchFB.finalScoreTwo
+                    buracoMatchVM.gameOver = matchFB.gameOver
+                }
+            }
             .onAppear(perform: {
-                buracoTurnVM.getTurn()
-                buracoListVM.scoreOne = matchFB.finalScoreOne
-                buracoListVM.scoreTwo = matchFB.finalScoreTwo
-                buracoListVM.gameOver = matchFB.gameOver
+                buracoTurnVM.getTurn(matchId: matchFB.id)
+                buracoMatchVM.scoreOne = buracoMatchVM.createdItem.finalScoreOne
+                buracoMatchVM.scoreTwo = buracoMatchVM.createdItem.finalScoreTwo
+                buracoMatchVM.gameOver = buracoMatchVM.createdItem.gameOver
             })
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -125,7 +130,7 @@ struct BuracoMatchView: View {
                                         let uiimage: UIImage = newValue.asUIImage()
                                         
                                         if let imageData = storageVM.resizeImage(image: uiimage, targetSize: CGSize(width: 800, height: 800)) {
-                                            storageVM.saveMatchImage(userId: "\(buracoListVM.userId)", item: imageData, matchId: matchFB.id)
+                                            storageVM.saveMatchImage(userId: "\(buracoMatchVM.userId)", item: imageData, matchId: matchFB.id)
                                         }
                                         
                                         self.freshImage = Image(uiImage: uiimage)
@@ -135,10 +140,10 @@ struct BuracoMatchView: View {
                                 }
                         }
                         
-                        if !buracoListVM.gameOver {
-                            
+                        if !buracoMatchVM.gameOver {
                             Button {
                                 presentAddNewMatchTurnView.toggle()
+                                
                             } label: {
                                 Image(systemName: "plus.circle")
                                     .bold()
@@ -146,13 +151,8 @@ struct BuracoMatchView: View {
                             .buttonStyle(.borderless)
                             .tint(Color.white)
                             .sheet(isPresented: $presentAddNewMatchTurnView, content: {
-                                
                                 AddNewMatchTurnView(matchFB: matchFB)
                                     .interactiveDismissDisabled()
-                                    .onDisappear(perform: {
-                                        buracoTurnVM.getTurn()
-                                        buracoListVM.getMatches()
-                                    })
                             })
                         }
                     }
@@ -165,8 +165,7 @@ struct BuracoMatchView: View {
     @ViewBuilder
     private var matchResumeViewHeader: some View {
         VStack {
-            
-            Text(!buracoListVM.gameOver ? "Partida Em Andamento" : "Partida Encerrada")
+            Text(!buracoMatchVM.gameOver ? "Partida Em Andamento" : "Partida Encerrada")
                 .font(.title3)
                 .foregroundColor(.white)
             
@@ -174,10 +173,10 @@ struct BuracoMatchView: View {
                 VStack (alignment: .leading) {
                     Text(matchFB.playerOne)
                     Text(matchFB.playerTwo)
-                    Text(buracoListVM.scoreOne)
+                    Text(buracoMatchVM.scoreOne)
                         .font(.title3)
-                        .foregroundStyle(Int(buracoListVM.scoreOne) ?? 0 < 0 ? Color.red : Color.cardColor)
-                        .fontWeight(Int(buracoListVM.scoreOne) ?? 0 > Int(buracoListVM.scoreTwo) ?? 0 ? .bold : .regular)
+                        .foregroundStyle(Int(buracoMatchVM.scoreOne) ?? 0 < 0 ? Color.red : Color.cardColor)
+                        .fontWeight(Int(buracoMatchVM.scoreOne) ?? 0 > Int(buracoMatchVM.scoreTwo) ?? 0 ? .bold : .regular)
                 }
                 .foregroundStyle(Color.black)
                 
@@ -186,10 +185,10 @@ struct BuracoMatchView: View {
                 VStack(alignment: .trailing) {
                     Text(matchFB.playerThree)
                     Text(matchFB.playerFour)
-                    Text(buracoListVM.scoreTwo)
+                    Text(buracoMatchVM.scoreTwo)
                         .font(.title3)
-                        .foregroundStyle(Int(buracoListVM.scoreTwo) ?? 0 < 0 ? Color.red : Color.cardColor)
-                        .fontWeight(Int(buracoListVM.scoreTwo) ?? 0 > Int(buracoListVM.scoreOne) ?? 0 ? .bold : .regular)
+                        .foregroundStyle(Int(buracoMatchVM.scoreTwo) ?? 0 < 0 ? Color.red : Color.cardColor)
+                        .fontWeight(Int(buracoMatchVM.scoreTwo) ?? 0 > Int(buracoMatchVM.scoreOne) ?? 0 ? .bold : .regular)
                 }
                 .foregroundStyle(Color.black)
             }
@@ -205,9 +204,25 @@ struct BuracoMatchView: View {
     @ViewBuilder
     private var matchResumeViewList: some View {
         VStack(spacing: 5) {
-            VStack {
-                ForEach(buracoTurnVM.turns) { matchResume in
-                    if matchResume.turnId == matchFB.id {
+            
+            if buracoTurnVM.turns.isEmpty {
+                VStack {
+                    Text("Clique \(Image(systemName: "plus.circle")) para adcionar os pontos de cada rodada.")
+                        .foregroundStyle(.black)
+                        .font(.callout)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.vertical, 10)
+                .background(Color.mainButtonColor)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .inset(by: 2)
+                        .stroke(Color.gray, lineWidth: 2)
+                )
+            } else {
+                VStack {
+                    ForEach(buracoTurnVM.turns) { matchResume in
                         HStack(spacing: 5) {
                             VStack {
                                 Text("\(abs(Int(matchResume.scoresTurnOne) ?? 0))")
@@ -236,16 +251,37 @@ struct BuracoMatchView: View {
                         .padding(.horizontal, 15)
                     }
                 }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                .padding(.vertical, 10)
+                .background(Color.mainButtonColor)
+                .cornerRadius(10)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .inset(by: 2)
+                        .stroke(Color.gray, lineWidth: 2)
+                )
+                
+                if buracoMatchVM.gameOver {
+                    Button {
+                        buracoMatchVM.recreateMatch(matchFB: MatchFB(scoreToWin: matchFB.scoreToWin, playerOne: matchFB.playerOne, playerTwo: matchFB.playerTwo, playerThree: matchFB.playerThree, playerFour: matchFB.playerFour, finalScoreOne: "", finalScoreTwo: "", friendsId: matchFB.friendsId, myDate: Date(), registeredUser: matchFB.registeredUser, docId: "", gameOver: false))
+                    } label: {
+                        VStack {
+                            Text("Recriar essa partida.")
+                                .foregroundStyle(Color.mainButtonColor)
+                                .font(.callout)
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .padding(.vertical, 10)
+                        .background(Color.black)
+                        .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .inset(by: 2)
+                                .stroke(Color.gray, lineWidth: 2)
+                        )
+                    }
+                }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .padding(.vertical, 10)
-            .background(Color.mainButtonColor)
-            .cornerRadius(10)
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .inset(by: 2)
-                    .stroke(Color.gray, lineWidth: 2)
-            )
         }
         .padding(.horizontal)
     }

@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct AddNewBuracoMatchView: View {
-    @StateObject private var addNewMatchVM = AddNewBuracoFBViewModel()
+    @EnvironmentObject var buracoMatchVM: BuracoMatchViewModel
     @StateObject var userRepo = UserRepository()
     @Environment(\.dismiss) private var dismiss
     
@@ -18,6 +18,9 @@ struct AddNewBuracoMatchView: View {
     @State var placeholderThree: String = "Nome do Jogador 3"
     @State var placeholderFour: String = "Nome do Jogador 4"
     @State var isDocCreated: Bool = false
+    // @State var path = [String]()
+    
+    @Binding var path: [MainNavigation]
     
     var gridItems = [
         GridItem(.flexible()),
@@ -26,7 +29,7 @@ struct AddNewBuracoMatchView: View {
     ]
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
             ZStack {
                 ScrollView {
                     VStack {
@@ -48,13 +51,13 @@ struct AddNewBuracoMatchView: View {
                                 shouldCleanTeams = true
                                 cleanButtonColor = Color.white
                                 placeholderOne = "Nome do Jogador 1"
-                                addNewMatchVM.playerOne = ""
+                                buracoMatchVM.playerOne = ""
                                 placeholderTwo = "Nome do Jogador 2"
-                                addNewMatchVM.playerTwo = ""
+                                buracoMatchVM.playerTwo = ""
                                 placeholderThree = "Nome do Jogador 3"
-                                addNewMatchVM.playerThree = ""
+                                buracoMatchVM.playerThree = ""
                                 placeholderFour = "Nome do Jogador 4"
-                                addNewMatchVM.playerFour = ""
+                                buracoMatchVM.playerFour = ""
                                 setSelectedButtonColor = false
                                 cleanButtonColor = Color.white
                             }
@@ -65,16 +68,40 @@ struct AddNewBuracoMatchView: View {
                             .buttonStyle(.borderedProminent)
                             
                             Spacer()
-                            
-                            Button("Iniciar") {
-                                addNewMatchVM.add()
+                        
+                            NavigationLink(value: MainNavigation.child(BuracoFBViewModel(matchFB: buracoMatchVM.createdItem))) {
+                                Text("Iniciar")
+                                    .font(.title3)
+                                    .fontWeight(.bold)
+                                    .tint(.green.opacity(0.9))
+                                    .controlSize(.regular)
+                                    .buttonStyle(.borderedProminent)
                             }
-                            .font(.title3)
-                            .fontWeight(.bold)
-                            .tint(.green.opacity(0.9))
-                            .controlSize(.regular)
-                            .buttonStyle(.borderedProminent)
-                            
+                            .simultaneousGesture(TapGesture().onEnded {
+                                buracoMatchVM.add()
+                            })
+                            .navigationDestination(for: MainNavigation.self) { view in
+                                switch view {
+                                case .child:
+                                    BuracoMatchView(matchFB: BuracoFBViewModel(
+                                        matchFB: MatchFB(
+                                            id: buracoMatchVM.createdItem.id,
+                                            scoreToWin: buracoMatchVM.createdItem.scoreToWin,
+                                            playerOne: buracoMatchVM.createdItem.playerOne,
+                                            playerTwo: buracoMatchVM.createdItem.playerTwo,
+                                            playerThree: buracoMatchVM.createdItem.playerThree,
+                                            playerFour: buracoMatchVM.createdItem.playerFour,
+                                            finalScoreOne: buracoMatchVM.createdItem.finalScoreOne,
+                                            finalScoreTwo: buracoMatchVM.createdItem.finalScoreTwo,
+                                            friendsId: buracoMatchVM.createdItem.friendsId,
+                                            myDate: buracoMatchVM.createdItem.myDate,
+                                            registeredUser: buracoMatchVM.createdItem.registeredUser,
+                                            docId: buracoMatchVM.createdItem.docId,
+                                            gameOver: buracoMatchVM.createdItem.gameOver
+                                        )
+                                    ))
+                                }
+                            }
                             Spacer()
                         }
                         .padding(.top, 20)
@@ -89,47 +116,24 @@ struct AddNewBuracoMatchView: View {
                             shouldCleanTeams = false
                         }
                     }
-                    .navigationDestination(isPresented: $isDocCreated) {
-                        BuracoMatchView(matchFB: BuracoFBViewModel(
-                            matchFB: MatchFB(
-                                id: addNewMatchVM.createdItem.id,
-                                scoreToWin: addNewMatchVM.createdItem.scoreToWin,
-                                playerOne: addNewMatchVM.createdItem.playerOne,
-                                playerTwo: addNewMatchVM.createdItem.playerTwo, 
-                                playerThree: addNewMatchVM.createdItem.playerThree,
-                                playerFour: addNewMatchVM.createdItem.playerFour,
-                                finalScoreOne: addNewMatchVM.createdItem.finalScoreOne,
-                                finalScoreTwo: addNewMatchVM.createdItem.finalScoreTwo,
-                                friendsId: addNewMatchVM.createdItem.friendsId,
-                                myDate: addNewMatchVM.createdItem.myDate,
-                                registeredUser: addNewMatchVM.createdItem.registeredUser,
-                                docId: addNewMatchVM.createdItem.docId,
-                                gameOver: addNewMatchVM.createdItem.gameOver
-                            )
-                        ))
-                    }
-                }
-                .onChange(of: addNewMatchVM.addNewSaved) { newValue in
-                    if newValue {
-                        self.isDocCreated = true
-                    }
                 }
                 .onDisappear {
                     shouldCleanTeams = true
                     cleanButtonColor = Color.white
                     placeholderOne = "Nome do Jogador 1"
-                    addNewMatchVM.playerOne = ""
+                    buracoMatchVM.playerOne = ""
                     placeholderTwo = "Nome do Jogador 2"
-                    addNewMatchVM.playerTwo = ""
+                    buracoMatchVM.playerTwo = ""
                     placeholderThree = "Nome do Jogador 3"
-                    addNewMatchVM.playerThree = ""
+                    buracoMatchVM.playerThree = ""
                     placeholderFour = "Nome do Jogador 4"
-                    addNewMatchVM.playerFour = ""
+                    buracoMatchVM.playerFour = ""
                     setSelectedButtonColor = false
                     cleanButtonColor = Color.white
-                    addNewMatchVM.addNewSaved = false
+                    buracoMatchVM.addNewSaved = false
                 }
             }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.cardColor)
         }
     }
@@ -140,7 +144,7 @@ struct AddNewBuracoMatchView: View {
             Text("Digite a Pontuação Mínima de Vitória")
                 .font(.headline)
                 .foregroundStyle(Color.white)
-            TextField("Digite a pontuação", text: $addNewMatchVM.targetScore)
+            TextField("Digite a pontuação", text: $buracoMatchVM.scoreToWin)
                 .frame(maxWidth: .infinity)
                 .frame(height: 50)
                 .cornerRadius(10)
@@ -160,7 +164,7 @@ struct AddNewBuracoMatchView: View {
                     .font(.title2)
                     .foregroundStyle(Color.white)
                 
-                TextField(placeholderOne, text: $addNewMatchVM.playerOne)
+                TextField(placeholderOne, text: $buracoMatchVM.playerOne)
                     .cornerRadius(6)
                     .overlay(
                         RoundedRectangle(cornerRadius: 6)
@@ -168,7 +172,7 @@ struct AddNewBuracoMatchView: View {
                     )
                     .minimumScaleFactor(0.4)
                 
-                TextField(placeholderTwo, text: $addNewMatchVM.playerTwo)
+                TextField(placeholderTwo, text: $buracoMatchVM.playerTwo)
                     .cornerRadius(6)
                     .overlay(
                         RoundedRectangle(cornerRadius: 6)
@@ -189,7 +193,7 @@ struct AddNewBuracoMatchView: View {
                     .font(.title2)
                     .foregroundStyle(Color.white)
                 
-                TextField(placeholderThree, text: $addNewMatchVM.playerThree)
+                TextField(placeholderThree, text: $buracoMatchVM.playerThree)
                     .cornerRadius(6)
                     .overlay(
                         RoundedRectangle(cornerRadius: 6)
@@ -197,7 +201,7 @@ struct AddNewBuracoMatchView: View {
                     )
                     .minimumScaleFactor(0.4)
                 
-                TextField(placeholderFour, text: $addNewMatchVM.playerFour)
+                TextField(placeholderFour, text: $buracoMatchVM.playerFour)
                     .cornerRadius(6)
                     .overlay(
                         RoundedRectangle(cornerRadius: 6)
@@ -233,22 +237,22 @@ struct AddNewBuracoMatchView: View {
                     
                     FriendGridItem(friend: friend, setSelectedButtonColor: $setSelectedButtonColor, cleanButtonColor: $cleanButtonColor) {
                         
-                        if addNewMatchVM.playerOne.isEmpty {
+                        if buracoMatchVM.playerOne.isEmpty {
                             placeholderOne = friend
-                            addNewMatchVM.playerOne = friend
+                            buracoMatchVM.playerOne = friend
                             setSelectedButtonColor = true
                             cleanButtonColor = Color.black
-                        } else if addNewMatchVM.playerTwo.isEmpty {
+                        } else if buracoMatchVM.playerTwo.isEmpty {
                             placeholderTwo = friend
-                            addNewMatchVM.playerTwo = friend
+                            buracoMatchVM.playerTwo = friend
                             setSelectedButtonColor = true
-                        } else if addNewMatchVM.playerThree.isEmpty {
+                        } else if buracoMatchVM.playerThree.isEmpty {
                             placeholderThree = friend
-                            addNewMatchVM.playerThree = friend
+                            buracoMatchVM.playerThree = friend
                             setSelectedButtonColor = true
-                        } else if addNewMatchVM.playerFour.isEmpty {
+                        } else if buracoMatchVM.playerFour.isEmpty {
                             placeholderFour = friend
-                            addNewMatchVM.playerFour = friend
+                            buracoMatchVM.playerFour = friend
                             setSelectedButtonColor = true
                         } else {
                             setSelectedButtonColor = false
