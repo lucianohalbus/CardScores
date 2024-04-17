@@ -19,14 +19,14 @@ final class BuracoTurnsViewModel: ObservableObject {
         repo = BuracoTurnsRepository()
     }
     
-    func getTurn() {
+    func getTurn(matchId: String) {
         repo.getTurns { result in
             switch result {
             case .success(let fetchedItems):
                 if let fetchedItems = fetchedItems {
+                    self.turns.removeAll()
                     DispatchQueue.main.async {
-                        self.turns.removeAll()
-                        self.turns.append(contentsOf: fetchedItems)
+                        self.turns = fetchedItems.filter { $0.turnId == matchId }
                     }
                 }
                 
@@ -38,13 +38,10 @@ final class BuracoTurnsViewModel: ObservableObject {
     
     func addTurn(matchTurn: MatchTurn) {
         repo.addTurn(matchTurn: matchTurn) { result in
-
             switch result {
-            case .success(let item):
-                DispatchQueue.main.async {
-                    self.getTurn()
-                }
-                
+            case .success(_):
+                print("Successfully Added")
+                self.getTurn(matchId: matchTurn.turnId)
             case .failure(let error):
                 print(error.localizedDescription)
             }

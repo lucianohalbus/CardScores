@@ -4,7 +4,7 @@ import SwiftUI
 
 struct AddNewMatchTurnView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject var buracoTurnsVM = BuracoTurnsViewModel()
+    @EnvironmentObject var buracoTurnsVM: BuracoTurnsViewModel
     @EnvironmentObject var buracoMatchVM: BuracoMatchViewModel
     
     var matchFB: BuracoFBViewModel

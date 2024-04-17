@@ -70,8 +70,6 @@ final class BuracoMatchesRepository {
         
         db.collection(Constants.matches).document(itemId).delete { error in
             if error == nil {
-                
-                
                 self.deleteTurns(turnId: itemId) { error in
                     if error == nil {
                         completion(nil)

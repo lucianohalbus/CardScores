@@ -36,28 +36,33 @@ struct BuracoListView: View {
                                 .font(.headline)
                             }
                         } else {
-                            NavigationLink(value: MainNavigation.child(selectedMatch)) {
+                            VStack {
                                 List {
                                     ForEach(buracoMatchVM.matchesVM) { matchFB in
-                                        BuracoCardView(buracoVM: matchFB)
-                                            .padding(.bottom, 10)
-                                            .simultaneousGesture(TapGesture().onEnded {
-                                                self.buracoMatchVM.createdItem = MatchFB(
-                                                    id: matchFB.id,
-                                                    scoreToWin: matchFB.scoreToWin,
-                                                    playerOne: matchFB.playerOne,
-                                                    playerTwo: matchFB.playerTwo,
-                                                    playerThree: matchFB.playerThree,
-                                                    playerFour: matchFB.playerFour,
-                                                    finalScoreOne: matchFB.finalScoreOne,
-                                                    finalScoreTwo: matchFB.finalScoreTwo,
-                                                    friendsId: matchFB.friendsId,
-                                                    myDate: matchFB.myDate,
-                                                    registeredUser: matchFB.registeredUser,
-                                                    docId: matchFB.docId,
-                                                    gameOver: matchFB.gameOver
-                                                )
-                                            })
+                                        
+                                        Button(action: {
+                                            self.buracoMatchVM.createdItem = MatchFB(
+                                                id: matchFB.id,
+                                                scoreToWin: matchFB.scoreToWin,
+                                                playerOne: matchFB.playerOne,
+                                                playerTwo: matchFB.playerTwo,
+                                                playerThree: matchFB.playerThree,
+                                                playerFour: matchFB.playerFour,
+                                                finalScoreOne: matchFB.finalScoreOne,
+                                                finalScoreTwo: matchFB.finalScoreTwo,
+                                                friendsId: matchFB.friendsId,
+                                                myDate: matchFB.myDate,
+                                                registeredUser: matchFB.registeredUser,
+                                                docId: matchFB.docId,
+                                                gameOver: matchFB.gameOver
+                                            )
+                                            
+                                            path.append(.child(selectedMatch))
+                                        }, label: {
+                                            BuracoCardView(buracoVM: matchFB)
+                                                .padding(.bottom, 10)
+                                        })
+                                        
                                     }
                                     .onDelete(perform: { idxSet in
                                         idxSet.forEach { idx in
@@ -69,13 +74,13 @@ struct BuracoListView: View {
                                     .listRowBackground(Color.clear)
                                     
                                 }
-                            }
-                            .navigationDestination(for: MainNavigation.self) { view in
-                                switch view {
-                                case .child:
-                                    BuracoMatchView(matchFB: BuracoFBViewModel(
-                                        matchFB: buracoMatchVM.createdItem
-                                    ))
+                                .navigationDestination(for: MainNavigation.self) { view in
+                                    switch view {
+                                    case .child:
+                                        BuracoMatchView(matchFB: BuracoFBViewModel(
+                                            matchFB: buracoMatchVM.createdItem
+                                        ))
+                                    }
                                 }
                             }
                             .scrollContentBackground(.hidden)
@@ -104,4 +109,3 @@ struct BuracoListView: View {
         }
     }
 }
-
