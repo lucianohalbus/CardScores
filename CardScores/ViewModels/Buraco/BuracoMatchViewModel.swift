@@ -14,9 +14,25 @@ final class BuracoMatchViewModel: ObservableObject {
     @Published var scoreTwo: String = ""
     @Published var playersOfTheMatch: [String] = []
     @Published var isMatchRecreated: Bool = false
-    
 
-    @Published var createdItem: MatchFB = MatchFB(scoreToWin: "", playerOne: "", playerTwo: "", playerThree: "", playerFour: "", finalScoreOne: "", finalScoreTwo: "", friendsId: [], myDate: Date(), registeredUser: false, docId: "", gameOver: false)
+    @Published var createdItem: MatchFB = MatchFB(
+        id: "",
+        scoreToWin: "",
+        playerOne: "",
+        playerTwo: "",
+        playerThree: "",
+        playerFour: "",
+        finalScoreOne: "",
+        finalScoreTwo: "",
+        friendsId: [],
+        myDate: Date(),
+        registeredUser: false,
+        docId: "",
+        gameOver: false,
+        profileImagePathUrl: URL(string: ""),
+        imagePath: "",
+        imagePathUrl: ""
+    )
     
     // MatchFB
     @Published var id: String?

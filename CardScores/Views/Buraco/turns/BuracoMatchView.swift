@@ -73,6 +73,9 @@ struct BuracoMatchView: View {
                     }
                 }
             }
+            .onDisappear {
+                buracoMatchVM.getMatches()
+            }
             .onChange(of: buracoMatchVM.isMatchRecreated) { newValue in
                 if newValue {
                     self.matchFB = BuracoFBViewModel(matchFB: buracoMatchVM.createdItem)
@@ -87,6 +90,7 @@ struct BuracoMatchView: View {
                 buracoMatchVM.scoreOne = buracoMatchVM.createdItem.finalScoreOne
                 buracoMatchVM.scoreTwo = buracoMatchVM.createdItem.finalScoreTwo
                 buracoMatchVM.gameOver = buracoMatchVM.createdItem.gameOver
+                
             })
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
