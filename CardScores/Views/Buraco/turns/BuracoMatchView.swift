@@ -73,9 +73,13 @@ struct BuracoMatchView: View {
                     }
                 }
             }
-            .onChange(of: buracoMatchVM.recreatedItem) { newValue in
+            .onChange(of: buracoMatchVM.isMatchRecreated) { newValue in
                 if newValue {
-                    
+                    self.matchFB = BuracoFBViewModel(matchFB: buracoMatchVM.createdItem)
+                    buracoTurnVM.getTurn(matchId: matchFB.id)
+                    buracoMatchVM.scoreOne = matchFB.finalScoreOne
+                    buracoMatchVM.scoreTwo = matchFB.finalScoreTwo
+                    buracoMatchVM.gameOver = matchFB.gameOver
                 }
             }
             .onAppear(perform: {
@@ -136,22 +140,21 @@ struct BuracoMatchView: View {
                                 }
                         }
                         
-                        Button {
-                            if buracoMatchVM.gameOver {
-                                buracoMatchVM.recreateMatch(matchFB: MatchFB(scoreToWin: matchFB.scoreToWin, playerOne: matchFB.playerOne, playerTwo: matchFB.playerTwo, playerThree: matchFB.playerThree, playerFour: matchFB.playerFour, finalScoreOne: "", finalScoreTwo: "", friendsId: matchFB.friendsId, myDate: Date(), registeredUser: matchFB.registeredUser, docId: "", gameOver: false))
-                            } else {
+                        if !buracoMatchVM.gameOver {
+                            Button {
                                 presentAddNewMatchTurnView.toggle()
+                                
+                            } label: {
+                                Image(systemName: "plus.circle")
+                                    .bold()
                             }
-                        } label: {
-                            Image(systemName: "plus.circle")
-                                .bold()
+                            .buttonStyle(.borderless)
+                            .tint(Color.white)
+                            .sheet(isPresented: $presentAddNewMatchTurnView, content: {
+                                AddNewMatchTurnView(matchFB: matchFB)
+                                    .interactiveDismissDisabled()
+                            })
                         }
-                        .buttonStyle(.borderless)
-                        .tint(Color.white)
-                        .sheet(isPresented: $presentAddNewMatchTurnView, content: {
-                            AddNewMatchTurnView(matchFB: matchFB)
-                                .interactiveDismissDisabled()
-                        })
                     }
                 }
             }
@@ -257,6 +260,27 @@ struct BuracoMatchView: View {
                         .inset(by: 2)
                         .stroke(Color.gray, lineWidth: 2)
                 )
+                
+                if buracoMatchVM.gameOver {
+                    Button {
+                        buracoMatchVM.recreateMatch(matchFB: MatchFB(scoreToWin: matchFB.scoreToWin, playerOne: matchFB.playerOne, playerTwo: matchFB.playerTwo, playerThree: matchFB.playerThree, playerFour: matchFB.playerFour, finalScoreOne: "", finalScoreTwo: "", friendsId: matchFB.friendsId, myDate: Date(), registeredUser: matchFB.registeredUser, docId: "", gameOver: false))
+                    } label: {
+                        VStack {
+                            Text("Recriar essa partida.")
+                                .foregroundStyle(.black)
+                                .font(.callout)
+                        }
+                        .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        .padding(.vertical, 10)
+                        .background(Color.mainButtonColor)
+                        .cornerRadius(10)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .inset(by: 2)
+                                .stroke(Color.gray, lineWidth: 2)
+                        )
+                    }
+                }
             }
         }
         .padding(.horizontal)

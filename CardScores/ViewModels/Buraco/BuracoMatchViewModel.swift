@@ -13,11 +13,10 @@ final class BuracoMatchViewModel: ObservableObject {
     @Published var scoreOne: String = ""
     @Published var scoreTwo: String = ""
     @Published var playersOfTheMatch: [String] = []
+    @Published var isMatchRecreated: Bool = false
     
 
     @Published var createdItem: MatchFB = MatchFB(scoreToWin: "", playerOne: "", playerTwo: "", playerThree: "", playerFour: "", finalScoreOne: "", finalScoreTwo: "", friendsId: [], myDate: Date(), registeredUser: false, docId: "", gameOver: false)
-    
-    @Published var recreatedItem: Bool = false
     
     // MatchFB
     @Published var id: String?
@@ -117,7 +116,7 @@ final class BuracoMatchViewModel: ObservableObject {
                     self.createdItem = item
                     
                     DispatchQueue.main.async {
-                        self.recreatedItem = true
+                        self.isMatchRecreated = true
                     }
                 }
   
