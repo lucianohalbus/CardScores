@@ -5,11 +5,12 @@ import SwiftUI
 struct AddNewMatchTurnView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var buracoTurnsVM = BuracoTurnsViewModel()
-    @EnvironmentObject var buracoListVM: BuracoListViewModel
-    @State private var totalScoreOne: String = ""
-    @State private var totalScoreTwo: String = ""
+    @EnvironmentObject var buracoMatchVM: BuracoMatchViewModel
     
     var matchFB: BuracoFBViewModel
+    
+    @State private var totalScoreOne: String = ""
+    @State private var totalScoreTwo: String = ""
     @State var cardScoreOne: Int? = nil
     @State var canastraScoreOne: Int? = nil
     @State var negativeScoreOne: Int? = nil
@@ -94,21 +95,21 @@ struct AddNewMatchTurnView: View {
                     Button("Save") {
                         
                         let calculatedTotalScoreOne: Int = buracoTurnsVM.calculateTotalScore(
-                            dbScore: Int(buracoListVM.scoreOne) ?? 0,
+                            dbScore: Int(buracoMatchVM.scoreOne) ?? 0,
                             canastraScore: self.canastraScoreOne ?? 0,
                             cardScore: self.cardScoreOne ?? 0,
                             negativeScore: self.negativeScoreOne ?? 0
                         )
                         
-                        buracoListVM.scoreOne = calculatedTotalScoreOne.description
+                        buracoMatchVM.scoreOne = calculatedTotalScoreOne.description
                         
                         let calculatedTotalScoreTwo: Int = buracoTurnsVM.calculateTotalScore(
-                            dbScore: Int(buracoListVM.scoreTwo) ?? 0,
+                            dbScore: Int(buracoMatchVM.scoreTwo) ?? 0,
                             canastraScore: self.canastraScoreTwo ?? 0,
                             cardScore: self.cardScoreTwo ?? 0,
                             negativeScore: self.negativeScoreTwo ?? 0
                         )
-                        buracoListVM.scoreTwo = calculatedTotalScoreTwo.description
+                        buracoMatchVM.scoreTwo = calculatedTotalScoreTwo.description
                         
                         let partialScoreOne: Int = buracoTurnsVM.calculatePartialScore(
                             canastraScore: self.canastraScoreOne ?? 0,
@@ -141,7 +142,7 @@ struct AddNewMatchTurnView: View {
     
                         )
                         
-                        buracoListVM.update(matchId: matchFB.id, matchFB: match)
+                        buracoMatchVM.update(matchId: matchFB.id, matchFB: match)
                         
                         buracoTurnsVM.addTurn(matchTurn: MatchTurn(
                             myTime: Date(),
@@ -285,7 +286,7 @@ struct AddNewMatchTurnView: View {
     private func checkGameOver(_ scoreOne: Int, _ scoreTwo: Int, _ scoreToWin: Int) -> Bool {
         if scoreOne >= scoreToWin ||
             scoreTwo >= scoreToWin {
-            buracoListVM.gameOver = true
+            buracoMatchVM.gameOver = true
             return true
         } else {
             return false

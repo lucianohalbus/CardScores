@@ -5,27 +5,20 @@ import PhotosUI
 import UIKit
 
 struct BuracoMatchView: View {
-    @State var matchFB: BuracoFBViewModel
-    
-    @EnvironmentObject var addNewMatchVM: AddNewBuracoFBViewModel
-    @EnvironmentObject var buracoListVM: BuracoListViewModel
-    
-    @State private var presentAddNewMatchTurnView: Bool = false
+    @EnvironmentObject var buracoMatchVM: BuracoMatchViewModel
     @StateObject private var buracoTurnVM = BuracoTurnsViewModel()
     @StateObject private var storageVM = StorageViewModel()
     
+    @State var matchFB: BuracoFBViewModel
+    @State private var presentAddNewMatchTurnView: Bool = false
     @State private var shouldPresentImagePicker = false
     @State private var shouldPresentActionScheet = false
     @State private var shouldPresentCamera = false
     @State private var selectedImage: Image? = nil
     @State private var url: URL? = nil
-    
     @State private var freshImage: Image? = nil
     @State private var presentSelectedImage: Bool = false
     @State private var deleteImage: Bool = false
-    
-  
-    
     
     var body: some View {
         ZStack {
@@ -82,7 +75,7 @@ struct BuracoMatchView: View {
                     }
                 }
             }
-            .onChange(of: addNewMatchVM.recreatedItem) { newValue in
+            .onChange(of: buracoMatchVM.recreatedItem) { newValue in
                 if newValue {
                   
                 }
@@ -91,26 +84,26 @@ struct BuracoMatchView: View {
                 buracoTurnVM.getTurn()
                 
                 let matchInView: BuracoFBViewModel = BuracoFBViewModel(matchFB: MatchFB(
-                    id: addNewMatchVM.createdItem.id,
-                    scoreToWin: addNewMatchVM.createdItem.scoreToWin,
-                    playerOne: addNewMatchVM.createdItem.playerOne,
-                    playerTwo: addNewMatchVM.createdItem.playerTwo,
-                    playerThree: addNewMatchVM.createdItem.playerThree,
-                    playerFour: addNewMatchVM.createdItem.playerFour,
-                    finalScoreOne: addNewMatchVM.createdItem.finalScoreOne,
-                    finalScoreTwo: addNewMatchVM.createdItem.finalScoreTwo,
-                    friendsId: addNewMatchVM.createdItem.friendsId,
-                    myDate: addNewMatchVM.createdItem.myDate,
-                    registeredUser: addNewMatchVM.createdItem.registeredUser,
-                    docId: addNewMatchVM.createdItem.docId,
-                    gameOver: addNewMatchVM.createdItem.gameOver
+                    id: buracoMatchVM.createdItem.id,
+                    scoreToWin: buracoMatchVM.createdItem.scoreToWin,
+                    playerOne: buracoMatchVM.createdItem.playerOne,
+                    playerTwo: buracoMatchVM.createdItem.playerTwo,
+                    playerThree: buracoMatchVM.createdItem.playerThree,
+                    playerFour: buracoMatchVM.createdItem.playerFour,
+                    finalScoreOne: buracoMatchVM.createdItem.finalScoreOne,
+                    finalScoreTwo: buracoMatchVM.createdItem.finalScoreTwo,
+                    friendsId: buracoMatchVM.createdItem.friendsId,
+                    myDate: buracoMatchVM.createdItem.myDate,
+                    registeredUser: buracoMatchVM.createdItem.registeredUser,
+                    docId: buracoMatchVM.createdItem.docId,
+                    gameOver: buracoMatchVM.createdItem.gameOver
                 ))
                 
                 self.matchFB = matchInView
                 
-                buracoListVM.scoreOne = matchFB.finalScoreOne
-                buracoListVM.scoreTwo = matchFB.finalScoreTwo
-                buracoListVM.gameOver = matchFB.gameOver
+                buracoMatchVM.scoreOne = matchFB.finalScoreOne
+                buracoMatchVM.scoreTwo = matchFB.finalScoreTwo
+                buracoMatchVM.gameOver = matchFB.gameOver
             })
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -154,7 +147,7 @@ struct BuracoMatchView: View {
                                         let uiimage: UIImage = newValue.asUIImage()
                                         
                                         if let imageData = storageVM.resizeImage(image: uiimage, targetSize: CGSize(width: 800, height: 800)) {
-                                            storageVM.saveMatchImage(userId: "\(buracoListVM.userId)", item: imageData, matchId: matchFB.id)
+                                            storageVM.saveMatchImage(userId: "\(buracoMatchVM.userId)", item: imageData, matchId: matchFB.id)
                                         }
                                         
                                         self.freshImage = Image(uiImage: uiimage)
@@ -165,8 +158,8 @@ struct BuracoMatchView: View {
                         }
                           
                         Button {
-                            if buracoListVM.gameOver {
-                                addNewMatchVM.recreateMatch(matchFB: MatchFB(scoreToWin: matchFB.scoreToWin, playerOne: matchFB.playerOne, playerTwo: matchFB.playerTwo, playerThree: matchFB.playerThree, playerFour: matchFB.playerFour, finalScoreOne: "", finalScoreTwo: "", friendsId: matchFB.friendsId, myDate: Date(), registeredUser: matchFB.registeredUser, docId: "", gameOver: false))
+                            if buracoMatchVM.gameOver {
+                                buracoMatchVM.recreateMatch(matchFB: MatchFB(scoreToWin: matchFB.scoreToWin, playerOne: matchFB.playerOne, playerTwo: matchFB.playerTwo, playerThree: matchFB.playerThree, playerFour: matchFB.playerFour, finalScoreOne: "", finalScoreTwo: "", friendsId: matchFB.friendsId, myDate: Date(), registeredUser: matchFB.registeredUser, docId: "", gameOver: false))
                             } else {
                                 presentAddNewMatchTurnView.toggle()
                             }
@@ -182,7 +175,7 @@ struct BuracoMatchView: View {
                                 .interactiveDismissDisabled()
                                 .onDisappear(perform: {
                                     buracoTurnVM.getTurn()
-                                    buracoListVM.getMatches()
+                                    buracoMatchVM.getMatches()
                                 })
                         })
                         
@@ -197,7 +190,7 @@ struct BuracoMatchView: View {
     private var matchResumeViewHeader: some View {
         VStack {
             
-            Text(!buracoListVM.gameOver ? "Partida Em Andamento" : "Partida Encerrada")
+            Text(!buracoMatchVM.gameOver ? "Partida Em Andamento" : "Partida Encerrada")
                 .font(.title3)
                 .foregroundColor(.white)
             
@@ -205,10 +198,10 @@ struct BuracoMatchView: View {
                 VStack (alignment: .leading) {
                     Text(matchFB.playerOne)
                     Text(matchFB.playerTwo)
-                    Text(buracoListVM.scoreOne)
+                    Text(buracoMatchVM.scoreOne)
                         .font(.title3)
-                        .foregroundStyle(Int(buracoListVM.scoreOne) ?? 0 < 0 ? Color.red : Color.cardColor)
-                        .fontWeight(Int(buracoListVM.scoreOne) ?? 0 > Int(buracoListVM.scoreTwo) ?? 0 ? .bold : .regular)
+                        .foregroundStyle(Int(buracoMatchVM.scoreOne) ?? 0 < 0 ? Color.red : Color.cardColor)
+                        .fontWeight(Int(buracoMatchVM.scoreOne) ?? 0 > Int(buracoMatchVM.scoreTwo) ?? 0 ? .bold : .regular)
                 }
                 .foregroundStyle(Color.black)
                 
@@ -217,10 +210,10 @@ struct BuracoMatchView: View {
                 VStack(alignment: .trailing) {
                     Text(matchFB.playerThree)
                     Text(matchFB.playerFour)
-                    Text(buracoListVM.scoreTwo)
+                    Text(buracoMatchVM.scoreTwo)
                         .font(.title3)
-                        .foregroundStyle(Int(buracoListVM.scoreTwo) ?? 0 < 0 ? Color.red : Color.cardColor)
-                        .fontWeight(Int(buracoListVM.scoreTwo) ?? 0 > Int(buracoListVM.scoreOne) ?? 0 ? .bold : .regular)
+                        .foregroundStyle(Int(buracoMatchVM.scoreTwo) ?? 0 < 0 ? Color.red : Color.cardColor)
+                        .fontWeight(Int(buracoMatchVM.scoreTwo) ?? 0 > Int(buracoMatchVM.scoreOne) ?? 0 ? .bold : .regular)
                 }
                 .foregroundStyle(Color.black)
             }

@@ -4,8 +4,7 @@ import SwiftUI
 import FirebaseAuth
 
 struct BuracoListView: View {
-    @EnvironmentObject var buracoListVM: BuracoListViewModel
-    @EnvironmentObject var addNewMatchVM: AddNewBuracoFBViewModel
+    @EnvironmentObject var buracoMatchVM: BuracoMatchViewModel
     @StateObject private var loginVM = LoginViewModel()
     @Binding var path: [MainNavigation]
     @State var selectedMatch: BuracoFBViewModel = BuracoFBViewModel(matchFB: MatchFB(scoreToWin: "", playerOne: "", playerTwo: "", playerThree: "", playerFour: "", finalScoreOne: "", finalScoreTwo: "", friendsId: [""], myDate: Date(), registeredUser: false, docId: "", gameOver: false))
@@ -17,7 +16,7 @@ struct BuracoListView: View {
                     MiniLogo()
                     
                     VStack {
-                        if buracoListVM.matchesVM.isEmpty {
+                        if buracoMatchVM.matchesVM.isEmpty {
                             ZStack {
                                 RoundedRectangle(cornerRadius: 20)
                                     .frame(width: 380, height: 130)
@@ -39,11 +38,11 @@ struct BuracoListView: View {
                         } else {
                             NavigationLink(value: MainNavigation.child(selectedMatch)) {
                                 List {
-                                    ForEach(buracoListVM.matchesVM) { matchFB in
+                                    ForEach(buracoMatchVM.matchesVM) { matchFB in
                                         BuracoCardView(buracoVM: matchFB)
                                             .padding(.bottom, 10)
                                             .simultaneousGesture(TapGesture().onEnded {
-                                                self.addNewMatchVM.createdItem = MatchFB(
+                                                self.buracoMatchVM.createdItem = MatchFB(
                                                     id: matchFB.id,
                                                     scoreToWin: matchFB.scoreToWin,
                                                     playerOne: matchFB.playerOne,
@@ -62,8 +61,8 @@ struct BuracoListView: View {
                                     }
                                     .onDelete(perform: { idxSet in
                                         idxSet.forEach { idx in
-                                            let match = buracoListVM.matchesVM[idx]
-                                            buracoListVM.delete(matchFB: match)
+                                            let match = buracoMatchVM.matchesVM[idx]
+                                            buracoMatchVM.delete(matchFB: match)
                                         }
                                     })
                                     .listRowInsets(EdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0))
@@ -75,7 +74,7 @@ struct BuracoListView: View {
                                 switch view {
                                 case .child:
                                     BuracoMatchView(matchFB: BuracoFBViewModel(
-                                        matchFB: addNewMatchVM.createdItem
+                                        matchFB: buracoMatchVM.createdItem
                                     ))
                                 }
                             }
@@ -90,16 +89,16 @@ struct BuracoListView: View {
             .background(Color.cardColor)
             .listStyle(.insetGrouped)
             .onAppear {
-                buracoListVM.getMatches()
+                buracoMatchVM.getMatches()
             }
             .onChange(of: loginVM.userAuthenticated) { newValue in
                 if newValue {
-                    buracoListVM.getMatches()
+                    buracoMatchVM.getMatches()
                 }
             }
-            .onChange(of: addNewMatchVM.addNewSaved) { newValue in
+            .onChange(of: buracoMatchVM.addNewSaved) { newValue in
                 if newValue {
-                    buracoListVM.getMatches()
+                    buracoMatchVM.getMatches()
                 }
             }
         }

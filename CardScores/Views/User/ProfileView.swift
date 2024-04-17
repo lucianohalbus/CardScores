@@ -7,8 +7,7 @@ struct ProfileView: View {
     @StateObject var loginVM = LoginViewModel()
     @StateObject var authenticationVM = AuthenticationViewModel()
     @StateObject var userRepo = UserRepository()
-    @StateObject var addNewBuracoVM = AddNewBuracoFBViewModel()
-    
+
     @Binding var showLoginView: Bool
     
     @State var friendToRemove: String = ""
