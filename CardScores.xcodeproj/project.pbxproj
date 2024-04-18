@@ -20,6 +20,7 @@
 		CB64FCB62BC87BFF00067744 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCB52BC87BFF00067744 /* ProfileModel.swift */; };
 		CB64FCB92BCA0D6700067744 /* FriendGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCB82BCA0D6700067744 /* FriendGridItem.swift */; };
 		CB64FCD52BCFE03600067744 /* BuracoMatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCD42BCFE03600067744 /* BuracoMatchViewModel.swift */; };
+		CB64FCE42BD159C700067744 /* AddFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCE32BD159C700067744 /* AddFriend.swift */; };
 		CB8A399C2BA7197400EFF71C /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A399B2BA7197400EFF71C /* Login.swift */; };
 		CB8A39A02BA71A1000EFF71C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A399F2BA71A1000EFF71C /* LoginViewModel.swift */; };
 		CB8A39A52BA71AE600EFF71C /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39A42BA71AE600EFF71C /* UserRepository.swift */; };
@@ -71,6 +72,7 @@
 		CB64FCB52BC87BFF00067744 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		CB64FCB82BCA0D6700067744 /* FriendGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendGridItem.swift; sourceTree = "<group>"; };
 		CB64FCD42BCFE03600067744 /* BuracoMatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuracoMatchViewModel.swift; sourceTree = "<group>"; };
+		CB64FCE32BD159C700067744 /* AddFriend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriend.swift; sourceTree = "<group>"; };
 		CB8A399B2BA7197400EFF71C /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		CB8A399F2BA71A1000EFF71C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		CB8A39A42BA71AE600EFF71C /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
@@ -138,6 +140,7 @@
 		CB5578F52BBB1AD4005A643D /* User */ = {
 			isa = PBXGroup;
 			children = (
+				CB64FCE22BD159AA00067744 /* SubViews */,
 				CB5578F62BBB1AE2005A643D /* ProfileView.swift */,
 				CB64FCB32BC83F0000067744 /* CreateUserView.swift */,
 			);
@@ -159,6 +162,14 @@
 				CB64FCB82BCA0D6700067744 /* FriendGridItem.swift */,
 			);
 			path = SubViews;
+			sourceTree = "<group>";
+		};
+		CB64FCE22BD159AA00067744 /* SubViews */ = {
+			isa = PBXGroup;
+			children = (
+				CB64FCE32BD159C700067744 /* AddFriend.swift */,
+			);
+			name = SubViews;
 			sourceTree = "<group>";
 		};
 		CB8A39942BA7131A00EFF71C /* Buraco */ = {
@@ -506,6 +517,7 @@
 				CBFF67FD2BA342C80023A2F8 /* Constants.swift in Sources */,
 				CB8A399C2BA7197400EFF71C /* Login.swift in Sources */,
 				CB8A39B02BA720BE00EFF71C /* ViewModifiers.swift in Sources */,
+				CB64FCE42BD159C700067744 /* AddFriend.swift in Sources */,
 				CB416CF62BA35FB6005DF9F3 /* BuracoListView.swift in Sources */,
 				CB8A39A72BA71B3C00EFF71C /* UserModel.swift in Sources */,
 				CBFF67D82BA33FD50023A2F8 /* MatchTurn.swift in Sources */,
