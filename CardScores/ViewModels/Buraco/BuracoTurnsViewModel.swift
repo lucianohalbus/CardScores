@@ -48,13 +48,17 @@ final class BuracoTurnsViewModel: ObservableObject {
         }
     }
     
-    func calculatePartialScore(canastraScore: Int, cardScore: Int, negativeScore: Int) -> Int {
-        return (canastraScore + cardScore - negativeScore)
+    func calculatePartialScore(canastraScore: Int, cardScore: Int, negativeScore: Int, goodDistributor: Bool) -> Int {
+        let partialScore = (canastraScore + cardScore - negativeScore)
         
+        if goodDistributor {
+            return partialScore + 100
+        }
+        return partialScore
     }
     
     func calculateTotalScore(dbScore: Int, canastraScore: Int, cardScore: Int, negativeScore: Int) -> Int {
-        let partialScore: Int =  (canastraScore + cardScore - negativeScore)
+        var partialScore: Int =  (canastraScore + cardScore - negativeScore)
         return partialScore + dbScore
     }
 

@@ -18,7 +18,8 @@ struct AddNewBuracoMatchView: View {
     @State var placeholderThree: String = "Nome do Jogador 3"
     @State var placeholderFour: String = "Nome do Jogador 4"
     @State var isDocCreated: Bool = false
-    // @State var path = [String]()
+    
+    @State var selectedMatch: BuracoFBViewModel = BuracoFBViewModel(matchFB: MatchFB(scoreToWin: "", playerOne: "", playerTwo: "", playerThree: "", playerFour: "", finalScoreOne: "", finalScoreTwo: "", friendsId: [""], myDate: Date(), registeredUser: false, docId: "", gameOver: false))
     
     @Binding var path: [MainNavigation]
     
@@ -68,18 +69,28 @@ struct AddNewBuracoMatchView: View {
                             .buttonStyle(.borderedProminent)
                             
                             Spacer()
-                        
-                            NavigationLink(value: MainNavigation.child(BuracoFBViewModel(matchFB: buracoMatchVM.createdItem))) {
-                                Text("Iniciar")
-                                    .font(.title3)
-                                    .fontWeight(.bold)
-                                    .tint(.green.opacity(0.9))
-                                    .controlSize(.regular)
-                                    .buttonStyle(.borderedProminent)
-                            }
-                            .simultaneousGesture(TapGesture().onEnded {
+                            
+                            Button("Iniciar", role: .destructive) {
                                 buracoMatchVM.add()
-                            })
+                            }
+                            .font(.title3)
+                            .fontWeight(.bold)
+                            .tint(.green.opacity(0.9))
+                            .controlSize(.regular)
+                            .buttonStyle(.borderedProminent)
+                            
+                        
+//                            NavigationLink(value: MainNavigation.child(BuracoFBViewModel(matchFB: buracoMatchVM.createdItem))) {
+//                                Text("Iniciar")
+//                                    .font(.title3)
+//                                    .fontWeight(.bold)
+//                                    .tint(.green.opacity(0.9))
+//                                    .controlSize(.regular)
+//                                    .buttonStyle(.borderedProminent)
+//                            }
+//                            .simultaneousGesture(TapGesture().onEnded {
+//                                buracoMatchVM.add()
+//                            })
                             .navigationDestination(for: MainNavigation.self) { view in
                                 switch view {
                                 case .child:
@@ -107,6 +118,11 @@ struct AddNewBuracoMatchView: View {
                         .padding(.top, 20)
                         
                         Spacer()
+                    }
+                    .onChange(of: buracoMatchVM.addNewSaved) { newValue in
+                        if newValue {
+                            path.append(.child(selectedMatch))
+                        }
                     }
                     .onAppear {
                         userRepo.getUser()

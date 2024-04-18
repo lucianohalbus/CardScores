@@ -17,6 +17,8 @@ struct AddNewMatchTurnView: View {
     @State var cardScoreTwo: Int? = nil
     @State var canastraScoreTwo: Int? = nil
     @State var negativeScoreTwo: Int? = nil
+    @State var goodDistributorOne: Bool = false
+    @State var goodDistributorTwo: Bool = false
     
     init(matchFB: BuracoFBViewModel) {
         self.matchFB = matchFB
@@ -114,13 +116,15 @@ struct AddNewMatchTurnView: View {
                         let partialScoreOne: Int = buracoTurnsVM.calculatePartialScore(
                             canastraScore: self.canastraScoreOne ?? 0,
                             cardScore: self.cardScoreOne ?? 0,
-                            negativeScore: self.negativeScoreOne ?? 0
+                            negativeScore: self.negativeScoreOne ?? 0, 
+                            goodDistributor: goodDistributorOne
                         )
                         
                         let partialScoreTwo: Int = buracoTurnsVM.calculatePartialScore(
                             canastraScore: self.canastraScoreTwo ?? 0,
                             cardScore: self.cardScoreTwo ?? 0,
-                            negativeScore: self.negativeScoreTwo ?? 0
+                            negativeScore: self.negativeScoreTwo ?? 0,
+                            goodDistributor: goodDistributorTwo
                         )
                         
                         let match: MatchFB = MatchFB(
@@ -208,30 +212,46 @@ struct AddNewMatchTurnView: View {
                 .foregroundStyle(Int(matchFB.finalScoreOne) ?? 0 >= 0 ? Color.white : Color.red)
                 .bold()
                 .padding(.bottom, 10)
+
+                Toggle(isOn: $goodDistributorOne, label: {
+                    Text("+100")
+                        .padding(.horizontal)
+                        .foregroundStyle(Color.white)
+                        .font(.headline)
+                        .frame(width: 130, alignment: .leading)
+                        
+                })
+                .frame(width: 155)
+                .toggleStyle(SwitchToggleStyle(tint: .yellow))
+                .scaleEffect(0.8)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .inset(by: 2)
+                        .stroke(Color.white, lineWidth: 2)
+                )
+                .padding(.bottom, 15)
+
+            Text("Pontos à descontar")
+                .foregroundStyle(Color.white)
+                .font(.caption)
+            TextField("Descontar", value: $negativeScoreOne, format: .number)
+                .keyboardType(.numberPad)
+                .padding(.bottom, 15)
             
             Text("Pontos de Canastras")
                 .foregroundStyle(Color.white)
                 .font(.caption)
-            
-            TextField("Pontos", value: $canastraScoreOne, format: .number)
+            TextField("Canastras", value: $canastraScoreOne, format: .number)
                 .keyboardType(.numberPad)
-                .padding(.bottom, 20)
+                .padding(.bottom, 15)
             
             Text("Pontos das Cartas")
                 .foregroundStyle(Color.white)
                 .font(.caption)
-            
-            TextField("Pontos", value: $cardScoreOne, format: .number)
+            TextField("Cartas", value: $cardScoreOne, format: .number)
                 .keyboardType(.numberPad)
-                .padding(.bottom, 20)
+                .padding(.bottom, 15)
             
-            Text("Pontos à descontar")
-                .foregroundStyle(Color.white)
-                .font(.caption)
-            
-            TextField("Pontos", value: $negativeScoreOne, format: .number)
-                .keyboardType(.numberPad)
-                .padding(.bottom, 20)
         }
         .textFieldStyle(.roundedBorder)
         .multilineTextAlignment(TextAlignment.leading)
@@ -255,29 +275,44 @@ struct AddNewMatchTurnView: View {
                 .bold()
                 .padding(.bottom, 10)
             
-            Text("Pontos de Canastras")
-                .foregroundStyle(Color.white)
-                .font(.caption)
-            
-            TextField("Pontos", value: $canastraScoreTwo, format: .number)
-                .keyboardType(.numberPad)
-                .padding(.bottom, 20)
-            
-            Text("Pontos das Cartas")
-                .foregroundStyle(Color.white)
-                .font(.caption)
-            
-            TextField("Pontos", value: $cardScoreTwo, format: .number)
-                .keyboardType(.numberPad)
-                .padding(.bottom, 20)
+            Toggle(isOn: $goodDistributorTwo, label: {
+                Text("+100")
+                    .padding(.horizontal)
+                    .foregroundStyle(Color.white)
+                    .font(.headline)
+                    .frame(width: 130, alignment: .leading)
+                    
+            })
+            .frame(width: 155)
+            .toggleStyle(SwitchToggleStyle(tint: .yellow))
+            .scaleEffect(0.8)
+            .overlay(
+                RoundedRectangle(cornerRadius: 10)
+                    .inset(by: 2)
+                    .stroke(Color.white, lineWidth: 2)
+            )
+            .padding(.bottom, 15)
             
             Text("Pontos à descontar")
                 .foregroundStyle(Color.white)
                 .font(.caption)
-            
-            TextField("Pontos", value: $negativeScoreTwo, format: .number)
+            TextField("Descontar", value: $negativeScoreTwo, format: .number)
                 .keyboardType(.numberPad)
-                .padding(.bottom, 20)
+                .padding(.bottom, 15)
+            
+            Text("Pontos de Canastras")
+                .foregroundStyle(Color.white)
+                .font(.caption)
+            TextField("Canastras", value: $canastraScoreTwo, format: .number)
+                .keyboardType(.numberPad)
+                .padding(.bottom, 15)
+            
+            Text("Pontos das Cartas")
+                .foregroundStyle(Color.white)
+                .font(.caption)
+            TextField("Cartas", value: $cardScoreTwo, format: .number)
+                .keyboardType(.numberPad)
+                .padding(.bottom, 15)
         }
         .textFieldStyle(.roundedBorder)
         .multilineTextAlignment(TextAlignment.trailing)
@@ -294,4 +329,25 @@ struct AddNewMatchTurnView: View {
         
     }
 
+}
+
+#Preview {
+    AddNewMatchTurnView(matchFB: BuracoFBViewModel(matchFB: MatchFB(
+        id: "",
+        scoreToWin: "",
+        playerOne: "Zico",
+        playerTwo: "Sócrates",
+        playerThree: "Falcão",
+        playerFour: "Cerezo",
+        finalScoreOne: "500",
+        finalScoreTwo: "100",
+        friendsId: [],
+        myDate: Date(),
+        registeredUser: false,
+        docId: "",
+        gameOver: false,
+        profileImagePathUrl: URL(string: ""),
+        imagePath: "",
+        imagePathUrl: ""
+    )))
 }

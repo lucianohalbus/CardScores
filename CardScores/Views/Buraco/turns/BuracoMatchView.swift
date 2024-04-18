@@ -229,26 +229,27 @@ struct BuracoMatchView: View {
                     ForEach(buracoTurnVM.turns) { matchResume in
                         HStack(spacing: 5) {
                             VStack {
-                                Text("\(abs(Int(matchResume.scoresTurnOne) ?? 0))")
+                                Text("\(matchResume.scoresTurnOne)")
                                     .foregroundStyle(Int(matchResume.scoresTurnOne) ?? 0 < 0 ? Color.red : Color.black)
                             }
-                            .frame(width: 50, alignment: .leading)
+                            .frame(width: 50, alignment: .trailing)
                             
                             Spacer()
                             
                             VStack {
                                 Text(matchResume.myTime.formatted(date: .abbreviated, time: .shortened))
                                     .foregroundStyle(.black)
+                                    .font(.caption)
                             }
                             .frame(width: 180, alignment: .center)
                             
                             Spacer()
                             
                             VStack {
-                                Text("\(abs(Int(matchResume.scoresTurnTwo) ?? 0))")
+                                Text("\(matchResume.scoresTurnTwo)")
                                     .foregroundStyle(Int(matchResume.scoresTurnTwo) ?? 0 < 0 ? Color.red : Color.black)
                             }
-                            .frame(width: 50, alignment: .trailing)
+                            .frame(width: 50, alignment: .leading)
                             
                         }
                         .font(.callout)
