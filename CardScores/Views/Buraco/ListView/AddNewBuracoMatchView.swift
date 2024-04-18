@@ -18,6 +18,7 @@ struct AddNewBuracoMatchView: View {
     @State var placeholderThree: String = "Nome do Jogador 3"
     @State var placeholderFour: String = "Nome do Jogador 4"
     @State var isDocCreated: Bool = false
+    @State var textFieldAux: String = ""
     
     @State var selectedMatch: BuracoFBViewModel = BuracoFBViewModel(matchFB: MatchFB(scoreToWin: "", playerOne: "", playerTwo: "", playerThree: "", playerFour: "", finalScoreOne: "", finalScoreTwo: "", friendsId: [""], myDate: Date(), registeredUser: false, docId: "", gameOver: false))
     
@@ -78,39 +79,11 @@ struct AddNewBuracoMatchView: View {
                             .tint(.green.opacity(0.9))
                             .controlSize(.regular)
                             .buttonStyle(.borderedProminent)
-                            
-                        
-//                            NavigationLink(value: MainNavigation.child(BuracoFBViewModel(matchFB: buracoMatchVM.createdItem))) {
-//                                Text("Iniciar")
-//                                    .font(.title3)
-//                                    .fontWeight(.bold)
-//                                    .tint(.green.opacity(0.9))
-//                                    .controlSize(.regular)
-//                                    .buttonStyle(.borderedProminent)
-//                            }
-//                            .simultaneousGesture(TapGesture().onEnded {
-//                                buracoMatchVM.add()
-//                            })
                             .navigationDestination(for: MainNavigation.self) { view in
                                 switch view {
                                 case .child:
                                     BuracoMatchView(matchFB: BuracoFBViewModel(
-                                        matchFB: MatchFB(
-                                            id: buracoMatchVM.createdItem.id,
-                                            scoreToWin: buracoMatchVM.createdItem.scoreToWin,
-                                            playerOne: buracoMatchVM.createdItem.playerOne,
-                                            playerTwo: buracoMatchVM.createdItem.playerTwo,
-                                            playerThree: buracoMatchVM.createdItem.playerThree,
-                                            playerFour: buracoMatchVM.createdItem.playerFour,
-                                            finalScoreOne: buracoMatchVM.createdItem.finalScoreOne,
-                                            finalScoreTwo: buracoMatchVM.createdItem.finalScoreTwo,
-                                            friendsId: buracoMatchVM.createdItem.friendsId,
-                                            myDate: buracoMatchVM.createdItem.myDate,
-                                            registeredUser: buracoMatchVM.createdItem.registeredUser,
-                                            docId: buracoMatchVM.createdItem.docId,
-                                            gameOver: buracoMatchVM.createdItem.gameOver
-                                        )
-                                    ))
+                                        matchFB: buracoMatchVM.createdItem))
                                 }
                             }
                             Spacer()
@@ -297,4 +270,5 @@ struct AddNewBuracoMatchView: View {
         .foregroundStyle(Color.white)
         .padding(.bottom, 20)
     }
+
 }
