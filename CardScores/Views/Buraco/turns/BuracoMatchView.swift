@@ -73,6 +73,9 @@ struct BuracoMatchView: View {
                     }
                 }
             }
+            .onDisappear {
+                buracoMatchVM.getMatches()
+            }
             .onChange(of: buracoMatchVM.isMatchRecreated) { newValue in
                 if newValue {
                     self.matchFB = BuracoFBViewModel(matchFB: buracoMatchVM.createdItem)
@@ -87,6 +90,7 @@ struct BuracoMatchView: View {
                 buracoMatchVM.scoreOne = buracoMatchVM.createdItem.finalScoreOne
                 buracoMatchVM.scoreTwo = buracoMatchVM.createdItem.finalScoreTwo
                 buracoMatchVM.gameOver = buracoMatchVM.createdItem.gameOver
+                
             })
             .toolbar {
                 ToolbarItem(placement: .topBarTrailing) {
@@ -225,26 +229,27 @@ struct BuracoMatchView: View {
                     ForEach(buracoTurnVM.turns) { matchResume in
                         HStack(spacing: 5) {
                             VStack {
-                                Text("\(abs(Int(matchResume.scoresTurnOne) ?? 0))")
+                                Text("\(matchResume.scoresTurnOne)")
                                     .foregroundStyle(Int(matchResume.scoresTurnOne) ?? 0 < 0 ? Color.red : Color.black)
                             }
-                            .frame(width: 50, alignment: .leading)
+                            .frame(width: 50, alignment: .trailing)
                             
                             Spacer()
                             
                             VStack {
                                 Text(matchResume.myTime.formatted(date: .abbreviated, time: .shortened))
                                     .foregroundStyle(.black)
+                                    .font(.caption)
                             }
                             .frame(width: 180, alignment: .center)
                             
                             Spacer()
                             
                             VStack {
-                                Text("\(abs(Int(matchResume.scoresTurnTwo) ?? 0))")
+                                Text("\(matchResume.scoresTurnTwo)")
                                     .foregroundStyle(Int(matchResume.scoresTurnTwo) ?? 0 < 0 ? Color.red : Color.black)
                             }
-                            .frame(width: 50, alignment: .trailing)
+                            .frame(width: 50, alignment: .leading)
                             
                         }
                         .font(.callout)

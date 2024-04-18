@@ -54,7 +54,9 @@ struct BuracoListView: View {
                                                 myDate: matchFB.myDate,
                                                 registeredUser: matchFB.registeredUser,
                                                 docId: matchFB.docId,
-                                                gameOver: matchFB.gameOver
+                                                gameOver: matchFB.gameOver,
+                                                imagePath: matchFB.imagePath,
+                                                imagePathUrl: matchFB.imagePathUrl
                                             )
                                             
                                             path.append(.child(selectedMatch))
