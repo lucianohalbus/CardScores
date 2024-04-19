@@ -7,7 +7,8 @@ struct ProfileView: View {
     @StateObject var loginVM = LoginViewModel()
     @StateObject var authenticationVM = AuthenticationViewModel()
     @StateObject var userRepo = UserRepository()
-
+    @StateObject var buracoMatchVM = BuracoMatchViewModel()
+    
     @Binding var showLoginView: Bool
     
     @State var friendToRemove: String = ""
@@ -16,7 +17,7 @@ struct ProfileView: View {
     @State var showAddFriends: Bool = false
     @State var showRemoveFriendAlert: Bool = false
     
-
+    
     var gridItems = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -31,84 +32,48 @@ struct ProfileView: View {
                 
                 ScrollView {
                     
-                VStack(alignment: .leading) {
-                    
                     VStack(alignment: .leading) {
-                        Text("Bem-Vindo: \(userRepo.user.userName)")
-                            .padding(.bottom, 10)
-
-                        Text("Informações da Conta")
-                            .foregroundStyle(.yellow)
-                        Text("Email: \(userRepo.user.userEmail)")
-                        Text("Conta criada em: \(userRepo.user.createdTime.formatted(date: .abbreviated, time: .omitted))")
                         
+                       playerInformations
+                        
+                        Divider()
+                            .frame(height: 1)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.black)
+                            .padding(.bottom, 10)
+                        
+                        playerRanking
+                        
+                        Divider()
+                            .frame(height: 1)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.black)
+                            .padding(.bottom, 10)
+                        
+                        listOfFriends
+                        
+                        Divider()
+                            .frame(height: 1)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.black)
+                        
+                        
+                        HStack {
+                            Spacer()
+                            logoutButton
+                            Spacer()
+                            deleteButton
+                            Spacer()
+                        }
                     }
-                    .font(.callout)
-                    .fontWeight(.semibold)
-                    .foregroundStyle(Color.white)
-                    .padding(.horizontal)
-                    
-                    Divider()
-                        .frame(height: 1)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.black)
-                    
-                    listOfFriends
-                    
-                    Divider()
-                        .frame(height: 1)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.black)
-
-                    
-                    HStack {
-                        Spacer()
-                        logoutButton
-                        Spacer()
-                        deleteButton
-                        Spacer()
-                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-            }
                 
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .onAppear {
                 userRepo.getUser()
-            }
-            .alert(isPresented:$showDeleteButtonAlert) {
-                Alert(
-                    title: Text("Atenção!"),
-                    message: Text("Essa ação irá deletar permanentemente todos os seus dados"),
-                    primaryButton: .destructive(Text("Continuar")) {
-                        Task {
-                            do {
-                                try await authenticationVM.deleteAccount()
-                                showLoginView = true
-                            } catch {
-                                print(error)
-                            }
-                        }
-                    },
-                    secondaryButton: .cancel()
-                )
-            }
-            .alert(isPresented:$showRemoveFriendAlert) {
-                Alert(
-                    title: Text("Remove Friend"),
-                    message: Text("Essa ação removerá esse nome da sua lista de amigos"),
-                    primaryButton: .destructive(Text("Continuar")) {
-                        Task {
-                            print("antes \(friendToRemove)")
-                            userRepo.removeFriend(friend: friendToRemove)
-                            userRepo.getUser()
-                            self.friendToRemove = ""
-                            print("depois \(friendToRemove)")
-                        }
-                    },
-                    secondaryButton: .cancel()
-                )
+                buracoMatchVM.getMatches()
             }
             .sheet(isPresented: $showAddFriends, onDismiss: {
                 userRepo.getUser()
@@ -117,7 +82,100 @@ struct ProfileView: View {
                     .presentationDetents([.medium])
             }
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.cardColor)
+    }
+    
+    var playerInformations: some View {
+        VStack(alignment: .leading) {
+            Text("Bem-Vindo: \(userRepo.user.userName)")
+                .padding(.bottom, 10)
+            
+            Text("Informações da Conta")
+                .foregroundStyle(.yellow)
+            Text("Email: \(userRepo.user.userEmail)")
+            Text("Conta criada em: \(userRepo.user.createdTime.formatted(date: .abbreviated, time: .omitted))")
+            
+            Text("Total de partidas salvas: \(buracoMatchVM.matchesVM.count)")
+        }
+        .font(.callout)
+        .fontWeight(.semibold)
+        .foregroundStyle(Color.white)
+        .padding(.horizontal, 15)
+    }
+    
+    var playerRanking: some View {
+        VStack {
+            HStack {
+                Text("Ranking Individual")
+                    .foregroundStyle(.white)
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                
+            }
+            .frame(width: 350, alignment: .center)
+            
+            ScrollView {
+                HStack {
+                    VStack {
+                        Text("Nome")
+                    }
+                    .frame(width: 110, alignment: .leading)
+                    
+                    VStack {
+                        Text("Vitórias")
+                    }
+                    .frame(width: 80, alignment: .center)
+
+                    VStack {
+                        Text("Partidas")
+                    }
+                    .frame(width: 80, alignment: .center)
+                    
+                    VStack {
+                        Text("Rating")
+                    }
+                    .frame(width: 80, alignment: .center)
+                }
+                .font(.callout)
+                .fontWeight(.semibold)
+                .foregroundColor(.yellow)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 10)
+                
+                ForEach(getPlayerRanking(), id: \.self) { friend in
+                    HStack {
+                        VStack {
+                            Text("\(friend.name)")
+                        }
+                        .frame(width: 110, alignment: .leading)
+                        
+                        VStack {
+                            Text("\(friend.wins)")
+                        }
+                        .frame(width: 80, alignment: .center)
+                        
+                        VStack {
+                            Text("\(friend.matches)")
+                        }
+                        .frame(width: 80, alignment: .center)
+                        
+                        VStack {
+                            Text("\(getRating(wins: friend.wins, matches: friend.matches), specifier: "%.2f")")
+                        }
+                        .frame(width: 80, alignment: .center)
+                    }
+                    .font(.callout)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 10)
+                    
+                }
+            }
+            .background(Color.black)
+            .cornerRadius(10)
+        }
+        .padding(.horizontal, 10)
     }
     
     var logoutButton: some View {
@@ -173,18 +231,35 @@ struct ProfileView: View {
                 }
                 .padding(.top, 10)
             }
+            .alert(isPresented:$showDeleteButtonAlert) {
+                Alert(
+                    title: Text("Atenção!"),
+                    message: Text("Essa ação irá deletar permanentemente todos os seus dados"),
+                    primaryButton: .destructive(Text("Continuar")) {
+                        Task {
+                            do {
+                                try await authenticationVM.deleteAccount()
+                                showLoginView = true
+                            } catch {
+                                print(error)
+                            }
+                        }
+                    },
+                    secondaryButton: .cancel()
+                )
+            }
         }
         .padding(.horizontal)
     }
     
     var listOfFriends: some View {
         VStack(alignment: .center) {
-
+            
             Text("Lista de Amigos")
                 .font(.callout)
                 .foregroundStyle(Color.yellow)
                 .fontWeight(.bold)
-
+            
             LazyVGrid(columns: gridItems, spacing: 10) {
                 ForEach(userRepo.listOfFriends, id: \.self) { friend in
                     Text(friend)
@@ -202,6 +277,22 @@ struct ProfileView: View {
                             showRemoveFriendAlert = true
                             self.friendToRemove = friend
                         }
+                }
+                .alert(isPresented:$showRemoveFriendAlert) {
+                    Alert(
+                        title: Text("Remove Friend"),
+                        message: Text("Essa ação removerá esse nome da sua lista de amigos"),
+                        primaryButton: .destructive(Text("Continuar")) {
+                            Task {
+                                print("antes \(friendToRemove)")
+                                userRepo.removeFriend(friend: friendToRemove)
+                                userRepo.getUser()
+                                self.friendToRemove = ""
+                                print("depois \(friendToRemove)")
+                            }
+                        },
+                        secondaryButton: .cancel()
+                    )
                 }
             }
             .padding(.bottom, 10)
@@ -224,58 +315,5 @@ struct ProfileView: View {
         }
         .padding(.horizontal)
     }
-}
 
-struct AddFriend: View {
-    @Environment(\.dismiss) private var dismiss
-    @StateObject var userRepo = UserRepository()
-    @State var friendName: String = ""
-    
-    var body: some View {
-        VStack {
-            TextField("Nome", text: $friendName)
-                .frame(maxWidth: .infinity)
-                .frame(height: 30)
-                .padding()
-                .font(.title)
-                .foregroundStyle(Color.cardColor)
-                .cornerRadius(10)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 10)
-                        .stroke(Color.textFieldBorderColor)
-                )
-            
-            HStack {
-                
-                Spacer()
-                
-                Button("Cancel", role: .destructive) {
-                    dismiss()
-                }
-                .font(.title3)
-                .fontWeight(.bold)
-                .tint(.green.opacity(0.9))
-                .controlSize(.regular)
-                .buttonStyle(.borderedProminent)
-                
-                Spacer()
-                
-                Button("Save") {
-                    if !friendName.isEmpty {
-                        userRepo.addFriend(friend: friendName)
-                    }
-                    
-                    dismiss()
-                }
-                .font(.title3)
-                .fontWeight(.bold)
-                .tint(.green.opacity(0.9))
-                .controlSize(.regular)
-                .buttonStyle(.borderedProminent)
-                
-                Spacer()
-            }
-        }
-        .padding(.horizontal)
-    }
 }

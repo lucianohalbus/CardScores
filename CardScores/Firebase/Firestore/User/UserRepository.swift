@@ -231,6 +231,5 @@ class UserRepository: ObservableObject {
     func updateScores(_ score:Int64, _ friendId:String) {
         db.collection("User").document(friendId).updateData(["averageScores": FieldValue.increment(score)])
     }
-     
-    
+
 }

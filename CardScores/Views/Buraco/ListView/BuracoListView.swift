@@ -74,8 +74,9 @@ struct BuracoListView: View {
                                     })
                                     .listRowInsets(EdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                                     .listRowBackground(Color.clear)
-                                    
                                 }
+                                .listStyle(.plain)
+                                .padding(.horizontal, 15)
                                 .navigationDestination(for: MainNavigation.self) { view in
                                     switch view {
                                     case .child:
@@ -94,7 +95,6 @@ struct BuracoListView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.cardColor)
-            .listStyle(.insetGrouped)
             .onAppear {
                 buracoMatchVM.getMatches()
             }
