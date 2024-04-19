@@ -7,6 +7,7 @@ struct ProfileView: View {
     @StateObject var loginVM = LoginViewModel()
     @StateObject var authenticationVM = AuthenticationViewModel()
     @StateObject var userRepo = UserRepository()
+    @StateObject var buracoMatchVM = BuracoMatchViewModel()
     
     @Binding var showLoginView: Bool
     
@@ -33,25 +34,21 @@ struct ProfileView: View {
                     
                     VStack(alignment: .leading) {
                         
-                        VStack(alignment: .leading) {
-                            Text("Bem-Vindo: \(userRepo.user.userName)")
-                                .padding(.bottom, 10)
-                            
-                            Text("Informações da Conta")
-                                .foregroundStyle(.yellow)
-                            Text("Email: \(userRepo.user.userEmail)")
-                            Text("Conta criada em: \(userRepo.user.createdTime.formatted(date: .abbreviated, time: .omitted))")
-                            
-                        }
-                        .font(.callout)
-                        .fontWeight(.semibold)
-                        .foregroundStyle(Color.white)
-                        .padding(.horizontal)
+                       playerInformations
                         
                         Divider()
                             .frame(height: 1)
                             .frame(maxWidth: .infinity)
                             .background(Color.black)
+                            .padding(.bottom, 10)
+                        
+                        playerRanking
+                        
+                        Divider()
+                            .frame(height: 1)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.black)
+                            .padding(.bottom, 10)
                         
                         listOfFriends
                         
@@ -76,6 +73,7 @@ struct ProfileView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
             .onAppear {
                 userRepo.getUser()
+                buracoMatchVM.getMatches()
             }
             .sheet(isPresented: $showAddFriends, onDismiss: {
                 userRepo.getUser()
@@ -86,6 +84,98 @@ struct ProfileView: View {
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.cardColor)
+    }
+    
+    var playerInformations: some View {
+        VStack(alignment: .leading) {
+            Text("Bem-Vindo: \(userRepo.user.userName)")
+                .padding(.bottom, 10)
+            
+            Text("Informações da Conta")
+                .foregroundStyle(.yellow)
+            Text("Email: \(userRepo.user.userEmail)")
+            Text("Conta criada em: \(userRepo.user.createdTime.formatted(date: .abbreviated, time: .omitted))")
+            
+            Text("Total de partidas salvas: \(buracoMatchVM.matchesVM.count)")
+        }
+        .font(.callout)
+        .fontWeight(.semibold)
+        .foregroundStyle(Color.white)
+        .padding(.horizontal, 15)
+    }
+    
+    var playerRanking: some View {
+        VStack {
+            HStack {
+                Text("Ranking Individual")
+                    .foregroundStyle(.white)
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                
+            }
+            .frame(width: 350, alignment: .center)
+            
+            ScrollView {
+                HStack {
+                    VStack {
+                        Text("Nome")
+                    }
+                    .frame(width: 110, alignment: .leading)
+                    
+                    VStack {
+                        Text("Vitórias")
+                    }
+                    .frame(width: 80, alignment: .center)
+
+                    VStack {
+                        Text("Partidas")
+                    }
+                    .frame(width: 80, alignment: .center)
+                    
+                    VStack {
+                        Text("Rating")
+                    }
+                    .frame(width: 80, alignment: .center)
+                }
+                .font(.callout)
+                .fontWeight(.semibold)
+                .foregroundColor(.yellow)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 10)
+                
+                ForEach(getPlayerRanking(), id: \.self) { friend in
+                    HStack {
+                        VStack {
+                            Text("\(friend.name)")
+                        }
+                        .frame(width: 110, alignment: .leading)
+                        
+                        VStack {
+                            Text("\(friend.wins)")
+                        }
+                        .frame(width: 80, alignment: .center)
+                        
+                        VStack {
+                            Text("\(friend.matches)")
+                        }
+                        .frame(width: 80, alignment: .center)
+                        
+                        VStack {
+                            Text("\(getRating(wins: friend.wins, matches: friend.matches), specifier: "%.2f")")
+                        }
+                        .frame(width: 80, alignment: .center)
+                    }
+                    .font(.callout)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 10)
+                    
+                }
+            }
+            .background(Color.black)
+            .cornerRadius(10)
+        }
+        .padding(.horizontal, 10)
     }
     
     var logoutButton: some View {
@@ -225,4 +315,5 @@ struct ProfileView: View {
         }
         .padding(.horizontal)
     }
+
 }

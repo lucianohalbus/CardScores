@@ -21,6 +21,8 @@
 		CB64FCB92BCA0D6700067744 /* FriendGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCB82BCA0D6700067744 /* FriendGridItem.swift */; };
 		CB64FCD52BCFE03600067744 /* BuracoMatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCD42BCFE03600067744 /* BuracoMatchViewModel.swift */; };
 		CB64FCE42BD159C700067744 /* AddFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCE32BD159C700067744 /* AddFriend.swift */; };
+		CB64FCE62BD2130E00067744 /* ProfileView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCE52BD2130E00067744 /* ProfileView+Extension.swift */; };
+		CB64FCE82BD213AD00067744 /* IndividualRanking.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCE72BD213AD00067744 /* IndividualRanking.swift */; };
 		CB8A399C2BA7197400EFF71C /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A399B2BA7197400EFF71C /* Login.swift */; };
 		CB8A39A02BA71A1000EFF71C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A399F2BA71A1000EFF71C /* LoginViewModel.swift */; };
 		CB8A39A52BA71AE600EFF71C /* UserRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39A42BA71AE600EFF71C /* UserRepository.swift */; };
@@ -73,6 +75,8 @@
 		CB64FCB82BCA0D6700067744 /* FriendGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendGridItem.swift; sourceTree = "<group>"; };
 		CB64FCD42BCFE03600067744 /* BuracoMatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuracoMatchViewModel.swift; sourceTree = "<group>"; };
 		CB64FCE32BD159C700067744 /* AddFriend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriend.swift; sourceTree = "<group>"; };
+		CB64FCE52BD2130E00067744 /* ProfileView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileView+Extension.swift"; sourceTree = "<group>"; };
+		CB64FCE72BD213AD00067744 /* IndividualRanking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndividualRanking.swift; sourceTree = "<group>"; };
 		CB8A399B2BA7197400EFF71C /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		CB8A399F2BA71A1000EFF71C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		CB8A39A42BA71AE600EFF71C /* UserRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserRepository.swift; sourceTree = "<group>"; };
@@ -143,6 +147,7 @@
 				CB64FCE22BD159AA00067744 /* SubViews */,
 				CB5578F62BBB1AE2005A643D /* ProfileView.swift */,
 				CB64FCB32BC83F0000067744 /* CreateUserView.swift */,
+				CB64FCE52BD2130E00067744 /* ProfileView+Extension.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -216,6 +221,7 @@
 				CB8A399B2BA7197400EFF71C /* Login.swift */,
 				CB8A39A62BA71B3C00EFF71C /* UserModel.swift */,
 				CB64FCB52BC87BFF00067744 /* ProfileModel.swift */,
+				CB64FCE72BD213AD00067744 /* IndividualRanking.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -525,6 +531,7 @@
 				CBD142FB2BA8A0DF000FAA55 /* BuracoTurnsViewModel.swift in Sources */,
 				CBD1437D2BABCFC1000FAA55 /* AuthenticationView.swift in Sources */,
 				CB416CFC2BA472F1005DF9F3 /* BuracoFBViewModel.swift in Sources */,
+				CB64FCE62BD2130E00067744 /* ProfileView+Extension.swift in Sources */,
 				CB8A39A02BA71A1000EFF71C /* LoginViewModel.swift in Sources */,
 				CBFF67C32BA33F330023A2F8 /* CardScoresApp.swift in Sources */,
 				CBD143632BAB241A000FAA55 /* SUImagePickerView.swift in Sources */,
@@ -536,6 +543,7 @@
 				CB64FCB42BC83F0000067744 /* CreateUserView.swift in Sources */,
 				CB64FCB92BCA0D6700067744 /* FriendGridItem.swift in Sources */,
 				CB64FCB62BC87BFF00067744 /* ProfileModel.swift in Sources */,
+				CB64FCE82BD213AD00067744 /* IndividualRanking.swift in Sources */,
 				CB64FCD52BCFE03600067744 /* BuracoMatchViewModel.swift in Sources */,
 				CB5578FA2BBB1D70005A643D /* TabbarView.swift in Sources */,
 				CBFF67FE2BA342C80023A2F8 /* Color+Extension.swift in Sources */,
