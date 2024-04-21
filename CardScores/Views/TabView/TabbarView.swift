@@ -10,7 +10,7 @@ struct TabbarView: View {
     @Binding var showLoginView: Bool
     
     enum Tab {
-      case inicio, partidas, profile
+      case inicio, partidas, ranking, profile
      }
     
     @State private var selectedTab: Tab = .inicio
@@ -35,6 +35,13 @@ struct TabbarView: View {
                                 Text("Partidas")
                             }
                             .tag(Tab.partidas)
+                        
+                        RankingView()
+                            .tabItem {
+                                Image(systemName: "list.bullet.clipboard.fill")
+                                Text("Ranking")
+                            }
+                            .tag(Tab.ranking)
                         
                         ProfileView(showLoginView: $showLoginView)
                             .tabItem {

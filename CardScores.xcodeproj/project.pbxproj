@@ -21,7 +21,6 @@
 		CB64FCB92BCA0D6700067744 /* FriendGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCB82BCA0D6700067744 /* FriendGridItem.swift */; };
 		CB64FCD52BCFE03600067744 /* BuracoMatchViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCD42BCFE03600067744 /* BuracoMatchViewModel.swift */; };
 		CB64FCE42BD159C700067744 /* AddFriend.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCE32BD159C700067744 /* AddFriend.swift */; };
-		CB64FCE62BD2130E00067744 /* ProfileView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCE52BD2130E00067744 /* ProfileView+Extension.swift */; };
 		CB64FCE82BD213AD00067744 /* IndividualRanking.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCE72BD213AD00067744 /* IndividualRanking.swift */; };
 		CB8A399C2BA7197400EFF71C /* Login.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A399B2BA7197400EFF71C /* Login.swift */; };
 		CB8A39A02BA71A1000EFF71C /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A399F2BA71A1000EFF71C /* LoginViewModel.swift */; };
@@ -31,6 +30,8 @@
 		CB8A39AE2BA71E3500EFF71C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39AD2BA71E3500EFF71C /* LoginView.swift */; };
 		CB8A39B02BA720BE00EFF71C /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39AF2BA720BE00EFF71C /* ViewModifiers.swift */; };
 		CBB072592BD2A54A0026CA4E /* TeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB072582BD2A54A0026CA4E /* TeamModel.swift */; };
+		CBB0725C2BD4AFC50026CA4E /* RankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB0725B2BD4AFC50026CA4E /* RankingView.swift */; };
+		CBB0725E2BD4B0AD0026CA4E /* RankingView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB0725D2BD4B0AD0026CA4E /* RankingView+Extension.swift */; };
 		CBB0D4D72BC6BEE3002CC88D /* DBImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB0D4D62BC6BEE3002CC88D /* DBImages.swift */; };
 		CBD142ED2BA762F3000FAA55 /* MainLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142EC2BA762F3000FAA55 /* MainLogo.swift */; };
 		CBD142EF2BA77D27000FAA55 /* AddNewBuracoMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142EE2BA77D27000FAA55 /* AddNewBuracoMatchView.swift */; };
@@ -76,7 +77,6 @@
 		CB64FCB82BCA0D6700067744 /* FriendGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendGridItem.swift; sourceTree = "<group>"; };
 		CB64FCD42BCFE03600067744 /* BuracoMatchViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuracoMatchViewModel.swift; sourceTree = "<group>"; };
 		CB64FCE32BD159C700067744 /* AddFriend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriend.swift; sourceTree = "<group>"; };
-		CB64FCE52BD2130E00067744 /* ProfileView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ProfileView+Extension.swift"; sourceTree = "<group>"; };
 		CB64FCE72BD213AD00067744 /* IndividualRanking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndividualRanking.swift; sourceTree = "<group>"; };
 		CB8A399B2BA7197400EFF71C /* Login.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Login.swift; sourceTree = "<group>"; };
 		CB8A399F2BA71A1000EFF71C /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
@@ -86,6 +86,8 @@
 		CB8A39AD2BA71E3500EFF71C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		CB8A39AF2BA720BE00EFF71C /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
 		CBB072582BD2A54A0026CA4E /* TeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModel.swift; sourceTree = "<group>"; };
+		CBB0725B2BD4AFC50026CA4E /* RankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingView.swift; sourceTree = "<group>"; };
+		CBB0725D2BD4B0AD0026CA4E /* RankingView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RankingView+Extension.swift"; sourceTree = "<group>"; };
 		CBB0D4D62BC6BEE3002CC88D /* DBImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBImages.swift; sourceTree = "<group>"; };
 		CBD142EC2BA762F3000FAA55 /* MainLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLogo.swift; sourceTree = "<group>"; };
 		CBD142EE2BA77D27000FAA55 /* AddNewBuracoMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBuracoMatchView.swift; sourceTree = "<group>"; };
@@ -149,7 +151,6 @@
 				CB64FCE22BD159AA00067744 /* SubViews */,
 				CB5578F62BBB1AE2005A643D /* ProfileView.swift */,
 				CB64FCB32BC83F0000067744 /* CreateUserView.swift */,
-				CB64FCE52BD2130E00067744 /* ProfileView+Extension.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -182,6 +183,7 @@
 		CB8A39942BA7131A00EFF71C /* Buraco */ = {
 			isa = PBXGroup;
 			children = (
+				CBB0725A2BD4AFA80026CA4E /* Ranking */,
 				CB64FCB72BCA0D5800067744 /* SubViews */,
 				CBD142FE2BA8A619000FAA55 /* ListView */,
 				CBD142FF2BA8A62B000FAA55 /* turns */,
@@ -270,6 +272,15 @@
 				CBB072582BD2A54A0026CA4E /* TeamModel.swift */,
 			);
 			path = Team;
+			sourceTree = "<group>";
+		};
+		CBB0725A2BD4AFA80026CA4E /* Ranking */ = {
+			isa = PBXGroup;
+			children = (
+				CBB0725B2BD4AFC50026CA4E /* RankingView.swift */,
+				CBB0725D2BD4B0AD0026CA4E /* RankingView+Extension.swift */,
+			);
+			path = Ranking;
 			sourceTree = "<group>";
 		};
 		CBD142EB2BA762E1000FAA55 /* Logo */ = {
@@ -532,6 +543,7 @@
 				CBD143732BAB63F8000FAA55 /* StorageManager.swift in Sources */,
 				CBD143022BA8A6C4000FAA55 /* AddNewMatchTurnView.swift in Sources */,
 				CBD143772BAB6AD7000FAA55 /* StorageViewModel.swift in Sources */,
+				CBB0725C2BD4AFC50026CA4E /* RankingView.swift in Sources */,
 				CBFF67FD2BA342C80023A2F8 /* Constants.swift in Sources */,
 				CB8A399C2BA7197400EFF71C /* Login.swift in Sources */,
 				CB8A39B02BA720BE00EFF71C /* ViewModifiers.swift in Sources */,
@@ -539,11 +551,11 @@
 				CB416CF62BA35FB6005DF9F3 /* BuracoListView.swift in Sources */,
 				CB8A39A72BA71B3C00EFF71C /* UserModel.swift in Sources */,
 				CBFF67D82BA33FD50023A2F8 /* MatchTurn.swift in Sources */,
+				CBB0725E2BD4B0AD0026CA4E /* RankingView+Extension.swift in Sources */,
 				CB5578F42BBA324A005A643D /* View+Extension.swift in Sources */,
 				CBD142FB2BA8A0DF000FAA55 /* BuracoTurnsViewModel.swift in Sources */,
 				CBD1437D2BABCFC1000FAA55 /* AuthenticationView.swift in Sources */,
 				CB416CFC2BA472F1005DF9F3 /* BuracoFBViewModel.swift in Sources */,
-				CB64FCE62BD2130E00067744 /* ProfileView+Extension.swift in Sources */,
 				CB8A39A02BA71A1000EFF71C /* LoginViewModel.swift in Sources */,
 				CBFF67C32BA33F330023A2F8 /* CardScoresApp.swift in Sources */,
 				CBD143632BAB241A000FAA55 /* SUImagePickerView.swift in Sources */,

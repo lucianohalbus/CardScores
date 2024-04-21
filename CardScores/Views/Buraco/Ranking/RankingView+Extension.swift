@@ -2,7 +2,7 @@
 
 import Foundation
 
-extension ProfileView {
+extension RankingView {
     func playerWins(player: String) -> Int {
         var wins: Int = 0
         
@@ -70,6 +70,3 @@ extension ProfileView {
     }
 
 }
-
-
-

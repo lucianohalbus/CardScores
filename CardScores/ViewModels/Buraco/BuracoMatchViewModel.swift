@@ -206,7 +206,7 @@ final class BuracoMatchViewModel: ObservableObject {
             }
         }
 
-        return listOfTeamRanking
+        return listOfTeamRanking.sorted { $0.numberofWins > $1.numberofWins }
 
     }
     
