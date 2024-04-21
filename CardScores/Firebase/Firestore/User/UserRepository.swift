@@ -17,6 +17,7 @@ class UserRepository: ObservableObject {
     @Published var showAlert: Bool = false
     @Published var isUserCreated: Bool = false
     @Published var listOfFriends: [String] = []
+    @Published var listOfTeamsRanking: [TeamModel] = []
     var handle: AuthStateDidChangeListenerHandle?
     
     var createdTime: Date = Date()

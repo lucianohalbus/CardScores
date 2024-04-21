@@ -30,6 +30,7 @@
 		CB8A39AA2BA71BA200EFF71C /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39A92BA71BA200EFF71C /* UserViewModel.swift */; };
 		CB8A39AE2BA71E3500EFF71C /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39AD2BA71E3500EFF71C /* LoginView.swift */; };
 		CB8A39B02BA720BE00EFF71C /* ViewModifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB8A39AF2BA720BE00EFF71C /* ViewModifiers.swift */; };
+		CBB072592BD2A54A0026CA4E /* TeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB072582BD2A54A0026CA4E /* TeamModel.swift */; };
 		CBB0D4D72BC6BEE3002CC88D /* DBImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB0D4D62BC6BEE3002CC88D /* DBImages.swift */; };
 		CBD142ED2BA762F3000FAA55 /* MainLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142EC2BA762F3000FAA55 /* MainLogo.swift */; };
 		CBD142EF2BA77D27000FAA55 /* AddNewBuracoMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142EE2BA77D27000FAA55 /* AddNewBuracoMatchView.swift */; };
@@ -84,6 +85,7 @@
 		CB8A39A92BA71BA200EFF71C /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		CB8A39AD2BA71E3500EFF71C /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		CB8A39AF2BA720BE00EFF71C /* ViewModifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModifiers.swift; sourceTree = "<group>"; };
+		CBB072582BD2A54A0026CA4E /* TeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModel.swift; sourceTree = "<group>"; };
 		CBB0D4D62BC6BEE3002CC88D /* DBImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBImages.swift; sourceTree = "<group>"; };
 		CBD142EC2BA762F3000FAA55 /* MainLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLogo.swift; sourceTree = "<group>"; };
 		CBD142EE2BA77D27000FAA55 /* AddNewBuracoMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBuracoMatchView.swift; sourceTree = "<group>"; };
@@ -262,6 +264,14 @@
 			path = Login;
 			sourceTree = "<group>";
 		};
+		CBB072572BD2A5330026CA4E /* Team */ = {
+			isa = PBXGroup;
+			children = (
+				CBB072582BD2A54A0026CA4E /* TeamModel.swift */,
+			);
+			path = Team;
+			sourceTree = "<group>";
+		};
 		CBD142EB2BA762E1000FAA55 /* Logo */ = {
 			isa = PBXGroup;
 			children = (
@@ -377,6 +387,7 @@
 		CBFF67D02BA33FB10023A2F8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CBB072572BD2A5330026CA4E /* Team */,
 				CB8A39A12BA71AA900EFF71C /* User */,
 				CB8A39A22BA71AB400EFF71C /* Match */,
 			);
@@ -517,6 +528,7 @@
 				CBB0D4D72BC6BEE3002CC88D /* DBImages.swift in Sources */,
 				CBFF67C52BA33F330023A2F8 /* MainView.swift in Sources */,
 				CBD143792BAB7CE6000FAA55 /* AuthenticationManager.swift in Sources */,
+				CBB072592BD2A54A0026CA4E /* TeamModel.swift in Sources */,
 				CBD143732BAB63F8000FAA55 /* StorageManager.swift in Sources */,
 				CBD143022BA8A6C4000FAA55 /* AddNewMatchTurnView.swift in Sources */,
 				CBD143772BAB6AD7000FAA55 /* StorageViewModel.swift in Sources */,
@@ -705,7 +717,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = halbus.Score;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -744,7 +756,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.3;
+				MARKETING_VERSION = 1.4;
 				PRODUCT_BUNDLE_IDENTIFIER = halbus.Score;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";

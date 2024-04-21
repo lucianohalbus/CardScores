@@ -14,6 +14,9 @@ final class BuracoMatchViewModel: ObservableObject {
     @Published var scoreTwo: String = ""
     @Published var playersOfTheMatch: [String] = []
     @Published var isMatchRecreated: Bool = false
+    @Published var listOfTeams: [TeamModel] = []
+    
+    @Published var teams: [TeamModel] = []
 
     @Published var createdItem: MatchFB = MatchFB(
         id: "",
@@ -143,5 +146,120 @@ final class BuracoMatchViewModel: ObservableObject {
         }
     }
     
-}
+ 
+    func getTeamsRanking(friends: [String], matches: [BuracoFBViewModel]) -> [TeamModel] {
+        
+        let teams: [String] = getTeams(matches: matches)
+        var listOfTeamRanking: [TeamModel] = []
+        
+        let matchesOver = matches.filter { $0.gameOver }
+        
+        for team in teams {
+            
+            var numberOfMatches: Int = 0
+            var numberOfWins: Int = 0
+            var playerA: String = ""
+            var playerB: String = ""
+            
+            for match in matchesOver {
+                if team == ("\(match.playerOne)" + "\(match.playerTwo)") ||
+                    team == ("\(match.playerTwo)" + "\(match.playerOne)") {
+                    
+                    numberOfMatches += 1
+                    
+                    if match.finalScoreOne > match.finalScoreTwo {
+                        numberOfWins += 1
+                    }
+                    
+                    playerA = match.playerOne
+                    playerB = match.playerTwo
+                    
+                } else if team == ("\(match.playerThree)" + "\(match.playerFour)") ||
+                            team == ("\(match.playerFour)" + "\(match.playerThree)") {
+                    numberOfMatches += 1
+                    
+                    if match.finalScoreTwo > match.finalScoreOne {
+                        numberOfWins += 1
+                    }
+                    
+                    playerA = match.playerThree
+                    playerB = match.playerFour
+                    
+                }
+                
+            }
+            
+            if numberOfMatches > 0 {
+                listOfTeamRanking.append(
+                    TeamModel(
+                        teamName: team,
+                        teamId: "",
+                        playerOne: playerA,
+                        playerTwo: playerB,
+                        playerOneId: "",
+                        PlayerTwoId: "",
+                        numberOfMatches: numberOfMatches,
+                        numberofWins: numberOfWins,
+                        rating: Double(numberOfWins) / Double(numberOfMatches)
+                    )
+                )
+            }
+        }
 
+        return listOfTeamRanking
+
+    }
+    
+    func getTeams(matches: [BuracoFBViewModel]) -> [String] {
+        
+        let matchesOver = matches.filter { $0.gameOver }
+        var listOfTeams: [String] = []
+        
+        matchesOver.forEach({
+            guard listOfTeams.contains($0.playerOne+$0.playerTwo) == false else {
+                return
+            }
+
+            listOfTeams.append($0.playerOne+$0.playerTwo)
+        })
+        
+        matchesOver.forEach({
+            guard listOfTeams.contains($0.playerThree+$0.playerFour) == false else {
+                return
+            }
+
+            listOfTeams.append($0.playerThree+$0.playerFour)
+        })
+        
+        matchesOver.forEach({
+            
+            let team: String = $0.playerFour+$0.playerThree
+            guard listOfTeams.contains($0.playerThree+$0.playerFour) == true else {
+                return
+            }
+            
+            guard listOfTeams.contains($0.playerFour+$0.playerThree) == true else {
+                return
+            }
+
+            listOfTeams.removeAll { $0 == team }
+        })
+        
+        matchesOver.forEach({
+            
+            let team: String = $0.playerTwo+$0.playerThree
+            guard listOfTeams.contains($0.playerOne+$0.playerTwo) == true else {
+                return
+            }
+            
+            guard listOfTeams.contains($0.playerTwo+$0.playerOne) == true else {
+                return
+            }
+
+            listOfTeams.removeAll { $0 == team }
+        })
+
+        return listOfTeams
+        
+    }
+}

@@ -18,6 +18,9 @@ struct ProfileView: View {
     @State var showRemoveFriendAlert: Bool = false
     
     
+    @State var listOfTeams: [TeamModel] = []
+    
+    
     var gridItems = [
         GridItem(.flexible()),
         GridItem(.flexible()),
@@ -43,6 +46,15 @@ struct ProfileView: View {
                             .padding(.bottom, 10)
                         
                         playerRanking
+                        
+                        Divider()
+                            .frame(height: 1)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.black)
+                            .padding(.bottom, 10)
+                        
+                        teamRanking
+                        
                         
                         Divider()
                             .frame(height: 1)
@@ -80,6 +92,9 @@ struct ProfileView: View {
             }) {
                 AddFriend()
                     .presentationDetents([.medium])
+            }
+            .onChange(of: buracoMatchVM.matchesVM) { newValue in
+                buracoMatchVM.getTeamsRanking(friends: userRepo.listOfFriends, matches: buracoMatchVM.matchesVM)
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -166,6 +181,80 @@ struct ProfileView: View {
                         .frame(width: 80, alignment: .center)
                     }
                     .font(.callout)
+                    .foregroundColor(.white)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 10)
+                    
+                }
+            }
+            .background(Color.black)
+            .cornerRadius(10)
+        }
+        .padding(.horizontal, 10)
+    }
+    
+    var teamRanking: some View {
+        VStack {
+            HStack {
+                Text("Ranking de Duplas")
+                    .foregroundStyle(.white)
+                    .font(.title3)
+                    .fontWeight(.semibold)
+                
+            }
+            .frame(width: 350, alignment: .center)
+            
+            ScrollView {
+                HStack {
+                    VStack {
+                        Text("Dupla")
+                    }
+                    .frame(width: 110, alignment: .leading)
+                    
+                    VStack {
+                        Text("Vitórias")
+                    }
+                    .frame(width: 80, alignment: .center)
+
+                    VStack {
+                        Text("Partidas")
+                    }
+                    .frame(width: 80, alignment: .center)
+                    
+                    VStack {
+                        Text("Rating")
+                    }
+                    .frame(width: 80, alignment: .center)
+                }
+                .font(.callout)
+                .fontWeight(.semibold)
+                .foregroundColor(.yellow)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 10)
+                
+                ForEach(buracoMatchVM.getTeamsRanking(friends: userRepo.listOfFriends, matches: buracoMatchVM.matchesVM), id: \.self) { team in
+                    HStack {
+                        VStack {
+                            Text("\(team.playerOne) / \(team.playerTwo)")
+                        }
+                        .frame(width: 110, alignment: .leading)
+                        
+                        VStack {
+                            Text(team.numberofWins.description)
+                        }
+                        .frame(width: 80, alignment: .center)
+                        
+                        VStack {
+                            Text(team.numberOfMatches.description)
+                        }
+                        .frame(width: 80, alignment: .center)
+                        
+                        VStack {
+                            Text("\(team.rating, specifier: "%.2f")")
+                        }
+                        .frame(width: 80, alignment: .center)
+                    }
+                    .font(.caption)
                     .foregroundColor(.white)
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .padding(.horizontal, 10)
@@ -296,7 +385,7 @@ struct ProfileView: View {
                 }
             }
             .padding(.bottom, 10)
-            
+
             Button {
                 showAddFriends.toggle()
             } label: {
@@ -315,5 +404,6 @@ struct ProfileView: View {
         }
         .padding(.horizontal)
     }
-
+    
+ 
 }
