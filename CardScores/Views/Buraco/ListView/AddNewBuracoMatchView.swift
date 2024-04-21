@@ -221,42 +221,53 @@ struct AddNewBuracoMatchView: View {
                 .font(.callout)
                 .fontWeight(.bold)
             
-            LazyVGrid(columns: gridItems, spacing: 10) {
-                ForEach(userRepo.listOfFriends, id: \.self) { friend in
-                    
-                    FriendGridItem(friend: friend, setSelectedButtonColor: $setSelectedButtonColor, cleanButtonColor: $cleanButtonColor) {
+            if userRepo.isUserAnonymous {
+                Text("Crie uma conta para ter")
+                    .font(.headline)
+                    .foregroundStyle(Color.white)
+                    .padding(.top, 10)
+                
+                Text("acesso a lista de amigos.")
+                    .font(.headline)
+                    .foregroundStyle(Color.white)
+                    .padding(.bottom, 20)
+            } else {
+                LazyVGrid(columns: gridItems, spacing: 10) {
+                    ForEach(userRepo.listOfFriends, id: \.self) { friend in
                         
-                        if buracoMatchVM.playerOne.isEmpty {
-                            placeholderOne = friend
-                            buracoMatchVM.playerOne = friend
-                            setSelectedButtonColor = true
-                            cleanButtonColor = Color.black
-                        } else if buracoMatchVM.playerTwo.isEmpty {
-                            placeholderTwo = friend
-                            buracoMatchVM.playerTwo = friend
-                            setSelectedButtonColor = true
-                        } else if buracoMatchVM.playerThree.isEmpty {
-                            placeholderThree = friend
-                            buracoMatchVM.playerThree = friend
-                            setSelectedButtonColor = true
-                        } else if buracoMatchVM.playerFour.isEmpty {
-                            placeholderFour = friend
-                            buracoMatchVM.playerFour = friend
-                            setSelectedButtonColor = true
-                        } else {
-                            setSelectedButtonColor = false
+                        FriendGridItem(friend: friend, setSelectedButtonColor: $setSelectedButtonColor, cleanButtonColor: $cleanButtonColor) {
+                            
+                            if buracoMatchVM.playerOne.isEmpty {
+                                placeholderOne = friend
+                                buracoMatchVM.playerOne = friend
+                                setSelectedButtonColor = true
+                                cleanButtonColor = Color.black
+                            } else if buracoMatchVM.playerTwo.isEmpty {
+                                placeholderTwo = friend
+                                buracoMatchVM.playerTwo = friend
+                                setSelectedButtonColor = true
+                            } else if buracoMatchVM.playerThree.isEmpty {
+                                placeholderThree = friend
+                                buracoMatchVM.playerThree = friend
+                                setSelectedButtonColor = true
+                            } else if buracoMatchVM.playerFour.isEmpty {
+                                placeholderFour = friend
+                                buracoMatchVM.playerFour = friend
+                                setSelectedButtonColor = true
+                            } else {
+                                setSelectedButtonColor = false
+                            }
                         }
                     }
                 }
+                .padding()
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .inset(by: 2)
+                        .stroke(Color.white, lineWidth: 2)
+                    
+                )
             }
-            .padding()
-            .overlay(
-                RoundedRectangle(cornerRadius: 10)
-                    .inset(by: 2)
-                    .stroke(Color.white, lineWidth: 2)
-                
-            )
-            
         }
         .padding(.horizontal)
     }
@@ -270,5 +281,5 @@ struct AddNewBuracoMatchView: View {
         .foregroundStyle(Color.white)
         .padding(.bottom, 20)
     }
-
+    
 }

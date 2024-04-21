@@ -18,6 +18,7 @@ class UserRepository: ObservableObject {
     @Published var isUserCreated: Bool = false
     @Published var listOfFriends: [String] = []
     @Published var listOfTeamsRanking: [TeamModel] = []
+    @Published var isUserAnonymous: Bool = false
     var handle: AuthStateDidChangeListenerHandle?
     
     var createdTime: Date = Date()
@@ -52,35 +53,39 @@ class UserRepository: ObservableObject {
     
     func getUser() {
         if let userId = Auth.auth().currentUser?.uid {
-        db.collection(path)
+            db.collection(path)
                 .whereField("userId", isEqualTo: userId)
-            .addSnapshotListener{ (snapshot, error) in
-                if let snapshot = snapshot {
-                    self.userModel = snapshot.documents.compactMap { document in
-                        do {
-                            let returnedUser = try document.data(as: UserModel.self)
-                            self.isUserCreated = true
-                            
-                            self.listOfFriends = returnedUser.friendsName
-   
-                            self.user = ProfileModel(
-                                userName: returnedUser.userName,
-                                userEmail: returnedUser.userEmail,
-                                userId: returnedUser.userId,
-                                friendsMail: returnedUser.friendsMail,
-                                friendsName: returnedUser.friendsName,
-                                createdTime: self.createdTime
-                            )
-                            
-                            return returnedUser
+                .addSnapshotListener{ (snapshot, error) in
+                    if let snapshot = snapshot {
+                        self.userModel = snapshot.documents.compactMap { document in
+                            do {
+                                let returnedUser = try document.data(as: UserModel.self)
+                                self.isUserCreated = true
+                                
+                                self.listOfFriends = returnedUser.friendsName
+                                
+                                self.user = ProfileModel(
+                                    userName: returnedUser.userName,
+                                    userEmail: returnedUser.userEmail,
+                                    userId: returnedUser.userId,
+                                    friendsMail: returnedUser.friendsMail,
+                                    friendsName: returnedUser.friendsName,
+                                    createdTime: self.createdTime
+                                )
+                                
+                                return returnedUser
+                            }
+                            catch {
+                                print(error)
+                            }
+                            return nil
                         }
-                        catch {
-                            print(error)
+                        
+                        if self.userModel.count == 0 {
+                            self.isUserAnonymous = true
                         }
-                        return nil
                     }
                 }
-            }
         }
     }
     

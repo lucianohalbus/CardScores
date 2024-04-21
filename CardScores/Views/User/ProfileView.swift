@@ -16,10 +16,8 @@ struct ProfileView: View {
     @State var isButtonIniciarClicked: Bool = false
     @State var showAddFriends: Bool = false
     @State var showRemoveFriendAlert: Bool = false
-    
-    
-    @State var listOfTeams: [TeamModel] = []
-    
+    @State var isUserAnonymous: Bool = false
+
     
     var gridItems = [
         GridItem(.flexible()),
@@ -178,45 +176,57 @@ struct ProfileView: View {
                 .foregroundStyle(Color.yellow)
                 .fontWeight(.bold)
             
-            LazyVGrid(columns: gridItems, spacing: 10) {
-                ForEach(userRepo.listOfFriends, id: \.self) { friend in
-                    Text(friend)
-                        .font(.caption)
-                        .padding(5)
-                        .frame(width: 100, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
-                        .foregroundColor(Color.cardColor)
-                        .background(Color.white)
-                        .cornerRadius(5)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 5)
-                                .stroke(Color.gray)
-                        )
-                        .onTapGesture {}.onLongPressGesture(minimumDuration: 0.2) {
-                            showRemoveFriendAlert = true
-                            self.friendToRemove = friend
-                        }
-                }
-                .alert(isPresented:$showRemoveFriendAlert) {
-                    Alert(
-                        title: Text("Remove Friend"),
-                        message: Text("Essa ação removerá esse nome da sua lista de amigos"),
-                        primaryButton: .destructive(Text("Continuar")) {
-                            Task {
-                                print("antes \(friendToRemove)")
-                                userRepo.removeFriend(friend: friendToRemove)
-                                userRepo.getUser()
-                                self.friendToRemove = ""
-                                print("depois \(friendToRemove)")
+            if userRepo.isUserAnonymous {
+                Text("Somente usuários cadastrados")
+                    .font(.headline)
+                    .foregroundStyle(Color.white)
+                    .padding(.top, 20)
+                Text("podem adicionar amigos.")
+                    .font(.headline)
+                    .foregroundStyle(Color.white)
+                    .padding(.bottom, 20)
+            } else {
+                LazyVGrid(columns: gridItems, spacing: 10) {
+                    ForEach(userRepo.listOfFriends, id: \.self) { friend in
+                        Text(friend)
+                            .font(.caption)
+                            .padding(5)
+                            .frame(width: 100, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
+                            .foregroundColor(Color.cardColor)
+                            .background(Color.white)
+                            .cornerRadius(5)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 5)
+                                    .stroke(Color.gray)
+                            )
+                            .onTapGesture {}.onLongPressGesture(minimumDuration: 0.2) {
+                                showRemoveFriendAlert = true
+                                self.friendToRemove = friend
                             }
-                        },
-                        secondaryButton: .cancel()
-                    )
+                    }
+                    .alert(isPresented:$showRemoveFriendAlert) {
+                        Alert(
+                            title: Text("Remove Friend"),
+                            message: Text("Essa ação removerá esse nome da sua lista de amigos"),
+                            primaryButton: .destructive(Text("Continuar")) {
+                                Task {
+                                    print("antes \(friendToRemove)")
+                                    userRepo.removeFriend(friend: friendToRemove)
+                                    userRepo.getUser()
+                                    self.friendToRemove = ""
+                                    print("depois \(friendToRemove)")
+                                }
+                            },
+                            secondaryButton: .cancel()
+                        )
+                    }
                 }
+                .padding(.bottom, 10)
             }
-            .padding(.bottom, 10)
-            
+ 
             Button {
                 showAddFriends.toggle()
+                print(userRepo.isUserAnonymous)
             } label: {
                 Text("Adicionar Amigos")
                     .font(.callout)
@@ -230,7 +240,9 @@ struct ProfileView: View {
                             .stroke(Color.gray)
                     )
             }
+            .disabled(userRepo.isUserAnonymous)
         }
+        .frame(maxWidth: .infinity)
         .padding(.horizontal)
     }
   
