@@ -9,16 +9,19 @@ struct RankingView: View {
     var body: some View {
         
         ZStack {
+            ScrollView {
             VStack {
                 MiniLogo()
                 
                 playerRanking
+                    .padding(.bottom, 20)
                 
                 teamRanking
-     
+                
             }
+            .frame(maxWidth: .infinity)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        }
         .background(Color.cardColor)
         .onAppear {
             userRepo.getUser()
@@ -34,74 +37,76 @@ struct RankingView: View {
             HStack {
                 Text("Ranking Individual")
                     .foregroundStyle(.white)
-                    .font(.title3)
+                    .font(.headline)
                     .fontWeight(.semibold)
                 
             }
-            .frame(width: 350, alignment: .center)
             
             ScrollView {
                 HStack {
                     VStack {
-                        Text("Nome")
+                        Text("")
                     }
-                    .frame(width: 110, alignment: .leading)
+                    .frame(width: 20, alignment: .leading)
                     
                     VStack {
-                        Text("Vitórias")
+                        Text("Nome")
                     }
-                    .frame(width: 80, alignment: .center)
+                    .frame(width: 150, alignment: .leading)
+                    
+                    VStack {
+                        Text("Wins")
+                    }
+                    .frame(width: 35, alignment: .center)
 
                     VStack {
-                        Text("Partidas")
+                        Text("Matches")
                     }
-                    .frame(width: 80, alignment: .center)
+                    .frame(width: 60, alignment: .center)
                     
                     VStack {
                         Text("Rating")
                     }
-                    .frame(width: 80, alignment: .center)
+                    .frame(width: 55, alignment: .center)
                 }
-                .font(.callout)
-                .fontWeight(.semibold)
-                .foregroundColor(.yellow)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 10)
+                .font(.caption)
+                .foregroundColor(.black)
                 
-                ForEach(getPlayerRanking(), id: \.self) { friend in
+                ForEach(Array(getPlayerRanking().enumerated()), id: \.element.id) { index, friend in
                     HStack {
+                        VStack {
+                            Text("\(index+1)")
+                        }
+                        .frame(width: 20, alignment: .leading)
+                        
                         VStack {
                             Text("\(friend.name)")
                         }
-                        .frame(width: 110, alignment: .leading)
+                        .frame(width: 150, alignment: .leading)
                         
                         VStack {
                             Text("\(friend.wins)")
                         }
-                        .frame(width: 80, alignment: .center)
+                        .frame(width: 35, alignment: .center)
                         
                         VStack {
                             Text("\(friend.matches)")
                         }
-                        .frame(width: 80, alignment: .center)
+                        .frame(width: 60, alignment: .center)
                         
                         VStack {
                             Text("\(getRating(wins: friend.wins, matches: friend.matches), specifier: "%.2f")")
                         }
-                        .frame(width: 80, alignment: .center)
+                        .frame(width: 55, alignment: .center)
                     }
-                    .font(.callout)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 10)
-                    
+                    .font(.caption)
+                    .foregroundStyle(getRankingColor(index: index+1))
+                    .fontWeight(index == 0 ? .bold : .regular)
                 }
             }
-            .background(Color.black)
+            .background(Color.mainButtonColor)
             .cornerRadius(10)
         }
-        .padding(.horizontal, 10)
-        .padding(.bottom, 10)
     }
     
     var teamRanking: some View {
@@ -109,78 +114,93 @@ struct RankingView: View {
             HStack {
                 Text("Ranking de Duplas")
                     .foregroundStyle(.white)
-                    .font(.title3)
+                    .font(.headline)
                     .fontWeight(.semibold)
                 
             }
-            .frame(width: 350, alignment: .center)
             
             ScrollView {
                 HStack {
                     VStack {
-                        Text("Dupla")
+                        Text("")
                     }
-                    .frame(width: 110, alignment: .leading)
+                    .frame(width: 20, alignment: .leading)
                     
                     VStack {
-                        Text("Vitórias")
+                        Text("Dupla")
                     }
-                    .frame(width: 80, alignment: .center)
+                    .frame(width: 150, alignment: .leading)
+                    
+                    VStack {
+                        Text("Wins")
+                    }
+                    .frame(width: 35, alignment: .center)
 
                     VStack {
-                        Text("Partidas")
+                        Text("Matches")
                     }
-                    .frame(width: 80, alignment: .center)
+                    .frame(width: 60, alignment: .center)
                     
                     VStack {
                         Text("Rating")
                     }
-                    .frame(width: 80, alignment: .center)
+                    .frame(width: 55, alignment: .center)
                 }
-                .font(.callout)
-                .fontWeight(.semibold)
-                .foregroundColor(.yellow)
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.horizontal, 10)
+                .font(.caption)
+                .foregroundColor(.black)
                 
-                ForEach(buracoMatchVM.getTeamsRanking(friends: userRepo.listOfFriends, matches: buracoMatchVM.matchesVM), id: \.self) { team in
+                ForEach(Array(buracoMatchVM.getTeamsRanking(friends: userRepo.listOfFriends, matches: buracoMatchVM.matchesVM).enumerated()), id: \.element.id) { index, team in
+               
                     HStack {
+                        VStack {
+                            Text("\(index+1)")
+                        }
+                        .frame(width: 20, alignment: .leading)
+                        
                         VStack {
                             Text("\(team.playerOne) / \(team.playerTwo)")
                         }
-                        .frame(width: 110, alignment: .leading)
+                        .frame(width: 150, alignment: .leading)
                         
                         VStack {
                             Text(team.numberofWins.description)
                         }
-                        .frame(width: 80, alignment: .center)
+                        .frame(width: 35, alignment: .center)
                         
                         VStack {
                             Text(team.numberOfMatches.description)
                         }
-                        .frame(width: 80, alignment: .center)
+                        .frame(width: 60, alignment: .center)
                         
                         VStack {
                             Text("\(team.rating, specifier: "%.2f")")
                         }
-                        .frame(width: 80, alignment: .center)
+                        .frame(width: 55, alignment: .center)
                     }
                     .font(.caption)
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(.horizontal, 10)
-                    
+                    .foregroundStyle(getRankingColor(index: index+1))
+                    .fontWeight(index == 0 ? .bold : .regular)
                 }
             }
-            .background(Color.black)
+            .background(Color.mainButtonColor)
             .cornerRadius(10)
         }
-        .padding(.horizontal, 10)
-        .padding(.bottom, 10)
     }
     
     
-    
+    func getRankingColor(index: Int) -> Color {
+        switch index {
+        case 1:
+            return Color.rankingOne
+        case 2:
+            return Color.rankingTwo
+        case 3:
+            return Color.rankingThree
+            
+        default:
+            return Color.black
+        }
+    }
     
 }
 

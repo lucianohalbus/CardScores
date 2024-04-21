@@ -11,6 +11,11 @@ extension Color {
     static let textViewBackgroundColor: Color = Color(hex: "#DEEFE6")
     static let mainButtonColor: Color = Color(hex:  "#BFE1D0")
     
+    static let rankingOne: Color = Color(hex: "#009192")
+    static let rankingTwo: Color = Color(hex: "#0432FF")
+    static let rankingThree: Color = Color(hex: "#9437FF")
+   
+    
    
  
 }

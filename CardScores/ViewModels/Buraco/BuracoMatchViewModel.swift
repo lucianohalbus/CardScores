@@ -192,6 +192,7 @@ final class BuracoMatchViewModel: ObservableObject {
             if numberOfMatches > 0 {
                 listOfTeamRanking.append(
                     TeamModel(
+                        id: "\(team.indices)", 
                         teamName: team,
                         teamId: "",
                         playerOne: playerA,

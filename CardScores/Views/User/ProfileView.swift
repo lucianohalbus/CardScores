@@ -125,8 +125,6 @@ struct ProfileView: View {
                 .padding(.top, 10)
             }
         }
-        .padding(.horizontal)
-        .padding(.top, 10)
     }
     
     var deleteButton: some View {

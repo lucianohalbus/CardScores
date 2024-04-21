@@ -12,7 +12,7 @@ struct MainLogo: View {
             ZStack{
                 
                 Circle()
-                    .stroke(Color.cardColor, lineWidth: 3)
+                    .stroke(Color.black.gradient, lineWidth: 3)
                     .frame(width: 120, height: 120)
                 
                 Image("Logo")
@@ -20,7 +20,7 @@ struct MainLogo: View {
                     .frame(width: 110, height: 110)
                     .aspectRatio(contentMode: .fit)
                     .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                    .shadow(radius: 100)
+                    .shadow(color: .white, radius: 20, x: 0, y: 2)
             }
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 200, alignment: .top)
@@ -98,5 +98,5 @@ struct ToolBarLogo: View {
 }
 
 #Preview {
-    MiniLogo()
+    MainLogo()
 }

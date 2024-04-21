@@ -51,7 +51,7 @@ extension RankingView {
         var playerRanking: [IndividualRanking] = []
 
         for friend in userRepo.listOfFriends {
-            let player: IndividualRanking = IndividualRanking(name: friend, matches: playerMatches(player: friend), wins: playerWins(player: friend))
+            let player: IndividualRanking = IndividualRanking(id: "\(friend.indices)", name: friend, matches: playerMatches(player: friend), wins: playerWins(player: friend))
             
             playerRanking.append(player)
         }
