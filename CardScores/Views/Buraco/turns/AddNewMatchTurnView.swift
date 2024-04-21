@@ -100,7 +100,8 @@ struct AddNewMatchTurnView: View {
                             dbScore: Int(buracoMatchVM.scoreOne) ?? 0,
                             canastraScore: self.canastraScoreOne ?? 0,
                             cardScore: self.cardScoreOne ?? 0,
-                            negativeScore: self.negativeScoreOne ?? 0
+                            negativeScore: self.negativeScoreOne ?? 0,
+                            goodDistributor: goodDistributorOne
                         )
                         
                         buracoMatchVM.scoreOne = calculatedTotalScoreOne.description
@@ -109,7 +110,8 @@ struct AddNewMatchTurnView: View {
                             dbScore: Int(buracoMatchVM.scoreTwo) ?? 0,
                             canastraScore: self.canastraScoreTwo ?? 0,
                             cardScore: self.cardScoreTwo ?? 0,
-                            negativeScore: self.negativeScoreTwo ?? 0
+                            negativeScore: self.negativeScoreTwo ?? 0,
+                            goodDistributor: goodDistributorTwo
                         )
                         buracoMatchVM.scoreTwo = calculatedTotalScoreTwo.description
                         
