@@ -8,6 +8,7 @@ struct MainLogo: View {
             Text("Card Scores")
                 .font(.title)
                 .fontWeight(.semibold)
+                .foregroundStyle(Color.textViewBackgroundColor)
             
             ZStack{
                 
@@ -20,7 +21,7 @@ struct MainLogo: View {
                     .frame(width: 110, height: 110)
                     .aspectRatio(contentMode: .fit)
                     .clipShape(/*@START_MENU_TOKEN@*/Circle()/*@END_MENU_TOKEN@*/)
-                    .shadow(color: .white, radius: 20, x: 0, y: 2)
+                    .shadow(color: .white, radius: 15, x: 0, y: 2)
             }
         }
         .frame(minWidth: 0, maxWidth: .infinity, minHeight: 0, maxHeight: 200, alignment: .top)
