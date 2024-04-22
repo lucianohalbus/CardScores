@@ -12,11 +12,39 @@ struct RankingView: View {
             ScrollView {
             VStack {
                 MiniLogo()
-                
-                playerRanking
+                if userRepo.isUserAnonymous {
+                    Text("Crie uma conta para ter")
+                        .font(.headline)
+                        .foregroundStyle(Color.white)
+                        .padding(.top, 10)
+                    
+                    Text("acesso ao ranking.")
+                        .font(.headline)
+                        .foregroundStyle(Color.white)
+                        .padding(.bottom, 20)
+                    
+                    Text("Para criar uma conta")
+                        .font(.headline)
+                        .foregroundStyle(Color.white)
+                    
+                    HStack {
+                        Text("acesse a aba")
+                        Text("Profile")
+                            .foregroundStyle(Color.yellow)
+                        Text("\(Image(systemName: "person.crop.circle.fill"))")
+                        Text("abaixo.")
+                    }
+                    .font(.headline)
+                    .foregroundStyle(Color.white)
                     .padding(.bottom, 20)
-                
-                teamRanking
+                    
+                } else {
+                    
+                    playerRanking
+                        .padding(.bottom, 20)
+                    
+                    teamRanking
+                }
                 
             }
             .frame(maxWidth: .infinity)
@@ -71,6 +99,7 @@ struct RankingView: View {
                 }
                 .font(.caption)
                 .foregroundColor(.black)
+                .padding(.horizontal, 5)
                 
                 ForEach(Array(getPlayerRanking().enumerated()), id: \.element.id) { index, friend in
                     HStack {
@@ -102,6 +131,7 @@ struct RankingView: View {
                     .font(.caption)
                     .foregroundStyle(getRankingColor(index: index+1))
                     .fontWeight(index == 0 ? .bold : .regular)
+                    .padding(.horizontal, 5)
                 }
             }
             .background(Color.mainButtonColor)
@@ -148,6 +178,7 @@ struct RankingView: View {
                 }
                 .font(.caption)
                 .foregroundColor(.black)
+                .padding(.horizontal, 5)
                 
                 ForEach(Array(buracoMatchVM.getTeamsRanking(friends: userRepo.listOfFriends, matches: buracoMatchVM.matchesVM).enumerated()), id: \.element.id) { index, team in
                
@@ -180,6 +211,7 @@ struct RankingView: View {
                     .font(.caption)
                     .foregroundStyle(getRankingColor(index: index+1))
                     .fontWeight(index == 0 ? .bold : .regular)
+                    .padding(.horizontal, 5)
                 }
             }
             .background(Color.mainButtonColor)

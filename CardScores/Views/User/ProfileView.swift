@@ -113,6 +113,7 @@ struct ProfileView: View {
                 VStack (){
                     Text("Criar Conta")
                         .font(.title3)
+                        .fontWeight(.bold)
                         .foregroundStyle(Color.cardColor)
                         .padding(5)
                         .overlay(
@@ -151,7 +152,7 @@ struct ProfileView: View {
                 }
             }) {
                 VStack {
-                    Text("Sair da Conta")
+                    Text(userRepo.isUserAnonymous ? "Sair da Conta Anônima" : "Sair da conta")
                         .font(.title3)
                         .foregroundStyle(Color.cardColor)
                         .padding(5)
@@ -176,7 +177,7 @@ struct ProfileView: View {
                 
             } label: {
                 VStack (){
-                    Text("Apagar a Conta")
+                    Text(userRepo.isUserAnonymous ? "Apagar a Conta Anônima" : "Apagar Conta")
                         .font(.title3)
                         .foregroundStyle(.red)
                         .padding(5)
