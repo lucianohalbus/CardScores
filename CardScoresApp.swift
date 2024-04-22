@@ -11,6 +11,7 @@ struct CardScoresApp: App {
             MainView()
                 .environmentObject(BuracoMatchViewModel())
                 .environmentObject(BuracoTurnsViewModel())
+                .environmentObject(UserRepository())
         }
     }
 }

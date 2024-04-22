@@ -2,14 +2,16 @@
 
 import SwiftUI
 
-struct CreateUserView: View {
+struct LinkAccountView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var userRepository = UserRepository()
     @StateObject var loginVM = LoginViewModel()
     @State var userName: String = ""
-    @Binding var email: String
-    @Binding var password: String
-    @Binding var showCreatedUserView: Bool
+    @State var email: String = ""
+    @State var password: String = ""
+    
+    @Binding var path: [MainNavigation]
+    @Binding var isUserLinked: Bool
     
     var body: some View {
         ZStack {
@@ -22,28 +24,34 @@ struct CreateUserView: View {
                     .bold()
                     .padding(.vertical, 10 )
                 
-                createUserFields
+                linkAccountFields
                 
-                createUserButtons
+                linkAccountButtons
 
                 Spacer()
             }
             .onChange(of: userRepository.isUserCreated) { newValue in
                 if newValue {
-                    self.showCreatedUserView = false
+                    path.removeAll()
                     self.userName = ""
                     self.email = ""
                     self.password = ""
+                    isUserLinked = true
                     
-                    userRepository.getUser()
                 }
+            }
+            .alert(isPresented: $userRepository.showAlert) {
+                Alert(
+                    title: Text(userRepository.alertMessage),
+                    message: Text(userRepository.alertSuggestion),
+                    dismissButton: .default(Text("OK")))
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
         .background(Color.cardColor)
     }
     
-    var createUserFields: some View {
+    var linkAccountFields: some View {
         VStack {
             TextField(
                 "Name",
@@ -75,7 +83,7 @@ struct CreateUserView: View {
         }
     }
     
-    var createUserButtons: some View {
+    var linkAccountButtons: some View {
         HStack {
             Spacer()
             
@@ -91,7 +99,7 @@ struct CreateUserView: View {
             Spacer()
             
             Button("Registrar") {
-                userRepository.register(email: email, password: password, userName: userName)
+                userRepository.linkAnonymousUser(email: email, password: password, userName: userName)
             }
             .font(.title3)
             .fontWeight(.bold)
@@ -103,12 +111,4 @@ struct CreateUserView: View {
         }
     }
     
-}
-
-#Preview {
-    CreateUserView(
-        email: .constant(""),
-        password: .constant(""),
-        showCreatedUserView: .constant(false)
-    )
 }

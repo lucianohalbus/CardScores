@@ -45,6 +45,10 @@ class UserRepository: ObservableObject {
             if auth.currentUser != nil {
                 self.createdTime = auth.currentUser?.metadata.creationDate ?? Date()
                 
+                if let email = auth.currentUser?.email {
+                    self.isUserAnonymous = false
+                }
+                
             } else {
                 print("USER NOT FOUND")
             }
@@ -112,7 +116,7 @@ class UserRepository: ObservableObject {
         }
     }
     
-    func register(email: String, password: String) {
+    func register(email: String, password: String, userName: String) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let returnedError = error {
                 let err = returnedError as NSError
@@ -140,19 +144,64 @@ class UserRepository: ObservableObject {
                 self.addUser(
                     UserModel(
                         id: result?.user.uid,
-                        userName: self.userName,
+                        userName: userName,
                         userEmail: email,
                         userId: result?.user.uid,
                         numberOfWins: 0,
                         averageScores: 0,
                         numberOfMatches: 0,
                         friendsMail: [email],
-                        friendsName: []
+                        friendsName: [userName]
                     )
                 )
             }
         }
     }
+    
+    func linkAnonymousUser(email: String, password: String, userName: String) {
+        let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+           Auth.auth().currentUser?.link(with: credential) { result, error in
+            if let returnedError = error {
+                let err = returnedError as NSError
+                switch err.code {
+                case AuthErrorCode.invalidEmail.rawValue:
+                    self.alertMessage = "Invalid Email"
+                    self.alertSuggestion = "Enter a valid email address"
+                case AuthErrorCode.emailAlreadyInUse.rawValue:
+                    self.alertMessage = "Email is already in use"
+                    self.alertSuggestion = "If this is your email, reset the password"
+                case AuthErrorCode.weakPassword.rawValue:
+                    self.alertMessage = "Weak Password"
+                    self.alertSuggestion = "Password must be 6 characters long or more"
+                default:
+                    self.alertMessage = "Error"
+                    self.alertSuggestion = "\(err.localizedDescription)"
+                }
+                self.showAlert = true
+            } else {
+                guard let email = result?.user.email else {
+                    print("User not Created.")
+                    return
+                }
+
+                self.addUser(
+                    UserModel(
+                        id: result?.user.uid,
+                        userName: userName,
+                        userEmail: email,
+                        userId: result?.user.uid,
+                        numberOfWins: 0,
+                        averageScores: 0,
+                        numberOfMatches: 0,
+                        friendsMail: [email],
+                        friendsName: [userName]
+                    )
+                )
+            }
+        }
+    }
+    
+    
     
     func addUser(_ userModel: UserModel) {
         if let userId = Auth.auth().currentUser?.uid {

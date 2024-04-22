@@ -32,6 +32,7 @@
 		CBB072592BD2A54A0026CA4E /* TeamModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB072582BD2A54A0026CA4E /* TeamModel.swift */; };
 		CBB0725C2BD4AFC50026CA4E /* RankingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB0725B2BD4AFC50026CA4E /* RankingView.swift */; };
 		CBB0725E2BD4B0AD0026CA4E /* RankingView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB0725D2BD4B0AD0026CA4E /* RankingView+Extension.swift */; };
+		CBB072602BD687920026CA4E /* LinkAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB0725F2BD687920026CA4E /* LinkAccountView.swift */; };
 		CBB0D4D72BC6BEE3002CC88D /* DBImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB0D4D62BC6BEE3002CC88D /* DBImages.swift */; };
 		CBD142ED2BA762F3000FAA55 /* MainLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142EC2BA762F3000FAA55 /* MainLogo.swift */; };
 		CBD142EF2BA77D27000FAA55 /* AddNewBuracoMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142EE2BA77D27000FAA55 /* AddNewBuracoMatchView.swift */; };
@@ -88,6 +89,7 @@
 		CBB072582BD2A54A0026CA4E /* TeamModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TeamModel.swift; sourceTree = "<group>"; };
 		CBB0725B2BD4AFC50026CA4E /* RankingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RankingView.swift; sourceTree = "<group>"; };
 		CBB0725D2BD4B0AD0026CA4E /* RankingView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RankingView+Extension.swift"; sourceTree = "<group>"; };
+		CBB0725F2BD687920026CA4E /* LinkAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkAccountView.swift; sourceTree = "<group>"; };
 		CBB0D4D62BC6BEE3002CC88D /* DBImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBImages.swift; sourceTree = "<group>"; };
 		CBD142EC2BA762F3000FAA55 /* MainLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLogo.swift; sourceTree = "<group>"; };
 		CBD142EE2BA77D27000FAA55 /* AddNewBuracoMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBuracoMatchView.swift; sourceTree = "<group>"; };
@@ -151,6 +153,7 @@
 				CB64FCE22BD159AA00067744 /* SubViews */,
 				CB5578F62BBB1AE2005A643D /* ProfileView.swift */,
 				CB64FCB32BC83F0000067744 /* CreateUserView.swift */,
+				CBB0725F2BD687920026CA4E /* LinkAccountView.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -550,6 +553,7 @@
 				CB64FCE42BD159C700067744 /* AddFriend.swift in Sources */,
 				CB416CF62BA35FB6005DF9F3 /* BuracoListView.swift in Sources */,
 				CB8A39A72BA71B3C00EFF71C /* UserModel.swift in Sources */,
+				CBB072602BD687920026CA4E /* LinkAccountView.swift in Sources */,
 				CBFF67D82BA33FD50023A2F8 /* MatchTurn.swift in Sources */,
 				CBB0725E2BD4B0AD0026CA4E /* RankingView+Extension.swift in Sources */,
 				CB5578F42BBA324A005A643D /* View+Extension.swift in Sources */,

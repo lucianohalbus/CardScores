@@ -10,6 +10,8 @@ struct ProfileView: View {
     @StateObject var buracoMatchVM = BuracoMatchViewModel()
     
     @Binding var showLoginView: Bool
+    @Binding var path: [MainNavigation]
+    @State var isUserLinked: Bool = false
     
     @State var friendToRemove: String = ""
     @State private var showDeleteButtonAlert: Bool = false
@@ -17,7 +19,6 @@ struct ProfileView: View {
     @State var showAddFriends: Bool = false
     @State var showRemoveFriendAlert: Bool = false
     @State var isUserAnonymous: Bool = false
-
     
     var gridItems = [
         GridItem(.flexible()),
@@ -26,56 +27,62 @@ struct ProfileView: View {
     ]
     
     var body: some View {
-        ZStack {
-            VStack {
-                
-                MiniLogo()
-                
-                VStack(alignment: .leading) {
+        NavigationStack(path: $path) {
+            ZStack {
+                VStack {
                     
-                    playerInformations
+                    MiniLogo()
                     
-                    Divider()
-                        .frame(height: 1)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.black)
-                        .padding(.bottom, 10)
+                    VStack(alignment: .leading) {
+                        
+                        playerInformations
+                        
+                        Divider()
+                            .frame(height: 1)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.black)
+                            .padding(.bottom, 10)
+                        
+                        listOfFriends
+                        
+                        Divider()
+                            .frame(height: 1)
+                            .frame(maxWidth: .infinity)
+                            .background(Color.black)
+                        
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    listOfFriends
-                    
-                    Divider()
-                        .frame(height: 1)
-                        .frame(maxWidth: .infinity)
-                        .background(Color.black)
-                    
+                    VStack(alignment: .leading) {
+                        if userRepo.isUserAnonymous {
+                            linkAccountButton
+                        }
+                        logoutButton
+                        deleteButton
+                    }
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(10)
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
- 
-                Spacer()
-                
-                HStack {
-                    Spacer()
-                    logoutButton
-                    Spacer()
-                    deleteButton
-                    Spacer()
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+                .onAppear {
+                    userRepo.getUser()
+                    buracoMatchVM.getMatches()
                 }
-                .padding(.bottom, 10)
+                .sheet(isPresented: $showAddFriends, onDismiss: {
+                    userRepo.getUser()
+                }) {
+                    AddFriend()
+                        .presentationDetents([.medium])
+                }
+                .onChange(of: isUserLinked) { newValue in
+                    if newValue {
+                        userRepo.listen()
+                    }
+                }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-            .onAppear {
-                userRepo.getUser()
-                buracoMatchVM.getMatches()
-            }
-            .sheet(isPresented: $showAddFriends, onDismiss: {
-                userRepo.getUser()
-            }) {
-                AddFriend()
-                    .presentationDetents([.medium])
-            }
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .background(Color.cardColor)
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.cardColor)
     }
     
     var playerInformations: some View {
@@ -96,6 +103,41 @@ struct ProfileView: View {
         .padding(.horizontal, 15)
     }
     
+    var linkAccountButton: some View {
+        VStack {
+            
+            Button {
+                path.append(.anotherChild)
+                
+            } label: {
+                VStack (){
+                    Text("Criar Conta")
+                        .font(.title3)
+                        .foregroundStyle(Color.cardColor)
+                        .padding(5)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.textFieldBorderColor)
+                        )
+                        .background(.white)
+                        .cornerRadius(10)
+                    
+                }
+                .padding(.top, 10)
+            }
+            .navigationDestination(for: MainNavigation.self) { view in
+                switch view {
+                case .anotherChild:
+                    LinkAccountView(path: $path, isUserLinked: $isUserLinked)
+                default:
+                    EmptyView()
+                }
+                
+            }
+        }
+        .padding(.bottom, 10)
+    }
+    
     var logoutButton: some View {
         VStack(alignment: .leading) {
             Button(action: {
@@ -109,7 +151,7 @@ struct ProfileView: View {
                 }
             }) {
                 VStack {
-                    Text("Sair    ")
+                    Text("Sair da Conta")
                         .font(.title3)
                         .foregroundStyle(Color.cardColor)
                         .padding(5)
@@ -123,6 +165,7 @@ struct ProfileView: View {
                 .padding(.top, 10)
             }
         }
+        .padding(.bottom, 30)
     }
     
     var deleteButton: some View {
@@ -165,7 +208,6 @@ struct ProfileView: View {
                 )
             }
         }
-        .padding(.horizontal)
     }
     
     var listOfFriends: some View {
@@ -223,7 +265,7 @@ struct ProfileView: View {
                 }
                 .padding(.bottom, 10)
             }
- 
+            
             Button {
                 showAddFriends.toggle()
                 print(userRepo.isUserAnonymous)
@@ -245,5 +287,26 @@ struct ProfileView: View {
         .frame(maxWidth: .infinity)
         .padding(.horizontal)
     }
-  
+    
+}
+
+#Preview {
+    ProfileView(
+        loginVM: LoginViewModel(),
+        authenticationVM: AuthenticationViewModel(),
+        userRepo: UserRepository(),
+        buracoMatchVM: BuracoMatchViewModel(),
+        showLoginView: .constant(false),
+        path: .constant([.anotherChild]),
+        friendToRemove: "",
+        isButtonIniciarClicked: false,
+        showAddFriends: false,
+        showRemoveFriendAlert: false,
+        isUserAnonymous: false,
+        gridItems: [
+            GridItem(.flexible()),
+            GridItem(.flexible()),
+            GridItem(.flexible())
+        ]
+    )
 }

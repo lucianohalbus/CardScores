@@ -3,8 +3,9 @@
 import SwiftUI
 
 enum MainNavigation: Hashable {
-  case child(BuracoFBViewModel)
- }
+    case child(BuracoFBViewModel)
+    case anotherChild
+}
 
 struct TabbarView: View {
     @Binding var showLoginView: Bool
@@ -43,7 +44,7 @@ struct TabbarView: View {
                             }
                             .tag(Tab.ranking)
                         
-                        ProfileView(showLoginView: $showLoginView)
+                        ProfileView(showLoginView: $showLoginView, path: $mainNavigationStack)
                             .tabItem {
                                 Image(systemName: "person.crop.circle.fill")
                                 Text("Profile")

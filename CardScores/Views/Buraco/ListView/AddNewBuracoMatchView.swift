@@ -84,7 +84,10 @@ struct AddNewBuracoMatchView: View {
                                 case .child:
                                     BuracoMatchView(matchFB: BuracoFBViewModel(
                                         matchFB: buracoMatchVM.createdItem))
+                                default:
+                                    EmptyView()
                                 }
+                                
                             }
                             Spacer()
                         }

@@ -83,6 +83,8 @@ struct BuracoListView: View {
                                         BuracoMatchView(matchFB: BuracoFBViewModel(
                                             matchFB: buracoMatchVM.createdItem
                                         ))
+                                    default:
+                                        EmptyView()
                                     }
                                 }
                             }
