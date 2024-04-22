@@ -36,7 +36,7 @@ class LoginViewModel: ObservableObject {
     func anonymousLogin() {
         Auth.auth().signInAnonymously { authResult, error in
             if let userId = authResult?.user.uid {
-                print(userId)
+                self.userId = userId
                 self.listen()
             } else {
                 print(error?.localizedDescription ?? "No user found")
