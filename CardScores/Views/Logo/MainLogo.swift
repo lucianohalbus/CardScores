@@ -16,7 +16,7 @@ struct MainLogo: View {
                     .stroke(Color.black.gradient, lineWidth: 3)
                     .frame(width: 120, height: 120)
                 
-                Image("Logo")
+                Image("logo")
                     .resizable()
                     .frame(width: 110, height: 110)
                     .aspectRatio(contentMode: .fit)
@@ -40,7 +40,7 @@ struct MiniLogo: View {
                         .stroke(Color.cardColor, lineWidth: 3)
                         .frame(width: 30, height: 30)
                     
-                    Image("Logo")
+                    Image("logo")
                         .resizable()
                         .frame(width: 25, height: 25)
                         .aspectRatio(contentMode: .fit)
@@ -59,7 +59,7 @@ struct MiniLogo: View {
                         .stroke(Color.cardColor, lineWidth: 3)
                         .frame(width: 30, height: 30)
                     
-                    Image("Logo")
+                    Image("logo")
                         .resizable()
                         .frame(width: 25, height: 25)
                         .aspectRatio(contentMode: .fit)
@@ -87,7 +87,7 @@ struct ToolBarLogo: View {
                     .stroke(Color.cardColor, lineWidth: 3)
                     .frame(width: 30, height: 30)
                 
-                Image("Logo")
+                Image("logo")
                     .resizable()
                     .frame(width: 28, height: 28)
                     .aspectRatio(contentMode: .fit)

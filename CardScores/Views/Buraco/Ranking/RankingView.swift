@@ -10,45 +10,45 @@ struct RankingView: View {
         
         ZStack {
             ScrollView {
-            VStack {
-                MiniLogo()
-                if userRepo.isUserAnonymous {
-                    Text("Crie uma conta para ter")
-                        .font(.headline)
-                        .foregroundStyle(Color.white)
-                        .padding(.top, 10)
-                    
-                    Text("acesso ao ranking.")
+                VStack {
+                    MiniLogo()
+                    if userRepo.isUserAnonymous {
+                        Text("Crie uma conta para ter")
+                            .font(.headline)
+                            .foregroundStyle(Color.white)
+                            .padding(.top, 10)
+                        
+                        Text("acesso ao ranking.")
+                            .font(.headline)
+                            .foregroundStyle(Color.white)
+                            .padding(.bottom, 20)
+                        
+                        Text("Para criar uma conta")
+                            .font(.headline)
+                            .foregroundStyle(Color.white)
+                        
+                        HStack {
+                            Text("acesse a aba")
+                            Text("Profile")
+                                .foregroundStyle(Color.yellow)
+                            Text("\(Image(systemName: "person.crop.circle.fill"))")
+                            Text("abaixo.")
+                        }
                         .font(.headline)
                         .foregroundStyle(Color.white)
                         .padding(.bottom, 20)
-                    
-                    Text("Para criar uma conta")
-                        .font(.headline)
-                        .foregroundStyle(Color.white)
-                    
-                    HStack {
-                        Text("acesse a aba")
-                        Text("Profile")
-                            .foregroundStyle(Color.yellow)
-                        Text("\(Image(systemName: "person.crop.circle.fill"))")
-                        Text("abaixo.")
+                        
+                    } else {
+                        
+                        playerRanking
+                            .padding(.bottom, 20)
+                        
+                        teamRanking
                     }
-                    .font(.headline)
-                    .foregroundStyle(Color.white)
-                    .padding(.bottom, 20)
                     
-                } else {
-                    
-                    playerRanking
-                        .padding(.bottom, 20)
-                    
-                    teamRanking
                 }
-                
+                .frame(maxWidth: .infinity)
             }
-            .frame(maxWidth: .infinity)
-        }
         }
         .background(Color.cardColor)
         .onAppear {
@@ -87,7 +87,7 @@ struct RankingView: View {
                         Text("Wins")
                     }
                     .frame(width: 35, alignment: .center)
-
+                    
                     VStack {
                         Text("Matches")
                     }
@@ -103,36 +103,38 @@ struct RankingView: View {
                 .padding(.horizontal, 5)
                 
                 ForEach(Array(getPlayerRanking().enumerated()), id: \.element.id) { index, friend in
-                    HStack {
-                        VStack {
-                            Text("\(index+1)")
+                    if friend.matches > 0 {
+                        HStack {
+                            VStack {
+                                Text("\(index+1)")
+                            }
+                            .frame(width: 20, alignment: .leading)
+                            
+                            VStack {
+                                Text("\(friend.name)")
+                            }
+                            .frame(width: 150, alignment: .leading)
+                            
+                            VStack {
+                                Text("\(friend.wins)")
+                            }
+                            .frame(width: 35, alignment: .center)
+                            
+                            VStack {
+                                Text("\(friend.matches)")
+                            }
+                            .frame(width: 60, alignment: .center)
+                            
+                            VStack {
+                                Text("\(getRating(wins: friend.wins, matches: friend.matches), specifier: "%.2f")")
+                            }
+                            .frame(width: 55, alignment: .center)
                         }
-                        .frame(width: 20, alignment: .leading)
-                        
-                        VStack {
-                            Text("\(friend.name)")
-                        }
-                        .frame(width: 150, alignment: .leading)
-                        
-                        VStack {
-                            Text("\(friend.wins)")
-                        }
-                        .frame(width: 35, alignment: .center)
-                        
-                        VStack {
-                            Text("\(friend.matches)")
-                        }
-                        .frame(width: 60, alignment: .center)
-                        
-                        VStack {
-                            Text("\(getRating(wins: friend.wins, matches: friend.matches), specifier: "%.2f")")
-                        }
-                        .frame(width: 55, alignment: .center)
+                        .font(.caption)
+                        .foregroundStyle(getRankingColor(index: index+1))
+                        .fontWeight(index == 0 ? .bold : .regular)
+                        .padding(.horizontal, 5)
                     }
-                    .font(.caption)
-                    .foregroundStyle(getRankingColor(index: index+1))
-                    .fontWeight(index == 0 ? .bold : .regular)
-                    .padding(.horizontal, 5)
                 }
             }
             .background(Color.mainButtonColor)
@@ -166,7 +168,7 @@ struct RankingView: View {
                         Text("Wins")
                     }
                     .frame(width: 35, alignment: .center)
-
+                    
                     VStack {
                         Text("Matches")
                     }
@@ -182,37 +184,38 @@ struct RankingView: View {
                 .padding(.horizontal, 5)
                 
                 ForEach(Array(buracoMatchVM.getTeamsRanking(friends: userRepo.listOfFriends, matches: buracoMatchVM.matchesVM).enumerated()), id: \.element.id) { index, team in
-               
-                    HStack {
-                        VStack {
-                            Text("\(index+1)")
+                    if team.numberOfMatches > 0 {
+                        HStack {
+                            VStack {
+                                Text("\(index+1)")
+                            }
+                            .frame(width: 20, alignment: .leading)
+                            
+                            VStack {
+                                Text("\(team.playerOne) / \(team.playerTwo)")
+                            }
+                            .frame(width: 150, alignment: .leading)
+                            
+                            VStack {
+                                Text(team.numberofWins.description)
+                            }
+                            .frame(width: 35, alignment: .center)
+                            
+                            VStack {
+                                Text(team.numberOfMatches.description)
+                            }
+                            .frame(width: 60, alignment: .center)
+                            
+                            VStack {
+                                Text("\(team.rating, specifier: "%.2f")")
+                            }
+                            .frame(width: 55, alignment: .center)
                         }
-                        .frame(width: 20, alignment: .leading)
-                        
-                        VStack {
-                            Text("\(team.playerOne) / \(team.playerTwo)")
-                        }
-                        .frame(width: 150, alignment: .leading)
-                        
-                        VStack {
-                            Text(team.numberofWins.description)
-                        }
-                        .frame(width: 35, alignment: .center)
-                        
-                        VStack {
-                            Text(team.numberOfMatches.description)
-                        }
-                        .frame(width: 60, alignment: .center)
-                        
-                        VStack {
-                            Text("\(team.rating, specifier: "%.2f")")
-                        }
-                        .frame(width: 55, alignment: .center)
+                        .font(.caption)
+                        .foregroundStyle(getRankingColor(index: index+1))
+                        .fontWeight(index == 0 ? .bold : .regular)
+                        .padding(.horizontal, 5)
                     }
-                    .font(.caption)
-                    .foregroundStyle(getRankingColor(index: index+1))
-                    .fontWeight(index == 0 ? .bold : .regular)
-                    .padding(.horizontal, 5)
                 }
             }
             .background(Color.mainButtonColor)
