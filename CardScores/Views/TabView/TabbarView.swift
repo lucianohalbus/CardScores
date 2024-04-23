@@ -72,11 +72,16 @@ extension TabbarView {
             self.selectedTab
         } set: { tappedTab in
             
+            mainNavigationStack = []
+            
             if tappedTab == self.selectedTab {
                 //User tapped on the currently active tab icon => Pop to root/Scroll to top
                 
+                
+                
                 if mainNavigationStack.isEmpty {
                     //User already on home view, scroll to top
+                    
                 } else {
                     //Pop to root view by clearing the stack
                     mainNavigationStack = []

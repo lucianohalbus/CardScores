@@ -82,6 +82,7 @@ struct ProfileView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.cardColor)
+            .navigationTitle("")
         }
     }
     
