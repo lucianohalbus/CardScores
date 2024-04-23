@@ -3,7 +3,7 @@
 import SwiftUI
 
 struct RankingView: View {
-    @StateObject var userRepo = UserRepository()
+    @EnvironmentObject var userRepo: UserRepository
     @StateObject var buracoMatchVM = BuracoMatchViewModel()
     
     var body: some View {
@@ -58,6 +58,7 @@ struct RankingView: View {
         .onChange(of: buracoMatchVM.matchesVM) { newValue in
             buracoMatchVM.getTeamsRanking(friends: userRepo.listOfFriends, matches: buracoMatchVM.matchesVM)
         }
+        
     }
     
     var playerRanking: some View {

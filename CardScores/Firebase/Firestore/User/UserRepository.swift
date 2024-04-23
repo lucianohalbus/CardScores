@@ -64,6 +64,7 @@ class UserRepository: ObservableObject {
                         self.userModel = snapshot.documents.compactMap { document in
                             do {
                                 let returnedUser = try document.data(as: UserModel.self)
+                                
                                 self.isUserCreated = true
                                 
                                 self.listOfFriends = returnedUser.friendsName
@@ -85,7 +86,9 @@ class UserRepository: ObservableObject {
                             return nil
                         }
                         
-                        if self.userModel.count == 0 {
+                        if !self.user.userEmail.isEmpty {
+                            self.isUserAnonymous = false
+                        } else {
                             self.isUserAnonymous = true
                         }
                     }
@@ -201,8 +204,6 @@ class UserRepository: ObservableObject {
         }
     }
     
-    
-    
     func addUser(_ userModel: UserModel) {
         if let userId = Auth.auth().currentUser?.uid {
             do {
@@ -213,8 +214,7 @@ class UserRepository: ObservableObject {
             }
         }
     }
-    
-    
+
     func removeUser(_ userModel: UserModel) {
         if let scoreModelID = userModel.id {
             db.collection(path).document(scoreModelID).delete() { err in

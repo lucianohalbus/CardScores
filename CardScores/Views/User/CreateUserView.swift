@@ -4,7 +4,7 @@ import SwiftUI
 
 struct CreateUserView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject var userRepository = UserRepository()
+    @EnvironmentObject var userRepo: UserRepository
     @StateObject var loginVM = LoginViewModel()
     @State var userName: String = ""
     @Binding var email: String
@@ -28,14 +28,14 @@ struct CreateUserView: View {
 
                 Spacer()
             }
-            .onChange(of: userRepository.isUserCreated) { newValue in
+            .onChange(of: userRepo.isUserCreated) { newValue in
                 if newValue {
                     self.showCreatedUserView = false
                     self.userName = ""
                     self.email = ""
                     self.password = ""
                     
-                    userRepository.getUser()
+                    userRepo.getUser()
                 }
             }
         }
@@ -91,7 +91,7 @@ struct CreateUserView: View {
             Spacer()
             
             Button("Registrar") {
-                userRepository.register(email: email, password: password, userName: userName)
+                userRepo.register(email: email, password: password, userName: userName)
             }
             .font(.title3)
             .fontWeight(.bold)

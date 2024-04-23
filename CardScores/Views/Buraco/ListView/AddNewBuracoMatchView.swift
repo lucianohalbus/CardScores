@@ -4,7 +4,7 @@ import SwiftUI
 
 struct AddNewBuracoMatchView: View {
     @EnvironmentObject var buracoMatchVM: BuracoMatchViewModel
-    @StateObject var userRepo = UserRepository()
+    @EnvironmentObject var userRepo: UserRepository
     @Environment(\.dismiss) private var dismiss
     
     @State var teamOne: [String] = []

@@ -4,9 +4,9 @@ import SwiftUI
 import FirebaseAuth
 
 struct ProfileView: View {
+    @EnvironmentObject var userRepo: UserRepository
     @StateObject var loginVM = LoginViewModel()
     @StateObject var authenticationVM = AuthenticationViewModel()
-    @StateObject var userRepo = UserRepository()
     @StateObject var buracoMatchVM = BuracoMatchViewModel()
     
     @Binding var showLoginView: Bool
@@ -76,7 +76,7 @@ struct ProfileView: View {
                 }
                 .onChange(of: isUserLinked) { newValue in
                     if newValue {
-                        userRepo.listen()
+                        userRepo.getUser()
                     }
                 }
             }
@@ -295,7 +295,6 @@ struct ProfileView: View {
     ProfileView(
         loginVM: LoginViewModel(),
         authenticationVM: AuthenticationViewModel(),
-        userRepo: UserRepository(),
         buracoMatchVM: BuracoMatchViewModel(),
         showLoginView: .constant(false),
         path: .constant([.anotherChild]),

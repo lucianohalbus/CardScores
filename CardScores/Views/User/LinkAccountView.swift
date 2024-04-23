@@ -4,7 +4,7 @@ import SwiftUI
 
 struct LinkAccountView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject var userRepository = UserRepository()
+    @EnvironmentObject var userRepo: UserRepository
     @StateObject var loginVM = LoginViewModel()
     @State var userName: String = ""
     @State var email: String = ""
@@ -30,20 +30,20 @@ struct LinkAccountView: View {
 
                 Spacer()
             }
-            .onChange(of: userRepository.isUserCreated) { newValue in
+            .onChange(of: userRepo.isUserCreated) { newValue in
                 if newValue {
                     path.removeAll()
                     self.userName = ""
                     self.email = ""
                     self.password = ""
-                    isUserLinked = true
                     
+                    self.isUserLinked.toggle()
                 }
             }
-            .alert(isPresented: $userRepository.showAlert) {
+            .alert(isPresented: $userRepo.showAlert) {
                 Alert(
-                    title: Text(userRepository.alertMessage),
-                    message: Text(userRepository.alertSuggestion),
+                    title: Text(userRepo.alertMessage),
+                    message: Text(userRepo.alertSuggestion),
                     dismissButton: .default(Text("OK")))
             }
         }
@@ -99,7 +99,7 @@ struct LinkAccountView: View {
             Spacer()
             
             Button("Registrar") {
-                userRepository.linkAnonymousUser(email: email, password: password, userName: userName)
+                userRepo.linkAnonymousUser(email: email, password: password, userName: userName)
             }
             .font(.title3)
             .fontWeight(.bold)

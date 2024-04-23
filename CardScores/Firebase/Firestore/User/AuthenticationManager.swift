@@ -16,10 +16,6 @@ struct AuthDataResultModel {
 }
 
 final class AuthenticationManager {
-    var alertMessage: String = ""
-    var alertSuggestion: String = ""
-    var showAlert: Bool = false
-    
     static let shared = AuthenticationManager()
     init() {}
     
@@ -53,17 +49,7 @@ final class AuthenticationManager {
             throw URLError(.badURL)
         }
         
-        user.delete { error in
-            if error != nil {
-              self.alertMessage = "Essa operação requer reautenticação do usuário"
-              self.alertSuggestion = "Por favor, saia do aplicativo, entre novamente e tente deletar sua conta novamente."
-              self.showAlert = true
-          } else {
-              self.alertMessage = "Sua conta foi apagada."
-              self.alertSuggestion = "Volte sempre que quiser."
-              self.showAlert = true
-          }
-        }
+        try await user.delete()
     }
     
 }

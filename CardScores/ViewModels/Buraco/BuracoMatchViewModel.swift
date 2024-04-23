@@ -107,9 +107,6 @@ final class BuracoMatchViewModel: ObservableObject {
     }
     
     func add() {
-        
-        
-        
         if let userId = Auth.auth().currentUser?.uid {
             buracoRepo.add(match: MatchFB(scoreToWin: scoreToWin, playerOne: playerOne, playerTwo: playerTwo, playerThree: playerThree, playerFour: playerFour, finalScoreOne: "0", finalScoreTwo: "0", friendsId: [userId], myDate: Date(), registeredUser: false, docId: "", gameOver: false)) { result in
                 switch result {
@@ -130,7 +127,8 @@ final class BuracoMatchViewModel: ObservableObject {
     }
     
     func recreateMatch(matchFB: MatchFB) {
-        if !userId.isEmpty {
+        self.isMatchRecreated = false
+        if let userId = Auth.auth().currentUser?.uid {
             buracoRepo.add(match: matchFB) { result in
                 switch result {
                 case .success(let item):
