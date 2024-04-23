@@ -32,14 +32,14 @@ struct TabbarView: View {
                         
                         BuracoListView(path: $mainNavigationStack)
                             .tabItem {
-                                Image(systemName: "list.bullet.circle.fill")
+                                Image(systemName: "rectangle.on.rectangle.circle.fill")
                                 Text("Partidas")
                             }
                             .tag(Tab.partidas)
                         
                         RankingView()
                             .tabItem {
-                                Image(systemName: "list.bullet.clipboard.fill")
+                                Image(systemName: "list.bullet.circle.fill")
                                 Text("Ranking")
                             }
                             .tag(Tab.ranking)
