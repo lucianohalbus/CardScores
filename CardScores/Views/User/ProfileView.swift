@@ -17,6 +17,7 @@ struct ProfileView: View {
     @State private var showDeleteButtonAlert: Bool = false
     @State var isButtonIniciarClicked: Bool = false
     @State var showAddFriends: Bool = false
+    @State var showSharingMatchView: Bool = false
     @State var showRemoveFriendAlert: Bool = false
     @State var isUserAnonymous: Bool = false
     @State private var buttonText  = ""
@@ -56,6 +57,9 @@ struct ProfileView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     
                     VStack(alignment: .leading) {
+                        
+                        sharingButton
+                        
                         if userRepo.isUserAnonymous {
                             linkAccountButton
                         }
@@ -63,7 +67,6 @@ struct ProfileView: View {
                         deleteButton
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
-                    .padding(10)
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .onAppear {
@@ -74,6 +77,12 @@ struct ProfileView: View {
                     userRepo.getUser()
                 }) {
                     AddFriend()
+                        .presentationDetents([.medium])
+                }
+                .sheet(isPresented: $showSharingMatchView, onDismiss: {
+                    self.showSharingMatchView = false
+                }) {
+                    SharingMatchesView()
                         .presentationDetents([.medium])
                 }
                 .onChange(of: isUserLinked) { newValue in
@@ -178,14 +187,7 @@ struct ProfileView: View {
     var sharingButton: some View {
         VStack(alignment: .leading) {
             Button(action: {
-                Task {
-                    do {
-                        buracoMatchVM.shareMatches(friendsId: "")
-                        showLoginView = true
-                    } catch {
-                        print(error)
-                    }
-                }
+                self.showSharingMatchView.toggle()
             }) {
                 VStack {
                     Text("Compartilhar")
