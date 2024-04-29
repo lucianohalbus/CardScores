@@ -121,4 +121,31 @@ final class BuracoMatchesRepository {
         MatchDocument(matchId: matchId).updateData(data)
     }
     
+    func sharingMatches(userId: String, friendId: String, completion: @escaping(Result<Bool, Error>) -> Void) {
+        if userId.isEmpty {
+            completion(.failure(NSError(domain: "Invalid user id", code:  104, userInfo: nil)))
+            return
+        }
+        
+        let data: [String:Any] = [
+            MatchFB.CodingKeys.friendsId.rawValue : friendId
+        ]
+        
+        db.collection(Constants.matches)
+            .whereField("friendsId", arrayContains: userId)
+            .getDocuments(completion: { documentSnapshot, error in
+                if let err = error {
+                    print(err.localizedDescription)
+                    return
+                }
+                guard let docs = documentSnapshot?.documents else { return }
+                
+                for doc in docs { //iterate over each document and update
+                    let docRef = doc.reference
+                    docRef.updateData([
+                            "friendsId": FieldValue.arrayUnion([friendId])
+                        ]) 
+                }
+            })
+    }
 }

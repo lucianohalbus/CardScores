@@ -106,6 +106,22 @@ final class BuracoMatchViewModel: ObservableObject {
         }
     }
     
+    func shareMatches(friendsId: String) {
+        if let userId: String = Auth.auth().currentUser?.uid {
+            
+            buracoRepo.sharingMatches(userId: userId, friendId: friendsId) { result in
+                switch result {
+                case .success(let returnedItem):
+                    if returnedItem {
+                        self.getMatches()
+                    }
+                case .failure(let error):
+                    print(error.localizedDescription)
+                }
+            }
+        }
+    }
+    
     func add() {
         if let userId = Auth.auth().currentUser?.uid {
             buracoRepo.add(match: MatchFB(scoreToWin: scoreToWin, playerOne: playerOne, playerTwo: playerTwo, playerThree: playerThree, playerFour: playerFour, finalScoreOne: "0", finalScoreTwo: "0", friendsId: [userId], myDate: Date(), registeredUser: false, docId: "", gameOver: false)) { result in

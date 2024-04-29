@@ -19,6 +19,8 @@ struct ProfileView: View {
     @State var showAddFriends: Bool = false
     @State var showRemoveFriendAlert: Bool = false
     @State var isUserAnonymous: Bool = false
+    @State private var buttonText  = ""
+    private let pasteboard = UIPasteboard.general
     
     var gridItems = [
         GridItem(.flexible()),
@@ -79,6 +81,13 @@ struct ProfileView: View {
                         userRepo.getUser()
                     }
                 }
+                .onChange(of: buttonText) { newValue in
+                    if newValue.description == "Copied!" {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            self.buttonText = ""
+                        }
+                    }
+                }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.cardColor)
@@ -94,6 +103,32 @@ struct ProfileView: View {
             Text("Informações da Conta")
                 .foregroundStyle(.yellow)
             Text("Email: \(userRepo.user.userEmail)")
+            
+            HStack {
+                Text("ID: \(userRepo.user.userId?.description ?? "Usuário Anônimo")")
+                    .contextMenu {
+                        Button {
+                            copyToClipboard()
+                        } label: {
+                            Text("")
+                        }
+                    }
+                
+                Button {
+                    copyToClipboard()
+                } label: {
+                    Image(systemName: "doc.on.doc")
+                        .resizable()
+                        .frame(width: 15, height: 15)
+                        .foregroundColor(.white)
+                    
+                }
+                
+                Text(buttonText)
+                    .font(.caption2)
+                    .foregroundColor(.white)
+                
+            }
             Text("Conta criada em: \(userRepo.user.createdTime.formatted(date: .abbreviated, time: .omitted))")
             
             Text("Total de partidas salvas: \(buracoMatchVM.matchesVM.count)")
@@ -139,6 +174,37 @@ struct ProfileView: View {
         }
         .padding(.bottom, 10)
     }
+    
+    var sharingButton: some View {
+        VStack(alignment: .leading) {
+            Button(action: {
+                Task {
+                    do {
+                        buracoMatchVM.shareMatches(friendsId: "")
+                        showLoginView = true
+                    } catch {
+                        print(error)
+                    }
+                }
+            }) {
+                VStack {
+                    Text("Compartilhar")
+                        .font(.title3)
+                        .foregroundStyle(Color.cardColor)
+                        .padding(5)
+                        .overlay(
+                            RoundedRectangle(cornerRadius: 10)
+                                .stroke(Color.textFieldBorderColor)
+                        )
+                        .background(.white)
+                        .cornerRadius(10)
+                }
+                .padding(.top, 10)
+            }
+        }
+        .padding(.bottom, 30)
+    }
+    
     
     var logoutButton: some View {
         VStack(alignment: .leading) {
@@ -290,24 +356,35 @@ struct ProfileView: View {
         .padding(.horizontal)
     }
     
+    func copyToClipboard() {
+        let text: String = userRepo.user.userId?.description ?? "Usuário Anônimo"
+        pasteboard.string = text
+        
+        self.buttonText = ""
+        // self.text = "" // clear the text after copy
+        DispatchQueue.main.async {
+            self.buttonText = "Copied!"
+        }
+    }
+    
 }
 
-#Preview {
-    ProfileView(
-        loginVM: LoginViewModel(),
-        authenticationVM: AuthenticationViewModel(),
-        buracoMatchVM: BuracoMatchViewModel(),
-        showLoginView: .constant(false),
-        path: .constant([.anotherChild]),
-        friendToRemove: "",
-        isButtonIniciarClicked: false,
-        showAddFriends: false,
-        showRemoveFriendAlert: false,
-        isUserAnonymous: false,
-        gridItems: [
-            GridItem(.flexible()),
-            GridItem(.flexible()),
-            GridItem(.flexible())
-        ]
-    )
-}
+//#Preview {
+//    ProfileView(
+//        loginVM: LoginViewModel(),
+//        authenticationVM: AuthenticationViewModel(),
+//        buracoMatchVM: BuracoMatchViewModel(),
+//        showLoginView: .constant(false),
+//        path: .constant([.anotherChild]),
+//        friendToRemove: "",
+//        isButtonIniciarClicked: false,
+//        showAddFriends: false,
+//        showRemoveFriendAlert: false,
+//        isUserAnonymous: false,
+//        gridItems: [
+//            GridItem(.flexible()),
+//            GridItem(.flexible()),
+//            GridItem(.flexible())
+//        ]
+//    )
+//}
