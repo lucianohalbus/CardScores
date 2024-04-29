@@ -164,7 +164,7 @@ final class BuracoMatchViewModel: ObservableObject {
     }
     
  
-    func getTeamsRanking(friends: [String], matches: [BuracoFBViewModel]) -> [TeamModel] {
+    func getTeamsRanking(matches: [BuracoFBViewModel]) -> [TeamModel] {
         
         let teams: [String] = getTeams(matches: matches)
         var listOfTeamRanking: [TeamModel] = []
@@ -281,7 +281,7 @@ final class BuracoMatchViewModel: ObservableObject {
         
     }
     
-    func getPlayersRanking(friends: [String], matches: [BuracoFBViewModel]) -> [PlayerModel] {
+    func getPlayersRanking(matches: [BuracoFBViewModel]) -> [PlayerModel] {
         
         let players: [String] = getPlayer(matches: matches)
         var listOfPlayersRanking: [PlayerModel] = []

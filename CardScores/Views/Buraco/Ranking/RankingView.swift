@@ -55,9 +55,6 @@ struct RankingView: View {
             userRepo.getUser()
             buracoMatchVM.getMatches()
         }
-        .onChange(of: buracoMatchVM.matchesVM) { newValue in
-            buracoMatchVM.getTeamsRanking(friends: userRepo.listOfFriends, matches: buracoMatchVM.matchesVM)
-        }
         
     }
     
@@ -102,7 +99,7 @@ struct RankingView: View {
                 .foregroundColor(.black)
                 .padding(.horizontal, 5)
                 
-                ForEach(Array(buracoMatchVM.getPlayersRanking(friends: userRepo.listOfFriends, matches: buracoMatchVM.matchesVM).enumerated()), id: \.element.id) { index, player in
+                ForEach(Array(buracoMatchVM.getPlayersRanking(matches: buracoMatchVM.matchesVM).enumerated()), id: \.element.id) { index, player in
                     if player.numberOfMatches > 0 {
                         HStack {
                             VStack {
@@ -183,7 +180,7 @@ struct RankingView: View {
                 .foregroundColor(.black)
                 .padding(.horizontal, 5)
                 
-                ForEach(Array(buracoMatchVM.getTeamsRanking(friends: userRepo.listOfFriends, matches: buracoMatchVM.matchesVM).enumerated()), id: \.element.id) { index, team in
+                ForEach(Array(buracoMatchVM.getTeamsRanking(matches: buracoMatchVM.matchesVM).enumerated()), id: \.element.id) { index, team in
                     if team.numberOfMatches > 0 {
                         HStack {
                             VStack {

@@ -132,7 +132,7 @@ final class BuracoMatchesRepository {
         ]
         
         db.collection(Constants.matches)
-            .whereField("", arrayContains: userId)
+            .whereField("friendsId", arrayContains: userId)
             .getDocuments(completion: { documentSnapshot, error in
                 if let err = error {
                     print(err.localizedDescription)
