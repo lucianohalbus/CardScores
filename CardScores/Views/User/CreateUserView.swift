@@ -28,6 +28,12 @@ struct CreateUserView: View {
 
                 Spacer()
             }
+            .alert(isPresented: $userRepo.showAlert) {
+                Alert(
+                    title: Text(userRepo.alertMessage),
+                    message: Text(userRepo.alertSuggestion),
+                    dismissButton: .default(Text("OK")))
+            }
             .onChange(of: userRepo.isUserCreated) { newValue in
                 if newValue {
                     self.showCreatedUserView = false
