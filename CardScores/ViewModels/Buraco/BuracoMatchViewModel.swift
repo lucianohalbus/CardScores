@@ -280,4 +280,106 @@ final class BuracoMatchViewModel: ObservableObject {
         return listOfTeams
         
     }
+    
+    func getPlayersRanking(friends: [String], matches: [BuracoFBViewModel]) -> [PlayerModel] {
+        
+        let players: [String] = getPlayer(matches: matches)
+        var listOfPlayersRanking: [PlayerModel] = []
+        
+        let matchesOver = matches.filter { $0.gameOver }
+        
+        for player in players {
+            
+            var numberOfMatches: Int = 0
+            var numberOfWins: Int = 0
+            var playerA: String = ""
+            
+            for match in matchesOver {
+                if player == "\(match.playerOne)" {
+                    
+                    numberOfMatches += 1
+                    
+                    if match.finalScoreOne > match.finalScoreTwo {
+                        numberOfWins += 1
+                    }
+                    
+                    playerA = match.playerOne
+
+                } else if player == "\(match.playerTwo)" {
+                    
+                    numberOfMatches += 1
+                    
+                    if match.finalScoreOne > match.finalScoreTwo {
+                        numberOfWins += 1
+                    }
+                    
+                    playerA = match.playerTwo
+                    
+                } else if player == "\(match.playerThree)" {
+                    
+                    numberOfMatches += 1
+                    
+                    if match.finalScoreTwo > match.finalScoreOne {
+                        numberOfWins += 1
+                    }
+                    
+                    playerA = match.playerThree
+                    
+                } else if player == "\(match.playerFour)" {
+                    
+                    numberOfMatches += 1
+                    
+                    if match.finalScoreTwo > match.finalScoreOne {
+                        numberOfWins += 1
+                    }
+                    
+                    playerA = match.playerFour
+                }
+                
+            }
+            
+            if numberOfMatches > 0 {
+                listOfPlayersRanking.append(
+                    PlayerModel(
+                        id: "\(player.indices)",
+                        player: playerA,
+                        numberOfMatches: numberOfMatches,
+                        numberofWins: numberOfWins,
+                        rating: Double(numberOfWins) / Double(numberOfMatches)
+                    )
+                )
+            }
+        }
+
+        return listOfPlayersRanking.sorted { $0.numberofWins > $1.numberofWins }
+
+    }
+    
+    
+    func getPlayer(matches: [BuracoFBViewModel]) -> [String] {
+        
+        let matchesOver = matches.filter { $0.gameOver }
+        var listOfPlayers: [String] = []
+        
+        matchesOver.forEach({
+            
+            if !listOfPlayers.contains($0.playerOne) {
+                listOfPlayers.append($0.playerOne)
+            }
+            
+            if !listOfPlayers.contains($0.playerTwo) {
+                listOfPlayers.append($0.playerTwo)
+            }
+            
+            if !listOfPlayers.contains($0.playerThree) {
+                listOfPlayers.append($0.playerThree)
+            }
+            
+            if !listOfPlayers.contains($0.playerFour) {
+                listOfPlayers.append($0.playerFour)
+            }
+        })
+        
+        return listOfPlayers
+    }
 }

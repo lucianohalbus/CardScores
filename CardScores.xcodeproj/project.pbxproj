@@ -11,6 +11,7 @@
 		CB36E23D2BBDC6A000323907 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB36E23C2BBDC6A000323907 /* GoogleService-Info.plist */; };
 		CB387F7E2BDFD5C8003EE27A /* copyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB387F7D2BDFD5C7003EE27A /* copyBoard.swift */; };
 		CB387F802BDFFDAC003EE27A /* SharingMatchesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB387F7F2BDFFDAC003EE27A /* SharingMatchesView.swift */; };
+		CB387F822BE00C97003EE27A /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB387F812BE00C97003EE27A /* PlayerModel.swift */; };
 		CB416CF62BA35FB6005DF9F3 /* BuracoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB416CF32BA35FB6005DF9F3 /* BuracoListView.swift */; };
 		CB416CF82BA37924005DF9F3 /* BuracoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB416CF72BA37924005DF9F3 /* BuracoCardView.swift */; };
 		CB416CFA2BA37A77005DF9F3 /* BuracoMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB416CF92BA37A77005DF9F3 /* BuracoMatchView.swift */; };
@@ -70,6 +71,7 @@
 		CB36E23C2BBDC6A000323907 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CB387F7D2BDFD5C7003EE27A /* copyBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = copyBoard.swift; sourceTree = "<group>"; };
 		CB387F7F2BDFFDAC003EE27A /* SharingMatchesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingMatchesView.swift; sourceTree = "<group>"; };
+		CB387F812BE00C97003EE27A /* PlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		CB416CF32BA35FB6005DF9F3 /* BuracoListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuracoListView.swift; sourceTree = "<group>"; };
 		CB416CF72BA37924005DF9F3 /* BuracoCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuracoCardView.swift; sourceTree = "<group>"; };
 		CB416CF92BA37A77005DF9F3 /* BuracoMatchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuracoMatchView.swift; sourceTree = "<group>"; };
@@ -235,6 +237,7 @@
 				CB8A39A62BA71B3C00EFF71C /* UserModel.swift */,
 				CB64FCB52BC87BFF00067744 /* ProfileModel.swift */,
 				CB64FCE72BD213AD00067744 /* IndividualRanking.swift */,
+				CB387F812BE00C97003EE27A /* PlayerModel.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -579,6 +582,7 @@
 				CB64FCB62BC87BFF00067744 /* ProfileModel.swift in Sources */,
 				CB64FCE82BD213AD00067744 /* IndividualRanking.swift in Sources */,
 				CB387F7E2BDFD5C8003EE27A /* copyBoard.swift in Sources */,
+				CB387F822BE00C97003EE27A /* PlayerModel.swift in Sources */,
 				CB387F802BDFFDAC003EE27A /* SharingMatchesView.swift in Sources */,
 				CB64FCD52BCFE03600067744 /* BuracoMatchViewModel.swift in Sources */,
 				CB5578FA2BBB1D70005A643D /* TabbarView.swift in Sources */,

@@ -132,7 +132,7 @@ final class BuracoMatchesRepository {
         ]
         
         db.collection(Constants.matches)
-            .whereField("friendsId", arrayContains: userId)
+            .whereField("", arrayContains: userId)
             .getDocuments(completion: { documentSnapshot, error in
                 if let err = error {
                     print(err.localizedDescription)
@@ -143,8 +143,8 @@ final class BuracoMatchesRepository {
                 for doc in docs { //iterate over each document and update
                     let docRef = doc.reference
                     docRef.updateData([
-                            "friendsId": FieldValue.arrayUnion([friendId])
-                        ]) 
+                        "friendsId": FieldValue.arrayUnion([friendId])
+                    ])
                 }
             })
     }

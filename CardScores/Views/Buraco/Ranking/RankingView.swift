@@ -102,8 +102,8 @@ struct RankingView: View {
                 .foregroundColor(.black)
                 .padding(.horizontal, 5)
                 
-                ForEach(Array(getPlayerRanking().enumerated()), id: \.element.id) { index, friend in
-                    if friend.matches > 0 {
+                ForEach(Array(buracoMatchVM.getPlayersRanking(friends: userRepo.listOfFriends, matches: buracoMatchVM.matchesVM).enumerated()), id: \.element.id) { index, player in
+                    if player.numberOfMatches > 0 {
                         HStack {
                             VStack {
                                 Text("\(index+1)")
@@ -111,22 +111,22 @@ struct RankingView: View {
                             .frame(width: 20, alignment: .leading)
                             
                             VStack {
-                                Text("\(friend.name)")
+                                Text("\(player.player)")
                             }
                             .frame(width: 150, alignment: .leading)
                             
                             VStack {
-                                Text("\(friend.wins)")
+                                Text("\(player.numberofWins)")
                             }
                             .frame(width: 35, alignment: .center)
                             
                             VStack {
-                                Text("\(friend.matches)")
+                                Text("\(player.numberOfMatches)")
                             }
                             .frame(width: 60, alignment: .center)
                             
                             VStack {
-                                Text("\(getRating(wins: friend.wins, matches: friend.matches), specifier: "%.2f")")
+                                Text("\(getRating(wins: player.numberofWins, matches: player.numberOfMatches), specifier: "%.2f")")
                             }
                             .frame(width: 55, alignment: .center)
                         }
