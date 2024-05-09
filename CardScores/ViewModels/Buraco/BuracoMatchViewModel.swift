@@ -288,7 +288,7 @@ final class BuracoMatchViewModel: ObservableObject {
                 
             }
             
-            if numberOfMatches > 5 && !playerA.isEmpty && !playerB.isEmpty {
+            if numberOfMatches > 0 && !playerA.isEmpty && !playerB.isEmpty {
                 listOfTeamRanking.append(
                     TeamModel(
                         id: "\(team.indices)",
