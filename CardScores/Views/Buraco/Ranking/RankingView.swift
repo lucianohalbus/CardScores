@@ -7,11 +7,11 @@ struct RankingView: View {
     @StateObject var buracoMatchVM = BuracoMatchViewModel()
     
     enum SelectRanking: String, CodingKey, CaseIterable {
-        case individual = "Individual"
+        case particular = "Particular"
         case general = "Geral"
     }
     
-    @State var selectedRanking: SelectRanking = .individual
+    @State var selectedRanking: SelectRanking = .particular
     
     var body: some View {
         
@@ -57,12 +57,12 @@ struct RankingView: View {
                         .background(Color.green)
                         .foregroundColor(Color.cardColor)
                         .cornerRadius(10)
-                        .padding(.horizontal, 30)
+                        .padding(.horizontal, 35)
                         .padding(.bottom, 20)
                         .pickerStyle(.segmented)
                         
                         switch self.selectedRanking {
-                        case .individual:
+                        case .particular:
                             playerRanking
                                 .padding(.bottom, 10)
                             
