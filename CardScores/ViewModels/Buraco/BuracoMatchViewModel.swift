@@ -288,7 +288,7 @@ final class BuracoMatchViewModel: ObservableObject {
                 
             }
             
-            if numberOfMatches > 10 && !playerA.isEmpty && !playerB.isEmpty {
+            if numberOfMatches > 5 && !playerA.isEmpty && !playerB.isEmpty {
                 listOfTeamRanking.append(
                     TeamModel(
                         id: "\(team.indices)",
@@ -494,7 +494,7 @@ final class BuracoMatchViewModel: ObservableObject {
                 
             }
             
-            if numberOfMatches > 10 && !playerA.isEmpty {
+            if numberOfMatches > 5 && !playerA.isEmpty {
                 listOfPlayersRanking.append(
                     PlayerModel(
                         id: "\(player.indices)",
@@ -508,7 +508,7 @@ final class BuracoMatchViewModel: ObservableObject {
         }
 
         return listOfPlayersRanking.sorted { $0.numberofWins > $1.numberofWins }
-
+       
     }
     
     
