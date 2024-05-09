@@ -82,7 +82,7 @@ struct ProfileView: View {
                 .sheet(isPresented: $showSharingMatchView, onDismiss: {
                     self.showSharingMatchView = false
                 }) {
-                    SharingMatchesView()
+                    SharingMatchesView(userName: userRepo.user.userName)
                         .presentationDetents([.medium])
                 }
                 .onChange(of: isUserLinked) { newValue in

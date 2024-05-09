@@ -6,6 +6,7 @@ struct SharingMatchesView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var buracoMatchVM = BuracoMatchViewModel()
     @State var friendId: String = ""
+    var userName: String
     
     var body: some View {
         ZStack {
@@ -41,7 +42,7 @@ struct SharingMatchesView: View {
                     
                     Button("Save") {
                         if !friendId.isEmpty {
-                            buracoMatchVM.shareMatches(friendsId: friendId)
+                            buracoMatchVM.shareMatches(friendsId: friendId, userName: userName)
                         }
                         
                         dismiss()
@@ -63,5 +64,5 @@ struct SharingMatchesView: View {
 }
 
 #Preview {
-    SharingMatchesView()
+    SharingMatchesView(userName: "")
 }

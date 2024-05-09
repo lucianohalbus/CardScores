@@ -39,6 +39,31 @@ final class BuracoMatchesRepository {
         }
     }
     
+    func getAll(completion: @escaping (Result<[MatchFB]?, Error>) -> Void) {
+        if ((Auth.auth().currentUser?.uid) != nil) {
+            db.collection(Constants.matches)
+                .getDocuments { snapshot, error in
+                    guard let snapshot = snapshot, error == nil else {
+                        completion(.failure(error ?? NSError(domain: "Fatch for items failed", code: 103, userInfo: nil)))
+                        return
+                    }
+                    
+                    let items: [MatchFB]? = snapshot.documents.compactMap { document in
+                        var item = try? document.data(as: MatchFB.self)
+                        if item != nil {
+                            item!.id = document.documentID
+                        }
+                        
+                        return item
+                    }
+                    completion(.success(items))
+                }
+        } else {
+            print("There is no user")
+        }
+    }
+    
+    
     func add(match: MatchFB, completion: @escaping (Result<MatchFB?, Error>) -> Void) {
         do {
             let ref = try db.collection(Constants.matches).addDocument(from: match)
@@ -121,7 +146,7 @@ final class BuracoMatchesRepository {
         MatchDocument(matchId: matchId).updateData(data)
     }
     
-    func sharingMatches(userId: String, friendId: String, completion: @escaping(Result<Bool, Error>) -> Void) {
+    func sharingMatches(userId: String, friendId: String, userName: String, completion: @escaping(Result<Bool, Error>) -> Void) {
         if userId.isEmpty {
             completion(.failure(NSError(domain: "Invalid user id", code:  104, userInfo: nil)))
             return
@@ -133,19 +158,30 @@ final class BuracoMatchesRepository {
         
         db.collection(Constants.matches)
             .whereField("friendsId", arrayContains: userId)
-            .getDocuments(completion: { documentSnapshot, error in
+            .getDocuments(completion: { snapshot, error in
                 if let err = error {
                     print(err.localizedDescription)
                     return
                 }
-                guard let docs = documentSnapshot?.documents else { return }
                 
-                for doc in docs { //iterate over each document and update
-                    let docRef = doc.reference
-                    docRef.updateData([
-                        "friendsId": FieldValue.arrayUnion([friendId])
-                    ])
+                let items: [MatchFB]? = snapshot?.documents.compactMap { document in
+                    var item = try? document.data(as: MatchFB.self)
+                    if item != nil {
+                        if item?.playerOne == userName ||
+                            item?.playerTwo == userName ||
+                            item?.playerThree == userName ||
+                            item?.playerFour == userName {
+                            
+                            let docRef = document.reference
+                            docRef.updateData([
+                                "friendsId": FieldValue.arrayUnion([friendId])
+                            ])
+                            
+                        }
+                    }
+                    return item
                 }
+                
             })
     }
 }

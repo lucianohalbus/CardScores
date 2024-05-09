@@ -41,9 +41,15 @@ struct RankingView: View {
                     } else {
                         
                         playerRanking
-                            .padding(.bottom, 20)
+                            .padding(.bottom, 10)
                         
                         teamRanking
+                            .padding(.bottom, 10)
+                        
+                        playerGeneralRanking
+                            .padding(.bottom, 10)
+                        
+                        teamGeneralRanking
                     }
                     
                 }
@@ -54,6 +60,7 @@ struct RankingView: View {
         .onAppear {
             userRepo.getUser()
             buracoMatchVM.getMatches()
+            buracoMatchVM.getAllMatches()
         }
         
     }
@@ -99,8 +106,88 @@ struct RankingView: View {
                 .foregroundColor(.black)
                 .padding(.horizontal, 5)
                 
-                ForEach(Array(buracoMatchVM.getPlayersRanking(matches: buracoMatchVM.matchesVM).enumerated()), id: \.element.id) { index, player in
+                ForEach(Array(buracoMatchVM.getPlayersRanking(matches: buracoMatchVM.matchesVM).enumerated()).prefix(5), id: \.element.id) { index, player in
                     if player.numberOfMatches > 0 {
+                        HStack {
+                            VStack {
+                                Text("\(index+1)")
+                            }
+                            .frame(width: 20, alignment: .leading)
+                            
+                            VStack {
+                                Text("\(player.player)")
+                            }
+                            .frame(width: 150, alignment: .leading)
+                            
+                            VStack {
+                                Text("\(player.numberofWins)")
+                            }
+                            .frame(width: 35, alignment: .center)
+                            
+                            VStack {
+                                Text("\(player.numberOfMatches)")
+                            }
+                            .frame(width: 60, alignment: .center)
+                            
+                            VStack {
+                                Text("\(getRating(wins: player.numberofWins, matches: player.numberOfMatches), specifier: "%.2f")")
+                            }
+                            .frame(width: 55, alignment: .center)
+                        }
+                        .font(.caption)
+                        .foregroundStyle(getRankingColor(index: index+1))
+                        .fontWeight(index == 0 ? .bold : .regular)
+                        .padding(.horizontal, 5)
+                    }
+                }
+            }
+            .background(Color.mainButtonColor)
+            .cornerRadius(10)
+        }
+    }
+    
+    var playerGeneralRanking: some View {
+        VStack {
+            HStack {
+                Text("Ranking Individual Geral")
+                    .foregroundStyle(.white)
+                    .font(.headline)
+                    .fontWeight(.semibold)
+            }
+            
+            ScrollView {
+                HStack {
+                    VStack {
+                        Text("")
+                    }
+                    .frame(width: 20, alignment: .leading)
+                    
+                    VStack {
+                        Text("Nome")
+                    }
+                    .frame(width: 150, alignment: .leading)
+                    
+                    VStack {
+                        Text("Wins")
+                    }
+                    .frame(width: 35, alignment: .center)
+                    
+                    VStack {
+                        Text("Matches")
+                    }
+                    .frame(width: 60, alignment: .center)
+                    
+                    VStack {
+                        Text("Rating")
+                    }
+                    .frame(width: 55, alignment: .center)
+                }
+                .font(.caption)
+                .foregroundColor(.black)
+                .padding(.horizontal, 5)
+                
+                ForEach(Array(buracoMatchVM.getGeneralPlayersRanking(matches: buracoMatchVM.rankingMatches).enumerated()).prefix(5) , id: \.element.id) { index, player in
+                    if player.numberOfMatches > 0 && index < 5 {
                         HStack {
                             VStack {
                                 Text("\(index+1)")
@@ -180,8 +267,88 @@ struct RankingView: View {
                 .foregroundColor(.black)
                 .padding(.horizontal, 5)
                 
-                ForEach(Array(buracoMatchVM.getTeamsRanking(matches: buracoMatchVM.matchesVM).enumerated()), id: \.element.id) { index, team in
+                ForEach(Array(buracoMatchVM.getTeamsRanking(matches: buracoMatchVM.matchesVM).enumerated()).prefix(5), id: \.element.id) { index, team in
                     if team.numberOfMatches > 0 {
+                        HStack {
+                            VStack {
+                                Text("\(index+1)")
+                            }
+                            .frame(width: 20, alignment: .leading)
+                            
+                            VStack {
+                                Text("\(team.playerOne) / \(team.playerTwo)")
+                            }
+                            .frame(width: 150, alignment: .leading)
+                            
+                            VStack {
+                                Text(team.numberofWins.description)
+                            }
+                            .frame(width: 35, alignment: .center)
+                            
+                            VStack {
+                                Text(team.numberOfMatches.description)
+                            }
+                            .frame(width: 60, alignment: .center)
+                            
+                            VStack {
+                                Text("\(team.rating, specifier: "%.2f")")
+                            }
+                            .frame(width: 55, alignment: .center)
+                        }
+                        .font(.caption)
+                        .foregroundStyle(getRankingColor(index: index+1))
+                        .fontWeight(index == 0 ? .bold : .regular)
+                        .padding(.horizontal, 5)
+                    }
+                }
+            }
+            .background(Color.mainButtonColor)
+            .cornerRadius(10)
+        }
+    }
+    
+    var teamGeneralRanking: some View {
+        VStack {
+            HStack {
+                Text("Ranking de Duplas Geral")
+                    .foregroundStyle(.white)
+                    .font(.headline)
+                    .fontWeight(.semibold)
+            }
+            
+            ScrollView {
+                HStack {
+                    VStack {
+                        Text("")
+                    }
+                    .frame(width: 20, alignment: .leading)
+                    
+                    VStack {
+                        Text("Dupla")
+                    }
+                    .frame(width: 150, alignment: .leading)
+                    
+                    VStack {
+                        Text("Wins")
+                    }
+                    .frame(width: 35, alignment: .center)
+                    
+                    VStack {
+                        Text("Matches")
+                    }
+                    .frame(width: 60, alignment: .center)
+                    
+                    VStack {
+                        Text("Rating")
+                    }
+                    .frame(width: 55, alignment: .center)
+                }
+                .font(.caption)
+                .foregroundColor(.black)
+                .padding(.horizontal, 5)
+                
+                ForEach(Array(buracoMatchVM.getGeneralTeamsRanking(matches: buracoMatchVM.rankingMatches).enumerated()), id: \.element.id) { index, team in
+                    if team.numberOfMatches > 0 && index < 5 {
                         HStack {
                             VStack {
                                 Text("\(index+1)")
