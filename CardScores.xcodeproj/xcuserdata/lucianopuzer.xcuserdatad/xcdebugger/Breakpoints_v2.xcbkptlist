@@ -3,4 +3,98 @@
    uuid = "618553BE-3739-400E-91EA-A070EC026FA8"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "6E3CB89C-FF61-4374-ADDC-2ECAE16F99F4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CardScores/Firebase/Firestore/User/UserRepository.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "169"
+            endingLineNumber = "169"
+            landmarkName = "addToFriendList()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "6E3CB89C-FF61-4374-ADDC-2ECAE16F99F4 - bb0430ea19cf8d7b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRQueryDocumentSnapshot) -&gt; Swift.Optional&lt;CardScores.UserModel&gt; in closure #1 (Swift.Optional&lt;__C.FIRQuerySnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in CardScores.UserRepository.getAllUsers() -&gt; ()"
+                  moduleName = "CardScores"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/Firebase/Firestore/User/UserRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "159"
+                  endingLineNumber = "159">
+               </Location>
+               <Location
+                  uuid = "6E3CB89C-FF61-4374-ADDC-2ECAE16F99F4 - 7728e7de1a30847"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRQueryDocumentSnapshot) -&gt; Swift.Optional&lt;CardScores.UserModel&gt; in closure #1 (Swift.Optional&lt;__C.FIRQuerySnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in CardScores.UserRepository.addToFriendList() -&gt; ()"
+                  moduleName = "CardScores"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/Firebase/Firestore/User/UserRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "169"
+                  endingLineNumber = "169">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B20F6F90-C079-4CE7-AFF1-9CA5ADD86F9B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CardScores/Firebase/Firestore/User/UserRepository.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "170"
+            endingLineNumber = "170"
+            landmarkName = "addToFriendList()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B20F6F90-C079-4CE7-AFF1-9CA5ADD86F9B - bb0430ea19cf8d7b"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRQueryDocumentSnapshot) -&gt; Swift.Optional&lt;CardScores.UserModel&gt; in closure #1 (Swift.Optional&lt;__C.FIRQuerySnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in CardScores.UserRepository.getAllUsers() -&gt; ()"
+                  moduleName = "CardScores"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/Firebase/Firestore/User/UserRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "159"
+                  endingLineNumber = "159">
+               </Location>
+               <Location
+                  uuid = "B20F6F90-C079-4CE7-AFF1-9CA5ADD86F9B - 7728e7de1a30864"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (__C.FIRQueryDocumentSnapshot) -&gt; Swift.Optional&lt;CardScores.UserModel&gt; in closure #1 (Swift.Optional&lt;__C.FIRQuerySnapshot&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in CardScores.UserRepository.addToFriendList() -&gt; ()"
+                  moduleName = "CardScores"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/Firebase/Firestore/User/UserRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "170"
+                  endingLineNumber = "170">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

@@ -2,22 +2,25 @@
 
 import Foundation
 
-struct ProfileModel {
+struct ProfileModel: Codable {
+    let userId: String
     let userName: String
     let userEmail: String
-    let userId: String?
-    let friendsMail: [String]
-    let friendsName: [String]
+    let friends: [FriendsModel]
     let createdTime: Date
+    let numberOfWins: Int
+    let averageScores: Int
+    let numberOfMatches: Int
     
-    init(userName: String, userEmail: String, userId: String?, friendsMail: [String], friendsName: [String], createdTime: Date) {
+    init(userId: String, userName: String, userEmail: String, friends: [FriendsModel], createdTime: Date, numberOfWins: Int, averageScores: Int, numberOfMatches: Int) {
+        self.userId = userId
         self.userName = userName
         self.userEmail = userEmail
-        self.userId = userId
-        self.friendsMail = friendsMail
-        self.friendsName = friendsName
+        self.friends = friends
         self.createdTime = createdTime
+        self.numberOfWins = numberOfWins
+        self.averageScores = averageScores
+        self.numberOfMatches = numberOfMatches
     }
-    
-    
+
 }

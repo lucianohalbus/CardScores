@@ -9,6 +9,7 @@ struct RankingView: View {
     enum SelectRanking: String, CodingKey, CaseIterable {
         case particular = "Particular"
         case general = "Geral"
+        case group = "Grupo"
     }
     
     @State var selectedRanking: SelectRanking = .particular
@@ -55,7 +56,6 @@ struct RankingView: View {
                         .font(.title)
                         .fontWeight(.bold)
                         .background(Color.green)
-                        .foregroundColor(Color.cardColor)
                         .cornerRadius(10)
                         .padding(.horizontal, 35)
                         .padding(.bottom, 20)
@@ -73,6 +73,8 @@ struct RankingView: View {
                                 .padding(.bottom, 10)
                             
                             teamGeneralRanking
+                        case .group:
+                            groupRanking
                         }
                     }
                     
@@ -410,6 +412,24 @@ struct RankingView: View {
         }
     }
     
+    
+    var groupRanking: some View {
+        VStack {
+            
+            ScrollView {
+                ForEach(userRepo.userModel) { friend in
+                    Button {
+                        print(friend.userEmail)
+                    } label: {
+                        Text(friend.userName)
+                            .foregroundStyle(.white)
+                    }
+                }
+            }
+            
+            
+        }
+    }
     
     func getRankingColor(index: Int) -> Color {
         switch index {

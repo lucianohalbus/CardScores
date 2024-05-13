@@ -3,6 +3,13 @@
 import Foundation
 import FirebaseFirestore
 
+struct FriendsModel: Codable, Hashable {
+    let friendId: String
+    let friendEmail: String
+    let friendName: String
+
+}
+
 struct UserModel: Identifiable, Codable {
     let id: String?
     let userName: String
@@ -13,6 +20,7 @@ struct UserModel: Identifiable, Codable {
     let numberOfMatches: Int64
     let friendsMail: [String]
     let friendsName: [String]
+    
     
     init(id: String?, userName: String, userEmail: String, userId: String?, numberOfWins: Int64, averageScores: Int64, numberOfMatches: Int64, friendsMail: [String], friendsName: [String]) {
         self.id = id

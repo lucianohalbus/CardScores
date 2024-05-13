@@ -5,6 +5,7 @@ import FirebaseAuth
 
 struct ProfileView: View {
     @EnvironmentObject var userRepo: UserRepository
+    @StateObject var userVM = UserViewModel()
     @StateObject var loginVM = LoginViewModel()
     @StateObject var authenticationVM = AuthenticationViewModel()
     @StateObject var buracoMatchVM = BuracoMatchViewModel()
@@ -35,6 +36,9 @@ struct ProfileView: View {
                 VStack {
                     
                     MiniLogo()
+//                        .onTapGesture {
+//                            userRepo.addToFriendList()
+//                        }
                     
                     VStack(alignment: .leading) {
                         
@@ -70,8 +74,11 @@ struct ProfileView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .onAppear {
-                    userRepo.getUser()
+                  //  userRepo.getUser()
                     buracoMatchVM.getMatches()
+                    Task {
+                        await userVM.getUserList()
+                    }
                 }
                 .sheet(isPresented: $showAddFriends, onDismiss: {
                     userRepo.getUser()
@@ -106,15 +113,15 @@ struct ProfileView: View {
     
     var playerInformations: some View {
         VStack(alignment: .leading) {
-            Text("Bem-Vindo: \(userRepo.user.userName)")
+            Text("Bem-Vindo: \(userVM.userProfile.userName)")
                 .padding(.bottom, 10)
             
             Text("Informações da Conta")
                 .foregroundStyle(.yellow)
-            Text("Email: \(userRepo.user.userEmail)")
+            Text("Email: \(userVM.userProfile.userEmail)")
             
             HStack {
-                Text("ID: \(userRepo.user.userId?.description ?? "Usuário Anônimo")")
+                Text("ID: \(userVM.userProfile.userId)")
                     .contextMenu {
                         Button {
                             copyToClipboard()
@@ -359,7 +366,7 @@ struct ProfileView: View {
     }
     
     func copyToClipboard() {
-        let text: String = userRepo.user.userId?.description ?? "Usuário Anônimo"
+        let text: String = userRepo.user.userId.description ?? "Usuário Anônimo"
         pasteboard.string = text
         
         self.buttonText = ""

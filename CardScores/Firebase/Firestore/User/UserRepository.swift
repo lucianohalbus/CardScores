@@ -9,6 +9,7 @@ class UserRepository: ObservableObject {
     private let db = Firestore.firestore()
     @Published var userModel: [UserModel] = []
     @Published var user: ProfileModel
+    @Published var userProfile: ProfileModel
     @Published var userName: String = ""
     @Published var password = ""
     @Published var email = ""
@@ -20,25 +21,39 @@ class UserRepository: ObservableObject {
     @Published var listOfTeamsRanking: [TeamModel] = []
     @Published var isUserAnonymous: Bool = false
     var handle: AuthStateDidChangeListenerHandle?
+    @Published var friendsList: [FriendsModel] = []
     
     var createdTime: Date = Date()
     
     init() {
         
         user = ProfileModel(
+            userId: "",
             userName: "",
             userEmail: "",
+            friends: [FriendsModel(friendId: "", friendEmail: "", friendName: "")],
+            createdTime: Date(),
+            numberOfWins: 0,
+            averageScores: 0,
+            numberOfMatches: 0
+        )
+        
+        userProfile = ProfileModel(
             userId: "",
-            friendsMail: [],
-            friendsName: [],
-            createdTime: Date()
+            userName: "",
+            userEmail: "",
+            friends: [FriendsModel(friendId: "", friendEmail: "", friendName: "")],
+            createdTime: Date(),
+            numberOfWins: 0,
+            averageScores: 0,
+            numberOfMatches: 0
         )
         
         listen()
         
         getUser()
     }
-    
+       
     func listen() {
         //monitor authentication changes using firebase
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
@@ -68,14 +83,22 @@ class UserRepository: ObservableObject {
                                 self.isUserCreated = true
                                 
                                 self.listOfFriends = returnedUser.friendsName
-                                
+
                                 self.user = ProfileModel(
+                                    userId: returnedUser.userId ?? "",
                                     userName: returnedUser.userName,
                                     userEmail: returnedUser.userEmail,
-                                    userId: returnedUser.userId,
-                                    friendsMail: returnedUser.friendsMail,
-                                    friendsName: returnedUser.friendsName,
-                                    createdTime: self.createdTime
+                                    friends: [
+                                        FriendsModel(
+                                            friendId: returnedUser.userId ?? "",
+                                            friendEmail: returnedUser.userEmail,
+                                            friendName: returnedUser.userName
+                                        )
+                                    ],
+                                    createdTime: Date(),
+                                    numberOfWins: Int(returnedUser.averageScores),
+                                    averageScores: Int(returnedUser.averageScores),
+                                    numberOfMatches: Int(returnedUser.numberOfWins)
                                 )
                                 
                                 return returnedUser
@@ -94,6 +117,68 @@ class UserRepository: ObservableObject {
                     }
                 }
         }
+    }
+    
+    func getUserList(userId: String) async -> ProfileModel {
+        let userDoc = db.collection(Constants.userList).document(userId)
+        
+        do {
+          let document = try await userDoc.getDocument()
+          if document.exists {
+              let returnedDoc = try document.data(as: ProfileModel.self)
+              
+              self.userProfile = ProfileModel(userId: returnedDoc.userId, userName: returnedDoc.userName, userEmail: returnedDoc.userEmail, friends: returnedDoc.friends, createdTime: returnedDoc.createdTime, numberOfWins: returnedDoc.numberOfWins, averageScores: returnedDoc.averageScores, numberOfMatches: returnedDoc.numberOfMatches)
+              
+              return userProfile
+              
+          } else {
+            print("User does not exist")
+          }
+        } catch {
+          print("Error getting document: \(error)")
+        }
+        
+        return userProfile
+    }
+    
+    func addToFriendList() {
+            db.collection(path)
+                .addSnapshotListener{ (snapshot, error) in
+                    if let snapshot = snapshot {
+                        self.userModel = snapshot.documents.compactMap { document in
+                            do {
+                                let returnedUser = try document.data(as: UserModel.self)
+                                
+                                let myUser = ProfileModel(
+                                    userId: returnedUser.userId ?? "",
+                                    userName: returnedUser.userName,
+                                    userEmail: returnedUser.userEmail,
+                                    friends: [
+                                        FriendsModel(
+                                            friendId: returnedUser.userId ?? "",
+                                            friendEmail: returnedUser.userEmail,
+                                            friendName: returnedUser.userName
+                                        )
+                                    ],
+                                    createdTime: Date(),
+                                    numberOfWins: 0,
+                                    averageScores: 0,
+                                    numberOfMatches: 0
+                                )
+                                
+                                if let userId = returnedUser.userId {
+                                    try? self.db.collection(Constants.userList).document(userId).setData(from: myUser)
+                                }
+                            }
+                            catch {
+                                print(error)
+                            }
+                            return nil
+                        }
+                    }
+                }
+        
+        
     }
     
     func getAllUsers() {
