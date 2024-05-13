@@ -175,7 +175,7 @@ class UserRepository: ObservableObject {
                                     let itemId = item.userId
                                     var friends: [FriendsModel] = []
                                     
-                                    if item.friendsMail.count == 1 {
+                                    if item.friendsMail.count > 0 {
                                         for element in item.friendsMail {
                                             for selectedUser in self.userModel {
                                                 if element == selectedUser.userEmail {

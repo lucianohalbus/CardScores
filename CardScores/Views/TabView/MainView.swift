@@ -19,7 +19,9 @@ struct MainView: View {
             Task {
                 do {
                     let currentUser: ProfileModel = try await userVM.getUser()
-                    self.showLoginView = false
+                    if !currentUser.userId.isEmpty {
+                        self.showLoginView = false
+                    }
                     
                 } catch {
                     self.showLoginView = true

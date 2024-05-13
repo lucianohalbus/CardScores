@@ -7,6 +7,7 @@ struct ProfileView: View {
     @EnvironmentObject var userRepo: UserRepository
     @StateObject var userVM = UserViewModel()
     @StateObject var loginVM = LoginViewModel()
+    @StateObject var userRepos = UserRepository()
     @StateObject var authenticationVM = AuthenticationViewModel()
     @StateObject var buracoMatchVM = BuracoMatchViewModel()
     
@@ -36,6 +37,9 @@ struct ProfileView: View {
                 VStack {
                     
                     MiniLogo()
+//                        .onTapGesture {
+//                            userRepos.getUserFriends()
+//                        }
                     
                     VStack(alignment: .leading) {
                         
@@ -71,10 +75,9 @@ struct ProfileView: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
                 .onAppear {
-                  //  userRepo.getUser()
                     buracoMatchVM.getMatches()
                     Task {
-                        await userVM.getUserList()
+                       userVM.getUser
                     }
                 }
                 .sheet(isPresented: $showAddFriends, onDismiss: {

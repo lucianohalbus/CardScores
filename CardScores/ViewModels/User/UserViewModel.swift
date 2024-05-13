@@ -5,28 +5,14 @@ import Firebase
 
 class UserViewModel: ObservableObject {
     
-    @Published var userRepo = UserRepository()
-    @Published var userName: String
-    @Published var userEmail: String
-    @Published var userId: String
-    @Published var averageScores: Int64
-    @Published var friendsMail: [String]
-    @Published var friendsName: [String]
-    @Published var numberOfMatches: Int64
-    @Published var numberOfWins: Int64
+    @Published var userRepo: UserRepository
     @Published var userProfile: ProfileModel
+    @Published var isUserAnonymous: Bool = false
     
     init() {
-
-        userName = ""
-        userEmail = ""
-        userId = ""
-        friendsMail = [""]
-        friendsName = [""]
-        numberOfWins = 0
-        numberOfMatches = 0
-        averageScores = 0
         
+        userRepo = UserRepository()
+
         userProfile = ProfileModel(
             userId: "",
             userName: "",
@@ -42,50 +28,56 @@ class UserViewModel: ObservableObject {
     
     
     func getUser() async throws -> ProfileModel {
-        
         guard let userID = Auth.auth().currentUser?.uid else {
+            self.isUserAnonymous = true
             throw URLError(.badServerResponse)
+            
         }
 
-        let currentUser: ProfileModel = await userRepo.getUserList(userId: userID)
-        return currentUser
-    }
-    
-    
-    
-    
-    
-    
-    
-    
-    func getUserList() async {
-        if let userId = Auth.auth().currentUser?.uid {
-            self.userProfile = await userRepo.getUserList(userId: userId)
-        }
-    }
+        self.userProfile = await userRepo.getUserList(userId: userID)
+        
+        return userProfile
 
-    func addUsers(_ userModel: UserModel) {
-        userRepo.addUser(userModel)
     }
     
-    var isSignedIn: Bool {
-        return Auth.auth().currentUser != nil
-    }
     
-    func addFriends(friend: String) {
-        userRepo.addFriend(friend: friend)
-        }
     
-    func addWin(_ d: Double, _ friend:String) {
-        userRepo.updateWin(1.0, friend)
-    }
     
-    func addMatches(_ d: Double, _ friend:String) {
-        userRepo.updateMatches(1.0, friend)
-    }
+    
+    
+    
+    
+//    func getUserList() async {
+//        if let userId = Auth.auth().currentUser?.uid {
+//            let user = await userRepo.getUserList(userId: userId)
+//            DispatchQueue.main.async {
+//                self.userProfile = user
+//            }
+//        }
+//    }
 
-    func addAverageScores(_ score:Int64, _ friend:String) {
-        userRepo.updateScores(score, friend)
-    }
+//    func addUsers(_ userModel: UserModel) {
+//        userRepo.addUser(userModel)
+//    }
+//    
+//    var isSignedIn: Bool {
+//        return Auth.auth().currentUser != nil
+//    }
+//    
+//    func addFriends(friend: String) {
+//        userRepo.addFriend(friend: friend)
+//        }
+//    
+//    func addWin(_ d: Double, _ friend:String) {
+//        userRepo.updateWin(1.0, friend)
+//    }
+//    
+//    func addMatches(_ d: Double, _ friend:String) {
+//        userRepo.updateMatches(1.0, friend)
+//    }
+//
+//    func addAverageScores(_ score:Int64, _ friend:String) {
+//        userRepo.updateScores(score, friend)
+//    }
     
 }

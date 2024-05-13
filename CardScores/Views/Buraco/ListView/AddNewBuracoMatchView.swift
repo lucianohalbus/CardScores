@@ -7,6 +7,7 @@ struct AddNewBuracoMatchView: View {
     @StateObject var userVM = UserViewModel()
     @Environment(\.dismiss) private var dismiss
     
+    @State var userProfile: ProfileModel?
     @State var teamOne: [String] = []
     @State var teamTwo: [String] = []
     @State var shouldCleanTeams: Bool = false
@@ -102,7 +103,7 @@ struct AddNewBuracoMatchView: View {
                     }
                     .onAppear {
                         Task {
-                            try await userVM.getUser()
+                            self.userProfile = try await userVM.getUser()
                         }
                     }
                     .onChange(of: shouldCleanTeams) { newValue in
@@ -226,7 +227,7 @@ struct AddNewBuracoMatchView: View {
                 .font(.callout)
                 .fontWeight(.bold)
             
-            if userRepo.isUserAnonymous {
+            if userVM.isUserAnonymous {
                 Text("Crie uma conta para ter")
                     .font(.headline)
                     .foregroundStyle(Color.white)
@@ -238,26 +239,26 @@ struct AddNewBuracoMatchView: View {
                     .padding(.bottom, 20)
             } else {
                 LazyVGrid(columns: gridItems, spacing: 10) {
-                    ForEach(userRepo.listOfFriends, id: \.self) { friend in
+                    ForEach(userVM.userProfile.friends, id: \.self) { friend in
                         
-                        FriendGridItem(friend: friend, setSelectedButtonColor: $setSelectedButtonColor, cleanButtonColor: $cleanButtonColor) {
+                        FriendGridItem(friend: friend.friendName, setSelectedButtonColor: $setSelectedButtonColor, cleanButtonColor: $cleanButtonColor) {
                             
                             if buracoMatchVM.playerOne.isEmpty {
-                                placeholderOne = friend
-                                buracoMatchVM.playerOne = friend
+                                placeholderOne = friend.friendName
+                                buracoMatchVM.playerOne = friend.friendName
                                 setSelectedButtonColor = true
                                 cleanButtonColor = Color.black
                             } else if buracoMatchVM.playerTwo.isEmpty {
-                                placeholderTwo = friend
-                                buracoMatchVM.playerTwo = friend
+                                placeholderTwo = friend.friendName
+                                buracoMatchVM.playerTwo = friend.friendName
                                 setSelectedButtonColor = true
                             } else if buracoMatchVM.playerThree.isEmpty {
-                                placeholderThree = friend
-                                buracoMatchVM.playerThree = friend
+                                placeholderThree = friend.friendName
+                                buracoMatchVM.playerThree = friend.friendName
                                 setSelectedButtonColor = true
                             } else if buracoMatchVM.playerFour.isEmpty {
-                                placeholderFour = friend
-                                buracoMatchVM.playerFour = friend
+                                placeholderFour = friend.friendName
+                                buracoMatchVM.playerFour = friend.friendName
                                 setSelectedButtonColor = true
                             } else {
                                 setSelectedButtonColor = false
