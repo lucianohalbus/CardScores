@@ -7,7 +7,9 @@ import FirebaseAuth
 class UserRepository: ObservableObject {
     private let path: String = "User"
     private let db = Firestore.firestore()
+    private let UserListCollection = Firestore.firestore().collection("UserList")
     @Published var userModel: [UserModel] = []
+    @Published var userFriend: [UserModel] = []
     @Published var user: ProfileModel
     @Published var userProfile: ProfileModel
     @Published var userName: String = ""
@@ -22,6 +24,9 @@ class UserRepository: ObservableObject {
     @Published var isUserAnonymous: Bool = false
     var handle: AuthStateDidChangeListenerHandle?
     @Published var friendsList: [FriendsModel] = []
+    
+    @Published var userProfiles: [ProfileModel] = []
+    @Published var userModelFriends: [UserModel] = []
     
     var createdTime: Date = Date()
     
@@ -53,6 +58,42 @@ class UserRepository: ObservableObject {
         
         getUser()
     }
+    
+    func getUserList(userId: String) async -> ProfileModel {
+        let userDoc = db.collection(Constants.userList).document(userId)
+        
+        do {
+          let document = try await userDoc.getDocument()
+          if document.exists {
+              let returnedDoc = try document.data(as: ProfileModel.self)
+              
+              self.userProfile = ProfileModel(
+                userId: returnedDoc.userId,
+                userName: returnedDoc.userName,
+                userEmail: returnedDoc.userEmail,
+                friends: returnedDoc.friends,
+                createdTime: returnedDoc.createdTime,
+                numberOfWins: returnedDoc.numberOfWins,
+                averageScores: returnedDoc.averageScores,
+                numberOfMatches: returnedDoc.numberOfMatches
+              )
+    
+              return userProfile
+              
+          } else {
+            print("User does not exist")
+          }
+        } catch {
+          print("Error getting document: \(error)")
+        }
+        
+        return userProfile
+    }
+    
+    
+    func userListDocument(userId: String) -> DocumentReference {
+        UserListCollection.document(userId)
+    }
        
     func listen() {
         //monitor authentication changes using firebase
@@ -73,7 +114,7 @@ class UserRepository: ObservableObject {
     func getUser() {
         if let userId = Auth.auth().currentUser?.uid {
             db.collection(path)
-                .whereField("userId", isEqualTo: userId)
+      //          .whereField("userId", isEqualTo: userId)
                 .addSnapshotListener{ (snapshot, error) in
                     if let snapshot = snapshot {
                         self.userModel = snapshot.documents.compactMap { document in
@@ -118,29 +159,72 @@ class UserRepository: ObservableObject {
                 }
         }
     }
+
     
-    func getUserList(userId: String) async -> ProfileModel {
-        let userDoc = db.collection(Constants.userList).document(userId)
+    func getUserFriends() {
+        db.collection(path)
+            .addSnapshotListener{ (snapshot, error) in
+                if let snapshot = snapshot {
+                    self.userModel = snapshot.documents.compactMap { document in
+                        do {
+                            let returnedUser = try document.data(as: UserModel.self)
+                            self.userModelFriends.append(returnedUser)
+                            for item in self.userModelFriends {
+                                
+                                if let itemID = item.userId {
+                                    let itemId = item.userId
+                                    var friends: [FriendsModel] = []
+                                    
+                                    if item.friendsMail.count == 1 {
+                                        for element in item.friendsMail {
+                                            for selectedUser in self.userModel {
+                                                if element == selectedUser.userEmail {
+                                                    var x = FriendsModel(
+                                                        friendId: selectedUser.userId!,
+                                                        friendEmail: element,
+                                                        friendName: selectedUser.userName
+                                                    )
+                                                    
+                                                    friends.append(x)
+                                                }
+                                            }
+                                        }
+                                    }
+                                    
+                                    let updatedUser: ProfileModel = ProfileModel(
+                                        userId: itemID,
+                                        userName: item.userName,
+                                        userEmail: item.userEmail,
+                                        friends: friends,
+                                        createdTime: Date(),
+                                        numberOfWins: Int(item.numberOfWins),
+                                        averageScores: Int(item.averageScores),
+                                        numberOfMatches: Int(item.numberOfMatches)
+                                    )
+                                    
+                                    
+                                    _ = try self.db.collection("UserList").document(itemID).setData(from: updatedUser)
+                                    
+//                                    let data: [String:Any] = [
+//                                        ProfileModel.CodingKeys.friends.rawValue : friends
+//                                        
+//                                    ]
+//                                    
+//                                    self.userListDocument(userId: itemID).updateData(data)
+                                }
+                                
+                            }
+                        }
+                        catch {
+                            print(error)
+                        }
+                        return nil
+                    }
+                }
+            }
         
-        do {
-          let document = try await userDoc.getDocument()
-          if document.exists {
-              let returnedDoc = try document.data(as: ProfileModel.self)
-              
-              self.userProfile = ProfileModel(userId: returnedDoc.userId, userName: returnedDoc.userName, userEmail: returnedDoc.userEmail, friends: returnedDoc.friends, createdTime: returnedDoc.createdTime, numberOfWins: returnedDoc.numberOfWins, averageScores: returnedDoc.averageScores, numberOfMatches: returnedDoc.numberOfMatches)
-              
-              return userProfile
-              
-          } else {
-            print("User does not exist")
-          }
-        } catch {
-          print("Error getting document: \(error)")
-        }
-        
-        return userProfile
     }
-    
+
     func addToFriendList() {
             db.collection(path)
                 .addSnapshotListener{ (snapshot, error) in

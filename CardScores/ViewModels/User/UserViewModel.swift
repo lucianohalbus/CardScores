@@ -40,6 +40,24 @@ class UserViewModel: ObservableObject {
 
     }
     
+    
+    func getUser() async throws -> ProfileModel {
+        
+        guard let userID = Auth.auth().currentUser?.uid else {
+            throw URLError(.badServerResponse)
+        }
+
+        let currentUser: ProfileModel = await userRepo.getUserList(userId: userID)
+        return currentUser
+    }
+    
+    
+    
+    
+    
+    
+    
+    
     func getUserList() async {
         if let userId = Auth.auth().currentUser?.uid {
             self.userProfile = await userRepo.getUserList(userId: userId)

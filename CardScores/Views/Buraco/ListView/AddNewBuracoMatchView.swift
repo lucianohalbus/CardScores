@@ -4,7 +4,7 @@ import SwiftUI
 
 struct AddNewBuracoMatchView: View {
     @EnvironmentObject var buracoMatchVM: BuracoMatchViewModel
-    @EnvironmentObject var userRepo: UserRepository
+    @StateObject var userVM = UserViewModel()
     @Environment(\.dismiss) private var dismiss
     
     @State var teamOne: [String] = []
@@ -101,7 +101,9 @@ struct AddNewBuracoMatchView: View {
                         }
                     }
                     .onAppear {
-                        userRepo.getUser()
+                        Task {
+                            try await userVM.getUser()
+                        }
                     }
                     .onChange(of: shouldCleanTeams) { newValue in
                         if newValue {

@@ -36,9 +36,6 @@ struct ProfileView: View {
                 VStack {
                     
                     MiniLogo()
-//                        .onTapGesture {
-//                            userRepo.addToFriendList()
-//                        }
                     
                     VStack(alignment: .leading) {
                         

@@ -5,6 +5,8 @@ import FirebaseAuth
 
 struct MainView: View {
     @State private var showLoginView: Bool = false
+    @StateObject var userVM = UserViewModel()
+
     
     var body: some View {
         
@@ -14,8 +16,19 @@ struct MainView: View {
             }
         }
         .onAppear {
-            let authUser = try? AuthenticationManager.shared.getAuthenticatedUser()
-            self.showLoginView = authUser == nil
+            Task {
+                do {
+                    let currentUser: ProfileModel = try await userVM.getUser()
+                    self.showLoginView = false
+                    
+                } catch {
+                    self.showLoginView = true
+                }
+                
+            }
+            
+           
+            
         }
         .fullScreenCover(isPresented: $showLoginView) {
             NavigationStack {
