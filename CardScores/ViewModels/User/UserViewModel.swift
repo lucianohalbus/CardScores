@@ -68,44 +68,4 @@ class UserViewModel: ObservableObject {
 
     }
     
-    
-    
-    
-    
-    
-    
-    
-//    func getUserList() async {
-//        if let userId = Auth.auth().currentUser?.uid {
-//            let user = await userRepo.getUserList(userId: userId)
-//            DispatchQueue.main.async {
-//                self.userProfile = user
-//            }
-//        }
-//    }
-
-//    func addUsers(_ userModel: UserModel) {
-//        userRepo.addUser(userModel)
-//    }
-//    
-//    var isSignedIn: Bool {
-//        return Auth.auth().currentUser != nil
-//    }
-//    
-//    func addFriends(friend: String) {
-//        userRepo.addFriend(friend: friend)
-//        }
-//    
-//    func addWin(_ d: Double, _ friend:String) {
-//        userRepo.updateWin(1.0, friend)
-//    }
-//    
-//    func addMatches(_ d: Double, _ friend:String) {
-//        userRepo.updateMatches(1.0, friend)
-//    }
-//
-//    func addAverageScores(_ score:Int64, _ friend:String) {
-//        userRepo.updateScores(score, friend)
-//    }
-    
 }

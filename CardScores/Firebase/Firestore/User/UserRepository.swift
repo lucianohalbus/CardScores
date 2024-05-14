@@ -31,18 +31,7 @@ class UserRepository: ObservableObject {
     var createdTime: Date = Date()
     
     init() {
-        
-//        user = ProfileModel(
-//            userId: "",
-//            userName: "",
-//            userEmail: "",
-//            friends: [FriendsModel(friendId: "", friendEmail: "", friendName: "")],
-//            createdTime: Date(),
-//            numberOfWins: 0,
-//            averageScores: 0,
-//            numberOfMatches: 0
-//        )
-        
+
         userProfile = ProfileModel(
             userId: "",
             userName: "",
@@ -110,184 +99,7 @@ class UserRepository: ObservableObject {
             }
         }
     }
-    
-//    func getUser() {
-//        if let userId = Auth.auth().currentUser?.uid {
-//            db.collection(path)
-//                .whereField("userId", isEqualTo: userId)
-//                .addSnapshotListener{ (snapshot, error) in
-//                    if let snapshot = snapshot {
-//                        self.userModel = snapshot.documents.compactMap { document in
-//                            do {
-//                                let returnedUser = try document.data(as: UserModel.self)
-//                                
-//                                self.isUserCreated = true
-//                                
-//                                self.listOfFriends = returnedUser.friendsName
-//
-//                                self.user = ProfileModel(
-//                                    userId: returnedUser.userId ?? "",
-//                                    userName: returnedUser.userName,
-//                                    userEmail: returnedUser.userEmail,
-//                                    friends: [
-//                                        FriendsModel(
-//                                            friendId: returnedUser.userId ?? "",
-//                                            friendEmail: returnedUser.userEmail,
-//                                            friendName: returnedUser.userName
-//                                        )
-//                                    ],
-//                                    createdTime: Date(),
-//                                    numberOfWins: Int(returnedUser.averageScores),
-//                                    averageScores: Int(returnedUser.averageScores),
-//                                    numberOfMatches: Int(returnedUser.numberOfWins)
-//                                )
-//                                
-//                                return returnedUser
-//                            }
-//                            catch {
-//                                print(error)
-//                            }
-//                            return nil
-//                        }
-//                        
-//                        if !self.user.userEmail.isEmpty {
-//                            self.isUserAnonymous = false
-//                        } else {
-//                            self.isUserAnonymous = true
-//                        }
-//                    }
-//                }
-//        }
-//    }
 
-    
-    func getUserFriends() {
-        db.collection(path)
-            .addSnapshotListener{ (snapshot, error) in
-                if let snapshot = snapshot {
-                    self.userModel = snapshot.documents.compactMap { document in
-                        do {
-                            let returnedUser = try document.data(as: UserModel.self)
-                            self.userModelFriends.append(returnedUser)
-                            for item in self.userModelFriends {
-                                
-                                if let itemID = item.userId {
-                                    let itemId = item.userId
-                                    var friends: [FriendsModel] = []
-                                    
-                                    if item.friendsMail.count > 0 {
-                                        for element in item.friendsMail {
-                                            for selectedUser in self.userModel {
-                                                if element == selectedUser.userEmail {
-                                                    var x = FriendsModel(
-                                                        friendId: selectedUser.userId!,
-                                                        friendEmail: element,
-                                                        friendName: selectedUser.userName
-                                                    )
-                                                    
-                                                    friends.append(x)
-                                                }
-                                            }
-                                        }
-                                    }
-                                    
-                                    let updatedUser: ProfileModel = ProfileModel(
-                                        userId: itemID,
-                                        userName: item.userName,
-                                        userEmail: item.userEmail,
-                                        friends: friends,
-                                        createdTime: Date(),
-                                        numberOfWins: Int(item.numberOfWins),
-                                        averageScores: Int(item.averageScores),
-                                        numberOfMatches: Int(item.numberOfMatches)
-                                    )
-                                    
-                                    
-                                    _ = try self.db.collection("UserList").document(itemID).setData(from: updatedUser)
-                                    
-//                                    let data: [String:Any] = [
-//                                        ProfileModel.CodingKeys.friends.rawValue : friends
-//                                        
-//                                    ]
-//                                    
-//                                    self.userListDocument(userId: itemID).updateData(data)
-                                }
-                                
-                            }
-                        }
-                        catch {
-                            print(error)
-                        }
-                        return nil
-                    }
-                }
-            }
-        
-    }
-
-    func addToFriendList() {
-            db.collection(path)
-                .addSnapshotListener{ (snapshot, error) in
-                    if let snapshot = snapshot {
-                        self.userModel = snapshot.documents.compactMap { document in
-                            do {
-                                let returnedUser = try document.data(as: UserModel.self)
-                                
-                                let myUser = ProfileModel(
-                                    userId: returnedUser.userId ?? "",
-                                    userName: returnedUser.userName,
-                                    userEmail: returnedUser.userEmail,
-                                    friends: [
-                                        FriendsModel(
-                                            friendId: returnedUser.userId ?? "",
-                                            friendEmail: returnedUser.userEmail,
-                                            friendName: returnedUser.userName
-                                        )
-                                    ],
-                                    createdTime: Date(),
-                                    numberOfWins: 0,
-                                    averageScores: 0,
-                                    numberOfMatches: 0
-                                )
-                                
-                                if let userId = returnedUser.userId {
-                                    try? self.db.collection(Constants.userList).document(userId).setData(from: myUser)
-                                }
-                            }
-                            catch {
-                                print(error)
-                            }
-                            return nil
-                        }
-                    }
-                }
-        
-        
-    }
-    
-    func getAllUsers() {
-        if let myEmail = Auth.auth().currentUser?.email {
-        db.collection(path)
-            .order(by: "numberOfWins", descending: true)
-            .whereField("friendsMail", arrayContains: myEmail)
-            .addSnapshotListener{ (snapshot, error) in
-                if let snapshot = snapshot {
-                    self.userModel = snapshot.documents.compactMap { document in
-                        do {
-                            let x = try document.data(as: UserModel.self)
-                            self.isUserCreated = true
-                            return x
-                        }
-                        catch {
-                            print(error)
-                        }
-                        return nil
-                    }
-                }
-            }
-        }
-    }
-    
     func register(email: String, password: String, userName: String) {
         Auth.auth().createUser(withEmail: email, password: password) { result, error in
             if let returnedError = error {
@@ -398,19 +210,6 @@ class UserRepository: ObservableObject {
         }
     }
 
-    func removeUser(_ userModel: UserModel) {
-        if let scoreModelID = userModel.id {
-            db.collection(Constants.userList).document(scoreModelID).delete() { err in
-                if let err = err {
-                    print("Error removing document: \(err)")
-                } else {
-                    print("Document successfully removed!")
-                }
-            }
-        }
-    }
-    
-    
     func updateUser(_ userModel: UserModel) {
         guard let documentID = userModel.id else { return }
         do {
