@@ -7,32 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "E228D2DA-7909-4B37-965F-52B6E8DC4B21"
+            uuid = "D206EDCF-49F3-4ED6-AFF6-734B6B814E85"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CardScores/Firebase/Firestore/User/UserRepository.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "206"
-            endingLineNumber = "206"
-            landmarkName = "getUserFriends()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "684249B3-1C17-43F7-B5C0-79A417025777"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CardScores/Firebase/Firestore/User/UserRepository.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
-            landmarkName = "getUserFriends()"
+            startingLineNumber = "445"
+            endingLineNumber = "445"
+            landmarkName = "addFriend(friend:currentUser:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

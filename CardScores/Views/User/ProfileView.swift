@@ -14,6 +14,23 @@ struct ProfileView: View {
     @Binding var showLoginView: Bool
     @Binding var path: [MainNavigation]
     @State var isUserLinked: Bool = false
+    @State var currentUser: ProfileModel =
+    ProfileModel(
+        userId: "",
+        userName: "",
+        userEmail: "",
+        friends: [
+            FriendsModel(
+                friendId: "",
+                friendEmail: "",
+                friendName: ""
+            )
+        ],
+        createdTime: Date(),
+        numberOfWins: 0,
+        averageScores: 0,
+        numberOfMatches: 0
+    )
     
     @State var friendToRemove: String = ""
     @State private var showDeleteButtonAlert: Bool = false
@@ -77,24 +94,26 @@ struct ProfileView: View {
                 .onAppear {
                     buracoMatchVM.getMatches()
                     Task {
-                       userVM.getUser
+                        self.currentUser = try await userVM.getUser()
                     }
                 }
                 .sheet(isPresented: $showAddFriends, onDismiss: {
-                    userRepo.getUser()
+                    Task {
+                        self.currentUser = try await userVM.getUser()
+                    }
                 }) {
-                    AddFriend()
+                    AddFriend(currentUser: $currentUser)
                         .presentationDetents([.medium])
                 }
                 .sheet(isPresented: $showSharingMatchView, onDismiss: {
                     self.showSharingMatchView = false
                 }) {
-                    SharingMatchesView(userName: userRepo.user.userName)
-                        .presentationDetents([.medium])
+//                    SharingMatchesView(userName: userRepo.user.userName)
+//                        .presentationDetents([.medium])
                 }
                 .onChange(of: isUserLinked) { newValue in
                     if newValue {
-                        userRepo.getUser()
+                     //   userRepo.getUser()
                     }
                 }
                 .onChange(of: buttonText) { newValue in
@@ -113,15 +132,15 @@ struct ProfileView: View {
     
     var playerInformations: some View {
         VStack(alignment: .leading) {
-            Text("Bem-Vindo: \(userVM.userProfile.userName)")
+            Text("Bem-Vindo: \(self.currentUser.userName)")
                 .padding(.bottom, 10)
             
             Text("Informações da Conta")
                 .foregroundStyle(.yellow)
-            Text("Email: \(userVM.userProfile.userEmail)")
+            Text("Email: \(self.currentUser.userEmail)")
             
             HStack {
-                Text("ID: \(userVM.userProfile.userId)")
+                Text("ID: \(self.currentUser.userId)")
                     .contextMenu {
                         Button {
                             copyToClipboard()
@@ -145,7 +164,7 @@ struct ProfileView: View {
                     .foregroundColor(.white)
                 
             }
-            Text("Conta criada em: \(userRepo.user.createdTime.formatted(date: .abbreviated, time: .omitted))")
+         //   Text("Conta criada em: \(userRepo.user.createdTime.formatted(date: .abbreviated, time: .omitted))")
             
             Text("Total de partidas salvas: \(buracoMatchVM.matchesVM.count)")
         }
@@ -295,7 +314,7 @@ struct ProfileView: View {
                 .foregroundStyle(Color.yellow)
                 .fontWeight(.bold)
             
-            if userRepo.isUserAnonymous {
+            if userVM.isUserAnonymous {
                 Text("Somente usuários cadastrados")
                     .font(.headline)
                     .foregroundStyle(Color.white)
@@ -306,8 +325,8 @@ struct ProfileView: View {
                     .padding(.bottom, 20)
             } else {
                 LazyVGrid(columns: gridItems, spacing: 10) {
-                    ForEach(userRepo.listOfFriends, id: \.self) { friend in
-                        Text(friend)
+                    ForEach(self.currentUser.friends, id: \.self) { friend in
+                        Text(friend.friendName)
                             .font(.caption)
                             .padding(5)
                             .frame(width: 100, height: 40, alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/)
@@ -320,7 +339,7 @@ struct ProfileView: View {
                             )
                             .onTapGesture {}.onLongPressGesture(minimumDuration: 0.2) {
                                 showRemoveFriendAlert = true
-                                self.friendToRemove = friend
+                            //    self.friendToRemove = friend
                             }
                     }
                     .alert(isPresented:$showRemoveFriendAlert) {
@@ -331,7 +350,7 @@ struct ProfileView: View {
                                 Task {
                                     print("antes \(friendToRemove)")
                                     userRepo.removeFriend(friend: friendToRemove)
-                                    userRepo.getUser()
+                    //                userRepo.getUser()
                                     self.friendToRemove = ""
                                     print("depois \(friendToRemove)")
                                 }
@@ -345,7 +364,6 @@ struct ProfileView: View {
             
             Button {
                 showAddFriends.toggle()
-                print(userRepo.isUserAnonymous)
             } label: {
                 Text("Adicionar Amigos")
                     .font(.callout)
@@ -366,8 +384,8 @@ struct ProfileView: View {
     }
     
     func copyToClipboard() {
-        let text: String = userRepo.user.userId.description ?? "Usuário Anônimo"
-        pasteboard.string = text
+   //     let text: String = userRepo.user.userId.description ?? "Usuário Anônimo"
+     //   pasteboard.string = text
         
         self.buttonText = ""
         // self.text = "" // clear the text after copy

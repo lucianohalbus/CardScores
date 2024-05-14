@@ -10,7 +10,7 @@ class UserRepository: ObservableObject {
     private let UserListCollection = Firestore.firestore().collection("UserList")
     @Published var userModel: [UserModel] = []
     @Published var userFriend: [UserModel] = []
-    @Published var user: ProfileModel
+ //   @Published var user: ProfileModel
     @Published var userProfile: ProfileModel
     @Published var userName: String = ""
     @Published var password = ""
@@ -32,16 +32,16 @@ class UserRepository: ObservableObject {
     
     init() {
         
-        user = ProfileModel(
-            userId: "",
-            userName: "",
-            userEmail: "",
-            friends: [FriendsModel(friendId: "", friendEmail: "", friendName: "")],
-            createdTime: Date(),
-            numberOfWins: 0,
-            averageScores: 0,
-            numberOfMatches: 0
-        )
+//        user = ProfileModel(
+//            userId: "",
+//            userName: "",
+//            userEmail: "",
+//            friends: [FriendsModel(friendId: "", friendEmail: "", friendName: "")],
+//            createdTime: Date(),
+//            numberOfWins: 0,
+//            averageScores: 0,
+//            numberOfMatches: 0
+//        )
         
         userProfile = ProfileModel(
             userId: "",
@@ -56,7 +56,7 @@ class UserRepository: ObservableObject {
         
         listen()
         
-        getUser()
+      //  getUser()
     }
     
     func getUserList(userId: String) async -> ProfileModel {
@@ -111,54 +111,54 @@ class UserRepository: ObservableObject {
         }
     }
     
-    func getUser() {
-        if let userId = Auth.auth().currentUser?.uid {
-            db.collection(path)
-      //          .whereField("userId", isEqualTo: userId)
-                .addSnapshotListener{ (snapshot, error) in
-                    if let snapshot = snapshot {
-                        self.userModel = snapshot.documents.compactMap { document in
-                            do {
-                                let returnedUser = try document.data(as: UserModel.self)
-                                
-                                self.isUserCreated = true
-                                
-                                self.listOfFriends = returnedUser.friendsName
-
-                                self.user = ProfileModel(
-                                    userId: returnedUser.userId ?? "",
-                                    userName: returnedUser.userName,
-                                    userEmail: returnedUser.userEmail,
-                                    friends: [
-                                        FriendsModel(
-                                            friendId: returnedUser.userId ?? "",
-                                            friendEmail: returnedUser.userEmail,
-                                            friendName: returnedUser.userName
-                                        )
-                                    ],
-                                    createdTime: Date(),
-                                    numberOfWins: Int(returnedUser.averageScores),
-                                    averageScores: Int(returnedUser.averageScores),
-                                    numberOfMatches: Int(returnedUser.numberOfWins)
-                                )
-                                
-                                return returnedUser
-                            }
-                            catch {
-                                print(error)
-                            }
-                            return nil
-                        }
-                        
-                        if !self.user.userEmail.isEmpty {
-                            self.isUserAnonymous = false
-                        } else {
-                            self.isUserAnonymous = true
-                        }
-                    }
-                }
-        }
-    }
+//    func getUser() {
+//        if let userId = Auth.auth().currentUser?.uid {
+//            db.collection(path)
+//                .whereField("userId", isEqualTo: userId)
+//                .addSnapshotListener{ (snapshot, error) in
+//                    if let snapshot = snapshot {
+//                        self.userModel = snapshot.documents.compactMap { document in
+//                            do {
+//                                let returnedUser = try document.data(as: UserModel.self)
+//                                
+//                                self.isUserCreated = true
+//                                
+//                                self.listOfFriends = returnedUser.friendsName
+//
+//                                self.user = ProfileModel(
+//                                    userId: returnedUser.userId ?? "",
+//                                    userName: returnedUser.userName,
+//                                    userEmail: returnedUser.userEmail,
+//                                    friends: [
+//                                        FriendsModel(
+//                                            friendId: returnedUser.userId ?? "",
+//                                            friendEmail: returnedUser.userEmail,
+//                                            friendName: returnedUser.userName
+//                                        )
+//                                    ],
+//                                    createdTime: Date(),
+//                                    numberOfWins: Int(returnedUser.averageScores),
+//                                    averageScores: Int(returnedUser.averageScores),
+//                                    numberOfMatches: Int(returnedUser.numberOfWins)
+//                                )
+//                                
+//                                return returnedUser
+//                            }
+//                            catch {
+//                                print(error)
+//                            }
+//                            return nil
+//                        }
+//                        
+//                        if !self.user.userEmail.isEmpty {
+//                            self.isUserAnonymous = false
+//                        } else {
+//                            self.isUserAnonymous = true
+//                        }
+//                    }
+//                }
+//        }
+//    }
 
     
     func getUserFriends() {
@@ -312,20 +312,27 @@ class UserRepository: ObservableObject {
                     print("User not Created.")
                     return
                 }
-
-                self.addUser(
-                    UserModel(
-                        id: result?.user.uid,
-                        userName: userName,
-                        userEmail: email,
-                        userId: result?.user.uid,
-                        numberOfWins: 0,
-                        averageScores: 0,
-                        numberOfMatches: 0,
-                        friendsMail: [email],
-                        friendsName: [userName]
+                
+                if let userId = result?.user.uid {
+                    self.addUser(profileModel:
+                        ProfileModel(
+                            userId: userId,
+                            userName: userName,
+                            userEmail: email,
+                            friends: [
+                                FriendsModel(
+                                    friendId: userId,
+                                    friendEmail: email,
+                                    friendName: userName
+                                )
+                            ],
+                            createdTime: Date(),
+                            numberOfWins: 0,
+                            averageScores: 0,
+                            numberOfMatches: 0
+                        )
                     )
-                )
+                }
             }
         }
     }
@@ -355,28 +362,35 @@ class UserRepository: ObservableObject {
                     print("User not Created.")
                     return
                 }
-
-                self.addUser(
-                    UserModel(
-                        id: result?.user.uid,
-                        userName: userName,
-                        userEmail: email,
-                        userId: result?.user.uid,
-                        numberOfWins: 0,
-                        averageScores: 0,
-                        numberOfMatches: 0,
-                        friendsMail: [email],
-                        friendsName: [userName]
+                
+                if let userId = result?.user.uid {
+                    self.addUser(profileModel:
+                        ProfileModel(
+                            userId: userId,
+                            userName: userName,
+                            userEmail: email,
+                            friends: [
+                                FriendsModel(
+                                    friendId: userId,
+                                    friendEmail: email,
+                                    friendName: userName
+                                )
+                            ],
+                            createdTime: Date(),
+                            numberOfWins: 0,
+                            averageScores: 0,
+                            numberOfMatches: 0
+                        )
                     )
-                )
+                }
             }
         }
     }
     
-    func addUser(_ userModel: UserModel) {
+    func addUser(profileModel: ProfileModel) {
         if let userId = Auth.auth().currentUser?.uid {
             do {
-                _ = try db.collection(path).document(userId).setData(from: userModel)
+                _ = try db.collection(Constants.userList).document(userId).setData(from: profileModel)
                 self.isUserCreated.toggle()
             } catch {
                 fatalError("Adding a study card failed")
@@ -386,7 +400,7 @@ class UserRepository: ObservableObject {
 
     func removeUser(_ userModel: UserModel) {
         if let scoreModelID = userModel.id {
-            db.collection(path).document(scoreModelID).delete() { err in
+            db.collection(Constants.userList).document(scoreModelID).delete() { err in
                 if let err = err {
                     print("Error removing document: \(err)")
                 } else {
@@ -408,12 +422,56 @@ class UserRepository: ObservableObject {
     }
     
     
-    func addFriend(friend: String) {
+    func addFriend(friend: FriendsModel, currentUser: ProfileModel) {
+        
         if let userId = Auth.auth().currentUser?.uid {
-            let friendRef = db.collection("User").document(userId)
-            friendRef.updateData([
-                "friendsName": FieldValue.arrayUnion([friend])
-            ])
+            
+            var friendArray: [FriendsModel] = currentUser.friends
+            
+            friendArray.append(friend)
+            
+            let newUser: ProfileModel = ProfileModel(
+                userId: currentUser.userId,
+                userName: currentUser.userName,
+                userEmail: currentUser.userEmail,
+                friends: friendArray,
+                createdTime: currentUser.createdTime,
+                numberOfWins: currentUser.numberOfWins,
+                averageScores: currentUser.averageScores,
+                numberOfMatches: currentUser.numberOfMatches
+            )
+            
+            do {
+                try db.collection(Constants.userList).document(currentUser.userId).setData(from: newUser)
+            } catch {
+                fatalError("Adding a study card failed")
+            }
+            
+//            let friendData: [String:Any] = [
+//                ProfileModel.CodingKeys.friends.rawValue : FriendsModel(
+//                    friendId: friend.friendId.description,
+//                    friendEmail: friend.friendName.description,
+//                    friendName: friend.friendEmail.description
+//                )
+//                ]
+//                FriendsModel.CodingKeys.friendId.rawValue : friend.friendId,
+//                FriendsModel.CodingKeys.friendName.rawValue : friend.friendName,
+//                FriendsModel.CodingKeys.friendEmail.rawValue : friend.friendEmail
+//
+//            ]
+            
+//        let data: [String:Any] = [
+//            ProfileModel.CodingKeys.friends.rawValue : friendData
+//        ]
+            
+                
+            /*Firestore.firestore().collection("UserList").document(currentUser.userId)*/
+            
+//            let friendRef = db.collection("UserList").document(userId)
+//            friendRef.updateData([
+//                "friends": FieldValue.arrayUnion([friend])
+//            ])
+    
         }
     }
     

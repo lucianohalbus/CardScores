@@ -4,13 +4,14 @@ import SwiftUI
 
 struct AddFriend: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject var userRepo = UserRepository()
-    @State var friendName: String = ""
+    @StateObject var userVM = UserViewModel()
+    @State var friendId: String = ""
+    @Binding var currentUser: ProfileModel
     
     var body: some View {
         ZStack {
             VStack {
-                TextField("Nome: ", text: $friendName)
+                TextField("Nome: ", text: $friendId)
                     .padding(5)
                     .frame(maxWidth: .infinity)
                     .frame(height: 50)
@@ -40,8 +41,10 @@ struct AddFriend: View {
                     Spacer()
                     
                     Button("Save") {
-                        if !friendName.isEmpty {
-                            userRepo.addFriend(friend: friendName)
+                        if !friendId.isEmpty {
+                            Task {
+                                await userVM.addFriends(friendId: friendId, currentUser: currentUser)
+                            }
                         }
                         
                         dismiss()
@@ -63,5 +66,25 @@ struct AddFriend: View {
 }
 
 #Preview {
-    AddFriend(userRepo: UserRepository(), friendName: "")
+    AddFriend(
+        friendId: "",
+        currentUser: .constant(
+            ProfileModel(
+                userId: "",
+                userName: "",
+                userEmail: "",
+                friends: [
+                    FriendsModel(
+                        friendId: "",
+                        friendEmail: "",
+                        friendName: ""
+                    )
+                ],
+                createdTime: Date(),
+                numberOfWins: 0,
+                averageScores: 0,
+                numberOfMatches: 0
+            )
+        )
+    )
 }

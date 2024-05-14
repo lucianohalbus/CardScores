@@ -84,7 +84,7 @@ struct RankingView: View {
         }
         .background(Color.cardColor)
         .onAppear {
-            userRepo.getUser()
+      //      userRepo.getUser()
             buracoMatchVM.getMatches()
             buracoMatchVM.getAllMatches()
         }

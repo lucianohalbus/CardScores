@@ -3,13 +3,6 @@
 import Foundation
 import FirebaseFirestore
 
-struct FriendsModel: Codable, Hashable {
-    let friendId: String
-    let friendEmail: String
-    let friendName: String
-
-}
-
 struct UserModel: Identifiable, Codable {
     let id: String?
     let userName: String

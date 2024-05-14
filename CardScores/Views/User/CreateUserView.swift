@@ -41,7 +41,7 @@ struct CreateUserView: View {
                     self.email = ""
                     self.password = ""
                     
-                    userRepo.getUser()
+               //     userRepo.getUser()
                 }
             }
         }

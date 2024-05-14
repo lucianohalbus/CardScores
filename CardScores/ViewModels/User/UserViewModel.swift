@@ -26,7 +26,7 @@ class UserViewModel: ObservableObject {
 
     }
     
-    
+    @MainActor
     func getUser() async throws -> ProfileModel {
         guard let userID = Auth.auth().currentUser?.uid else {
             self.isUserAnonymous = true
@@ -38,6 +38,21 @@ class UserViewModel: ObservableObject {
         
         return userProfile
 
+    }
+    
+    func addFriends(friendId: String, currentUser: ProfileModel) async {
+        
+        let userFriend: ProfileModel = await userRepo.getUserList(userId: friendId)
+        
+        let friendModel: FriendsModel = FriendsModel(
+            friendId: userFriend.userId,
+            friendEmail: userFriend.userEmail,
+            friendName: userFriend.userName
+        )
+        
+        userRepo.addFriend(friend: friendModel, currentUser: currentUser)
+       
+        
     }
     
     
