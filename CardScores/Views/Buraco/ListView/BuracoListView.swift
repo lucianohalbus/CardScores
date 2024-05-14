@@ -76,6 +76,16 @@ struct BuracoListView: View {
                                 }
                                 .listStyle(.plain)
                                 .padding(.horizontal, 15)
+                                .navigationDestination(for: MainNavigation.self) { view in
+                                    switch view {
+                                    case .child:
+                                        BuracoMatchView(matchFB: BuracoFBViewModel(
+                                            matchFB: buracoMatchVM.createdItem))
+                                    default:
+                                        EmptyView()
+                                    }
+                                    
+                                }
                             }
                             .scrollContentBackground(.hidden)
                         }
