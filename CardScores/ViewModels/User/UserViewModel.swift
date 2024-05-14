@@ -51,8 +51,21 @@ class UserViewModel: ObservableObject {
         )
         
         userRepo.addFriend(friend: friendModel, currentUser: currentUser)
-       
+
+    }
+    
+    func removeFriends(friendId: String, currentUser: ProfileModel) async {
         
+        let userFriend: ProfileModel = await userRepo.getUserList(userId: friendId)
+        
+        let friendModel: FriendsModel = FriendsModel(
+            friendId: userFriend.userId,
+            friendEmail: userFriend.userEmail,
+            friendName: userFriend.userName
+        )
+        
+        userRepo.addFriend(friend: friendModel, currentUser: currentUser)
+
     }
     
     

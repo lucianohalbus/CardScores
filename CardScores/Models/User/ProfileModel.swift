@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct ProfileModel: Codable, Hashable {
+struct ProfileModel: Codable, Hashable, Equatable {
     let userId: String
     let userName: String
     let userEmail: String

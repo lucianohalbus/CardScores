@@ -32,7 +32,7 @@ struct ProfileView: View {
         numberOfMatches: 0
     )
     
-    @State var friendToRemove: String = ""
+    @State var friendToRemove: FriendsModel = FriendsModel(friendId: "", friendEmail: "", friendName: "")
     @State private var showDeleteButtonAlert: Bool = false
     @State var isButtonIniciarClicked: Bool = false
     @State var showAddFriends: Bool = false
@@ -339,7 +339,7 @@ struct ProfileView: View {
                             )
                             .onTapGesture {}.onLongPressGesture(minimumDuration: 0.2) {
                                 showRemoveFriendAlert = true
-                            //    self.friendToRemove = friend
+                                self.friendToRemove = friend
                             }
                     }
                     .alert(isPresented:$showRemoveFriendAlert) {
@@ -349,9 +349,9 @@ struct ProfileView: View {
                             primaryButton: .destructive(Text("Continuar")) {
                                 Task {
                                     print("antes \(friendToRemove)")
-                                    userRepo.removeFriend(friend: friendToRemove)
+                                    userRepo.removeFriend(friend: friendToRemove, currentUser: currentUser)
                     //                userRepo.getUser()
-                                    self.friendToRemove = ""
+                                   // self.friendToRemove = ""
                                     print("depois \(friendToRemove)")
                                 }
                             },

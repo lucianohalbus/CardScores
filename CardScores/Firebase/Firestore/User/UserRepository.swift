@@ -421,57 +421,45 @@ class UserRepository: ObservableObject {
         }
     }
     
+    func removeFriend(friend: FriendsModel, currentUser: ProfileModel) {
+        var friendArray: [FriendsModel] = currentUser.friends
+        friendArray.removeAll { $0 == friend }
+        let newUser: ProfileModel = ProfileModel(
+            userId: currentUser.userId,
+            userName: currentUser.userName,
+            userEmail: currentUser.userEmail,
+            friends: friendArray,
+            createdTime: currentUser.createdTime,
+            numberOfWins: currentUser.numberOfWins,
+            averageScores: currentUser.averageScores,
+            numberOfMatches: currentUser.numberOfMatches
+        )
+        
+        do {
+            try db.collection(Constants.userList).document(currentUser.userId).setData(from: newUser)
+        } catch {
+            fatalError("Adding a study card failed")
+        }
+    }
     
     func addFriend(friend: FriendsModel, currentUser: ProfileModel) {
+        var friendArray: [FriendsModel] = currentUser.friends
+        friendArray.append(friend)
+        let newUser: ProfileModel = ProfileModel(
+            userId: currentUser.userId,
+            userName: currentUser.userName,
+            userEmail: currentUser.userEmail,
+            friends: friendArray,
+            createdTime: currentUser.createdTime,
+            numberOfWins: currentUser.numberOfWins,
+            averageScores: currentUser.averageScores,
+            numberOfMatches: currentUser.numberOfMatches
+        )
         
-        if let userId = Auth.auth().currentUser?.uid {
-            
-            var friendArray: [FriendsModel] = currentUser.friends
-            
-            friendArray.append(friend)
-            
-            let newUser: ProfileModel = ProfileModel(
-                userId: currentUser.userId,
-                userName: currentUser.userName,
-                userEmail: currentUser.userEmail,
-                friends: friendArray,
-                createdTime: currentUser.createdTime,
-                numberOfWins: currentUser.numberOfWins,
-                averageScores: currentUser.averageScores,
-                numberOfMatches: currentUser.numberOfMatches
-            )
-            
-            do {
-                try db.collection(Constants.userList).document(currentUser.userId).setData(from: newUser)
-            } catch {
-                fatalError("Adding a study card failed")
-            }
-            
-//            let friendData: [String:Any] = [
-//                ProfileModel.CodingKeys.friends.rawValue : FriendsModel(
-//                    friendId: friend.friendId.description,
-//                    friendEmail: friend.friendName.description,
-//                    friendName: friend.friendEmail.description
-//                )
-//                ]
-//                FriendsModel.CodingKeys.friendId.rawValue : friend.friendId,
-//                FriendsModel.CodingKeys.friendName.rawValue : friend.friendName,
-//                FriendsModel.CodingKeys.friendEmail.rawValue : friend.friendEmail
-//
-//            ]
-            
-//        let data: [String:Any] = [
-//            ProfileModel.CodingKeys.friends.rawValue : friendData
-//        ]
-            
-                
-            /*Firestore.firestore().collection("UserList").document(currentUser.userId)*/
-            
-//            let friendRef = db.collection("UserList").document(userId)
-//            friendRef.updateData([
-//                "friends": FieldValue.arrayUnion([friend])
-//            ])
-    
+        do {
+            try db.collection(Constants.userList).document(currentUser.userId).setData(from: newUser)
+        } catch {
+            fatalError("Adding a study card failed")
         }
     }
     
@@ -484,14 +472,14 @@ class UserRepository: ObservableObject {
         }
     }
     
-    func removeFriend(friend: String) {
-        if let userId = Auth.auth().currentUser?.uid {
-            let friendRef = db.collection("User").document(userId)
-            friendRef.updateData([
-                "friendsName": FieldValue.arrayRemove([friend])
-            ])
-        }
-    }
+//    func removeFriend(friend: String) {
+//        if let userId = Auth.auth().currentUser?.uid {
+//            let friendRef = db.collection("User").document(userId)
+//            friendRef.updateData([
+//                "friendsName": FieldValue.arrayRemove([friend])
+//            ])
+//        }
+//    }
     
     
     func updateRankingFriends(_ emailFriend:String, scoreFriend:Double) {

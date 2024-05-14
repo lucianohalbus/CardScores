@@ -7,17 +7,47 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "D206EDCF-49F3-4ED6-AFF6-734B6B814E85"
+            uuid = "DC424E4E-14B0-401E-8F06-931E58C8E192"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CardScores/Firebase/Firestore/User/UserRepository.swift"
+            filePath = "CardScores/ViewModels/User/UserViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "445"
-            endingLineNumber = "445"
-            landmarkName = "addFriend(friend:currentUser:)"
+            startingLineNumber = "57"
+            endingLineNumber = "57"
+            landmarkName = "removeFriends(friendId:currentUser:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DC424E4E-14B0-401E-8F06-931E58C8E192 - f99bbd1b0a108b83"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CardScores.UserViewModel.removeFriends(friendId: Swift.String, currentUser: CardScores.ProfileModel) async -&gt; ()"
+                  moduleName = "CardScores"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/ViewModels/User/UserViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57">
+               </Location>
+               <Location
+                  uuid = "DC424E4E-14B0-401E-8F06-931E58C8E192 - e076a87e23b8d5da"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for CardScores.UserViewModel.removeFriends(friendId: Swift.String, currentUser: CardScores.ProfileModel) async -&gt; ()"
+                  moduleName = "CardScores"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/ViewModels/User/UserViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "57"
+                  endingLineNumber = "57">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

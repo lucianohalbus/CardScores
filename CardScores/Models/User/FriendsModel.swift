@@ -3,7 +3,7 @@
 import Foundation
 import FirebaseFirestore
 
-struct FriendsModel: Codable, Hashable {
+struct FriendsModel: Codable, Hashable, Equatable {
     let friendId: String
     let friendEmail: String
     let friendName: String
