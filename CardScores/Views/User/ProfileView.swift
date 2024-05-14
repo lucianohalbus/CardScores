@@ -77,8 +77,6 @@ struct ProfileView: View {
                     
                     VStack(alignment: .leading) {
                         
-                        sharingButton
-                        
                         if userRepo.isUserAnonymous {
                             linkAccountButton
                         }
@@ -102,15 +100,24 @@ struct ProfileView: View {
                     AddFriend(currentUser: $currentUser)
                         .presentationDetents([.medium])
                 }
-                .sheet(isPresented: $showSharingMatchView, onDismiss: {
-                    self.showSharingMatchView = false
-                }) {
+//                .sheet(isPresented: $showSharingMatchView, onDismiss: {
+//                    self.showSharingMatchView = false
+//                }) {
 //                    SharingMatchesView(userName: userRepo.user.userName)
 //                        .presentationDetents([.medium])
-                }
+//                }
                 .onChange(of: isUserLinked) { newValue in
                     if newValue {
-                     //   userRepo.getUser()
+                        Task {
+                            self.currentUser = try await userVM.getUser()
+                        }
+                    }
+                }
+                .onChange(of: userVM.userUpdated) { newValue in
+                    if newValue {
+                        Task {
+                            self.currentUser = try await userVM.getUser()
+                        }
                     }
                 }
                 .onChange(of: buttonText) { newValue in
@@ -207,28 +214,28 @@ struct ProfileView: View {
         .padding(.bottom, 10)
     }
     
-    var sharingButton: some View {
-        VStack(alignment: .leading) {
-            Button(action: {
-                self.showSharingMatchView.toggle()
-            }) {
-                VStack {
-                    Text("Compartilhar")
-                        .font(.title3)
-                        .foregroundStyle(Color.cardColor)
-                        .padding(5)
-                        .overlay(
-                            RoundedRectangle(cornerRadius: 10)
-                                .stroke(Color.textFieldBorderColor)
-                        )
-                        .background(.white)
-                        .cornerRadius(10)
-                }
-                .padding(.top, 10)
-            }
-        }
-        .padding(.bottom, 30)
-    }
+//    var sharingButton: some View {
+//        VStack(alignment: .leading) {
+//            Button(action: {
+//                self.showSharingMatchView.toggle()
+//            }) {
+//                VStack {
+//                    Text("Compartilhar")
+//                        .font(.title3)
+//                        .foregroundStyle(Color.cardColor)
+//                        .padding(5)
+//                        .overlay(
+//                            RoundedRectangle(cornerRadius: 10)
+//                                .stroke(Color.textFieldBorderColor)
+//                        )
+//                        .background(.white)
+//                        .cornerRadius(10)
+//                }
+//                .padding(.top, 10)
+//            }
+//        }
+//        .padding(.bottom, 30)
+//    }
     
     
     var logoutButton: some View {
@@ -258,12 +265,12 @@ struct ProfileView: View {
                 .padding(.top, 10)
             }
         }
+        .padding(.horizontal, 10)
         .padding(.bottom, 30)
     }
     
     var deleteButton: some View {
         VStack {
-            
             Button {
                 self.showDeleteButtonAlert = true
                 
@@ -301,6 +308,7 @@ struct ProfileView: View {
                 )
             }
         }
+        .padding(.horizontal, 10)
     }
     
     var listOfFriends: some View {
@@ -338,6 +346,7 @@ struct ProfileView: View {
                                 showRemoveFriendAlert = true
                                 self.friendToRemove = friend
                             }
+
                     }
                     .alert(isPresented:$showRemoveFriendAlert) {
                         Alert(
@@ -345,11 +354,7 @@ struct ProfileView: View {
                             message: Text("Essa ação removerá esse nome da sua lista de amigos"),
                             primaryButton: .destructive(Text("Continuar")) {
                                 Task {
-                                    print("antes \(friendToRemove)")
-                                    userRepo.removeFriend(friend: friendToRemove, currentUser: currentUser)
-                    //                userRepo.getUser()
-                                   // self.friendToRemove = ""
-                                    print("depois \(friendToRemove)")
+                                    await userVM.removeFriends(friend: friendToRemove, currentUser: currentUser)
                                 }
                             },
                             secondaryButton: .cancel()
@@ -358,7 +363,7 @@ struct ProfileView: View {
                 }
                 .padding(.bottom, 10)
             }
-            
+                
             Button {
                 showAddFriends.toggle()
             } label: {

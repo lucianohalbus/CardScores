@@ -8,6 +8,7 @@ class UserViewModel: ObservableObject {
     @Published var userRepo: UserRepository
     @Published var userProfile: ProfileModel
     @Published var isUserAnonymous: Bool = false
+    @Published var userUpdated: Bool = false
     
     init() {
         
@@ -54,17 +55,12 @@ class UserViewModel: ObservableObject {
 
     }
     
-    func removeFriends(friendId: String, currentUser: ProfileModel) async {
+    func removeFriends(friend: FriendsModel, currentUser: ProfileModel) async {
+        let friendRemoved: Bool = userRepo.removeFriend(friend: friend, currentUser: currentUser)
         
-        let userFriend: ProfileModel = await userRepo.getUserList(userId: friendId)
-        
-        let friendModel: FriendsModel = FriendsModel(
-            friendId: userFriend.userId,
-            friendEmail: userFriend.userEmail,
-            friendName: userFriend.userName
-        )
-        
-        userRepo.addFriend(friend: friendModel, currentUser: currentUser)
+        if friendRemoved {
+            self.userUpdated = true
+        }
 
     }
     

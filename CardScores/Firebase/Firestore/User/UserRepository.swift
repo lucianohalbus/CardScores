@@ -5,12 +5,9 @@ import Firebase
 import FirebaseAuth
 
 class UserRepository: ObservableObject {
-    private let path: String = "User"
     private let db = Firestore.firestore()
     private let UserListCollection = Firestore.firestore().collection("UserList")
     @Published var userModel: [UserModel] = []
-    @Published var userFriend: [UserModel] = []
- //   @Published var user: ProfileModel
     @Published var userProfile: ProfileModel
     @Published var userName: String = ""
     @Published var password = ""
@@ -23,11 +20,7 @@ class UserRepository: ObservableObject {
     @Published var listOfTeamsRanking: [TeamModel] = []
     @Published var isUserAnonymous: Bool = false
     var handle: AuthStateDidChangeListenerHandle?
-    @Published var friendsList: [FriendsModel] = []
-    
-    @Published var userProfiles: [ProfileModel] = []
-    @Published var userModelFriends: [UserModel] = []
-    
+
     var createdTime: Date = Date()
     
     init() {
@@ -209,18 +202,8 @@ class UserRepository: ObservableObject {
             }
         }
     }
-
-    func updateUser(_ userModel: UserModel) {
-        guard let documentID = userModel.id else { return }
-        do {
-            try db.collection(path).document(documentID).setData(from:
-                                                                    userModel)
-        } catch {
-            fatalError("Adding a study card failed")
-        }
-    }
     
-    func removeFriend(friend: FriendsModel, currentUser: ProfileModel) {
+    func removeFriend(friend: FriendsModel, currentUser: ProfileModel) -> Bool {
         var friendArray: [FriendsModel] = currentUser.friends
         friendArray.removeAll { $0 == friend }
         let newUser: ProfileModel = ProfileModel(
@@ -239,6 +222,8 @@ class UserRepository: ObservableObject {
         } catch {
             fatalError("Adding a study card failed")
         }
+        
+        return true
     }
     
     func addFriend(friend: FriendsModel, currentUser: ProfileModel) {
