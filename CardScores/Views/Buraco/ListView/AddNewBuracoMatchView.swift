@@ -14,13 +14,6 @@ struct AddNewBuracoMatchView: View {
     @State var setSelectedButtonColor: Bool = false
     @State var cleanButtonColor: Color = Color.black
     
-    @State var placeholderOne: String = "Nome do Jogador 1"
-    @State var placeholderTwo: String = "Nome do Jogador 2"
-    @State var placeholderThree: String = "Nome do Jogador 3"
-    @State var placeholderFour: String = "Nome do Jogador 4"
-    @State var isDocCreated: Bool = false
-    @State var textFieldAux: String = ""
-    
     @State var selectedMatch: BuracoFBViewModel = BuracoFBViewModel(matchFB: MatchFB(scoreToWin: "", playerOne: "", playerTwo: "", playerThree: "", playerFour: "", finalScoreOne: "", finalScoreTwo: "", friendsId: [""], myDate: Date(), registeredUser: false, docId: "", gameOver: false))
     
     @Binding var path: [MainNavigation]
@@ -53,13 +46,9 @@ struct AddNewBuracoMatchView: View {
                             Button("Limpar", role: .destructive) {
                                 shouldCleanTeams = true
                                 cleanButtonColor = Color.white
-                                placeholderOne = "Nome do Jogador 1"
                                 buracoMatchVM.playerOne = ""
-                                placeholderTwo = "Nome do Jogador 2"
                                 buracoMatchVM.playerTwo = ""
-                                placeholderThree = "Nome do Jogador 3"
                                 buracoMatchVM.playerThree = ""
-                                placeholderFour = "Nome do Jogador 4"
                                 buracoMatchVM.playerFour = ""
                                 setSelectedButtonColor = false
                                 cleanButtonColor = Color.white
@@ -88,7 +77,6 @@ struct AddNewBuracoMatchView: View {
                                 default:
                                     EmptyView()
                                 }
-                                
                             }
                             Spacer()
                         }
@@ -124,13 +112,9 @@ struct AddNewBuracoMatchView: View {
                 .onDisappear {
                     shouldCleanTeams = true
                     cleanButtonColor = Color.white
-                    placeholderOne = "Nome do Jogador 1"
                     buracoMatchVM.playerOne = ""
-                    placeholderTwo = "Nome do Jogador 2"
                     buracoMatchVM.playerTwo = ""
-                    placeholderThree = "Nome do Jogador 3"
                     buracoMatchVM.playerThree = ""
-                    placeholderFour = "Nome do Jogador 4"
                     buracoMatchVM.playerFour = ""
                     setSelectedButtonColor = false
                     cleanButtonColor = Color.white
@@ -149,6 +133,7 @@ struct AddNewBuracoMatchView: View {
                 .font(.headline)
                 .foregroundStyle(Color.white)
                 .padding(.bottom, 5)
+            
             TextField("Digite a pontuação", text: $buracoMatchVM.scoreToWin)
                 .foregroundColor(Color.cardColor)
                 .fontWeight(.semibold)
@@ -172,42 +157,18 @@ struct AddNewBuracoMatchView: View {
                     .font(.title2)
                     .foregroundStyle(Color.white)
                 
-                ZStack(alignment: .leading) {
-                    Text("Jogador 1")
-                        .font(.callout)
-                        .foregroundStyle(buracoMatchVM.playerOne.isEmpty ? Color.white.opacity(0.5) : Color.clear)
-
-                    TextField("", text: $buracoMatchVM.playerOne)
-                        .foregroundColor(Color.white)
-                        .frame(height: 40)
-                        .cornerRadius(5)
-                        .font(.callout)
-                        .minimumScaleFactor(0.4)
-                        .multilineTextAlignment(.leading)
-                }
-                .padding(.horizontal, 5)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(Color.white, lineWidth: 1)
+                AddTeamPlayerTextField(
+                    player: $buracoMatchVM.playerOne,
+                    textFieldAlign: .leading,
+                    placeholder: "Jogador 1",
+                    placerHolderAlign: .leading
                 )
                 
-                ZStack(alignment: .leading) {
-                    Text("Jogador 2")
-                        .font(.callout)
-                        .foregroundStyle(buracoMatchVM.playerTwo.isEmpty ? Color.white.opacity(0.5) : Color.clear)
-                    
-                    TextField("", text: $buracoMatchVM.playerTwo)
-                        .foregroundColor(Color.white)
-                        .frame(height: 40)
-                        .cornerRadius(5)
-                        .font(.callout)
-                        .minimumScaleFactor(0.4)
-                        .multilineTextAlignment(.leading)
-                }
-                .padding(.horizontal, 5)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(Color.white, lineWidth: 1)
+                AddTeamPlayerTextField(
+                    player: $buracoMatchVM.playerTwo,
+                    textFieldAlign: .leading,
+                    placeholder: "Jogador 2",
+                    placerHolderAlign: .leading
                 )
             }
             
@@ -221,44 +182,19 @@ struct AddNewBuracoMatchView: View {
                     .font(.title2)
                     .foregroundStyle(Color.white)
                 
-                ZStack(alignment: .trailing) {
-                    Text("Jogador 3")
-                        .font(.callout)
-                        .foregroundStyle(buracoMatchVM.playerThree.isEmpty ? Color.white.opacity(0.5) : Color.clear)
-                    
-                    TextField("", text: $buracoMatchVM.playerThree)
-                        .foregroundColor(Color.white)
-                        .frame(height: 40)
-                        .cornerRadius(5)
-                        .font(.callout)
-                        .minimumScaleFactor(0.4)
-                        .multilineTextAlignment(.trailing)
-                }
-                .padding(.horizontal, 5)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(Color.white, lineWidth: 1)
+                AddTeamPlayerTextField(
+                    player: $buracoMatchVM.playerThree,
+                    textFieldAlign: .trailing,
+                    placeholder: "Jogador 3",
+                    placerHolderAlign: .trailing
                 )
                 
-                ZStack(alignment: .trailing) {
-                    Text("Jogador 4")
-                        .font(.callout)
-                        .foregroundStyle(buracoMatchVM.playerFour.isEmpty ? Color.white.opacity(0.5) : Color.clear)
-                    
-                    TextField("", text: $buracoMatchVM.playerFour)
-                        .foregroundColor(Color.white)
-                        .frame(height: 40)
-                        .cornerRadius(5)
-                        .font(.callout)
-                        .minimumScaleFactor(0.4)
-                        .multilineTextAlignment(.trailing)
-                }
-                .padding(.horizontal, 5)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 5)
-                        .stroke(Color.white, lineWidth: 1)
+                AddTeamPlayerTextField(
+                    player: $buracoMatchVM.playerFour,
+                    textFieldAlign: .trailing,
+                    placeholder: "Jogador 4",
+                    placerHolderAlign: .trailing
                 )
-                
             }
         }
         .frame(maxWidth: .infinity)
@@ -274,7 +210,6 @@ struct AddNewBuracoMatchView: View {
     
     var addedFriends: some View {
         VStack(alignment: .center) {
-            
             Text("Lista de Amigos")
                 .foregroundStyle(Color.yellow)
                 .font(.callout)
@@ -293,24 +228,18 @@ struct AddNewBuracoMatchView: View {
             } else {
                 LazyVGrid(columns: gridItems, spacing: 10) {
                     ForEach(userVM.userProfile.friends, id: \.self) { friend in
-                        
                         FriendGridItem(friend: friend.friendName, setSelectedButtonColor: $setSelectedButtonColor, cleanButtonColor: $cleanButtonColor) {
-                            
                             if buracoMatchVM.playerOne.isEmpty {
-                                placeholderOne = friend.friendName
                                 buracoMatchVM.playerOne = friend.friendName
                                 setSelectedButtonColor = true
                                 cleanButtonColor = Color.black
                             } else if buracoMatchVM.playerTwo.isEmpty {
-                                placeholderTwo = friend.friendName
                                 buracoMatchVM.playerTwo = friend.friendName
                                 setSelectedButtonColor = true
                             } else if buracoMatchVM.playerThree.isEmpty {
-                                placeholderThree = friend.friendName
                                 buracoMatchVM.playerThree = friend.friendName
                                 setSelectedButtonColor = true
                             } else if buracoMatchVM.playerFour.isEmpty {
-                                placeholderFour = friend.friendName
                                 buracoMatchVM.playerFour = friend.friendName
                                 setSelectedButtonColor = true
                             } else {
@@ -324,7 +253,6 @@ struct AddNewBuracoMatchView: View {
                     RoundedRectangle(cornerRadius: 10)
                         .inset(by: 2)
                         .stroke(Color.white, lineWidth: 2)
-                    
                 )
             }
         }

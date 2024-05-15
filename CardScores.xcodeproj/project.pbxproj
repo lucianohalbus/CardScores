@@ -10,6 +10,7 @@
 		CB1ACD5B2BBC2B0000E2C662 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = CB1ACD5A2BBC2B0000E2C662 /* FirebaseAppCheck */; };
 		CB1E488F2BF3C66D00F052ED /* FriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1E488E2BF3C66D00F052ED /* FriendsModel.swift */; };
 		CB1E48922BF4406000F052ED /* AddFriendDetent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1E48912BF4406000F052ED /* AddFriendDetent.swift */; };
+		CB1E48942BF52C9500F052ED /* AddTeamPlayerTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1E48932BF52C9500F052ED /* AddTeamPlayerTextField.swift */; };
 		CB36E23D2BBDC6A000323907 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB36E23C2BBDC6A000323907 /* GoogleService-Info.plist */; };
 		CB387F7E2BDFD5C8003EE27A /* copyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB387F7D2BDFD5C7003EE27A /* copyBoard.swift */; };
 		CB387F802BDFFDAC003EE27A /* SharingMatchesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB387F7F2BDFFDAC003EE27A /* SharingMatchesView.swift */; };
@@ -72,6 +73,7 @@
 /* Begin PBXFileReference section */
 		CB1E488E2BF3C66D00F052ED /* FriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsModel.swift; sourceTree = "<group>"; };
 		CB1E48912BF4406000F052ED /* AddFriendDetent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendDetent.swift; sourceTree = "<group>"; };
+		CB1E48932BF52C9500F052ED /* AddTeamPlayerTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTeamPlayerTextField.swift; sourceTree = "<group>"; };
 		CB36E23C2BBDC6A000323907 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CB387F7D2BDFD5C7003EE27A /* copyBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = copyBoard.swift; sourceTree = "<group>"; };
 		CB387F7F2BDFFDAC003EE27A /* SharingMatchesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingMatchesView.swift; sourceTree = "<group>"; };
@@ -189,6 +191,7 @@
 			isa = PBXGroup;
 			children = (
 				CB64FCB82BCA0D6700067744 /* FriendGridItem.swift */,
+				CB1E48932BF52C9500F052ED /* AddTeamPlayerTextField.swift */,
 			);
 			path = SubViews;
 			sourceTree = "<group>";
@@ -593,6 +596,7 @@
 				CBD142FD2BA8A1F8000FAA55 /* BuracoTurnsRepository.swift in Sources */,
 				CB416CFA2BA37A77005DF9F3 /* BuracoMatchView.swift in Sources */,
 				CB8A39AE2BA71E3500EFF71C /* LoginView.swift in Sources */,
+				CB1E48942BF52C9500F052ED /* AddTeamPlayerTextField.swift in Sources */,
 				CB64FCB42BC83F0000067744 /* CreateUserView.swift in Sources */,
 				CB64FCB92BCA0D6700067744 /* FriendGridItem.swift in Sources */,
 				CB64FCB62BC87BFF00067744 /* ProfileModel.swift in Sources */,
