@@ -143,7 +143,7 @@ class UserRepository: ObservableObject {
                             numberOfWins: 0,
                             averageScores: 0,
                             numberOfMatches: 0,
-                            isUserAnonymous: false
+                            isUserAnonymous: Auth.auth().currentUser?.isAnonymous ?? false
                         )
                     )
                 }
@@ -194,7 +194,7 @@ class UserRepository: ObservableObject {
                             numberOfWins: 0,
                             averageScores: 0,
                             numberOfMatches: 0,
-                            isUserAnonymous: false
+                            isUserAnonymous: Auth.auth().currentUser?.isAnonymous ?? false
                         )
                     )
                 }
@@ -225,7 +225,7 @@ class UserRepository: ObservableObject {
             numberOfWins: currentUser.numberOfWins,
             averageScores: currentUser.averageScores,
             numberOfMatches: currentUser.numberOfMatches,
-            isUserAnonymous: false
+            isUserAnonymous: currentUser.isUserAnonymous
         )
         
         do {
@@ -249,7 +249,7 @@ class UserRepository: ObservableObject {
             numberOfWins: currentUser.numberOfWins,
             averageScores: currentUser.averageScores,
             numberOfMatches: currentUser.numberOfMatches,
-            isUserAnonymous: false
+            isUserAnonymous: currentUser.isUserAnonymous
         )
         
         do {
