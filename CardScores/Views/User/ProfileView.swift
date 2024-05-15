@@ -29,7 +29,8 @@ struct ProfileView: View {
         createdTime: Date(),
         numberOfWins: 0,
         averageScores: 0,
-        numberOfMatches: 0
+        numberOfMatches: 0,
+        isUserAnonymous: false
     )
     
     @State var friendToRemove: FriendsModel = FriendsModel(friendId: "", friendEmail: "", friendName: "")
@@ -77,7 +78,7 @@ struct ProfileView: View {
                     
                     VStack(alignment: .leading) {
                         
-                        if userRepo.isUserAnonymous {
+                        if currentUser.isUserAnonymous {
                             linkAccountButton
                         }
                         logoutButton
@@ -100,12 +101,6 @@ struct ProfileView: View {
                     AddFriend(currentUser: $currentUser)
                         .presentationDetents([.medium])
                 }
-//                .sheet(isPresented: $showSharingMatchView, onDismiss: {
-//                    self.showSharingMatchView = false
-//                }) {
-//                    SharingMatchesView(userName: userRepo.user.userName)
-//                        .presentationDetents([.medium])
-//                }
                 .onChange(of: isUserLinked) { newValue in
                     if newValue {
                         Task {
@@ -211,32 +206,9 @@ struct ProfileView: View {
                 
             }
         }
+        .padding(.horizontal, 15)
         .padding(.bottom, 10)
     }
-    
-//    var sharingButton: some View {
-//        VStack(alignment: .leading) {
-//            Button(action: {
-//                self.showSharingMatchView.toggle()
-//            }) {
-//                VStack {
-//                    Text("Compartilhar")
-//                        .font(.title3)
-//                        .foregroundStyle(Color.cardColor)
-//                        .padding(5)
-//                        .overlay(
-//                            RoundedRectangle(cornerRadius: 10)
-//                                .stroke(Color.textFieldBorderColor)
-//                        )
-//                        .background(.white)
-//                        .cornerRadius(10)
-//                }
-//                .padding(.top, 10)
-//            }
-//        }
-//        .padding(.bottom, 30)
-//    }
-    
     
     var logoutButton: some View {
         VStack(alignment: .leading) {
@@ -251,7 +223,7 @@ struct ProfileView: View {
                 }
             }) {
                 VStack {
-                    Text(userRepo.isUserAnonymous ? "Sair da Conta Anônima" : "Sair da conta")
+                    Text(currentUser.isUserAnonymous ? "Sair da Conta Anônima" : "Sair da conta")
                         .font(.title3)
                         .foregroundStyle(Color.cardColor)
                         .padding(5)
@@ -265,7 +237,7 @@ struct ProfileView: View {
                 .padding(.top, 10)
             }
         }
-        .padding(.horizontal, 10)
+        .padding(.horizontal, 15)
         .padding(.bottom, 30)
     }
     
@@ -276,7 +248,7 @@ struct ProfileView: View {
                 
             } label: {
                 VStack (){
-                    Text(userRepo.isUserAnonymous ? "Apagar a Conta Anônima" : "Apagar Conta")
+                    Text(currentUser.isUserAnonymous ? "Apagar a Conta Anônima" : "Apagar Conta")
                         .font(.title3)
                         .foregroundStyle(.red)
                         .padding(5)
@@ -308,7 +280,7 @@ struct ProfileView: View {
                 )
             }
         }
-        .padding(.horizontal, 10)
+        .padding(.horizontal, 15)
     }
     
     var listOfFriends: some View {
@@ -379,7 +351,7 @@ struct ProfileView: View {
                             .stroke(Color.gray)
                     )
             }
-            .disabled(userRepo.isUserAnonymous)
+            .disabled(currentUser.isUserAnonymous)
         }
         .frame(maxWidth: .infinity)
         .padding(.horizontal)

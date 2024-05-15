@@ -11,8 +11,9 @@ struct ProfileModel: Codable, Hashable, Equatable {
     let numberOfWins: Int
     let averageScores: Int
     let numberOfMatches: Int
+    let isUserAnonymous: Bool
     
-    init(userId: String, userName: String, userEmail: String, friends: [FriendsModel], createdTime: Date, numberOfWins: Int, averageScores: Int, numberOfMatches: Int) {
+    init(userId: String, userName: String, userEmail: String, friends: [FriendsModel], createdTime: Date, numberOfWins: Int, averageScores: Int, numberOfMatches: Int, isUserAnonymous: Bool) {
         self.userId = userId
         self.userName = userName
         self.userEmail = userEmail
@@ -21,6 +22,7 @@ struct ProfileModel: Codable, Hashable, Equatable {
         self.numberOfWins = numberOfWins
         self.averageScores = averageScores
         self.numberOfMatches = numberOfMatches
+        self.isUserAnonymous = isUserAnonymous
     }
     
     enum CodingKeys: String, CodingKey {
@@ -32,6 +34,7 @@ struct ProfileModel: Codable, Hashable, Equatable {
         case numberOfWins = "numberOfWins"
         case averageScores = "averageScores"
         case numberOfMatches = "numberOfMatches"
+        case isUserAnonymous = "isUserAnonymous"
     }
     
     init(from decoder: any Decoder) throws {
@@ -44,6 +47,7 @@ struct ProfileModel: Codable, Hashable, Equatable {
         self.numberOfWins = try container.decode(Int.self, forKey: .numberOfWins)
         self.averageScores = try container.decode(Int.self, forKey: .averageScores)
         self.numberOfMatches = try container.decode(Int.self, forKey: .numberOfMatches)
+        self.isUserAnonymous = try container.decode(Bool.self, forKey: .isUserAnonymous)
     }
 
 }

@@ -18,7 +18,6 @@ class UserRepository: ObservableObject {
     @Published var isUserCreated: Bool = false
     @Published var listOfFriends: [String] = []
     @Published var listOfTeamsRanking: [TeamModel] = []
-    @Published var isUserAnonymous: Bool = false
     var handle: AuthStateDidChangeListenerHandle?
 
     var createdTime: Date = Date()
@@ -33,7 +32,8 @@ class UserRepository: ObservableObject {
             createdTime: Date(),
             numberOfWins: 0,
             averageScores: 0,
-            numberOfMatches: 0
+            numberOfMatches: 0,
+            isUserAnonymous: false
         )
         
         listen()
@@ -48,7 +48,7 @@ class UserRepository: ObservableObject {
           let document = try await userDoc.getDocument()
           if document.exists {
               let returnedDoc = try document.data(as: ProfileModel.self)
-              
+
               self.userProfile = ProfileModel(
                 userId: returnedDoc.userId,
                 userName: returnedDoc.userName,
@@ -57,13 +57,26 @@ class UserRepository: ObservableObject {
                 createdTime: returnedDoc.createdTime,
                 numberOfWins: returnedDoc.numberOfWins,
                 averageScores: returnedDoc.averageScores,
-                numberOfMatches: returnedDoc.numberOfMatches
+                numberOfMatches: returnedDoc.numberOfMatches,
+                isUserAnonymous: Auth.auth().currentUser?.isAnonymous ?? false
               )
     
               return userProfile
               
           } else {
-            print("User does not exist")
+              self.userProfile = ProfileModel(
+                userId: Auth.auth().currentUser?.uid ?? "",
+                userName: "Usuário Anônimo",
+                userEmail: "Usuário Anônimo",
+                friends: [],
+                createdTime: Date(),
+                numberOfWins: 0,
+                averageScores: 0,
+                numberOfMatches: 0,
+                isUserAnonymous: Auth.auth().currentUser?.isAnonymous ?? true
+              )
+              
+              return userProfile
           }
         } catch {
           print("Error getting document: \(error)")
@@ -82,11 +95,6 @@ class UserRepository: ObservableObject {
         handle = Auth.auth().addStateDidChangeListener { (auth, user) in
             if auth.currentUser != nil {
                 self.createdTime = auth.currentUser?.metadata.creationDate ?? Date()
-                
-                if let email = auth.currentUser?.email {
-                    self.isUserAnonymous = false
-                }
-                
             } else {
                 print("USER NOT FOUND")
             }
@@ -134,7 +142,8 @@ class UserRepository: ObservableObject {
                             createdTime: Date(),
                             numberOfWins: 0,
                             averageScores: 0,
-                            numberOfMatches: 0
+                            numberOfMatches: 0,
+                            isUserAnonymous: false
                         )
                     )
                 }
@@ -184,7 +193,8 @@ class UserRepository: ObservableObject {
                             createdTime: Date(),
                             numberOfWins: 0,
                             averageScores: 0,
-                            numberOfMatches: 0
+                            numberOfMatches: 0,
+                            isUserAnonymous: false
                         )
                     )
                 }
@@ -214,7 +224,8 @@ class UserRepository: ObservableObject {
             createdTime: currentUser.createdTime,
             numberOfWins: currentUser.numberOfWins,
             averageScores: currentUser.averageScores,
-            numberOfMatches: currentUser.numberOfMatches
+            numberOfMatches: currentUser.numberOfMatches,
+            isUserAnonymous: false
         )
         
         do {
@@ -237,7 +248,8 @@ class UserRepository: ObservableObject {
             createdTime: currentUser.createdTime,
             numberOfWins: currentUser.numberOfWins,
             averageScores: currentUser.averageScores,
-            numberOfMatches: currentUser.numberOfMatches
+            numberOfMatches: currentUser.numberOfMatches,
+            isUserAnonymous: false
         )
         
         do {
@@ -255,16 +267,6 @@ class UserRepository: ObservableObject {
             ])
         }
     }
-    
-//    func removeFriend(friend: String) {
-//        if let userId = Auth.auth().currentUser?.uid {
-//            let friendRef = db.collection("User").document(userId)
-//            friendRef.updateData([
-//                "friendsName": FieldValue.arrayRemove([friend])
-//            ])
-//        }
-//    }
-    
     
     func updateRankingFriends(_ emailFriend:String, scoreFriend:Double) {
         db.collection("User")

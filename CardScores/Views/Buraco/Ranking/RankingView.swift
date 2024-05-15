@@ -5,6 +5,7 @@ import SwiftUI
 struct RankingView: View {
     @EnvironmentObject var userRepo: UserRepository
     @StateObject var buracoMatchVM = BuracoMatchViewModel()
+    @StateObject var userVM = UserViewModel()
     
     enum SelectRanking: String, CodingKey, CaseIterable {
         case particular = "Particular"
@@ -20,7 +21,7 @@ struct RankingView: View {
             ScrollView {
                 VStack {
                     MiniLogo()
-                    if userRepo.isUserAnonymous {
+                    if userVM.isUserAnonymous {
                         Text("Crie uma conta para ter")
                             .font(.headline)
                             .foregroundStyle(Color.white)

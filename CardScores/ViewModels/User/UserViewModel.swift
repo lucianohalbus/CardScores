@@ -22,7 +22,8 @@ class UserViewModel: ObservableObject {
             createdTime: Date(),
             numberOfWins: 0,
             averageScores: 0,
-            numberOfMatches: 0
+            numberOfMatches: 0,
+            isUserAnonymous: false
         )
 
     }
@@ -30,12 +31,12 @@ class UserViewModel: ObservableObject {
     @MainActor
     func getUser() async throws -> ProfileModel {
         guard let userID = Auth.auth().currentUser?.uid else {
-            self.isUserAnonymous = true
             throw URLError(.badServerResponse)
-            
         }
 
         self.userProfile = await userRepo.getUserList(userId: userID)
+        
+        self.isUserAnonymous = userProfile.isUserAnonymous
         
         return userProfile
 

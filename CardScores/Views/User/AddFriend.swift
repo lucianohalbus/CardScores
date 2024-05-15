@@ -83,7 +83,8 @@ struct AddFriend: View {
                 createdTime: Date(),
                 numberOfWins: 0,
                 averageScores: 0,
-                numberOfMatches: 0
+                numberOfMatches: 0,
+                isUserAnonymous: false
             )
         )
     )
