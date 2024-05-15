@@ -72,7 +72,7 @@ struct AddNewBuracoMatchView: View {
                             
                             Spacer()
                             
-                            Button("Iniciar", role: .destructive) {
+                            Button("Iniciar") {
                                 buracoMatchVM.add()
                             }
                             .font(.title3)
@@ -110,6 +110,15 @@ struct AddNewBuracoMatchView: View {
                         if newValue {
                             shouldCleanTeams = false
                         }
+                    }
+                    .alert(isPresented: $buracoMatchVM.showAlert) {
+                        Alert(
+                            title: Text(buracoMatchVM.alertMessage),
+                            message: Text(buracoMatchVM.alertSuggestion),
+                            dismissButton: .default(Text("OK")) {
+                                self.buracoMatchVM.showAlert = false
+                            }
+                        )
                     }
                 }
                 .onDisappear {

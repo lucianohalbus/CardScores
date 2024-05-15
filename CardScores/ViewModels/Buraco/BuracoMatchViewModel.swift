@@ -8,7 +8,9 @@ final class BuracoMatchViewModel: ObservableObject {
     @Published var matchesVM: [BuracoFBViewModel] = []
     @Published var rankingMatches: [BuracoFBViewModel] = []
     @Published var saved: Bool = false
-
+    @Published var alertMessage: String = ""
+    @Published var alertSuggestion: String = ""
+    @Published var showAlert: Bool = false
     @Published var addNewSaved: Bool = false
     @Published var userId: String = ""
     @Published var scoreOne: String = ""
@@ -141,20 +143,27 @@ final class BuracoMatchViewModel: ObservableObject {
     }
     
     func add() {
-        if let userId = Auth.auth().currentUser?.uid {
-            buracoRepo.add(match: MatchFB(scoreToWin: scoreToWin, playerOne: playerOne, playerTwo: playerTwo, playerThree: playerThree, playerFour: playerFour, finalScoreOne: "0", finalScoreTwo: "0", friendsId: [userId], myDate: Date(), registeredUser: false, docId: "", gameOver: false)) { result in
-                switch result {
-                case .success(let item):
-                if let item = item {
-                    self.createdItem = item
-                    
-                    DispatchQueue.main.async {
-                        self.addNewSaved = true
+        
+        if (playerOne.isEmpty && playerTwo.isEmpty) || (playerThree.isEmpty && playerFour.isEmpty) {
+            self.alertMessage = "Erro"
+            self.alertSuggestion = "Preencha pelos menos um jogador de cada dupla para iniciar a partida"
+            self.showAlert = true
+        } else {
+            if let userId = Auth.auth().currentUser?.uid {
+                buracoRepo.add(match: MatchFB(scoreToWin: scoreToWin, playerOne: playerOne, playerTwo: playerTwo, playerThree: playerThree, playerFour: playerFour, finalScoreOne: "0", finalScoreTwo: "0", friendsId: [userId], myDate: Date(), registeredUser: false, docId: "", gameOver: false)) { result in
+                    switch result {
+                    case .success(let item):
+                    if let item = item {
+                        self.createdItem = item
+                        
+                        DispatchQueue.main.async {
+                            self.addNewSaved = true
+                        }
                     }
-                }
-  
-                case .failure(let error):
-                    print(error.localizedDescription)
+      
+                    case .failure(let error):
+                        print(error.localizedDescription)
+                    }
                 }
             }
         }
