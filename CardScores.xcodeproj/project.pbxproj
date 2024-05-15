@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		CB1ACD5B2BBC2B0000E2C662 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = CB1ACD5A2BBC2B0000E2C662 /* FirebaseAppCheck */; };
 		CB1E488F2BF3C66D00F052ED /* FriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1E488E2BF3C66D00F052ED /* FriendsModel.swift */; };
+		CB1E48922BF4406000F052ED /* AddFriendDetent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1E48912BF4406000F052ED /* AddFriendDetent.swift */; };
 		CB36E23D2BBDC6A000323907 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB36E23C2BBDC6A000323907 /* GoogleService-Info.plist */; };
 		CB387F7E2BDFD5C8003EE27A /* copyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB387F7D2BDFD5C7003EE27A /* copyBoard.swift */; };
 		CB387F802BDFFDAC003EE27A /* SharingMatchesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB387F7F2BDFFDAC003EE27A /* SharingMatchesView.swift */; };
@@ -70,6 +71,7 @@
 
 /* Begin PBXFileReference section */
 		CB1E488E2BF3C66D00F052ED /* FriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsModel.swift; sourceTree = "<group>"; };
+		CB1E48912BF4406000F052ED /* AddFriendDetent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendDetent.swift; sourceTree = "<group>"; };
 		CB36E23C2BBDC6A000323907 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		CB387F7D2BDFD5C7003EE27A /* copyBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = copyBoard.swift; sourceTree = "<group>"; };
 		CB387F7F2BDFFDAC003EE27A /* SharingMatchesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingMatchesView.swift; sourceTree = "<group>"; };
@@ -143,6 +145,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CB1E48902BF4404200F052ED /* Detents */ = {
+			isa = PBXGroup;
+			children = (
+				CB1E48912BF4406000F052ED /* AddFriendDetent.swift */,
+			);
+			path = Detents;
+			sourceTree = "<group>";
+		};
 		CB416CF02BA35FB6005DF9F3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -328,6 +338,7 @@
 		CBD143422BAB11D1000FAA55 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				CB1E48902BF4404200F052ED /* Detents */,
 				CBD143432BAB11D1000FAA55 /* Camera */,
 			);
 			path = Components;
@@ -563,6 +574,7 @@
 				CB8A399C2BA7197400EFF71C /* Login.swift in Sources */,
 				CB8A39B02BA720BE00EFF71C /* ViewModifiers.swift in Sources */,
 				CB64FCE42BD159C700067744 /* AddFriend.swift in Sources */,
+				CB1E48922BF4406000F052ED /* AddFriendDetent.swift in Sources */,
 				CB416CF62BA35FB6005DF9F3 /* BuracoListView.swift in Sources */,
 				CB8A39A72BA71B3C00EFF71C /* UserModel.swift in Sources */,
 				CBB072602BD687920026CA4E /* LinkAccountView.swift in Sources */,

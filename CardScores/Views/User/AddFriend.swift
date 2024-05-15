@@ -11,13 +11,20 @@ struct AddFriend: View {
     var body: some View {
         ZStack {
             VStack {
+                
+                Group {
+                    Text("Cole abaixo o ID do usuário que")
+                    Text("deseja adicionar à sua lista de amigos")
+                }
+                .foregroundColor(Color.white)
+                
                 TextField("Nome: ", text: $friendId)
                     .padding(5)
                     .frame(maxWidth: .infinity)
                     .frame(height: 50)
                     .background(Color.textViewBackgroundColor)
                     .cornerRadius(10)
-                    .font(.title)
+                    .font(.callout)
                     .multilineTextAlignment(TextAlignment.leading)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)

@@ -14,8 +14,7 @@ struct ProfileView: View {
     @Binding var showLoginView: Bool
     @Binding var path: [MainNavigation]
     @State var isUserLinked: Bool = false
-    @State var currentUser: ProfileModel =
-    ProfileModel(
+    @State var currentUser: ProfileModel = ProfileModel(
         userId: "",
         userName: "",
         userEmail: "",
@@ -99,7 +98,7 @@ struct ProfileView: View {
                     }
                 }) {
                     AddFriend(currentUser: $currentUser)
-                        .presentationDetents([.medium])
+                        .presentationDetents([.custom(AddFriendDetent.self)])
                 }
                 .onChange(of: isUserLinked) { newValue in
                     if newValue {
@@ -358,11 +357,11 @@ struct ProfileView: View {
     }
     
     func copyToClipboard() {
-   //     let text: String = userRepo.user.userId.description ?? "Usuário Anônimo"
-     //   pasteboard.string = text
+        let text: String = currentUser.userId
+        pasteboard.string = text
         
         self.buttonText = ""
-        // self.text = "" // clear the text after copy
+       // self.text = "" // clear the text after copy
         DispatchQueue.main.async {
             self.buttonText = "Copied!"
         }

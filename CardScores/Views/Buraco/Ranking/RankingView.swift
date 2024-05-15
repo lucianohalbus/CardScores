@@ -7,10 +7,28 @@ struct RankingView: View {
     @StateObject var buracoMatchVM = BuracoMatchViewModel()
     @StateObject var userVM = UserViewModel()
     
+    @State var currentUser: ProfileModel = ProfileModel(
+        userId: "",
+        userName: "",
+        userEmail: "",
+        friends: [
+            FriendsModel(
+                friendId: "",
+                friendEmail: "",
+                friendName: ""
+            )
+        ],
+        createdTime: Date(),
+        numberOfWins: 0,
+        averageScores: 0,
+        numberOfMatches: 0,
+        isUserAnonymous: false
+    )
+    
     enum SelectRanking: String, CodingKey, CaseIterable {
         case particular = "Particular"
         case general = "Geral"
-        case group = "Grupo"
+      //  case group = "Grupo"
     }
     
     @State var selectedRanking: SelectRanking = .particular
@@ -21,7 +39,8 @@ struct RankingView: View {
             ScrollView {
                 VStack {
                     MiniLogo()
-                    if userVM.isUserAnonymous {
+                    
+                    if currentUser.isUserAnonymous {
                         Text("Crie uma conta para ter")
                             .font(.headline)
                             .foregroundStyle(Color.white)
@@ -74,8 +93,8 @@ struct RankingView: View {
                                 .padding(.bottom, 10)
                             
                             teamGeneralRanking
-                        case .group:
-                            groupRanking
+//                        case .group:
+//                            groupRanking
                         }
                     }
                     
@@ -85,11 +104,14 @@ struct RankingView: View {
         }
         .background(Color.cardColor)
         .onAppear {
-      //      userRepo.getUser()
             buracoMatchVM.getMatches()
             buracoMatchVM.getAllMatches()
+            
+            Task {
+                self.currentUser = try await userVM.getUser()
+            }
         }
-        
+ 
     }
     
     var playerRanking: some View {
