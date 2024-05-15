@@ -28,7 +28,7 @@ struct RankingView: View {
     enum SelectRanking: String, CodingKey, CaseIterable {
         case particular = "Particular"
         case general = "Geral"
-      //  case group = "Grupo"
+        //  case group = "Grupo"
     }
     
     @State var selectedRanking: SelectRanking = .particular
@@ -93,11 +93,10 @@ struct RankingView: View {
                                 .padding(.bottom, 10)
                             
                             teamGeneralRanking
-//                        case .group:
-//                            groupRanking
+                            //                        case .group:
+                            //                            groupRanking
                         }
                     }
-                    
                 }
                 .frame(maxWidth: .infinity)
             }
@@ -111,167 +110,183 @@ struct RankingView: View {
                 self.currentUser = try await userVM.getUser()
             }
         }
- 
     }
     
     var playerRanking: some View {
         VStack {
-            HStack {
-                Text("Ranking Individual")
-                    .foregroundStyle(.white)
+            if buracoMatchVM.getPlayersRanking(matches: buracoMatchVM.matchesVM).count < 1 {
+                Text("Finalize pelo menos uma partida")
                     .font(.headline)
-                    .fontWeight(.semibold)
-            }
-            
-            ScrollView {
-                HStack {
-                    VStack {
-                        Text("")
-                    }
-                    .frame(width: 20, alignment: .leading)
-                    
-                    VStack {
-                        Text("Nome")
-                    }
-                    .frame(width: 150, alignment: .leading)
-                    
-                    VStack {
-                        Text("Wins")
-                    }
-                    .frame(width: 35, alignment: .center)
-                    
-                    VStack {
-                        Text("Matches")
-                    }
-                    .frame(width: 60, alignment: .center)
-                    
-                    VStack {
-                        Text("Rating")
-                    }
-                    .frame(width: 55, alignment: .center)
-                }
-                .font(.caption)
-                .foregroundColor(.black)
-                .padding(.horizontal, 5)
+                    .foregroundStyle(Color.white)
+                    .padding(.top, 10)
                 
-                ForEach(Array(buracoMatchVM.getPlayersRanking(matches: buracoMatchVM.matchesVM).enumerated()).prefix(10), id: \.element.id) { index, player in
-                    if player.numberOfMatches > 0 {
-                        HStack {
-                            VStack {
-                                Text("\(index+1)")
-                            }
-                            .frame(width: 20, alignment: .leading)
-                            
-                            VStack {
-                                Text("\(player.player)")
-                            }
-                            .frame(width: 150, alignment: .leading)
-                            
-                            VStack {
-                                Text("\(player.numberofWins)")
-                            }
-                            .frame(width: 35, alignment: .center)
-                            
-                            VStack {
-                                Text("\(player.numberOfMatches)")
-                            }
-                            .frame(width: 60, alignment: .center)
-                            
-                            VStack {
-                                Text("\(getRating(wins: player.numberofWins, matches: player.numberOfMatches), specifier: "%.2f")")
-                            }
-                            .frame(width: 55, alignment: .center)
+                Text("para ter acesso ao ranking")
+                    .font(.headline)
+                    .foregroundStyle(Color.white)
+                    .padding(.bottom, 20)
+                
+            } else {
+                
+                HStack {
+                    Text("Ranking Individual")
+                        .foregroundStyle(.white)
+                        .font(.headline)
+                        .fontWeight(.semibold)
+                }
+                
+                ScrollView {
+                    HStack {
+                        VStack {
+                            Text("")
                         }
-                        .font(.caption)
-                        .foregroundStyle(getRankingColor(index: index+1))
-                        .fontWeight(index == 0 ? .bold : .regular)
-                        .padding(.horizontal, 5)
+                        .frame(width: 20, alignment: .leading)
+                        
+                        VStack {
+                            Text("Nome")
+                        }
+                        .frame(width: 150, alignment: .leading)
+                        
+                        VStack {
+                            Text("Wins")
+                        }
+                        .frame(width: 35, alignment: .center)
+                        
+                        VStack {
+                            Text("Matches")
+                        }
+                        .frame(width: 60, alignment: .center)
+                        
+                        VStack {
+                            Text("Rating")
+                        }
+                        .frame(width: 55, alignment: .center)
+                    }
+                    .font(.caption)
+                    .foregroundColor(.black)
+                    .padding(.horizontal, 5)
+                    
+                    ForEach(Array(buracoMatchVM.getPlayersRanking(matches: buracoMatchVM.matchesVM).enumerated()).prefix(10), id: \.element.id) { index, player in
+                        if player.numberOfMatches > 0 {
+                            HStack {
+                                VStack {
+                                    Text("\(index+1)")
+                                }
+                                .frame(width: 20, alignment: .leading)
+                                
+                                VStack {
+                                    Text("\(player.player)")
+                                }
+                                .frame(width: 150, alignment: .leading)
+                                
+                                VStack {
+                                    Text("\(player.numberofWins)")
+                                }
+                                .frame(width: 35, alignment: .center)
+                                
+                                VStack {
+                                    Text("\(player.numberOfMatches)")
+                                }
+                                .frame(width: 60, alignment: .center)
+                                
+                                VStack {
+                                    Text("\(getRating(wins: player.numberofWins, matches: player.numberOfMatches), specifier: "%.2f")")
+                                }
+                                .frame(width: 55, alignment: .center)
+                            }
+                            .font(.caption)
+                            .foregroundStyle(getRankingColor(index: index+1))
+                            .fontWeight(index == 0 ? .bold : .regular)
+                            .padding(.horizontal, 5)
+                        }
                     }
                 }
+                .background(Color.mainButtonColor)
+                .cornerRadius(10)
+                .frame(height: 165)
             }
-            .background(Color.mainButtonColor)
-            .cornerRadius(10)
         }
     }
     
     var teamRanking: some View {
         VStack {
-            HStack {
-                Text("Ranking de Duplas")
-                    .foregroundStyle(.white)
-                    .font(.headline)
-                    .fontWeight(.semibold)
-                
-            }
-            
-            ScrollView {
+            if buracoMatchVM.getPlayersRanking(matches: buracoMatchVM.matchesVM).count > 0 {
                 HStack {
-                    VStack {
-                        Text("")
-                    }
-                    .frame(width: 20, alignment: .leading)
-                    
-                    VStack {
-                        Text("Dupla")
-                    }
-                    .frame(width: 150, alignment: .leading)
-                    
-                    VStack {
-                        Text("Wins")
-                    }
-                    .frame(width: 35, alignment: .center)
-                    
-                    VStack {
-                        Text("Matches")
-                    }
-                    .frame(width: 60, alignment: .center)
-                    
-                    VStack {
-                        Text("Rating")
-                    }
-                    .frame(width: 55, alignment: .center)
+                    Text("Ranking de Duplas")
+                        .foregroundStyle(.white)
+                        .font(.headline)
+                        .fontWeight(.semibold)
                 }
-                .font(.caption)
-                .foregroundColor(.black)
-                .padding(.horizontal, 5)
                 
-                ForEach(Array(buracoMatchVM.getTeamsRanking(matches: buracoMatchVM.matchesVM).enumerated()).prefix(10), id: \.element.id) { index, team in
-                    if team.numberOfMatches > 0 {
-                        HStack {
-                            VStack {
-                                Text("\(index+1)")
-                            }
-                            .frame(width: 20, alignment: .leading)
-                            
-                            VStack {
-                                Text("\(team.playerOne) / \(team.playerTwo)")
-                            }
-                            .frame(width: 150, alignment: .leading)
-                            
-                            VStack {
-                                Text(team.numberofWins.description)
-                            }
-                            .frame(width: 35, alignment: .center)
-                            
-                            VStack {
-                                Text(team.numberOfMatches.description)
-                            }
-                            .frame(width: 60, alignment: .center)
-                            
-                            VStack {
-                                Text("\(team.rating, specifier: "%.2f")")
-                            }
-                            .frame(width: 55, alignment: .center)
+                ScrollView {
+                    HStack {
+                        VStack {
+                            Text("")
                         }
-                        .font(.caption)
-                        .foregroundStyle(getRankingColor(index: index+1))
-                        .fontWeight(index == 0 ? .bold : .regular)
-                        .padding(.horizontal, 5)
+                        .frame(width: 20, alignment: .leading)
+                        
+                        VStack {
+                            Text("Dupla")
+                        }
+                        .frame(width: 150, alignment: .leading)
+                        
+                        VStack {
+                            Text("Wins")
+                        }
+                        .frame(width: 35, alignment: .center)
+                        
+                        VStack {
+                            Text("Matches")
+                        }
+                        .frame(width: 60, alignment: .center)
+                        
+                        VStack {
+                            Text("Rating")
+                        }
+                        .frame(width: 55, alignment: .center)
+                    }
+                    .font(.caption)
+                    .foregroundColor(.black)
+                    .padding(.horizontal, 5)
+                    
+                    ForEach(Array(buracoMatchVM.getTeamsRanking(matches: buracoMatchVM.matchesVM).enumerated()).prefix(10), id: \.element.id) { index, team in
+                        if team.numberOfMatches > 0 {
+                            HStack {
+                                VStack {
+                                    Text("\(index+1)")
+                                }
+                                .frame(width: 20, alignment: .leading)
+                                
+                                VStack {
+                                    Text("\(team.playerOne) / \(team.playerTwo)")
+                                }
+                                .frame(width: 150, alignment: .leading)
+                                
+                                VStack {
+                                    Text(team.numberofWins.description)
+                                }
+                                .frame(width: 35, alignment: .center)
+                                
+                                VStack {
+                                    Text(team.numberOfMatches.description)
+                                }
+                                .frame(width: 60, alignment: .center)
+                                
+                                VStack {
+                                    Text("\(team.rating, specifier: "%.2f")")
+                                }
+                                .frame(width: 55, alignment: .center)
+                            }
+                            .font(.caption)
+                            .foregroundStyle(getRankingColor(index: index+1))
+                            .fontWeight(index == 0 ? .bold : .regular)
+                            .padding(.horizontal, 5)
+                        }
                     }
                 }
+                .background(Color.mainButtonColor)
+                .cornerRadius(10)
+                .frame(height: 165)
             }
-            .background(Color.mainButtonColor)
-            .cornerRadius(10)
         }
     }
     
@@ -352,6 +367,7 @@ struct RankingView: View {
             }
             .background(Color.mainButtonColor)
             .cornerRadius(10)
+            .frame(height: 165)
         }
     }
     
@@ -432,13 +448,12 @@ struct RankingView: View {
             }
             .background(Color.mainButtonColor)
             .cornerRadius(10)
+            .frame(height: 165)
         }
     }
-    
-    
+
     var groupRanking: some View {
         VStack {
-            
             ScrollView {
                 ForEach(userRepo.userModel) { friend in
                     Button {
@@ -449,8 +464,6 @@ struct RankingView: View {
                     }
                 }
             }
-            
-            
         }
     }
     
@@ -467,7 +480,6 @@ struct RankingView: View {
             return Color.black
         }
     }
-    
 }
 
 #Preview {
