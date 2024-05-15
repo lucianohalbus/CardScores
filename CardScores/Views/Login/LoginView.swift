@@ -34,13 +34,12 @@ struct LoginView: View {
                 .padding(.bottom, 20)
                 
                 Button(action: {
-                    guard !loginVM.email.isEmpty else {
+                    guard !email.isEmpty else {
                         showResetEmailAlert = true
-                        print(showResetEmailAlert)
                         return
                     }
                     
-                    loginVM.resetPassword(email: loginVM.email)
+                    loginVM.resetPassword(email: email)
                     
                 }) {
                     VStack {

@@ -5,6 +5,33 @@ import SwiftUI
 struct RankingView: View {
     @EnvironmentObject var userRepo: UserRepository
     @StateObject var buracoMatchVM = BuracoMatchViewModel()
+    @StateObject var userVM = UserViewModel()
+    
+    @State var currentUser: ProfileModel = ProfileModel(
+        userId: "",
+        userName: "",
+        userEmail: "",
+        friends: [
+            FriendsModel(
+                friendId: "",
+                friendEmail: "",
+                friendName: ""
+            )
+        ],
+        createdTime: Date(),
+        numberOfWins: 0,
+        averageScores: 0,
+        numberOfMatches: 0,
+        isUserAnonymous: false
+    )
+    
+    enum SelectRanking: String, CodingKey, CaseIterable {
+        case particular = "Particular"
+        case general = "Geral"
+      //  case group = "Grupo"
+    }
+    
+    @State var selectedRanking: SelectRanking = .particular
     
     var body: some View {
         
@@ -12,7 +39,8 @@ struct RankingView: View {
             ScrollView {
                 VStack {
                     MiniLogo()
-                    if userRepo.isUserAnonymous {
+                    
+                    if currentUser.isUserAnonymous {
                         Text("Crie uma conta para ter")
                             .font(.headline)
                             .foregroundStyle(Color.white)
@@ -40,10 +68,34 @@ struct RankingView: View {
                         
                     } else {
                         
-                        playerRanking
-                            .padding(.bottom, 20)
+                        Picker("Select Ranking", selection: $selectedRanking) {
+                            ForEach(SelectRanking.allCases, id: \.self) {
+                                Text($0.rawValue)
+                            }
+                        }
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .background(Color.green)
+                        .cornerRadius(10)
+                        .padding(.horizontal, 35)
+                        .padding(.bottom, 20)
+                        .pickerStyle(.segmented)
                         
-                        teamRanking
+                        switch self.selectedRanking {
+                        case .particular:
+                            playerRanking
+                                .padding(.bottom, 10)
+                            
+                            teamRanking
+                            
+                        case .general:
+                            playerGeneralRanking
+                                .padding(.bottom, 10)
+                            
+                            teamGeneralRanking
+//                        case .group:
+//                            groupRanking
+                        }
                     }
                     
                 }
@@ -52,13 +104,14 @@ struct RankingView: View {
         }
         .background(Color.cardColor)
         .onAppear {
-            userRepo.getUser()
             buracoMatchVM.getMatches()
+            buracoMatchVM.getAllMatches()
+            
+            Task {
+                self.currentUser = try await userVM.getUser()
+            }
         }
-        .onChange(of: buracoMatchVM.matchesVM) { newValue in
-            buracoMatchVM.getTeamsRanking(friends: userRepo.listOfFriends, matches: buracoMatchVM.matchesVM)
-        }
-        
+ 
     }
     
     var playerRanking: some View {
@@ -68,7 +121,6 @@ struct RankingView: View {
                     .foregroundStyle(.white)
                     .font(.headline)
                     .fontWeight(.semibold)
-                
             }
             
             ScrollView {
@@ -102,8 +154,8 @@ struct RankingView: View {
                 .foregroundColor(.black)
                 .padding(.horizontal, 5)
                 
-                ForEach(Array(getPlayerRanking().enumerated()), id: \.element.id) { index, friend in
-                    if friend.matches > 0 {
+                ForEach(Array(buracoMatchVM.getPlayersRanking(matches: buracoMatchVM.matchesVM).enumerated()).prefix(10), id: \.element.id) { index, player in
+                    if player.numberOfMatches > 0 {
                         HStack {
                             VStack {
                                 Text("\(index+1)")
@@ -111,22 +163,22 @@ struct RankingView: View {
                             .frame(width: 20, alignment: .leading)
                             
                             VStack {
-                                Text("\(friend.name)")
+                                Text("\(player.player)")
                             }
                             .frame(width: 150, alignment: .leading)
                             
                             VStack {
-                                Text("\(friend.wins)")
+                                Text("\(player.numberofWins)")
                             }
                             .frame(width: 35, alignment: .center)
                             
                             VStack {
-                                Text("\(friend.matches)")
+                                Text("\(player.numberOfMatches)")
                             }
                             .frame(width: 60, alignment: .center)
                             
                             VStack {
-                                Text("\(getRating(wins: friend.wins, matches: friend.matches), specifier: "%.2f")")
+                                Text("\(getRating(wins: player.numberofWins, matches: player.numberOfMatches), specifier: "%.2f")")
                             }
                             .frame(width: 55, alignment: .center)
                         }
@@ -183,7 +235,7 @@ struct RankingView: View {
                 .foregroundColor(.black)
                 .padding(.horizontal, 5)
                 
-                ForEach(Array(buracoMatchVM.getTeamsRanking(friends: userRepo.listOfFriends, matches: buracoMatchVM.matchesVM).enumerated()), id: \.element.id) { index, team in
+                ForEach(Array(buracoMatchVM.getTeamsRanking(matches: buracoMatchVM.matchesVM).enumerated()).prefix(10), id: \.element.id) { index, team in
                     if team.numberOfMatches > 0 {
                         HStack {
                             VStack {
@@ -223,6 +275,184 @@ struct RankingView: View {
         }
     }
     
+    var playerGeneralRanking: some View {
+        VStack {
+            HStack {
+                Text("Ranking Individual Geral")
+                    .foregroundStyle(.white)
+                    .font(.headline)
+                    .fontWeight(.semibold)
+            }
+            
+            ScrollView {
+                HStack {
+                    VStack {
+                        Text("")
+                    }
+                    .frame(width: 20, alignment: .leading)
+                    
+                    VStack {
+                        Text("Nome")
+                    }
+                    .frame(width: 150, alignment: .leading)
+                    
+                    VStack {
+                        Text("Wins")
+                    }
+                    .frame(width: 35, alignment: .center)
+                    
+                    VStack {
+                        Text("Matches")
+                    }
+                    .frame(width: 60, alignment: .center)
+                    
+                    VStack {
+                        Text("Rating")
+                    }
+                    .frame(width: 55, alignment: .center)
+                }
+                .font(.caption)
+                .foregroundColor(.black)
+                .padding(.horizontal, 5)
+                
+                ForEach(Array(buracoMatchVM.getGeneralPlayersRanking(matches: buracoMatchVM.rankingMatches).enumerated()).prefix(10), id: \.element.id) { index, player in
+                    if player.numberOfMatches > 0 {
+                        HStack {
+                            VStack {
+                                Text("\(index+1)")
+                            }
+                            .frame(width: 20, alignment: .leading)
+                            
+                            VStack {
+                                Text("\(player.player)")
+                            }
+                            .frame(width: 150, alignment: .leading)
+                            
+                            VStack {
+                                Text("\(player.numberofWins)")
+                            }
+                            .frame(width: 35, alignment: .center)
+                            
+                            VStack {
+                                Text("\(player.numberOfMatches)")
+                            }
+                            .frame(width: 60, alignment: .center)
+                            
+                            VStack {
+                                Text("\(getRating(wins: player.numberofWins, matches: player.numberOfMatches), specifier: "%.2f")")
+                            }
+                            .frame(width: 55, alignment: .center)
+                        }
+                        .font(.caption)
+                        .foregroundStyle(getRankingColor(index: index+1))
+                        .fontWeight(index == 0 ? .bold : .regular)
+                        .padding(.horizontal, 5)
+                    }
+                }
+            }
+            .background(Color.mainButtonColor)
+            .cornerRadius(10)
+        }
+    }
+    
+    var teamGeneralRanking: some View {
+        VStack {
+            HStack {
+                Text("Ranking de Duplas Geral")
+                    .foregroundStyle(.white)
+                    .font(.headline)
+                    .fontWeight(.semibold)
+            }
+            
+            ScrollView {
+                HStack {
+                    VStack {
+                        Text("")
+                    }
+                    .frame(width: 20, alignment: .leading)
+                    
+                    VStack {
+                        Text("Dupla")
+                    }
+                    .frame(width: 150, alignment: .leading)
+                    
+                    VStack {
+                        Text("Wins")
+                    }
+                    .frame(width: 35, alignment: .center)
+                    
+                    VStack {
+                        Text("Matches")
+                    }
+                    .frame(width: 60, alignment: .center)
+                    
+                    VStack {
+                        Text("Rating")
+                    }
+                    .frame(width: 55, alignment: .center)
+                }
+                .font(.caption)
+                .foregroundColor(.black)
+                .padding(.horizontal, 5)
+                
+                ForEach(Array(buracoMatchVM.getGeneralTeamsRanking(matches: buracoMatchVM.rankingMatches).enumerated()).prefix(10), id: \.element.id) { index, team in
+                    if team.numberOfMatches > 0 {
+                        HStack {
+                            VStack {
+                                Text("\(index+1)")
+                            }
+                            .frame(width: 20, alignment: .leading)
+                            
+                            VStack {
+                                Text("\(team.playerOne) / \(team.playerTwo)")
+                            }
+                            .frame(width: 150, alignment: .leading)
+                            
+                            VStack {
+                                Text(team.numberofWins.description)
+                            }
+                            .frame(width: 35, alignment: .center)
+                            
+                            VStack {
+                                Text(team.numberOfMatches.description)
+                            }
+                            .frame(width: 60, alignment: .center)
+                            
+                            VStack {
+                                Text("\(team.rating, specifier: "%.2f")")
+                            }
+                            .frame(width: 55, alignment: .center)
+                        }
+                        .font(.caption)
+                        .foregroundStyle(getRankingColor(index: index+1))
+                        .fontWeight(index == 0 ? .bold : .regular)
+                        .padding(.horizontal, 5)
+                    }
+                }
+            }
+            .background(Color.mainButtonColor)
+            .cornerRadius(10)
+        }
+    }
+    
+    
+    var groupRanking: some View {
+        VStack {
+            
+            ScrollView {
+                ForEach(userRepo.userModel) { friend in
+                    Button {
+                        print(friend.userEmail)
+                    } label: {
+                        Text(friend.userName)
+                            .foregroundStyle(.white)
+                    }
+                }
+            }
+            
+            
+        }
+    }
     
     func getRankingColor(index: Int) -> Color {
         switch index {

@@ -5,5 +5,6 @@ import Foundation
 struct Constants {
     static let matches = "scoresModel"
     static let turns = "Turns"
+    static let userList = "UserList"
    
 }

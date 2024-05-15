@@ -14,6 +14,7 @@ struct UserModel: Identifiable, Codable {
     let friendsMail: [String]
     let friendsName: [String]
     
+    
     init(id: String?, userName: String, userEmail: String, userId: String?, numberOfWins: Int64, averageScores: Int64, numberOfMatches: Int64, friendsMail: [String], friendsName: [String]) {
         self.id = id
         self.userName = userName

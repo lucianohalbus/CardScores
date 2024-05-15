@@ -5,51 +5,64 @@ import Firebase
 
 class UserViewModel: ObservableObject {
     
-    @Published var userRepository = UserRepository()
-    @Published var userName: String
-    @Published var userEmail: String
-    @Published var userId: String
-    @Published var averageScores: Int64
-    @Published var friendsMail: [String]
-    @Published var friendsName: [String]
-    @Published var numberOfMatches: Int64
-    @Published var numberOfWins: Int64
+    @Published var userRepo: UserRepository
+    @Published var userProfile: ProfileModel
+    @Published var isUserAnonymous: Bool = false
+    @Published var userUpdated: Bool = false
     
     init() {
+        
+        userRepo = UserRepository()
 
-        userName = ""
-        userEmail = ""
-        userId = ""
-        friendsMail = [""]
-        friendsName = [""]
-        numberOfWins = 0
-        numberOfMatches = 0
-        averageScores = 0
+        userProfile = ProfileModel(
+            userId: "",
+            userName: "",
+            userEmail: "",
+            friends: [FriendsModel(friendId: "", friendEmail: "", friendName: "")],
+            createdTime: Date(),
+            numberOfWins: 0,
+            averageScores: 0,
+            numberOfMatches: 0,
+            isUserAnonymous: false
+        )
 
-    }
-
-    func addUsers(_ userModel: UserModel) {
-        userRepository.addUser(userModel)
-    }
-    
-    var isSignedIn: Bool {
-        return Auth.auth().currentUser != nil
     }
     
-    func addFriends(friend: String) {
-        userRepository.addFriend(friend: friend)
+    @MainActor
+    func getUser() async throws -> ProfileModel {
+        guard let userID = Auth.auth().currentUser?.uid else {
+            throw URLError(.badServerResponse)
         }
-    
-    func addWin(_ d: Double, _ friend:String) {
-        userRepository.updateWin(1.0, friend)
-    }
-    
-    func addMatches(_ d: Double, _ friend:String) {
-        userRepository.updateMatches(1.0, friend)
-    }
 
-    func addAverageScores(_ score:Int64, _ friend:String) {
-        userRepository.updateScores(score, friend)
+        self.userProfile = await userRepo.getUserList(userId: userID)
+        
+        self.isUserAnonymous = userProfile.isUserAnonymous
+        
+        return userProfile
+
+    }
+    
+    func addFriends(friendId: String, currentUser: ProfileModel) async {
+        
+        let userFriend: ProfileModel = await userRepo.getUserList(userId: friendId)
+        
+        let friendModel: FriendsModel = FriendsModel(
+            friendId: userFriend.userId,
+            friendEmail: userFriend.userEmail,
+            friendName: userFriend.userName
+        )
+        
+        userRepo.addFriend(friend: friendModel, currentUser: currentUser)
+
+    }
+    
+    func removeFriends(friend: FriendsModel, currentUser: ProfileModel) async {
+        let friendRemoved: Bool = userRepo.removeFriend(friend: friend, currentUser: currentUser)
+        
+        if friendRemoved {
+            self.userUpdated = true
+        }
+
     }
     
 }

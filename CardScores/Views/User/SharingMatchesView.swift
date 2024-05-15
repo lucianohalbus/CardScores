@@ -2,29 +2,22 @@
 
 import SwiftUI
 
-struct AddFriend: View {
+struct SharingMatchesView: View {
     @Environment(\.dismiss) private var dismiss
-    @StateObject var userVM = UserViewModel()
+    @StateObject var buracoMatchVM = BuracoMatchViewModel()
     @State var friendId: String = ""
-    @Binding var currentUser: ProfileModel
+    var userName: String
     
     var body: some View {
         ZStack {
             VStack {
-                
-                Group {
-                    Text("Cole abaixo o ID do usuário que")
-                    Text("deseja adicionar à sua lista de amigos")
-                }
-                .foregroundColor(Color.white)
-                
-                TextField("Nome: ", text: $friendId)
+                TextField("ID: ", text: $friendId)
                     .padding(5)
                     .frame(maxWidth: .infinity)
                     .frame(height: 50)
                     .background(Color.textViewBackgroundColor)
                     .cornerRadius(10)
-                    .font(.callout)
+                    .font(.title)
                     .multilineTextAlignment(TextAlignment.leading)
                     .overlay(
                         RoundedRectangle(cornerRadius: 10)
@@ -49,9 +42,7 @@ struct AddFriend: View {
                     
                     Button("Save") {
                         if !friendId.isEmpty {
-                            Task {
-                                await userVM.addFriends(friendId: friendId, currentUser: currentUser)
-                            }
+                            buracoMatchVM.shareMatches(friendsId: friendId, userName: userName)
                         }
                         
                         dismiss()
@@ -73,26 +64,5 @@ struct AddFriend: View {
 }
 
 #Preview {
-    AddFriend(
-        friendId: "",
-        currentUser: .constant(
-            ProfileModel(
-                userId: "",
-                userName: "",
-                userEmail: "",
-                friends: [
-                    FriendsModel(
-                        friendId: "",
-                        friendEmail: "",
-                        friendName: ""
-                    )
-                ],
-                createdTime: Date(),
-                numberOfWins: 0,
-                averageScores: 0,
-                numberOfMatches: 0,
-                isUserAnonymous: false
-            )
-        )
-    )
+    SharingMatchesView(userName: "")
 }

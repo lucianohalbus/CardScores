@@ -292,3 +292,7 @@ struct BuracoMatchView: View {
     }
     
 }
+
+#Preview {
+    BuracoMatchView(matchFB: BuracoFBViewModel(matchFB: MatchFB(scoreToWin: "", playerOne: "", playerTwo: "", playerThree: "", playerFour: "", finalScoreOne: "", finalScoreTwo: "", friendsId: [""], myDate: Date(), registeredUser: false, docId: "", gameOver: false)))
+}

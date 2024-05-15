@@ -39,7 +39,6 @@ struct BuracoListView: View {
                             VStack {
                                 List {
                                     ForEach(buracoMatchVM.matchesVM) { matchFB in
-                                        
                                         Button(action: {
                                             self.buracoMatchVM.createdItem = MatchFB(
                                                 id: matchFB.id,
@@ -81,11 +80,11 @@ struct BuracoListView: View {
                                     switch view {
                                     case .child:
                                         BuracoMatchView(matchFB: BuracoFBViewModel(
-                                            matchFB: buracoMatchVM.createdItem
-                                        ))
+                                            matchFB: buracoMatchVM.createdItem))
                                     default:
                                         EmptyView()
                                     }
+                                    
                                 }
                             }
                             .scrollContentBackground(.hidden)

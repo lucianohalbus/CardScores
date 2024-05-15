@@ -8,7 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		CB1ACD5B2BBC2B0000E2C662 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = CB1ACD5A2BBC2B0000E2C662 /* FirebaseAppCheck */; };
+		CB1E488F2BF3C66D00F052ED /* FriendsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1E488E2BF3C66D00F052ED /* FriendsModel.swift */; };
+		CB1E48922BF4406000F052ED /* AddFriendDetent.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB1E48912BF4406000F052ED /* AddFriendDetent.swift */; };
 		CB36E23D2BBDC6A000323907 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = CB36E23C2BBDC6A000323907 /* GoogleService-Info.plist */; };
+		CB387F7E2BDFD5C8003EE27A /* copyBoard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB387F7D2BDFD5C7003EE27A /* copyBoard.swift */; };
+		CB387F802BDFFDAC003EE27A /* SharingMatchesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB387F7F2BDFFDAC003EE27A /* SharingMatchesView.swift */; };
+		CB387F822BE00C97003EE27A /* PlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB387F812BE00C97003EE27A /* PlayerModel.swift */; };
 		CB416CF62BA35FB6005DF9F3 /* BuracoListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB416CF32BA35FB6005DF9F3 /* BuracoListView.swift */; };
 		CB416CF82BA37924005DF9F3 /* BuracoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB416CF72BA37924005DF9F3 /* BuracoCardView.swift */; };
 		CB416CFA2BA37A77005DF9F3 /* BuracoMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB416CF92BA37A77005DF9F3 /* BuracoMatchView.swift */; };
@@ -65,7 +70,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CB1E488E2BF3C66D00F052ED /* FriendsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsModel.swift; sourceTree = "<group>"; };
+		CB1E48912BF4406000F052ED /* AddFriendDetent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddFriendDetent.swift; sourceTree = "<group>"; };
 		CB36E23C2BBDC6A000323907 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		CB387F7D2BDFD5C7003EE27A /* copyBoard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = copyBoard.swift; sourceTree = "<group>"; };
+		CB387F7F2BDFFDAC003EE27A /* SharingMatchesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharingMatchesView.swift; sourceTree = "<group>"; };
+		CB387F812BE00C97003EE27A /* PlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayerModel.swift; sourceTree = "<group>"; };
 		CB416CF32BA35FB6005DF9F3 /* BuracoListView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuracoListView.swift; sourceTree = "<group>"; };
 		CB416CF72BA37924005DF9F3 /* BuracoCardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuracoCardView.swift; sourceTree = "<group>"; };
 		CB416CF92BA37A77005DF9F3 /* BuracoMatchView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BuracoMatchView.swift; sourceTree = "<group>"; };
@@ -135,6 +145,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		CB1E48902BF4404200F052ED /* Detents */ = {
+			isa = PBXGroup;
+			children = (
+				CB1E48912BF4406000F052ED /* AddFriendDetent.swift */,
+			);
+			path = Detents;
+			sourceTree = "<group>";
+		};
 		CB416CF02BA35FB6005DF9F3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
@@ -179,6 +197,8 @@
 			isa = PBXGroup;
 			children = (
 				CB64FCE32BD159C700067744 /* AddFriend.swift */,
+				CB387F7D2BDFD5C7003EE27A /* copyBoard.swift */,
+				CB387F7F2BDFFDAC003EE27A /* SharingMatchesView.swift */,
 			);
 			name = SubViews;
 			sourceTree = "<group>";
@@ -229,6 +249,8 @@
 				CB8A39A62BA71B3C00EFF71C /* UserModel.swift */,
 				CB64FCB52BC87BFF00067744 /* ProfileModel.swift */,
 				CB64FCE72BD213AD00067744 /* IndividualRanking.swift */,
+				CB387F812BE00C97003EE27A /* PlayerModel.swift */,
+				CB1E488E2BF3C66D00F052ED /* FriendsModel.swift */,
 			);
 			path = User;
 			sourceTree = "<group>";
@@ -316,6 +338,7 @@
 		CBD143422BAB11D1000FAA55 /* Components */ = {
 			isa = PBXGroup;
 			children = (
+				CB1E48902BF4404200F052ED /* Detents */,
 				CBD143432BAB11D1000FAA55 /* Camera */,
 			);
 			path = Components;
@@ -551,11 +574,13 @@
 				CB8A399C2BA7197400EFF71C /* Login.swift in Sources */,
 				CB8A39B02BA720BE00EFF71C /* ViewModifiers.swift in Sources */,
 				CB64FCE42BD159C700067744 /* AddFriend.swift in Sources */,
+				CB1E48922BF4406000F052ED /* AddFriendDetent.swift in Sources */,
 				CB416CF62BA35FB6005DF9F3 /* BuracoListView.swift in Sources */,
 				CB8A39A72BA71B3C00EFF71C /* UserModel.swift in Sources */,
 				CBB072602BD687920026CA4E /* LinkAccountView.swift in Sources */,
 				CBFF67D82BA33FD50023A2F8 /* MatchTurn.swift in Sources */,
 				CBB0725E2BD4B0AD0026CA4E /* RankingView+Extension.swift in Sources */,
+				CB1E488F2BF3C66D00F052ED /* FriendsModel.swift in Sources */,
 				CB5578F42BBA324A005A643D /* View+Extension.swift in Sources */,
 				CBD142FB2BA8A0DF000FAA55 /* BuracoTurnsViewModel.swift in Sources */,
 				CBD1437D2BABCFC1000FAA55 /* AuthenticationView.swift in Sources */,
@@ -572,6 +597,9 @@
 				CB64FCB92BCA0D6700067744 /* FriendGridItem.swift in Sources */,
 				CB64FCB62BC87BFF00067744 /* ProfileModel.swift in Sources */,
 				CB64FCE82BD213AD00067744 /* IndividualRanking.swift in Sources */,
+				CB387F7E2BDFD5C8003EE27A /* copyBoard.swift in Sources */,
+				CB387F822BE00C97003EE27A /* PlayerModel.swift in Sources */,
+				CB387F802BDFFDAC003EE27A /* SharingMatchesView.swift in Sources */,
 				CB64FCD52BCFE03600067744 /* BuracoMatchViewModel.swift in Sources */,
 				CB5578FA2BBB1D70005A643D /* TabbarView.swift in Sources */,
 				CBFF67FE2BA342C80023A2F8 /* Color+Extension.swift in Sources */,
@@ -733,7 +761,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.2;
+				MARKETING_VERSION = 1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = halbus.Score;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
@@ -772,7 +800,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.7.2;
+				MARKETING_VERSION = 1.9;
 				PRODUCT_BUNDLE_IDENTIFIER = halbus.Score;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
