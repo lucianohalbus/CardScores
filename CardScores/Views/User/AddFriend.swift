@@ -16,9 +16,16 @@ struct AddFriend: View {
                     Text("Cole abaixo o ID do usuário que")
                     Text("deseja adicionar à sua lista de amigos")
                 }
-                .foregroundColor(Color.white)
+                .foregroundColor(Color.cardColor)
                 
-                TextField("Nome: ", text: $friendId)
+                TextField("", text: $friendId)
+                    .overlay(
+                        VStack {
+                            Text("ID")
+                        }.frame(maxWidth: .infinity, alignment: .leading)
+                        .foregroundColor(friendId.isEmpty ? Color.cardColor : .clear)
+                    )
+                    .foregroundColor(Color.cardColor)
                     .padding(5)
                     .frame(maxWidth: .infinity)
                     .frame(height: 50)
@@ -68,7 +75,7 @@ struct AddFriend: View {
             .padding(.horizontal)
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.cardColor)
+        .background(Color.textViewBackgroundColor)
     }
 }
 
