@@ -166,7 +166,7 @@ struct ProfileView: View {
             
             Text("Total de partidas salvas: \(buracoMatchVM.matchesVM.count)")
         }
-        .font(.callout)
+        .font(.caption)
         .fontWeight(.semibold)
         .foregroundStyle(Color.white)
         .padding(.horizontal, 15)
@@ -181,16 +181,16 @@ struct ProfileView: View {
             } label: {
                 VStack (){
                     Text("Criar Conta")
-                        .font(.title3)
+                        .font(.callout)
                         .fontWeight(.bold)
                         .foregroundStyle(Color.cardColor)
                         .padding(5)
                         .overlay(
-                            RoundedRectangle(cornerRadius: 10)
+                            RoundedRectangle(cornerRadius: 5)
                                 .stroke(Color.textFieldBorderColor)
                         )
                         .background(.white)
-                        .cornerRadius(10)
+                        .cornerRadius(5)
                     
                 }
                 .padding(.top, 10)
@@ -223,15 +223,15 @@ struct ProfileView: View {
             }) {
                 VStack {
                     Text(currentUser.isUserAnonymous ? "Sair da Conta Anônima" : "Sair da conta")
-                        .font(.title3)
+                        .font(.callout)
                         .foregroundStyle(Color.cardColor)
                         .padding(5)
                         .overlay(
-                            RoundedRectangle(cornerRadius: 10)
+                            RoundedRectangle(cornerRadius: 5)
                                 .stroke(Color.textFieldBorderColor)
                         )
                         .background(.white)
-                        .cornerRadius(10)
+                        .cornerRadius(5)
                 }
                 .padding(.top, 10)
             }
@@ -248,15 +248,15 @@ struct ProfileView: View {
             } label: {
                 VStack (){
                     Text(currentUser.isUserAnonymous ? "Apagar a Conta Anônima" : "Apagar Conta")
-                        .font(.title3)
+                        .font(.callout)
                         .foregroundStyle(.red)
                         .padding(5)
                         .overlay(
-                            RoundedRectangle(cornerRadius: 10)
+                            RoundedRectangle(cornerRadius: 5)
                                 .stroke(Color.textFieldBorderColor)
                         )
                         .background(.white)
-                        .cornerRadius(10)
+                        .cornerRadius(5)
                     
                 }
                 .padding(.top, 10)

@@ -26,6 +26,7 @@ struct AddFriend: View {
                         .foregroundColor(friendId.isEmpty ? Color.cardColor : .clear)
                     )
                     .foregroundColor(Color.cardColor)
+                    .fontWeight(.semibold)
                     .padding(5)
                     .frame(maxWidth: .infinity)
                     .frame(height: 50)
