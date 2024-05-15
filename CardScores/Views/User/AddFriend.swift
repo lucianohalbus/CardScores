@@ -18,27 +18,27 @@ struct AddFriend: View {
                 }
                 .foregroundColor(Color.cardColor)
                 
-                TextField("", text: $friendId)
-                    .overlay(
-                        VStack {
-                            Text("ID")
-                        }.frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundColor(friendId.isEmpty ? Color.cardColor : .clear)
-                    )
-                    .foregroundColor(Color.cardColor)
-                    .fontWeight(.semibold)
-                    .padding(5)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 50)
-                    .background(Color.textViewBackgroundColor)
-                    .cornerRadius(10)
-                    .font(.callout)
-                    .multilineTextAlignment(TextAlignment.leading)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 10)
-                            .stroke(Color.textFieldBorderColor)
-                    )
-                    .padding(.bottom, 10)
+                
+                ZStack(alignment: .leading) {
+                    Text("ID")
+                        .font(.caption)
+                        .foregroundColor(friendId.isEmpty ? Color.cardColor.opacity(0.5) : .clear)
+
+                    TextField("", text: $friendId)
+                        .foregroundColor(Color.cardColor)
+                        .fontWeight(.semibold)
+                        .padding(5)
+                        .frame(maxWidth: .infinity)
+                        .frame(height: 50)
+                        .cornerRadius(10)
+                        .font(.caption)
+                        .multilineTextAlignment(TextAlignment.leading)
+                }
+                .padding(.horizontal, 5)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 10)
+                        .stroke(Color.cardColor)
+                )
                 
                 HStack {
                     

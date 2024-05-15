@@ -172,37 +172,43 @@ struct AddNewBuracoMatchView: View {
                     .font(.title2)
                     .foregroundStyle(Color.white)
                 
-                TextField("", text: $buracoMatchVM.playerOne)
-                    .overlay(
-                        VStack {
-                            Text(placeholderOne)
-                        }.frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundColor(buracoMatchVM.playerOne.isEmpty ? Color.cardColor : .clear)
-                    )
-                    .foregroundColor(Color.cardColor)
-                    .padding(5)
-                    .frame(height: 40)
-                    .background(Color.white)
-                    .cornerRadius(5)
-                    .font(.callout)
-                    .multilineTextAlignment(TextAlignment.center)
-                    .minimumScaleFactor(0.4)
+                ZStack(alignment: .leading) {
+                    Text("Jogador 1")
+                        .font(.callout)
+                        .foregroundStyle(buracoMatchVM.playerOne.isEmpty ? Color.white.opacity(0.5) : Color.clear)
+
+                    TextField("", text: $buracoMatchVM.playerOne)
+                        .foregroundColor(Color.white)
+                        .frame(height: 40)
+                        .cornerRadius(5)
+                        .font(.callout)
+                        .minimumScaleFactor(0.4)
+                        .multilineTextAlignment(.leading)
+                }
+                .padding(.horizontal, 5)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.white, lineWidth: 1)
+                )
                 
-                TextField("", text: $buracoMatchVM.playerTwo)
-                    .overlay(
-                        VStack {
-                            Text(placeholderTwo)
-                        }.frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundColor(buracoMatchVM.playerTwo.isEmpty ? Color.cardColor : .clear)
-                    )
-                    .foregroundColor(Color.cardColor)
-                    .padding(5)
-                    .frame(height: 40)
-                    .background(Color.white)
-                    .cornerRadius(5)
-                    .font(.callout)
-                    .multilineTextAlignment(TextAlignment.center)
-                    .minimumScaleFactor(0.4)
+                ZStack(alignment: .leading) {
+                    Text("Jogador 2")
+                        .font(.callout)
+                        .foregroundStyle(buracoMatchVM.playerTwo.isEmpty ? Color.white.opacity(0.5) : Color.clear)
+                    
+                    TextField("", text: $buracoMatchVM.playerTwo)
+                        .foregroundColor(Color.white)
+                        .frame(height: 40)
+                        .cornerRadius(5)
+                        .font(.callout)
+                        .minimumScaleFactor(0.4)
+                        .multilineTextAlignment(.leading)
+                }
+                .padding(.horizontal, 5)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.white, lineWidth: 1)
+                )
             }
             
             VStack {
@@ -215,37 +221,43 @@ struct AddNewBuracoMatchView: View {
                     .font(.title2)
                     .foregroundStyle(Color.white)
                 
-                TextField("", text: $buracoMatchVM.playerThree)
-                    .overlay(
-                        VStack {
-                            Text(placeholderThree)
-                        }.frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundColor(buracoMatchVM.playerThree.isEmpty ? Color.cardColor : .clear)
-                    )
-                    .foregroundColor(Color.cardColor)
-                    .padding(5)
-                    .frame(height: 40)
-                    .background(Color.white)
-                    .cornerRadius(5)
-                    .font(.callout)
-                    .multilineTextAlignment(TextAlignment.center)
-                    .minimumScaleFactor(0.4)
+                ZStack(alignment: .trailing) {
+                    Text("Jogador 3")
+                        .font(.callout)
+                        .foregroundStyle(buracoMatchVM.playerThree.isEmpty ? Color.white.opacity(0.5) : Color.clear)
+                    
+                    TextField("", text: $buracoMatchVM.playerThree)
+                        .foregroundColor(Color.white)
+                        .frame(height: 40)
+                        .cornerRadius(5)
+                        .font(.callout)
+                        .minimumScaleFactor(0.4)
+                        .multilineTextAlignment(.trailing)
+                }
+                .padding(.horizontal, 5)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.white, lineWidth: 1)
+                )
                 
-                TextField("", text: $buracoMatchVM.playerFour)
-                    .overlay(
-                        VStack {
-                            Text(placeholderFour)
-                        }.frame(maxWidth: .infinity, alignment: .leading)
-                        .foregroundColor(buracoMatchVM.playerFour.isEmpty ? Color.cardColor : .clear)
-                    )
-                    .foregroundColor(Color.cardColor)
-                    .padding(5)
-                    .frame(height: 40)
-                    .background(Color.white)
-                    .cornerRadius(5)
-                    .font(.callout)
-                    .multilineTextAlignment(TextAlignment.center)
-                    .minimumScaleFactor(0.4)
+                ZStack(alignment: .trailing) {
+                    Text("Jogador 4")
+                        .font(.callout)
+                        .foregroundStyle(buracoMatchVM.playerFour.isEmpty ? Color.white.opacity(0.5) : Color.clear)
+                    
+                    TextField("", text: $buracoMatchVM.playerFour)
+                        .foregroundColor(Color.white)
+                        .frame(height: 40)
+                        .cornerRadius(5)
+                        .font(.callout)
+                        .minimumScaleFactor(0.4)
+                        .multilineTextAlignment(.trailing)
+                }
+                .padding(.horizontal, 5)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 5)
+                        .stroke(Color.white, lineWidth: 1)
+                )
                 
             }
         }

@@ -139,6 +139,7 @@ struct ProfileView: View {
             
             HStack {
                 Text("ID: \(self.currentUser.userId)")
+                    .font(.caption2)
                     .contextMenu {
                         Button {
                             copyToClipboard()
