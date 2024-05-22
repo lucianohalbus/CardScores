@@ -2,10 +2,9 @@
 
 import SwiftUI
 
-struct AddNewBuracoMatchView: View {
+struct BuracoPresencialStartView: View {
     @EnvironmentObject var buracoMatchVM: BuracoMatchViewModel
     @StateObject var userVM = UserViewModel()
-    @Environment(\.dismiss) private var dismiss
     
     @State var userProfile: ProfileModel?
     @State var teamOne: [String] = []
@@ -36,9 +35,6 @@ struct AddNewBuracoMatchView: View {
             ZStack {
                 ScrollView {
                     VStack {
-                        MiniLogo()
-                        
-                        addNewMatchViewHeader
                         
                         addNewMatchViewTeams
                         
@@ -140,24 +136,6 @@ struct AddNewBuracoMatchView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.cardColor)
         }
-    }
-    
-    @ViewBuilder
-    private var addNewMatchViewHeader: some View {
-        VStack(spacing: 0) {
-            Text("Digite a Pontuação Mínima de Vitória")
-                .font(.headline)
-                .foregroundStyle(Color.white)
-            TextField("Digite a pontuação", text: $buracoMatchVM.scoreToWin)
-                .frame(maxWidth: .infinity)
-                .frame(height: 50)
-                .cornerRadius(10)
-                .keyboardType(.numberPad)
-                .textFieldStyle(.roundedBorder)
-                .multilineTextAlignment(TextAlignment.center)
-        }
-        .frame(maxWidth: .infinity)
-        .padding(10)
     }
     
     @ViewBuilder

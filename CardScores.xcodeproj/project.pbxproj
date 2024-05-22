@@ -21,6 +21,8 @@
 		CB5578F42BBA324A005A643D /* View+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5578F32BBA324A005A643D /* View+Extension.swift */; };
 		CB5578F72BBB1AE2005A643D /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5578F62BBB1AE2005A643D /* ProfileView.swift */; };
 		CB5578FA2BBB1D70005A643D /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5578F92BBB1D70005A643D /* TabbarView.swift */; };
+		CB5805F42BFE0C6900CA7DED /* BuracoOnlineStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5805F32BFE0C6900CA7DED /* BuracoOnlineStartView.swift */; };
+		CB5805F62BFE1B3F00CA7DED /* BuracoStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5805F52BFE1B3F00CA7DED /* BuracoStartView.swift */; };
 		CB64FCB42BC83F0000067744 /* CreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCB32BC83F0000067744 /* CreateUserView.swift */; };
 		CB64FCB62BC87BFF00067744 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCB52BC87BFF00067744 /* ProfileModel.swift */; };
 		CB64FCB92BCA0D6700067744 /* FriendGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCB82BCA0D6700067744 /* FriendGridItem.swift */; };
@@ -40,7 +42,7 @@
 		CBB072602BD687920026CA4E /* LinkAccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB0725F2BD687920026CA4E /* LinkAccountView.swift */; };
 		CBB0D4D72BC6BEE3002CC88D /* DBImages.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBB0D4D62BC6BEE3002CC88D /* DBImages.swift */; };
 		CBD142ED2BA762F3000FAA55 /* MainLogo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142EC2BA762F3000FAA55 /* MainLogo.swift */; };
-		CBD142EF2BA77D27000FAA55 /* AddNewBuracoMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142EE2BA77D27000FAA55 /* AddNewBuracoMatchView.swift */; };
+		CBD142EF2BA77D27000FAA55 /* BuracoPresencialStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142EE2BA77D27000FAA55 /* BuracoPresencialStartView.swift */; };
 		CBD142FB2BA8A0DF000FAA55 /* BuracoTurnsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142FA2BA8A0DF000FAA55 /* BuracoTurnsViewModel.swift */; };
 		CBD142FD2BA8A1F8000FAA55 /* BuracoTurnsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD142FC2BA8A1F8000FAA55 /* BuracoTurnsRepository.swift */; };
 		CBD143022BA8A6C4000FAA55 /* AddNewMatchTurnView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CBD143012BA8A6C4000FAA55 /* AddNewMatchTurnView.swift */; };
@@ -83,6 +85,8 @@
 		CB5578F32BBA324A005A643D /* View+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extension.swift"; sourceTree = "<group>"; };
 		CB5578F62BBB1AE2005A643D /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		CB5578F92BBB1D70005A643D /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
+		CB5805F32BFE0C6900CA7DED /* BuracoOnlineStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuracoOnlineStartView.swift; sourceTree = "<group>"; };
+		CB5805F52BFE1B3F00CA7DED /* BuracoStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuracoStartView.swift; sourceTree = "<group>"; };
 		CB64FCB32BC83F0000067744 /* CreateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserView.swift; sourceTree = "<group>"; };
 		CB64FCB52BC87BFF00067744 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		CB64FCB82BCA0D6700067744 /* FriendGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendGridItem.swift; sourceTree = "<group>"; };
@@ -102,7 +106,7 @@
 		CBB0725F2BD687920026CA4E /* LinkAccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinkAccountView.swift; sourceTree = "<group>"; };
 		CBB0D4D62BC6BEE3002CC88D /* DBImages.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DBImages.swift; sourceTree = "<group>"; };
 		CBD142EC2BA762F3000FAA55 /* MainLogo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainLogo.swift; sourceTree = "<group>"; };
-		CBD142EE2BA77D27000FAA55 /* AddNewBuracoMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewBuracoMatchView.swift; sourceTree = "<group>"; };
+		CBD142EE2BA77D27000FAA55 /* BuracoPresencialStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuracoPresencialStartView.swift; sourceTree = "<group>"; };
 		CBD142FA2BA8A0DF000FAA55 /* BuracoTurnsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuracoTurnsViewModel.swift; sourceTree = "<group>"; };
 		CBD142FC2BA8A1F8000FAA55 /* BuracoTurnsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuracoTurnsRepository.swift; sourceTree = "<group>"; };
 		CBD143012BA8A6C4000FAA55 /* AddNewMatchTurnView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddNewMatchTurnView.swift; sourceTree = "<group>"; };
@@ -185,6 +189,22 @@
 			path = TabView;
 			sourceTree = "<group>";
 		};
+		CB5805F22BFE0C3400CA7DED /* online */ = {
+			isa = PBXGroup;
+			children = (
+				CB5805F32BFE0C6900CA7DED /* BuracoOnlineStartView.swift */,
+			);
+			path = online;
+			sourceTree = "<group>";
+		};
+		CB5805F72BFE254800CA7DED /* presencial */ = {
+			isa = PBXGroup;
+			children = (
+				CBD142EE2BA77D27000FAA55 /* BuracoPresencialStartView.swift */,
+			);
+			path = presencial;
+			sourceTree = "<group>";
+		};
 		CB64FCB72BCA0D5800067744 /* SubViews */ = {
 			isa = PBXGroup;
 			children = (
@@ -206,10 +226,13 @@
 		CB8A39942BA7131A00EFF71C /* Buraco */ = {
 			isa = PBXGroup;
 			children = (
+				CB5805F72BFE254800CA7DED /* presencial */,
+				CB5805F22BFE0C3400CA7DED /* online */,
 				CBB0725A2BD4AFA80026CA4E /* Ranking */,
 				CB64FCB72BCA0D5800067744 /* SubViews */,
 				CBD142FE2BA8A619000FAA55 /* ListView */,
 				CBD142FF2BA8A62B000FAA55 /* turns */,
+				CB5805F52BFE1B3F00CA7DED /* BuracoStartView.swift */,
 			);
 			path = Buraco;
 			sourceTree = "<group>";
@@ -319,7 +342,6 @@
 		CBD142FE2BA8A619000FAA55 /* ListView */ = {
 			isa = PBXGroup;
 			children = (
-				CBD142EE2BA77D27000FAA55 /* AddNewBuracoMatchView.swift */,
 				CB416CF72BA37924005DF9F3 /* BuracoCardView.swift */,
 				CB416CF32BA35FB6005DF9F3 /* BuracoListView.swift */,
 			);
@@ -573,6 +595,7 @@
 				CBFF67FD2BA342C80023A2F8 /* Constants.swift in Sources */,
 				CB8A399C2BA7197400EFF71C /* Login.swift in Sources */,
 				CB8A39B02BA720BE00EFF71C /* ViewModifiers.swift in Sources */,
+				CB5805F62BFE1B3F00CA7DED /* BuracoStartView.swift in Sources */,
 				CB64FCE42BD159C700067744 /* AddFriend.swift in Sources */,
 				CB1E48922BF4406000F052ED /* AddFriendDetent.swift in Sources */,
 				CB416CF62BA35FB6005DF9F3 /* BuracoListView.swift in Sources */,
@@ -605,10 +628,11 @@
 				CBFF67FE2BA342C80023A2F8 /* Color+Extension.swift in Sources */,
 				CB5578F72BBB1AE2005A643D /* ProfileView.swift in Sources */,
 				CBD1437B2BAB81D7000FAA55 /* AuthenticationViewModel.swift in Sources */,
-				CBD142EF2BA77D27000FAA55 /* AddNewBuracoMatchView.swift in Sources */,
+				CBD142EF2BA77D27000FAA55 /* BuracoPresencialStartView.swift in Sources */,
 				CB8A39AA2BA71BA200EFF71C /* UserViewModel.swift in Sources */,
 				CBFF67F82BA340F50023A2F8 /* BuracoMatchesRepository.swift in Sources */,
 				CB416CF82BA37924005DF9F3 /* BuracoCardView.swift in Sources */,
+				CB5805F42BFE0C6900CA7DED /* BuracoOnlineStartView.swift in Sources */,
 				CBD142ED2BA762F3000FAA55 /* MainLogo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

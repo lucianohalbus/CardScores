@@ -23,7 +23,7 @@ struct TabbarView: View {
                 TabView(selection: tabSelection()) {
                     Group {
 
-                        AddNewBuracoMatchView(path: $mainNavigationStack)
+                        BuracoStartView(path: $mainNavigationStack)
                             .tabItem {
                                 Image(systemName: "house.circle.fill")
                                 Text("Inicio")
