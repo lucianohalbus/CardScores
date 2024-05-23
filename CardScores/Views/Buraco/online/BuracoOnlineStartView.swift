@@ -79,8 +79,7 @@ struct BuracoOnlineStartView: View {
                                 .navigationDestination(for: MainNavigation.self) { view in
                                     switch view {
                                     case .child:
-                                        BuracoMatchView(matchFB: BuracoFBViewModel(
-                                            matchFB: buracoMatchVM.createdItem))
+                                        EmptyView()
                                     default:
                                         EmptyView()
                                     }  

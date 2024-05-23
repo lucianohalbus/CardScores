@@ -23,6 +23,22 @@
 		CB5578FA2BBB1D70005A643D /* TabbarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5578F92BBB1D70005A643D /* TabbarView.swift */; };
 		CB5805F42BFE0C6900CA7DED /* BuracoOnlineStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5805F32BFE0C6900CA7DED /* BuracoOnlineStartView.swift */; };
 		CB5805F62BFE1B3F00CA7DED /* BuracoStartView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5805F52BFE1B3F00CA7DED /* BuracoStartView.swift */; };
+		CB5805FA2BFE59BB00CA7DED /* CardModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5805F92BFE59BB00CA7DED /* CardModel.swift */; };
+		CB5805FD2BFE59DD00CA7DED /* CardsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5805FC2BFE59DD00CA7DED /* CardsViewModel.swift */; };
+		CB5806072BFE5A2D00CA7DED /* DeckRefillView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5805FF2BFE5A2D00CA7DED /* DeckRefillView.swift */; };
+		CB5806082BFE5A2D00CA7DED /* MainDeckView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5806002BFE5A2D00CA7DED /* MainDeckView.swift */; };
+		CB5806092BFE5A2D00CA7DED /* RivalDeckLeftView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5806012BFE5A2D00CA7DED /* RivalDeckLeftView.swift */; };
+		CB58060A2BFE5A2D00CA7DED /* RivalDeckRightView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5806022BFE5A2D00CA7DED /* RivalDeckRightView.swift */; };
+		CB58060B2BFE5A2D00CA7DED /* RivalDeckTopView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5806032BFE5A2D00CA7DED /* RivalDeckTopView.swift */; };
+		CB58060C2BFE5A2D00CA7DED /* SecondDeckOneView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5806042BFE5A2D00CA7DED /* SecondDeckOneView.swift */; };
+		CB58060D2BFE5A2D00CA7DED /* SecondDeckTwoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5806052BFE5A2D00CA7DED /* SecondDeckTwoView.swift */; };
+		CB5806132BFE5A3800CA7DED /* DeckDiscardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58060E2BFE5A3700CA7DED /* DeckDiscardView.swift */; };
+		CB5806142BFE5A3800CA7DED /* gameAreaOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58060F2BFE5A3700CA7DED /* gameAreaOne.swift */; };
+		CB5806152BFE5A3800CA7DED /* gameAreaTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5806102BFE5A3700CA7DED /* gameAreaTwo.swift */; };
+		CB5806162BFE5A3800CA7DED /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5806112BFE5A3700CA7DED /* TopBar.swift */; };
+		CB5806182BFE5ED800CA7DED /* OnlinePlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5806172BFE5ED800CA7DED /* OnlinePlayerModel.swift */; };
+		CB58061A2BFE654600CA7DED /* OnlineGameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5806192BFE654600CA7DED /* OnlineGameModel.swift */; };
+		CB58061C2BFEB24000CA7DED /* BuracoOnlineMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58061B2BFEB24000CA7DED /* BuracoOnlineMatchView.swift */; };
 		CB64FCB42BC83F0000067744 /* CreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCB32BC83F0000067744 /* CreateUserView.swift */; };
 		CB64FCB62BC87BFF00067744 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCB52BC87BFF00067744 /* ProfileModel.swift */; };
 		CB64FCB92BCA0D6700067744 /* FriendGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCB82BCA0D6700067744 /* FriendGridItem.swift */; };
@@ -87,6 +103,22 @@
 		CB5578F92BBB1D70005A643D /* TabbarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarView.swift; sourceTree = "<group>"; };
 		CB5805F32BFE0C6900CA7DED /* BuracoOnlineStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuracoOnlineStartView.swift; sourceTree = "<group>"; };
 		CB5805F52BFE1B3F00CA7DED /* BuracoStartView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuracoStartView.swift; sourceTree = "<group>"; };
+		CB5805F92BFE59BB00CA7DED /* CardModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardModel.swift; sourceTree = "<group>"; };
+		CB5805FC2BFE59DD00CA7DED /* CardsViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardsViewModel.swift; sourceTree = "<group>"; };
+		CB5805FF2BFE5A2D00CA7DED /* DeckRefillView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckRefillView.swift; sourceTree = "<group>"; };
+		CB5806002BFE5A2D00CA7DED /* MainDeckView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainDeckView.swift; sourceTree = "<group>"; };
+		CB5806012BFE5A2D00CA7DED /* RivalDeckLeftView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RivalDeckLeftView.swift; sourceTree = "<group>"; };
+		CB5806022BFE5A2D00CA7DED /* RivalDeckRightView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RivalDeckRightView.swift; sourceTree = "<group>"; };
+		CB5806032BFE5A2D00CA7DED /* RivalDeckTopView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RivalDeckTopView.swift; sourceTree = "<group>"; };
+		CB5806042BFE5A2D00CA7DED /* SecondDeckOneView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondDeckOneView.swift; sourceTree = "<group>"; };
+		CB5806052BFE5A2D00CA7DED /* SecondDeckTwoView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SecondDeckTwoView.swift; sourceTree = "<group>"; };
+		CB58060E2BFE5A3700CA7DED /* DeckDiscardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckDiscardView.swift; sourceTree = "<group>"; };
+		CB58060F2BFE5A3700CA7DED /* gameAreaOne.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gameAreaOne.swift; sourceTree = "<group>"; };
+		CB5806102BFE5A3700CA7DED /* gameAreaTwo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gameAreaTwo.swift; sourceTree = "<group>"; };
+		CB5806112BFE5A3700CA7DED /* TopBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopBar.swift; sourceTree = "<group>"; };
+		CB5806172BFE5ED800CA7DED /* OnlinePlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlinePlayerModel.swift; sourceTree = "<group>"; };
+		CB5806192BFE654600CA7DED /* OnlineGameModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineGameModel.swift; sourceTree = "<group>"; };
+		CB58061B2BFEB24000CA7DED /* BuracoOnlineMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuracoOnlineMatchView.swift; sourceTree = "<group>"; };
 		CB64FCB32BC83F0000067744 /* CreateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserView.swift; sourceTree = "<group>"; };
 		CB64FCB52BC87BFF00067744 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		CB64FCB82BCA0D6700067744 /* FriendGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendGridItem.swift; sourceTree = "<group>"; };
@@ -192,7 +224,10 @@
 		CB5805F22BFE0C3400CA7DED /* online */ = {
 			isa = PBXGroup;
 			children = (
+				CB5806122BFE5A3700CA7DED /* GameArea */,
+				CB5806062BFE5A2D00CA7DED /* Decks */,
 				CB5805F32BFE0C6900CA7DED /* BuracoOnlineStartView.swift */,
+				CB58061B2BFEB24000CA7DED /* BuracoOnlineMatchView.swift */,
 			);
 			path = online;
 			sourceTree = "<group>";
@@ -203,6 +238,56 @@
 				CBD142EE2BA77D27000FAA55 /* BuracoPresencialStartView.swift */,
 			);
 			path = presencial;
+			sourceTree = "<group>";
+		};
+		CB5805F82BFE59A800CA7DED /* Online */ = {
+			isa = PBXGroup;
+			children = (
+				CB5805F92BFE59BB00CA7DED /* CardModel.swift */,
+				CB5806172BFE5ED800CA7DED /* OnlinePlayerModel.swift */,
+				CB5806192BFE654600CA7DED /* OnlineGameModel.swift */,
+			);
+			path = Online;
+			sourceTree = "<group>";
+		};
+		CB5805FB2BFE59D100CA7DED /* Online */ = {
+			isa = PBXGroup;
+			children = (
+				CB5805FC2BFE59DD00CA7DED /* CardsViewModel.swift */,
+			);
+			path = Online;
+			sourceTree = "<group>";
+		};
+		CB5805FE2BFE59ED00CA7DED /* Online */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Online;
+			sourceTree = "<group>";
+		};
+		CB5806062BFE5A2D00CA7DED /* Decks */ = {
+			isa = PBXGroup;
+			children = (
+				CB5805FF2BFE5A2D00CA7DED /* DeckRefillView.swift */,
+				CB5806002BFE5A2D00CA7DED /* MainDeckView.swift */,
+				CB5806012BFE5A2D00CA7DED /* RivalDeckLeftView.swift */,
+				CB5806022BFE5A2D00CA7DED /* RivalDeckRightView.swift */,
+				CB5806032BFE5A2D00CA7DED /* RivalDeckTopView.swift */,
+				CB5806042BFE5A2D00CA7DED /* SecondDeckOneView.swift */,
+				CB5806052BFE5A2D00CA7DED /* SecondDeckTwoView.swift */,
+			);
+			path = Decks;
+			sourceTree = "<group>";
+		};
+		CB5806122BFE5A3700CA7DED /* GameArea */ = {
+			isa = PBXGroup;
+			children = (
+				CB58060E2BFE5A3700CA7DED /* DeckDiscardView.swift */,
+				CB58060F2BFE5A3700CA7DED /* gameAreaOne.swift */,
+				CB5806102BFE5A3700CA7DED /* gameAreaTwo.swift */,
+				CB5806112BFE5A3700CA7DED /* TopBar.swift */,
+			);
+			path = GameArea;
 			sourceTree = "<group>";
 		};
 		CB64FCB72BCA0D5800067744 /* SubViews */ = {
@@ -243,6 +328,7 @@
 				CB416CFB2BA472F1005DF9F3 /* BuracoFBViewModel.swift */,
 				CBD142FA2BA8A0DF000FAA55 /* BuracoTurnsViewModel.swift */,
 				CB64FCD42BCFE03600067744 /* BuracoMatchViewModel.swift */,
+				CB5805FB2BFE59D100CA7DED /* Online */,
 			);
 			path = Buraco;
 			sourceTree = "<group>";
@@ -250,6 +336,7 @@
 		CB8A39962BA7181000EFF71C /* Buraco */ = {
 			isa = PBXGroup;
 			children = (
+				CB5805FE2BFE59ED00CA7DED /* Online */,
 				CBFF67F72BA340F50023A2F8 /* BuracoMatchesRepository.swift */,
 				CBD142FC2BA8A1F8000FAA55 /* BuracoTurnsRepository.swift */,
 			);
@@ -446,6 +533,7 @@
 		CBFF67D02BA33FB10023A2F8 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				CB5805F82BFE59A800CA7DED /* Online */,
 				CBB072572BD2A5330026CA4E /* Team */,
 				CB8A39A12BA71AA900EFF71C /* User */,
 				CB8A39A22BA71AB400EFF71C /* Match */,
@@ -584,13 +672,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CB58060C2BFE5A2D00CA7DED /* SecondDeckOneView.swift in Sources */,
 				CBB0D4D72BC6BEE3002CC88D /* DBImages.swift in Sources */,
 				CBFF67C52BA33F330023A2F8 /* MainView.swift in Sources */,
 				CBD143792BAB7CE6000FAA55 /* AuthenticationManager.swift in Sources */,
+				CB5806132BFE5A3800CA7DED /* DeckDiscardView.swift in Sources */,
+				CB5806152BFE5A3800CA7DED /* gameAreaTwo.swift in Sources */,
 				CBB072592BD2A54A0026CA4E /* TeamModel.swift in Sources */,
 				CBD143732BAB63F8000FAA55 /* StorageManager.swift in Sources */,
 				CBD143022BA8A6C4000FAA55 /* AddNewMatchTurnView.swift in Sources */,
+				CB5806092BFE5A2D00CA7DED /* RivalDeckLeftView.swift in Sources */,
 				CBD143772BAB6AD7000FAA55 /* StorageViewModel.swift in Sources */,
+				CB5806142BFE5A3800CA7DED /* gameAreaOne.swift in Sources */,
 				CBB0725C2BD4AFC50026CA4E /* RankingView.swift in Sources */,
 				CBFF67FD2BA342C80023A2F8 /* Constants.swift in Sources */,
 				CB8A399C2BA7197400EFF71C /* Login.swift in Sources */,
@@ -598,15 +691,20 @@
 				CB5805F62BFE1B3F00CA7DED /* BuracoStartView.swift in Sources */,
 				CB64FCE42BD159C700067744 /* AddFriend.swift in Sources */,
 				CB1E48922BF4406000F052ED /* AddFriendDetent.swift in Sources */,
+				CB5806082BFE5A2D00CA7DED /* MainDeckView.swift in Sources */,
 				CB416CF62BA35FB6005DF9F3 /* BuracoListView.swift in Sources */,
 				CB8A39A72BA71B3C00EFF71C /* UserModel.swift in Sources */,
 				CBB072602BD687920026CA4E /* LinkAccountView.swift in Sources */,
+				CB58060B2BFE5A2D00CA7DED /* RivalDeckTopView.swift in Sources */,
 				CBFF67D82BA33FD50023A2F8 /* MatchTurn.swift in Sources */,
 				CBB0725E2BD4B0AD0026CA4E /* RankingView+Extension.swift in Sources */,
 				CB1E488F2BF3C66D00F052ED /* FriendsModel.swift in Sources */,
 				CB5578F42BBA324A005A643D /* View+Extension.swift in Sources */,
+				CB5806162BFE5A3800CA7DED /* TopBar.swift in Sources */,
 				CBD142FB2BA8A0DF000FAA55 /* BuracoTurnsViewModel.swift in Sources */,
 				CBD1437D2BABCFC1000FAA55 /* AuthenticationView.swift in Sources */,
+				CB58060A2BFE5A2D00CA7DED /* RivalDeckRightView.swift in Sources */,
+				CB5805FA2BFE59BB00CA7DED /* CardModel.swift in Sources */,
 				CB416CFC2BA472F1005DF9F3 /* BuracoFBViewModel.swift in Sources */,
 				CB8A39A02BA71A1000EFF71C /* LoginViewModel.swift in Sources */,
 				CBFF67C32BA33F330023A2F8 /* CardScoresApp.swift in Sources */,
@@ -615,23 +713,29 @@
 				CBFF67D72BA33FD50023A2F8 /* MatchFB.swift in Sources */,
 				CBD142FD2BA8A1F8000FAA55 /* BuracoTurnsRepository.swift in Sources */,
 				CB416CFA2BA37A77005DF9F3 /* BuracoMatchView.swift in Sources */,
+				CB58061C2BFEB24000CA7DED /* BuracoOnlineMatchView.swift in Sources */,
 				CB8A39AE2BA71E3500EFF71C /* LoginView.swift in Sources */,
 				CB64FCB42BC83F0000067744 /* CreateUserView.swift in Sources */,
 				CB64FCB92BCA0D6700067744 /* FriendGridItem.swift in Sources */,
 				CB64FCB62BC87BFF00067744 /* ProfileModel.swift in Sources */,
+				CB5805FD2BFE59DD00CA7DED /* CardsViewModel.swift in Sources */,
+				CB5806072BFE5A2D00CA7DED /* DeckRefillView.swift in Sources */,
 				CB64FCE82BD213AD00067744 /* IndividualRanking.swift in Sources */,
 				CB387F7E2BDFD5C8003EE27A /* copyBoard.swift in Sources */,
 				CB387F822BE00C97003EE27A /* PlayerModel.swift in Sources */,
 				CB387F802BDFFDAC003EE27A /* SharingMatchesView.swift in Sources */,
 				CB64FCD52BCFE03600067744 /* BuracoMatchViewModel.swift in Sources */,
 				CB5578FA2BBB1D70005A643D /* TabbarView.swift in Sources */,
+				CB5806182BFE5ED800CA7DED /* OnlinePlayerModel.swift in Sources */,
 				CBFF67FE2BA342C80023A2F8 /* Color+Extension.swift in Sources */,
 				CB5578F72BBB1AE2005A643D /* ProfileView.swift in Sources */,
 				CBD1437B2BAB81D7000FAA55 /* AuthenticationViewModel.swift in Sources */,
 				CBD142EF2BA77D27000FAA55 /* BuracoPresencialStartView.swift in Sources */,
+				CB58061A2BFE654600CA7DED /* OnlineGameModel.swift in Sources */,
 				CB8A39AA2BA71BA200EFF71C /* UserViewModel.swift in Sources */,
 				CBFF67F82BA340F50023A2F8 /* BuracoMatchesRepository.swift in Sources */,
 				CB416CF82BA37924005DF9F3 /* BuracoCardView.swift in Sources */,
+				CB58060D2BFE5A2D00CA7DED /* SecondDeckTwoView.swift in Sources */,
 				CB5805F42BFE0C6900CA7DED /* BuracoOnlineStartView.swift in Sources */,
 				CBD142ED2BA762F3000FAA55 /* MainLogo.swift in Sources */,
 			);

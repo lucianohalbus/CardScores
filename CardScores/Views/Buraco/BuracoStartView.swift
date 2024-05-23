@@ -17,7 +17,7 @@ struct BuracoStartView: View {
                 
                 MiniLogo()
                 
-                Picker("Select Ranking", selection: $selectedBuracoStyleGame) {
+                Picker("Select Game Style", selection: $selectedBuracoStyleGame) {
                     ForEach(SelectBuracoStyleGame.allCases, id: \.self) {
                         Text($0.rawValue)
                     }
