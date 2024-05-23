@@ -3,16 +3,16 @@
 import Foundation
 
 struct OnlineGameModel: Identifiable, Codable, Equatable {
-    let id: String
-    let deckPlayerOne: [CardModel]
-    let deckPlayerTwo: [CardModel]
-    let deckPlayerThree: [CardModel]
-    let deckPlayerFour: [CardModel]
-    let deckDiscard: [CardModel]
-    let deckSecondOne:[CardModel]
-    let deckSecondTwo: [CardModel]
-    let deckRefill: [CardModel]
-    let playerTurn: String
+    var id: String
+    var deckPlayerOne: [CardModel]
+    var deckPlayerTwo: [CardModel]
+    var deckPlayerThree: [CardModel]
+    var deckPlayerFour: [CardModel]
+    var deckDiscard: [CardModel]
+    var deckSecondOne:[CardModel]
+    var deckSecondTwo: [CardModel]
+    var deckRefill: [CardModel]
+    var playerTurn: String
     
     init(id: String, deckPlayerOne: [CardModel], deckPlayerTwo: [CardModel], deckPlayerThree: [CardModel], deckPlayerFour: [CardModel], deckDiscard: [CardModel], deckSecondOne: [CardModel], deckSecondTwo: [CardModel], deckRefill: [CardModel], playerTurn: String) {
         self.id = id

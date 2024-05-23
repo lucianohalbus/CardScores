@@ -5,14 +5,14 @@ import Foundation
 final class CardsViewModel: ObservableObject {
     @Published var onlineGameModel: OnlineGameModel = OnlineGameModel(
         id: "",
-        deckPlayerOne: [CardModel(id: "", cardCode: "", value: 0, backColor: "")],
-        deckPlayerTwo: [CardModel(id: "", cardCode: "", value: 0, backColor: "")],
-        deckPlayerThree: [CardModel(id: "", cardCode: "", value: 0, backColor: "")],
-        deckPlayerFour: [CardModel(id: "", cardCode: "", value: 0, backColor: "")],
-        deckDiscard: [CardModel(id: "", cardCode: "", value: 0, backColor: "")],
-        deckSecondOne: [CardModel(id: "", cardCode: "", value: 0, backColor: "")],
-        deckSecondTwo: [CardModel(id: "", cardCode: "", value: 0, backColor: "")],
-        deckRefill: [CardModel(id: "", cardCode: "", value: 0, backColor: "")],
+        deckPlayerOne: [],
+        deckPlayerTwo: [],
+        deckPlayerThree: [],
+        deckPlayerFour: [],
+        deckDiscard: [],
+        deckSecondOne: [],
+        deckSecondTwo: [],
+        deckRefill: [],
         playerTurn: ""
     )
     
@@ -211,23 +211,29 @@ final class CardsViewModel: ObservableObject {
         for index in 0..<sortedCards.count {
             switch index {
             case 0...10:
-                onlinePlayerOne.deckPlayer.append(sortedCards[index])
+                onlineGameModel.deckPlayerOne.append(sortedCards[index])
             case 11...21:
-                onlinePlayerTwo.deckPlayer.append(sortedCards[index])
+                onlineGameModel.deckPlayerTwo.append(sortedCards[index])
             case 22...32:
-                onlinePlayerThree.deckPlayer.append(sortedCards[index])
+                onlineGameModel.deckPlayerThree.append(sortedCards[index])
             case 33...43:
-                onlinePlayerFour.deckPlayer.append(sortedCards[index])
+                onlineGameModel.deckPlayerFour.append(sortedCards[index])
             case 44...54:
-                secondDeckOne.append(sortedCards[index])
+                onlineGameModel.deckSecondOne.append(sortedCards[index])
             case 55...65:
-                secondDeckTwo.append(sortedCards[index])
+                onlineGameModel.deckSecondTwo.append(sortedCards[index])
             case 66...103:
-                deckRefill.append(sortedCards[index])
+                onlineGameModel.deckRefill.append(sortedCards[index])
             default:
                 break
             }
         }
+        
+        self.preparingGameTable()
+    }
+    
+    func preparingGameTable() {
+        print(onlineGameModel)
     }
     
 }
