@@ -36,6 +36,8 @@ struct BuracoPresencialStartView: View {
                 ScrollView {
                     VStack {
                         
+                        MiniLogo()
+                        
                         addNewMatchViewTeams
                         
                         footNotes

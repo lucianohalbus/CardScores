@@ -24,6 +24,8 @@ struct BuracoOnlineStartView: View {
                 ScrollView {
                     VStack {
                         
+                        MiniLogo()
+                        
                         addNewMatchViewTeams
                         
                         footNotes
@@ -53,14 +55,7 @@ struct BuracoOnlineStartView: View {
                             .tint(.green.opacity(0.9))
                             .controlSize(.regular)
                             .buttonStyle(.borderedProminent)
-                            .navigationDestination(for: MainNavigation.self) { view in
-                                switch view {
-                                case .anotherChild:
-                                    BuracoOnlineMatchView()
-                                default:
-                                    EmptyView()
-                                }
-                            }
+
                             Spacer()
                         }
                         .padding(.top, 20)
@@ -80,6 +75,14 @@ struct BuracoOnlineStartView: View {
                     .onChange(of: cardsVM.showOnlineGame) { newValue in
                         if newValue {
                             path.append(.anotherChild)
+                        }
+                    }
+                    .navigationDestination(for: MainNavigation.self) { view in
+                        switch view {
+                        case .anotherChild:
+                            BuracoOnlineMatchView()
+                        default:
+                            EmptyView()
                         }
                     }
                 }

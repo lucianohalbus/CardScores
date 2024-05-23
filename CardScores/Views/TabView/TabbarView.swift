@@ -11,7 +11,7 @@ struct TabbarView: View {
     @Binding var showLoginView: Bool
     
     enum Tab {
-      case inicio, partidas, ranking, profile
+      case inicio, partidas, ranking, online, profile
      }
     
     @State private var selectedTab: Tab = .inicio
@@ -23,7 +23,7 @@ struct TabbarView: View {
                 TabView(selection: tabSelection()) {
                     Group {
 
-                        BuracoStartView(path: $mainNavigationStack)
+                        BuracoPresencialStartView(path: $mainNavigationStack)
                             .tabItem {
                                 Image(systemName: "house.circle.fill")
                                 Text("Inicio")
@@ -43,6 +43,13 @@ struct TabbarView: View {
                                 Text("Ranking")
                             }
                             .tag(Tab.ranking)
+                        
+                        BuracoOnlineStartView(path: $mainNavigationStack)
+                            .tabItem {
+                                Image(systemName: "wifi.circle")
+                                Text("Online")
+                            }
+                            .tag(Tab.online)
                         
                         ProfileView(showLoginView: $showLoginView, path: $mainNavigationStack)
                             .tabItem {

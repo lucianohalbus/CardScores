@@ -5,14 +5,13 @@ import SwiftUI
 struct RivalDeckTopView: View {
     @EnvironmentObject var cardsVM: CardsViewModel
     @Binding var onlinePlayerModel: OnlinePlayerModel
-    @State var deck: [CardModel] = []
     var onSelect: () -> Void
     
     var body: some View {
         GeometryReader { proxy in
             VStack {
                 HStack(spacing: 0) {
-                    ForEach(deck) { card in
+                    ForEach(onlinePlayerModel.deckPlayer) { card in
                         HStack {
                             Button(action: {
                                 onSelect()
@@ -37,9 +36,6 @@ struct RivalDeckTopView: View {
                 }
                 .frame(maxWidth: .infinity, alignment: .center)
                 .offset(y: proxy.size.height * 0.005)
-            }
-            .onAppear {
-                self.deck = onlinePlayerModel.deckPlayer
             }
         }
     }

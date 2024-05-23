@@ -9,14 +9,16 @@ struct OnlinePlayerModel: Hashable, Codable, Equatable {
     var playerEmail: String
     var deckPlayer: [CardModel]
     var playerTurn: String
+    var onlineScore: Int?
     
-    init(gameID: String, playerName: String, playerID: String, playerEmail: String, deckPlayer: [CardModel], playerTurn: String) {
+    init(gameID: String, playerName: String, playerID: String, playerEmail: String, deckPlayer: [CardModel], playerTurn: String, onlineScore: Int? = nil) {
         self.gameID = gameID
         self.playerName = playerName
         self.playerID = playerID
         self.playerEmail = playerEmail
         self.deckPlayer = deckPlayer
         self.playerTurn = playerTurn
+        self.onlineScore = onlineScore
     }
     
     enum CodingKeys: String, CodingKey {
@@ -26,6 +28,7 @@ struct OnlinePlayerModel: Hashable, Codable, Equatable {
         case playerEmail = "playerEmail"
         case deckPlayer = "deckPlayer"
         case playerTurn = "playerTurn"
+        case onlineScore = "onlineScore"
     }
     
     init(from decoder: any Decoder) throws {
@@ -36,6 +39,7 @@ struct OnlinePlayerModel: Hashable, Codable, Equatable {
         self.playerEmail = try container.decode(String.self, forKey: .playerEmail)
         self.deckPlayer = try container.decode([CardModel].self, forKey: .deckPlayer)
         self.playerTurn = try container.decode(String.self, forKey: .playerTurn)
+        self.onlineScore = try container.decode(Int.self, forKey: .onlineScore)
     }
     
    

@@ -5,7 +5,6 @@ import SwiftUI
 struct MainDeckView: View {
     @EnvironmentObject var cardsVM: CardsViewModel
     @Binding var onlinePlayerModel: OnlinePlayerModel
-    @State var deck: [CardModel] = []
 
     var onSelect: () -> Void
     
@@ -13,7 +12,7 @@ struct MainDeckView: View {
         GeometryReader { proxy in
             VStack {
                 HStack(spacing: 0) {
-                    ForEach(deck) { card in
+                    ForEach(onlinePlayerModel.deckPlayer) { card in
                         HStack {
                             Button(action: {
                                 onSelect()
@@ -28,7 +27,7 @@ struct MainDeckView: View {
                                 }
                               }, label: {
                                 ZStack {
-                                    Image("")
+                                    Image(card.cardCode)
                                         .resizable()
                                         .frame(width: 35, height: 60)
                                 }
@@ -39,9 +38,6 @@ struct MainDeckView: View {
                 .frame(maxWidth: .infinity, alignment: .center)
                 .offset(y: proxy.size.height * 0.9)
                 
-            }
-            .onAppear {
-                self.deck = onlinePlayerModel.deckPlayer
             }
         }
     }
