@@ -48,7 +48,6 @@ struct RivalDeckTopView: View {
 #Preview {
     RivalDeckTopView(
         onlinePlayerModel: .constant(OnlinePlayerModel(
-            id: "",
             gameID: "",
             playerName: "",
             playerID: "",

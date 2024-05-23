@@ -8,6 +8,7 @@ struct BuracoOnlineStartView: View {
     @State var shouldCleanTeams: Bool = false
     @State var setSelectedButtonColor: Bool = false
     @State var cleanButtonColor: Color = Color.black
+    @State var userProfile: ProfileModel?
     
     @Binding var path: [MainNavigation]
     
@@ -45,7 +46,7 @@ struct BuracoOnlineStartView: View {
                             Spacer()
                             
                             Button("Iniciar") {
-                                
+                                cardsVM.preparingDecks()
                             }
                             .font(.title3)
                             .fontWeight(.bold)
@@ -67,7 +68,19 @@ struct BuracoOnlineStartView: View {
                         Spacer()
                     }
                     .onAppear {
-                        cardsVM.preparingDecks()
+                        Task {
+                            self.userProfile = try await userVM.getUser()
+                        }
+                    }
+                    .onChange(of: cardsVM.createPlayers) { newValue in
+                        Task {
+                            try await cardsVM.addOnlinePlayers()
+                        }
+                    }
+                    .onChange(of: cardsVM.showOnlineGame) { newValue in
+                        if newValue {
+                            path.append(.anotherChild)
+                        }
                     }
                 }
             }
@@ -170,19 +183,26 @@ struct BuracoOnlineStartView: View {
                 LazyVGrid(columns: gridItems, spacing: 10) {
                     ForEach(userVM.userProfile.friends, id: \.self) { friend in
                         
-                        FriendGridItem(friend: friend.friendName, setSelectedButtonColor: $setSelectedButtonColor, cleanButtonColor: $cleanButtonColor) {
+                        FriendGridItem(
+                            friend: friend.friendName,
+                            setSelectedButtonColor: $setSelectedButtonColor,
+                            cleanButtonColor: $cleanButtonColor) {
                             
                             if cardsVM.onlinePlayerOne.playerName.isEmpty {
+                                cardsVM.playerOne = friend
                                 cardsVM.onlinePlayerOne.playerName = friend.friendName
                                 setSelectedButtonColor = true
                                 cleanButtonColor = Color.black
                             } else if cardsVM.onlinePlayerTwo.playerName.isEmpty {
+                                cardsVM.playerTwo = friend
                                 cardsVM.onlinePlayerTwo.playerName = friend.friendName
                                 setSelectedButtonColor = true
                             } else if cardsVM.onlinePlayerThree.playerName.isEmpty {
+                                cardsVM.playerThree = friend
                                 cardsVM.onlinePlayerThree.playerName = friend.friendName
                                 setSelectedButtonColor = true
                             } else if cardsVM.onlinePlayerFour.playerName.isEmpty {
+                                cardsVM.playerFour = friend
                                 cardsVM.onlinePlayerFour.playerName = friend.friendName
                                 setSelectedButtonColor = true
                             } else {

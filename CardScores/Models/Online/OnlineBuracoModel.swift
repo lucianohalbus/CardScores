@@ -2,7 +2,7 @@
 
 import Foundation
 
-struct OnlineGameModel: Identifiable, Codable, Equatable {
+struct OnlineBuracoModel: Identifiable, Codable, Equatable {
     var id: String
     var deckPlayerOne: [CardModel]
     var deckPlayerTwo: [CardModel]

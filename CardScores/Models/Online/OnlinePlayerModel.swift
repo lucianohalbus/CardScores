@@ -2,8 +2,7 @@
 
 import Foundation
 
-struct OnlinePlayerModel: Identifiable, Hashable, Codable, Equatable {
-    var id: String
+struct OnlinePlayerModel: Hashable, Codable, Equatable {
     var gameID: String
     var playerName: String
     var playerID: String
@@ -11,8 +10,7 @@ struct OnlinePlayerModel: Identifiable, Hashable, Codable, Equatable {
     var deckPlayer: [CardModel]
     var playerTurn: String
     
-    init(id: String, gameID: String, playerName: String, playerID: String, playerEmail: String, deckPlayer: [CardModel], playerTurn: String) {
-        self.id = id
+    init(gameID: String, playerName: String, playerID: String, playerEmail: String, deckPlayer: [CardModel], playerTurn: String) {
         self.gameID = gameID
         self.playerName = playerName
         self.playerID = playerID
@@ -22,7 +20,6 @@ struct OnlinePlayerModel: Identifiable, Hashable, Codable, Equatable {
     }
     
     enum CodingKeys: String, CodingKey {
-        case id = "id"
         case gameID = "gameID"
         case playerName = "playerName"
         case playerID = "playerID"
@@ -33,7 +30,6 @@ struct OnlinePlayerModel: Identifiable, Hashable, Codable, Equatable {
     
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.id = try container.decode(String.self, forKey: .id)
         self.gameID = try container.decode(String.self, forKey: .gameID)
         self.playerName = try container.decode(String.self, forKey: .playerName)
         self.playerID = try container.decode(String.self, forKey: .playerID)

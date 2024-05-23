@@ -3,7 +3,15 @@
 import Foundation
 
 final class CardsViewModel: ObservableObject {
-    @Published var onlineGameModel: OnlineGameModel = OnlineGameModel(
+    @Published var onlineBuracoRepo: OnlineBuracoRepository
+    @Published var playerOne: FriendsModel = FriendsModel(friendId: "", friendEmail: "", friendName: "")
+    @Published var playerTwo: FriendsModel = FriendsModel(friendId: "", friendEmail: "", friendName: "")
+    @Published var playerThree: FriendsModel = FriendsModel(friendId: "", friendEmail: "", friendName: "")
+    @Published var playerFour: FriendsModel = FriendsModel(friendId: "", friendEmail: "", friendName: "")
+    @Published var createPlayers: Bool = false
+    @Published var showOnlineGame: Bool = false
+
+    @Published var onlineBuracoModel: OnlineBuracoModel = OnlineBuracoModel(
         id: "",
         deckPlayerOne: [],
         deckPlayerTwo: [],
@@ -17,7 +25,6 @@ final class CardsViewModel: ObservableObject {
     )
     
     @Published var onlinePlayerOne: OnlinePlayerModel = OnlinePlayerModel(
-        id: "",
         gameID: "",
         playerName: "",
         playerID: "",
@@ -27,7 +34,6 @@ final class CardsViewModel: ObservableObject {
     )
     
     @Published var onlinePlayerTwo: OnlinePlayerModel = OnlinePlayerModel(
-        id: "",
         gameID: "",
         playerName: "",
         playerID: "",
@@ -37,7 +43,6 @@ final class CardsViewModel: ObservableObject {
     )
     
     @Published var onlinePlayerThree: OnlinePlayerModel = OnlinePlayerModel(
-        id: "",
         gameID: "",
         playerName: "",
         playerID: "",
@@ -47,7 +52,6 @@ final class CardsViewModel: ObservableObject {
     )
     
     @Published var onlinePlayerFour: OnlinePlayerModel = OnlinePlayerModel(
-        id: "",
         gameID: "",
         playerName: "",
         playerID: "",
@@ -57,8 +61,6 @@ final class CardsViewModel: ObservableObject {
     )
 
     // MARK: - DECKS
-    @Published var cardsOne: [CardModel]
-    @Published var cardsTwo: [CardModel]
     @Published var secondDeckOne: [CardModel] = []
     @Published var secondDeckTwo: [CardModel] = []
     @Published var deckRefill: [CardModel] = []
@@ -83,7 +85,105 @@ final class CardsViewModel: ObservableObject {
     @Published var isPlayerFourDiscarding: Bool = false
 
     init() {
-        cardsOne = [
+        onlineBuracoRepo = OnlineBuracoRepository()
+    }
+
+    func preparingDecks() {
+        secondDeckOne.removeAll()
+        secondDeckTwo.removeAll()
+        deckRefill.removeAll()
+        
+        var allCard: [CardModel] = []
+        var sortedCards: [CardModel] = []
+        
+        allCard.append(contentsOf: cardsOne)
+        allCard.append(contentsOf: cardsTwo)
+        
+        sortedCards = allCard.shuffled()
+        
+        for index in 0..<sortedCards.count {
+            switch index {
+            case 0...10:
+                onlineBuracoModel.deckPlayerOne.append(sortedCards[index])
+            case 11...21:
+                onlineBuracoModel.deckPlayerTwo.append(sortedCards[index])
+            case 22...32:
+                onlineBuracoModel.deckPlayerThree.append(sortedCards[index])
+            case 33...43:
+                onlineBuracoModel.deckPlayerFour.append(sortedCards[index])
+            case 44...54:
+                onlineBuracoModel.deckSecondOne.append(sortedCards[index])
+            case 55...65:
+                onlineBuracoModel.deckSecondTwo.append(sortedCards[index])
+            case 66...103:
+                onlineBuracoModel.deckRefill.append(sortedCards[index])
+            default:
+                break
+            }
+        }
+        
+        self.preparingGameTable(onlineGame: onlineBuracoModel)
+    }
+    
+    func preparingGameTable(onlineGame: OnlineBuracoModel) {
+        onlineBuracoRepo.add(onlineBuraco: onlineBuracoModel) { result in
+            switch result {
+            case .success(let onlineBuraco):
+                if let returnedOnlineBuraco = onlineBuraco {
+                    self.onlinePlayerOne = OnlinePlayerModel(
+                        gameID: returnedOnlineBuraco.id,
+                        playerName: self.playerOne.friendName,
+                        playerID: self.playerOne.friendId,
+                        playerEmail: self.playerOne.friendEmail,
+                        deckPlayer: returnedOnlineBuraco.deckPlayerOne,
+                        playerTurn: self.playerOne.friendId
+                    )
+                    
+                    self.onlinePlayerTwo = OnlinePlayerModel(
+                        gameID: returnedOnlineBuraco.id,
+                        playerName: self.playerTwo.friendName,
+                        playerID: self.playerTwo.friendId,
+                        playerEmail: self.playerOne.friendEmail,
+                        deckPlayer: returnedOnlineBuraco.deckPlayerTwo,
+                        playerTurn: self.playerTwo.friendId
+                    )
+                    
+                    self.onlinePlayerThree = OnlinePlayerModel(
+                        gameID: returnedOnlineBuraco.id,
+                        playerName: self.playerThree.friendName,
+                        playerID: self.playerThree.friendId,
+                        playerEmail: self.playerThree.friendEmail,
+                        deckPlayer: returnedOnlineBuraco.deckPlayerThree,
+                        playerTurn: self.playerThree.friendId
+                    )
+                    
+                    self.onlinePlayerFour = OnlinePlayerModel(
+                        gameID: returnedOnlineBuraco.id,
+                        playerName: self.playerFour.friendName,
+                        playerID: self.playerFour.friendId,
+                        playerEmail: self.playerFour.friendEmail,
+                        deckPlayer: returnedOnlineBuraco.deckPlayerFour,
+                        playerTurn: self.playerFour.friendId
+                    )
+                    
+                    self.createPlayers = true
+                }
+            case .failure(let error):
+                print(error)
+            }
+        }
+    }
+    
+    func addOnlinePlayers() async throws {
+        try await onlineBuracoRepo.addPlayer(onlinePlayer: onlinePlayerOne)
+        try await onlineBuracoRepo.addPlayer(onlinePlayer: onlinePlayerTwo)
+        try await onlineBuracoRepo.addPlayer(onlinePlayer: onlinePlayerThree)
+        try await onlineBuracoRepo.addPlayer(onlinePlayer: onlinePlayerFour)
+        
+        self.showOnlineGame = true
+    }
+    
+    @Published var cardsOne: [CardModel] = [
             CardModel(id: "clubsTwo", cardCode: "card1", value: 10, backColor: "cardBack1"),
             CardModel(id: "clubsThree", cardCode: "card2", value: 5, backColor: "cardBack1"),
             CardModel(id: "clubsFour", cardCode: "card3", value: 5, backColor: "cardBack1"),
@@ -135,10 +235,9 @@ final class CardsViewModel: ObservableObject {
             CardModel(id: "spadesJ", cardCode: "card48", value: 10, backColor: "cardBack1"),
             CardModel(id: "spadesQ", cardCode: "card50", value: 10, backColor: "cardBack1"),
             CardModel(id: "spadesK", cardCode: "card51", value: 10, backColor: "cardBack1"),
-            CardModel(id: "spadesAs", cardCode: "card52", value: 15, backColor: "cardBack1")
-        ]
-        
-        cardsTwo = [
+            CardModel(id: "spadesAs", cardCode: "card52", value: 15, backColor: "cardBack1")]
+    
+    @Published var cardsTwo: [CardModel] = [
             CardModel(id: "clubsTwo", cardCode: "card1", value: 10, backColor: "cardBack2"),
             CardModel(id: "clubsThree", cardCode: "card2", value: 5, backColor: "cardBack2"),
             CardModel(id: "clubsFour", cardCode: "card3", value: 5, backColor: "cardBack2"),
@@ -190,50 +289,5 @@ final class CardsViewModel: ObservableObject {
             CardModel(id: "spadesJ", cardCode: "card48", value: 10, backColor: "cardBack2"),
             CardModel(id: "spadesQ", cardCode: "card50", value: 10, backColor: "cardBack2"),
             CardModel(id: "spadesK", cardCode: "card51", value: 10, backColor: "cardBack2"),
-            CardModel(id: "spadesAs", cardCode: "card52", value: 15, backColor: "cardBack2")
-        ]
-    }
-    
-    
-    func preparingDecks() {
-        secondDeckOne.removeAll()
-        secondDeckTwo.removeAll()
-        deckRefill.removeAll()
-        
-        var allCard: [CardModel] = []
-        var sortedCards: [CardModel] = []
-        
-        allCard.append(contentsOf: cardsOne)
-        allCard.append(contentsOf: cardsTwo)
-        
-        sortedCards = allCard.shuffled()
-        
-        for index in 0..<sortedCards.count {
-            switch index {
-            case 0...10:
-                onlineGameModel.deckPlayerOne.append(sortedCards[index])
-            case 11...21:
-                onlineGameModel.deckPlayerTwo.append(sortedCards[index])
-            case 22...32:
-                onlineGameModel.deckPlayerThree.append(sortedCards[index])
-            case 33...43:
-                onlineGameModel.deckPlayerFour.append(sortedCards[index])
-            case 44...54:
-                onlineGameModel.deckSecondOne.append(sortedCards[index])
-            case 55...65:
-                onlineGameModel.deckSecondTwo.append(sortedCards[index])
-            case 66...103:
-                onlineGameModel.deckRefill.append(sortedCards[index])
-            default:
-                break
-            }
-        }
-        
-        self.preparingGameTable()
-    }
-    
-    func preparingGameTable() {
-        print(onlineGameModel)
-    }
-    
+            CardModel(id: "spadesAs", cardCode: "card52", value: 15, backColor: "cardBack2")]  
 }

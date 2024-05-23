@@ -50,7 +50,6 @@ struct MainDeckView: View {
 #Preview {
     MainDeckView(
         onlinePlayerModel: .constant(OnlinePlayerModel(
-            id: "",
             gameID: "",
             playerName: "",
             playerID: "",

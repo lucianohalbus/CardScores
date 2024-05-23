@@ -49,7 +49,6 @@ struct RivalDeckLeftView: View {
 #Preview {
     RivalDeckLeftView(
         onlinePlayerModel: .constant(OnlinePlayerModel(
-            id: "",
             gameID: "",
             playerName: "",
             playerID: "",
