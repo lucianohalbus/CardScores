@@ -25,7 +25,7 @@ struct BuracoOnlineMatchView: View {
                 SecondDeckTwoView(deck: $cardsVM.onlineBuracoModel.deckSecondOne)
                 SecondDeckOneView(deck: $cardsVM.onlineBuracoModel.deckSecondTwo)
                 
-                DeckRefillView(deck: $cardsVM.onlineBuracoModel.deckRefill) {
+                DeckRefillView(deck: $cardsVM.deckRefill) {
                     if cardsVM.deckRefill.count > 0 {
                         if let card = cardsVM.deckRefill.last {
                             if cardsVM.isPlayerOneTurn {
@@ -168,9 +168,7 @@ struct BuracoOnlineMatchView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.green, ignoresSafeAreaEdges: .all)
-            .onAppear {
-                
-        }
+            .navigationBarHidden(true)
         }
     }
 }

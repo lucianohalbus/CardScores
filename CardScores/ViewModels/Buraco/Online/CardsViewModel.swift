@@ -92,6 +92,11 @@ final class CardsViewModel: ObservableObject {
         secondDeckOne.removeAll()
         secondDeckTwo.removeAll()
         deckRefill.removeAll()
+        discardDeck.removeAll()
+        onlinePlayerOne.deckPlayer.removeAll()
+        onlinePlayerTwo.deckPlayer.removeAll()
+        onlinePlayerThree.deckPlayer.removeAll()
+        onlinePlayerFour.deckPlayer.removeAll()
         
         var allCard: [CardModel] = []
         var sortedCards: [CardModel] = []
@@ -165,6 +170,8 @@ final class CardsViewModel: ObservableObject {
                         deckPlayer: returnedOnlineBuraco.deckPlayerFour,
                         playerTurn: self.playerFour.friendId
                     )
+                    
+                    self.deckRefill = returnedOnlineBuraco.deckRefill
                     
                     self.createPlayers = true
                 }
