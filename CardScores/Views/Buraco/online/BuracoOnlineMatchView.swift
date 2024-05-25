@@ -96,6 +96,8 @@ struct BuracoOnlineMatchView: View {
                         cardsVM.onlinePlayerOne.deckPlayer.removeAll { card in
                             card == cardsVM.auxDeck.first
                         }
+                        cardsVM.updateDeckDiscard(deckDiscard: cardsVM.discardDeck)
+                        cardsVM.updatePlayerDeck(deckPlayer: cardsVM.onlinePlayerOne.deckPlayer, onlinePlayer: cardsVM.onlinePlayerOne)
                         cardsVM.isPlayerOneTurn = false
                         cardsVM.isPlayerTwoTurn = false
                         cardsVM.isPlayerThreeTurn = true
@@ -164,6 +166,11 @@ struct BuracoOnlineMatchView: View {
                         cardsVM.isPlayerThreeDiscarding = false
                         cardsVM.isPlayerFourDiscarding = false
                     }
+                }
+            }
+            .onChange(of: cardsVM.deckPlayerUpdated) { newValue in
+                if newValue {
+                    cardsVM.deckRefillUpdated = false
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)

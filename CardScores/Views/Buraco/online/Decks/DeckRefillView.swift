@@ -26,9 +26,7 @@ struct DeckRefillView: View {
                     HStack {
                         Button(action: {
                             if isPlayerAvailable {
-                                
-                                refillButtonClicked()
-                                
+ 
                                 if deck.count < 1 {
                                     if cardsVM.isSecondDeckOneAvailable {
                                         deck.append(contentsOf: cardsVM.secondDeckOne)
@@ -44,6 +42,16 @@ struct DeckRefillView: View {
                                 }
                                 
                                 deck.removeLast()
+                                
+                                let cardModel: CardModel = CardModel(
+                                    id: card.id,
+                                    cardCode: card.cardCode,
+                                    value: card.value,
+                                    backColor: card.backColor
+                                )
+                                
+                                cardsVM.deleteCardFromDeckRefill(card: cardModel)
+                                refillButtonClicked()
                             }
                         }, label: {
                             ZStack {

@@ -10,7 +10,36 @@ final class CardsViewModel: ObservableObject {
     @Published var playerFour: FriendsModel = FriendsModel(friendId: "", friendEmail: "", friendName: "")
     @Published var createPlayers: Bool = false
     @Published var showOnlineGame: Bool = false
+    
+    // MARK: - DECKS
+    @Published var secondDeckOne: [CardModel] = []
+    @Published var secondDeckTwo: [CardModel] = []
+    @Published var deckRefill: [CardModel] = []
+    @Published var auxDeck: [CardModel] = []
+    @Published var discardDeck: [CardModel] = []
+    
+    // MARK: - TURN LOGICS
+    @Published var isSecondDeckOneAvailable: Bool = true
+    @Published var isSecondDeckTwoAvailable: Bool = true
+    @Published var isPlayerOneTurn: Bool = true
+    @Published var isPlayerTwoTurn: Bool = false
+    @Published var isPlayerThreeTurn: Bool = false
+    @Published var isPlayerFourTurn: Bool = false
+    @Published var deckPlayerUpdated: Bool = false
+    @Published var deckRefillUpdated: Bool = false
+    @Published var deckDiscardUpdated: Bool = false
+    
+    // MARK: - CARD / DISCARD LOGICS
+    @Published var isBuyingFromDeckRefill: Bool = true
+    @Published var isBuyingFromDiscards: Bool = false
+    @Published var shoudDiscard: Bool = false
+    @Published var isPlayerOneDiscarding: Bool = true
+    @Published var isPlayerTwoDiscarding: Bool = false
+    @Published var isPlayerThreeDiscarding: Bool = false
+    @Published var isPlayerFourDiscarding: Bool = false
 
+    
+    // MARK: - ONLINE DOCUMENTS
     @Published var onlineBuracoModel: OnlineBuracoModel = OnlineBuracoModel(
         id: "",
         deckPlayerOne: [],
@@ -60,29 +89,7 @@ final class CardsViewModel: ObservableObject {
         playerTurn: ""
     )
 
-    // MARK: - DECKS
-    @Published var secondDeckOne: [CardModel] = []
-    @Published var secondDeckTwo: [CardModel] = []
-    @Published var deckRefill: [CardModel] = []
-    @Published var auxDeck: [CardModel] = []
-    @Published var discardDeck: [CardModel] = []
-    
-    // MARK: - TURN LOGICS
-    @Published var isSecondDeckOneAvailable: Bool = true
-    @Published var isSecondDeckTwoAvailable: Bool = true
-    @Published var isPlayerOneTurn: Bool = true
-    @Published var isPlayerTwoTurn: Bool = false
-    @Published var isPlayerThreeTurn: Bool = false
-    @Published var isPlayerFourTurn: Bool = false
-    
-    // MARK: - CARD / DISCARD LOGICS
-    @Published var isBuyingFromDeckRefill: Bool = true
-    @Published var isBuyingFromDiscards: Bool = false
-    @Published var shoudDiscard: Bool = false
-    @Published var isPlayerOneDiscarding: Bool = true
-    @Published var isPlayerTwoDiscarding: Bool = false
-    @Published var isPlayerThreeDiscarding: Bool = false
-    @Published var isPlayerFourDiscarding: Bool = false
+   
 
     init() {
         onlineBuracoRepo = OnlineBuracoRepository()
@@ -188,6 +195,39 @@ final class CardsViewModel: ObservableObject {
         try await onlineBuracoRepo.addPlayer(onlinePlayer: onlinePlayerFour)
         
         self.showOnlineGame = true
+    }
+    
+    func updatePlayerDeck(deckPlayer: [CardModel], onlinePlayer: OnlinePlayerModel) {
+        onlineBuracoRepo.updatePlayerDeck(deckPlayer: deckPlayer, onlinePlayer: onlinePlayer) { result in
+            switch result {
+            case .success(let returnedItem):
+                self.deckPlayerUpdated = returnedItem
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func deleteCardFromDeckRefill(card: CardModel) {
+        onlineBuracoRepo.deleteCardFromDeckRefill(deckRefill: card, onlineBuracoID: onlinePlayerOne.gameID) { result in
+            switch result {
+            case .success(let returnedItem):
+                self.deckRefillUpdated = returnedItem
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func updateDeckDiscard(deckDiscard: [CardModel]) {
+        onlineBuracoRepo.updateDeckDiscard(deckDiscard: deckDiscard, onlineBuracoID: onlinePlayerOne.gameID) { result in
+            switch result {
+            case .success(let returnedItem):
+                self.deckDiscardUpdated = returnedItem
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     @Published var cardsOne: [CardModel] = [
