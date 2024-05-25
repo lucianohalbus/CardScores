@@ -14,7 +14,7 @@ struct TabbarView: View {
       case inicio, partidas, ranking, online, profile
      }
     
-    @State private var selectedTab: Tab = .inicio
+    @State private var selectedTab: Tab = .online
     @State private var mainNavigationStack: [MainNavigation] = []
     
     var body: some View {
@@ -70,6 +70,9 @@ struct TabbarView: View {
 
 #Preview {
     TabbarView(showLoginView: .constant(false))
+        .environmentObject(BuracoMatchViewModel())
+        .environmentObject(CardsViewModel())
+    
 }
 
 extension TabbarView {

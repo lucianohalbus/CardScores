@@ -8,23 +8,30 @@ struct SecondDeckOneView: View {
     var body: some View {
         GeometryReader { proxy in
             ZStack {
-                ForEach(deck) { card in
-                    HStack {
-                        Button(action: {
-                           
-                        }, label: {
-                            ZStack {
-                                Image(card.backColor)
-                                    .resizable()
-                                    .frame(width: 35, height: 60)
-                            }
-                        })
+                ZStack {
+                    ForEach(deck) { card in
+                        HStack {
+                            Button(action: {
+                               
+                            }, label: {
+                                ZStack {
+                                    Image(card.backColor)
+                                        .resizable()
+                                        .frame(width: 35, height: 60)
+                                }
+                            })
+                        }
                     }
                 }
+                .position(
+                    x: proxy.size.width * 0.85,
+                    y: proxy.size.height * 0.45
+                )
             }
-            .frame(maxWidth: .infinity, alignment: .center)
-            .offset(x: 130, y: proxy.size.height * 0.45)
+            .frame(width: proxy.size.width, height: proxy.size.height)
+            .padding(proxy.safeAreaInsets)
         }
+        .edgesIgnoringSafeArea(.all)
     }
 }
 

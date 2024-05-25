@@ -10,35 +10,52 @@ struct RivalDeckRightView: View {
     var body: some View {
         GeometryReader { proxy in
             VStack {
-                HStack(spacing: 0) {
-                    ForEach(onlinePlayerModel.deckPlayer) { card in
-                        HStack {
-                            Button(action: {
-                                onSelect()
-                                if !cardsVM.isPlayerFourTurn {
-                                    if cardsVM.auxDeck.contains(card) {
-                                        cardsVM.auxDeck.removeAll { cards in
-                                            cards == card
+                ZStack {
+                    HStack(spacing: 0) {
+                        ForEach(onlinePlayerModel.deckPlayer) { card in
+                            HStack {
+                                Button(action: {
+                                    onSelect()
+                                    if !cardsVM.isPlayerFourTurn {
+                                        if cardsVM.auxDeck.contains(card) {
+                                            cardsVM.auxDeck.removeAll { cards in
+                                                cards == card
+                                            }
+                                        } else {
+                                            cardsVM.auxDeck.append(card)
                                         }
-                                    } else {
-                                        cardsVM.auxDeck.append(card)
                                     }
-                                }
-                            }, label: {
-                                ZStack {
-                                    Image(card.backColor)
-                                        .resizable()
-                                        .frame(width: 30, height: 50)
-                                }
-                            })
+                                }, label: {
+                                    ZStack {
+                                        Image(card.backColor)
+                                            .resizable()
+                                            .frame(width: 30, height: 50)
+                                    }
+                                })
+                            }
                         }
                     }
+                    Text(onlinePlayerModel.playerName)
+                        .fontWeight(.semibold)
+                        .font(.title3)
+                        .foregroundStyle(Color.black)
+                        .position(
+                            x: proxy.size.width * 0.5,
+                            y: proxy.size.height * 0.49
+                        )
+                        .rotationEffect(.degrees(180))
+
                 }
-                .frame(maxWidth: .infinity, alignment: .center)
+                .position(
+                    x: proxy.size.width * 0.4,
+                    y: proxy.size.height * 0.27
+                )
                 .rotationEffect(.degrees(90))
-                .offset(x: proxy.size.height * 0.25, y: proxy.size.width * 0.9)
             }
+            .frame(width: proxy.size.width, height: proxy.size.height)
+            .padding(proxy.safeAreaInsets)
         }
+        .edgesIgnoringSafeArea(.all)
     }
 }
 

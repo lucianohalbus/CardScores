@@ -22,54 +22,61 @@ struct DeckRefillView: View {
     var body: some View {
         GeometryReader { proxy in
             ZStack {
-                ForEach(deck) { card in
-                    HStack {
-                        Button(action: {
-                            if isPlayerAvailable {
- 
-                                if deck.count < 1 {
-                                    if cardsVM.isSecondDeckOneAvailable {
-                                        deck.append(contentsOf: cardsVM.secondDeckOne)
-                                        cardsVM.secondDeckOne.removeAll()
-                                        cardsVM.isSecondDeckOneAvailable = false
-                                    } else if cardsVM.isSecondDeckTwoAvailable {
-                                       deck.append(contentsOf: cardsVM.secondDeckTwo)
-                                        cardsVM.secondDeckTwo.removeAll()
-                                        cardsVM.isSecondDeckTwoAvailable = false
-                                   } else {
-                                       print("gameOver!!")
-                                   }
+                ZStack {
+                    ForEach(deck) { card in
+                        HStack {
+                            Button(action: {
+                                if isPlayerAvailable {
+     
+                                    if deck.count < 1 {
+                                        if cardsVM.isSecondDeckOneAvailable {
+                                            deck.append(contentsOf: cardsVM.onlineBuracoModel.deckPlayerOne)
+                                            cardsVM.onlineBuracoModel.deckPlayerOne.removeAll()
+                                            cardsVM.isSecondDeckOneAvailable = false
+                                        } else if cardsVM.isSecondDeckTwoAvailable {
+                                           deck.append(contentsOf: cardsVM.onlineBuracoModel.deckPlayerTwo)
+                                            cardsVM.onlineBuracoModel.deckPlayerTwo.removeAll()
+                                            cardsVM.isSecondDeckTwoAvailable = false
+                                       } else {
+                                           print("gameOver!!")
+                                       }
+                                    }
+                                    
+                                    deck.removeLast()
+                                    
+                                    let cardModel: CardModel = CardModel(
+                                        id: card.id,
+                                        cardCode: card.cardCode,
+                                        value: card.value,
+                                        backColor: card.backColor
+                                    )
+                                    
+                                    cardsVM.deleteCardFromDeckRefill(card: cardModel)
+                                    refillButtonClicked()
                                 }
-                                
-                                deck.removeLast()
-                                
-                                let cardModel: CardModel = CardModel(
-                                    id: card.id,
-                                    cardCode: card.cardCode,
-                                    value: card.value,
-                                    backColor: card.backColor
-                                )
-                                
-                                cardsVM.deleteCardFromDeckRefill(card: cardModel)
-                                refillButtonClicked()
-                            }
-                        }, label: {
-                            ZStack {
-                                Image(card.backColor)
-                                    .resizable()
-                                    .frame(width: 35, height: 60)
-                                
-                                Text(deck.count.description)
-                                    .font(.title3)
-                                    .foregroundStyle(Color.white)
-                            }
-                        })
+                            }, label: {
+                                ZStack {
+                                    Image(card.backColor)
+                                        .resizable()
+                                        .frame(width: 35, height: 60)
+                                    
+                                    Text(deck.count.description)
+                                        .font(.title3)
+                                        .foregroundStyle(Color.white)
+                                }
+                            })
+                        }
                     }
                 }
+                .position(
+                    x: proxy.size.width * 0.12,
+                    y: proxy.size.height * 0.45
+                )
             }
-            .frame(maxWidth: .infinity, alignment: .center)
-            .offset(x: -145, y: proxy.size.height * 0.45)
+            .frame(width: proxy.size.width, height: proxy.size.height)
+            .padding(proxy.safeAreaInsets)
         }
+        .edgesIgnoringSafeArea(.all)
     }
 }
 

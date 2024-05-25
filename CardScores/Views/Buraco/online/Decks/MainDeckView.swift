@@ -10,36 +10,46 @@ struct MainDeckView: View {
     
     var body: some View {
         GeometryReader { proxy in
-            VStack {
+            ZStack {
                 HStack(spacing: 0) {
                     ForEach(onlinePlayerModel.deckPlayer) { card in
                         HStack {
                             Button(action: {
                                 onSelect()
                                 if cardsVM.isPlayerOneDiscarding {
-                                    if cardsVM.auxDeck.contains(card) {
-                                        cardsVM.auxDeck.removeAll { cards in
-                                            cards == card
-                                        }
-                                    } else {
-                                        cardsVM.auxDeck.append(card)
-                                    }
+                                    cardsVM.auxDiscardDeck = CardModel(
+                                        id: card.id,
+                                        cardCode: card.cardCode,
+                                        value: card.value,
+                                        backColor: card.backColor
+                                    )
                                 }
-                              }, label: {
+                            }, label: {
                                 ZStack {
                                     Image(card.cardCode)
                                         .resizable()
                                         .frame(width: 35, height: 60)
+                                    
+                                    Rectangle()
+                                        .fill(Color.black)
+                                        .frame(width: proxy.size.width)
+                                        .frame(height: 140)
+                                        .position(x: 0, y: proxy.size.height * 0.62
+                                        )
                                 }
                             })
                         }
                     }
                 }
-                .frame(maxWidth: .infinity, alignment: .center)
-                .offset(y: proxy.size.height * 0.9)
-                
+                .position(
+                    x: proxy.size.width * 0.5,
+                    y: proxy.size.height * 0.8
+                )
             }
+            .frame(width: proxy.size.width, height: proxy.size.height)
+            .padding(proxy.safeAreaInsets)
         }
+        .edgesIgnoringSafeArea(.all)
     }
 }
 

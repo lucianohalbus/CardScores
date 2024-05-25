@@ -6,28 +6,31 @@ struct BuracoOnlineMatchView: View {
     @EnvironmentObject var cardsVM: CardsViewModel
 
     var body: some View {
-        GeometryReader { _ in
+        GeometryReader { proxy in
             ZStack {
-                GameAreaOneView()
-                GameAreaTwoView()
+              //  GameAreaOneView()
+              //  GameAreaTwoView()
                 MainDeckView(onlinePlayerModel: $cardsVM.onlinePlayerOne) {
 
                 }
+                
                 RivalDeckTopView(onlinePlayerModel: $cardsVM.onlinePlayerTwo) {
                     
                 }
+                
                 RivalDeckLeftView(onlinePlayerModel: $cardsVM.onlinePlayerThree) {
                     
                 }
+                
                 RivalDeckRightView(onlinePlayerModel: $cardsVM.onlinePlayerFour) {
                     
                 }
-                SecondDeckTwoView(deck: $cardsVM.onlineBuracoModel.deckSecondOne)
-                SecondDeckOneView(deck: $cardsVM.onlineBuracoModel.deckSecondTwo)
+                SecondDeckTwoView(deck: $cardsVM.onlineBuracoModel.deckSecondTwo)
+                SecondDeckOneView(deck: $cardsVM.onlineBuracoModel.deckSecondOne)
                 
-                DeckRefillView(deck: $cardsVM.deckRefill) {
-                    if cardsVM.deckRefill.count > 0 {
-                        if let card = cardsVM.deckRefill.last {
+                DeckRefillView(deck: $cardsVM.onlineBuracoModel.deckRefill) {
+                    if cardsVM.onlineBuracoModel.deckRefill.count > 0 {
+                        if let card = cardsVM.onlineBuracoModel.deckRefill.last {
                             if cardsVM.isPlayerOneTurn {
                                 cardsVM.onlinePlayerOne.deckPlayer.append(card)
                                 cardsVM.isPlayerOneTurn = false
@@ -88,15 +91,19 @@ struct BuracoOnlineMatchView: View {
                         }
                     }
                 }
+                
                 DiscardAreaView() {
                     
                 } onDiscard: {
                     if cardsVM.isPlayerOneDiscarding {
-                        cardsVM.discardDeck.append(contentsOf: cardsVM.auxDeck)
+                        cardsVM.onlineBuracoModel.deckDiscard.append(contentsOf: cardsVM.auxDeck)
                         cardsVM.onlinePlayerOne.deckPlayer.removeAll { card in
                             card == cardsVM.auxDeck.first
                         }
-                        cardsVM.updateDeckDiscard(deckDiscard: cardsVM.discardDeck)
+   
+                        let cardToDiscard: CardModel = cardsVM.auxDiscardDeck
+                        cardsVM.updateDeckDiscard(deckDiscard: cardToDiscard)
+                        
                         cardsVM.updatePlayerDeck(deckPlayer: cardsVM.onlinePlayerOne.deckPlayer, onlinePlayer: cardsVM.onlinePlayerOne)
                         cardsVM.isPlayerOneTurn = false
                         cardsVM.isPlayerTwoTurn = false
@@ -112,7 +119,7 @@ struct BuracoOnlineMatchView: View {
                         cardsVM.isPlayerThreeDiscarding = false
                         cardsVM.isPlayerFourDiscarding = false
                     } else if cardsVM.isPlayerTwoDiscarding {
-                        cardsVM.discardDeck.append(contentsOf: cardsVM.auxDeck)
+                        cardsVM.onlineBuracoModel.deckDiscard.append(contentsOf: cardsVM.auxDeck)
                         cardsVM.onlinePlayerTwo.deckPlayer.removeAll { card in
                             card == cardsVM.auxDeck.first
                         }
@@ -130,7 +137,7 @@ struct BuracoOnlineMatchView: View {
                         cardsVM.isPlayerThreeDiscarding = false
                         cardsVM.isPlayerFourDiscarding = false
                     } else if cardsVM.isPlayerThreeDiscarding {
-                        cardsVM.discardDeck.append(contentsOf: cardsVM.auxDeck)
+                        cardsVM.onlineBuracoModel.deckDiscard.append(contentsOf: cardsVM.auxDeck)
                         cardsVM.onlinePlayerThree.deckPlayer.removeAll { card in
                             card == cardsVM.auxDeck.first
                         }
@@ -148,7 +155,7 @@ struct BuracoOnlineMatchView: View {
                         cardsVM.isPlayerThreeDiscarding = false
                         cardsVM.isPlayerFourDiscarding = false
                     } else if cardsVM.isPlayerFourDiscarding {
-                        cardsVM.discardDeck.append(contentsOf: cardsVM.auxDeck)
+                        cardsVM.onlineBuracoModel.deckDiscard.append(contentsOf: cardsVM.auxDeck)
                         cardsVM.onlinePlayerFour.deckPlayer.removeAll { card in
                             card == cardsVM.auxDeck.first
                         }
@@ -168,15 +175,17 @@ struct BuracoOnlineMatchView: View {
                     }
                 }
             }
+            .frame(width: proxy.size.width, height: proxy.size.height)
+            .padding(proxy.safeAreaInsets)
+            .background(Color.green, ignoresSafeAreaEdges: .all)
+            .navigationBarHidden(true)
             .onChange(of: cardsVM.deckPlayerUpdated) { newValue in
                 if newValue {
                     cardsVM.deckRefillUpdated = false
                 }
             }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .background(Color.green, ignoresSafeAreaEdges: .all)
-            .navigationBarHidden(true)
         }
+        .edgesIgnoringSafeArea(.all)
     }
 }
 

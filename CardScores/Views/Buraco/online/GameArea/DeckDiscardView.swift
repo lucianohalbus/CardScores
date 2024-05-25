@@ -10,31 +10,38 @@ struct DiscardAreaView: View {
     var body: some View {
         GeometryReader { proxy in
             ZStack {
-                
-                Rectangle()
-                    .foregroundColor(Color.green)
-                    .frame(width: 200, height: 60)
-                    .offset(x: 100)
-                    .onTapGesture {
-                        if cardsVM.isBuyingFromDiscards {
-                            onClick()
-                        } else if cardsVM.shoudDiscard {
-                            onDiscard()
+                ZStack {
+                    Rectangle()
+                        .foregroundColor(Color.gray.opacity(0.2))
+                        .frame(
+                            width: proxy.size.width * 0.55,
+                            height: 80)
+                        .onTapGesture {
+                            if cardsVM.isBuyingFromDiscards {
+                                onClick()
+                            } else if cardsVM.shoudDiscard {
+                                onDiscard()
+                            }
+                        }
+       
+                    ForEach(Array(zip(cardsVM.onlineBuracoModel.deckDiscard.indices, cardsVM.onlineBuracoModel.deckDiscard)), id: \.0) { index, card in
+                        ZStack {
+                            Image(card.cardCode)
+                                .resizable()
+                                .frame(width: 35, height: 60)
+                                
                         }
                     }
-   
-                ForEach(Array(zip(cardsVM.discardDeck.indices, cardsVM.discardDeck)), id: \.0) { index, card in
-                    ZStack {
-                        Image(card.cardCode)
-                            .resizable()
-                            .frame(width: 35, height: 60)
-                            .offset(x: CGFloat(index*10))
-                    }
                 }
+                .position(
+                    x: proxy.size.width * 0.47,
+                    y: proxy.size.height * 0.45
+                )
             }
-            .frame(width: proxy.size.height * 0.4, alignment: .center)
-            .offset(x: -50, y: proxy.size.height * 0.45)
+            .frame(width: proxy.size.width, height: proxy.size.height)
+            .padding(proxy.safeAreaInsets)
         }
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
