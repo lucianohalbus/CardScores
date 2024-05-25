@@ -34,7 +34,6 @@
 		CB5806132BFE5A3800CA7DED /* DeckDiscardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58060E2BFE5A3700CA7DED /* DeckDiscardView.swift */; };
 		CB5806142BFE5A3800CA7DED /* gameAreaOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58060F2BFE5A3700CA7DED /* gameAreaOne.swift */; };
 		CB5806152BFE5A3800CA7DED /* GameAreaTwo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5806102BFE5A3700CA7DED /* GameAreaTwo.swift */; };
-		CB5806162BFE5A3800CA7DED /* TopBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5806112BFE5A3700CA7DED /* TopBar.swift */; };
 		CB5806182BFE5ED800CA7DED /* OnlinePlayerModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5806172BFE5ED800CA7DED /* OnlinePlayerModel.swift */; };
 		CB58061A2BFE654600CA7DED /* OnlineBuracoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5806192BFE654600CA7DED /* OnlineBuracoModel.swift */; };
 		CB58061C2BFEB24000CA7DED /* BuracoOnlineMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58061B2BFEB24000CA7DED /* BuracoOnlineMatchView.swift */; };
@@ -114,7 +113,6 @@
 		CB58060E2BFE5A3700CA7DED /* DeckDiscardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DeckDiscardView.swift; sourceTree = "<group>"; };
 		CB58060F2BFE5A3700CA7DED /* gameAreaOne.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = gameAreaOne.swift; sourceTree = "<group>"; };
 		CB5806102BFE5A3700CA7DED /* GameAreaTwo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameAreaTwo.swift; sourceTree = "<group>"; };
-		CB5806112BFE5A3700CA7DED /* TopBar.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TopBar.swift; sourceTree = "<group>"; };
 		CB5806172BFE5ED800CA7DED /* OnlinePlayerModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlinePlayerModel.swift; sourceTree = "<group>"; };
 		CB5806192BFE654600CA7DED /* OnlineBuracoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineBuracoModel.swift; sourceTree = "<group>"; };
 		CB58061B2BFEB24000CA7DED /* BuracoOnlineMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuracoOnlineMatchView.swift; sourceTree = "<group>"; };
@@ -286,7 +284,6 @@
 				CB58060E2BFE5A3700CA7DED /* DeckDiscardView.swift */,
 				CB58060F2BFE5A3700CA7DED /* gameAreaOne.swift */,
 				CB5806102BFE5A3700CA7DED /* GameAreaTwo.swift */,
-				CB5806112BFE5A3700CA7DED /* TopBar.swift */,
 			);
 			path = GameArea;
 			sourceTree = "<group>";
@@ -699,7 +696,6 @@
 				CBB0725E2BD4B0AD0026CA4E /* RankingView+Extension.swift in Sources */,
 				CB1E488F2BF3C66D00F052ED /* FriendsModel.swift in Sources */,
 				CB5578F42BBA324A005A643D /* View+Extension.swift in Sources */,
-				CB5806162BFE5A3800CA7DED /* TopBar.swift in Sources */,
 				CBD142FB2BA8A0DF000FAA55 /* BuracoTurnsViewModel.swift in Sources */,
 				CBD1437D2BABCFC1000FAA55 /* AuthenticationView.swift in Sources */,
 				CB58060A2BFE5A2D00CA7DED /* RivalDeckRightView.swift in Sources */,

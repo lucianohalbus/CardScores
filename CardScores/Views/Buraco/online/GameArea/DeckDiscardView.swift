@@ -12,7 +12,7 @@ struct DiscardAreaView: View {
             ZStack {
                 ZStack {
                     Rectangle()
-                        .foregroundColor(Color.gray.opacity(0.2))
+                        .fill(Color.gray.opacity(0.2))
                         .frame(
                             width: proxy.size.width * 0.55,
                             height: 80)

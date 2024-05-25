@@ -8,8 +8,10 @@ struct BuracoOnlineMatchView: View {
     var body: some View {
         GeometryReader { proxy in
             ZStack {
-              //  GameAreaOneView()
-              //  GameAreaTwoView()
+                GameAreaOneView()
+                
+                GameAreaTwoView()
+                
                 MainDeckView(onlinePlayerModel: $cardsVM.onlinePlayerOne) {
 
                 }

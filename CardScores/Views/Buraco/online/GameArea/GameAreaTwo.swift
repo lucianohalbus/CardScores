@@ -6,25 +6,31 @@ struct GameAreaTwoView: View {
 
     var body: some View {
         GeometryReader { proxy in
-            HStack {
-                Rectangle()
-                    .frame(width: 100, height: 200)
-                    .foregroundColor(Color.clear)
-                
-                VStack {
+            ZStack {
+                ZStack {
                     Rectangle()
-                        .frame(width: 100, height: 300)
-                        .foregroundColor(Color.clear)
-  
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(
+                            width: proxy.size.width * 0.8,
+                            height: proxy.size.height * 0.28
+                        )
+                    
+                    Rectangle()
+                        .fill(Color.gray.opacity(0.2))
+                        .frame(
+                            width: proxy.size.width * 0.75,
+                            height: proxy.size.height * 0.27
+                        )
                 }
+                .position(
+                    x: proxy.size.width * 0.5,
+                    y: proxy.size.height * 0.25
+                )
             }
-
-            .frame(width: proxy.size.width * 0.65, height: proxy.size.height * 0.3)
-            .border(.red)
-            
-            .offset(x: proxy.size.width * 0.17, y: proxy.size.height * 0.5)
-            
+            .frame(width: proxy.size.width, height: proxy.size.height)
+            .padding(proxy.safeAreaInsets)
         }
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
