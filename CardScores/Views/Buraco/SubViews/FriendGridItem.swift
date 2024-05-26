@@ -6,7 +6,6 @@ struct FriendGridItem: View {
     var friend: String
     @Binding var setSelectedButtonColor: Bool
     @Binding var cleanButtonColor: Color
-    
     @State var backColor: Color = Color.white
     var actionAppend: () -> Void
     

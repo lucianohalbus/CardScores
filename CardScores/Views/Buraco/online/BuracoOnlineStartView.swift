@@ -74,7 +74,15 @@ struct BuracoOnlineStartView: View {
                     }
                     .onChange(of: cardsVM.showOnlineGame) { newValue in
                         if newValue {
+                            cardsVM.getOnlineBuraco(onlineBuracoID: cardsVM.onlinePlayerOne.gameID)
+                        }
+                    }
+                    .onChange(of: cardsVM.isGameStarted) { newValue in
+                        if newValue {
                             path.append(.anotherChild)
+                            self.cardsVM.isGameStarted = false
+                            self.cardsVM.createPlayers = false
+                            self.cardsVM.showOnlineGame = false  
                         }
                     }
                     .navigationDestination(for: MainNavigation.self) { view in
