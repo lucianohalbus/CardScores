@@ -8,8 +8,8 @@ struct BuracoOnlineStartView: View {
     @State var shouldCleanTeams: Bool = false
     @State var setSelectedButtonColor: Bool = false
     @State var cleanButtonColor: Color = Color.black
+    @State var sendInvite: Bool = false
     @State var userProfile: ProfileModel?
-    
     @Binding var path: [MainNavigation]
     
     var gridItems = [
@@ -72,6 +72,11 @@ struct BuracoOnlineStartView: View {
                             try await cardsVM.addOnlinePlayers()
                         }
                     }
+                    .onChange(of: cardsVM.shouldInvitePlayers) { newValue in
+                        if newValue {
+                            self.sendInvite = true
+                        }
+                    }
                     .onChange(of: cardsVM.showOnlineGame) { newValue in
                         if newValue {
                             cardsVM.getOnlineBuraco(onlineBuracoID: cardsVM.onlinePlayerOne.gameID)
@@ -82,9 +87,18 @@ struct BuracoOnlineStartView: View {
                             path.append(.anotherChild)
                             self.cardsVM.isGameStarted = false
                             self.cardsVM.createPlayers = false
-                            self.cardsVM.showOnlineGame = false  
+                            self.cardsVM.showOnlineGame = false
                         }
                     }
+                    .alert(isPresented: $sendInvite, content: {
+                        Alert(
+                            title: Text("Game Invite"),
+                            message: Text("Click OK to play!"),
+                            dismissButton: .default(Text("OK")) {
+                                cardsVM.showOnlineGame = true
+                            }
+                        )
+                    })
                     .navigationDestination(for: MainNavigation.self) { view in
                         switch view {
                         case .anotherChild:
