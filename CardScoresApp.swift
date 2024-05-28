@@ -13,6 +13,7 @@ struct CardScoresApp: App {
                 .environmentObject(BuracoTurnsViewModel())
                 .environmentObject(UserRepository())
                 .environmentObject(CardsViewModel())
+                .environmentObject(BuracoSettings())
         }
     }
 }

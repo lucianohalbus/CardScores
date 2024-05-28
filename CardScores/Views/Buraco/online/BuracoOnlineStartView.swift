@@ -4,6 +4,7 @@ import SwiftUI
 
 struct BuracoOnlineStartView: View {
     @EnvironmentObject var cardsVM: CardsViewModel
+    @EnvironmentObject var settings: BuracoSettings
     @StateObject var userVM = UserViewModel()
     @State var shouldCleanTeams: Bool = false
     @State var setSelectedButtonColor: Bool = false
@@ -65,21 +66,16 @@ struct BuracoOnlineStartView: View {
                     .onAppear {
                         Task {
                             self.userProfile = try await userVM.getUser()
-                        }
+                                                    }
                     }
                     .onChange(of: cardsVM.createPlayers) { newValue in
                         Task {
                             try await cardsVM.addOnlinePlayers()
                         }
                     }
-                    .onChange(of: cardsVM.shouldInvitePlayers) { newValue in
-                        if newValue {
-                            self.sendInvite = true
-                        }
-                    }
                     .onChange(of: cardsVM.showOnlineGame) { newValue in
                         if newValue {
-                            cardsVM.getOnlineBuraco(onlineBuracoID: cardsVM.onlinePlayerOne.gameID)
+                            cardsVM.getOnlineBuraco(onlineBuracoID: settings.buracoOnlineID)
                         }
                     }
                     .onChange(of: cardsVM.isGameStarted) { newValue in
@@ -88,17 +84,20 @@ struct BuracoOnlineStartView: View {
                             self.cardsVM.isGameStarted = false
                             self.cardsVM.createPlayers = false
                             self.cardsVM.showOnlineGame = false
+                            self.cardsVM.isReceivingInvite = false
+                            self.settings.showInvitingAlert = false
                         }
                     }
-                    .alert(isPresented: $sendInvite, content: {
+                    .alert(isPresented: $settings.showInvitingAlert, content: {
                         Alert(
                             title: Text("Game Invite"),
                             message: Text("Click OK to play!"),
                             dismissButton: .default(Text("OK")) {
-                                cardsVM.showOnlineGame = true
+                                cardsVM.updateReadyToPlay(readyToPlay: true)
                             }
                         )
                     })
+                  
                     .navigationDestination(for: MainNavigation.self) { view in
                         switch view {
                         case .anotherChild:
@@ -265,4 +264,5 @@ struct BuracoOnlineStartView: View {
         matchFB: MatchFB(scoreToWin: "", playerOne: "", playerTwo: "", playerThree: "", playerFour: "", finalScoreOne: "", finalScoreTwo: "", friendsId: [], myDate: Date(), registeredUser: false, docId: "", gameOver: false)))])
     )
     .environmentObject(CardsViewModel())
+    .environmentObject(BuracoSettings())
 }

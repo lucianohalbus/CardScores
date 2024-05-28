@@ -1,6 +1,7 @@
 //Created by Halbus Development
 
 import SwiftUI
+import FirebaseAuth
 
 struct BuracoOnlineMatchView: View {
     @EnvironmentObject var cardsVM: CardsViewModel
@@ -8,25 +9,32 @@ struct BuracoOnlineMatchView: View {
     var body: some View {
         GeometryReader { proxy in
             ZStack {
+                if let playerId: String = Auth.auth().currentUser?.uid {
+                    if playerId == cardsVM.onlinePlayerOne.playerID {
+                        MainDeckView(onlinePlayerModel: $cardsVM.onlinePlayerOne) { }
+                        RivalDeckTopView(onlinePlayerModel: $cardsVM.onlinePlayerTwo) { }
+                        RivalDeckLeftView(onlinePlayerModel: $cardsVM.onlinePlayerThree) { }
+                        RivalDeckRightView(onlinePlayerModel: $cardsVM.onlinePlayerFour) { }
+                    } else if playerId == cardsVM.onlinePlayerTwo.playerID {
+                        MainDeckView(onlinePlayerModel: $cardsVM.onlinePlayerTwo) { }
+                        RivalDeckTopView(onlinePlayerModel: $cardsVM.onlinePlayerOne) { }
+                        RivalDeckLeftView(onlinePlayerModel: $cardsVM.onlinePlayerThree) { }
+                        RivalDeckRightView(onlinePlayerModel: $cardsVM.onlinePlayerFour) { }
+                    } else if playerId == cardsVM.onlinePlayerThree.playerID {
+                        MainDeckView(onlinePlayerModel: $cardsVM.onlinePlayerThree) { }
+                        RivalDeckTopView(onlinePlayerModel: $cardsVM.onlinePlayerFour) { }
+                        RivalDeckLeftView(onlinePlayerModel: $cardsVM.onlinePlayerOne) { }
+                        RivalDeckRightView(onlinePlayerModel: $cardsVM.onlinePlayerTwo) { }
+                    }else if playerId == cardsVM.onlinePlayerFour.playerID {
+                        MainDeckView(onlinePlayerModel: $cardsVM.onlinePlayerFour) { }
+                        RivalDeckTopView(onlinePlayerModel: $cardsVM.onlinePlayerThree) { }
+                        RivalDeckLeftView(onlinePlayerModel: $cardsVM.onlinePlayerOne) { }
+                        RivalDeckRightView(onlinePlayerModel: $cardsVM.onlinePlayerTwo) { }
+                    }
+                }
+                
                 GameAreaOneView()
-                
                 GameAreaTwoView()
-                
-                MainDeckView(onlinePlayerModel: $cardsVM.onlinePlayerOne) {
-
-                }
-                
-                RivalDeckTopView(onlinePlayerModel: $cardsVM.onlinePlayerTwo) {
-                    
-                }
-                
-                RivalDeckLeftView(onlinePlayerModel: $cardsVM.onlinePlayerThree) {
-                    
-                }
-                
-                RivalDeckRightView(onlinePlayerModel: $cardsVM.onlinePlayerFour) {
-                    
-                }
                 SecondDeckTwoView(deck: $cardsVM.onlineBuracoModel.deckSecondTwo)
                 SecondDeckOneView(deck: $cardsVM.onlineBuracoModel.deckSecondOne)
                 

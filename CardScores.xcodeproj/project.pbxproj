@@ -38,6 +38,7 @@
 		CB58061A2BFE654600CA7DED /* OnlineBuracoModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5806192BFE654600CA7DED /* OnlineBuracoModel.swift */; };
 		CB58061C2BFEB24000CA7DED /* BuracoOnlineMatchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58061B2BFEB24000CA7DED /* BuracoOnlineMatchView.swift */; };
 		CB58061E2BFF60F400CA7DED /* OnlineBuracoRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB58061D2BFF60F400CA7DED /* OnlineBuracoRepository.swift */; };
+		CB5806582C05577A00CA7DED /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB5806572C05577A00CA7DED /* Settings.swift */; };
 		CB64FCB42BC83F0000067744 /* CreateUserView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCB32BC83F0000067744 /* CreateUserView.swift */; };
 		CB64FCB62BC87BFF00067744 /* ProfileModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCB52BC87BFF00067744 /* ProfileModel.swift */; };
 		CB64FCB92BCA0D6700067744 /* FriendGridItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB64FCB82BCA0D6700067744 /* FriendGridItem.swift */; };
@@ -117,6 +118,7 @@
 		CB5806192BFE654600CA7DED /* OnlineBuracoModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnlineBuracoModel.swift; sourceTree = "<group>"; };
 		CB58061B2BFEB24000CA7DED /* BuracoOnlineMatchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuracoOnlineMatchView.swift; sourceTree = "<group>"; };
 		CB58061D2BFF60F400CA7DED /* OnlineBuracoRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = OnlineBuracoRepository.swift; path = ../../../../../../../../../Applications/OnlineBuracoRepository.swift; sourceTree = "<group>"; };
+		CB5806572C05577A00CA7DED /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		CB64FCB32BC83F0000067744 /* CreateUserView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateUserView.swift; sourceTree = "<group>"; };
 		CB64FCB52BC87BFF00067744 /* ProfileModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModel.swift; sourceTree = "<group>"; };
 		CB64FCB82BCA0D6700067744 /* FriendGridItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendGridItem.swift; sourceTree = "<group>"; };
@@ -580,6 +582,7 @@
 			isa = PBXGroup;
 			children = (
 				CB36E23C2BBDC6A000323907 /* GoogleService-Info.plist */,
+				CB5806572C05577A00CA7DED /* Settings.swift */,
 			);
 			path = Config;
 			sourceTree = "<group>";
@@ -711,6 +714,7 @@
 				CB58061C2BFEB24000CA7DED /* BuracoOnlineMatchView.swift in Sources */,
 				CB8A39AE2BA71E3500EFF71C /* LoginView.swift in Sources */,
 				CB64FCB42BC83F0000067744 /* CreateUserView.swift in Sources */,
+				CB5806582C05577A00CA7DED /* Settings.swift in Sources */,
 				CB64FCB92BCA0D6700067744 /* FriendGridItem.swift in Sources */,
 				CB64FCB62BC87BFF00067744 /* ProfileModel.swift in Sources */,
 				CB5805FD2BFE59DD00CA7DED /* CardsViewModel.swift in Sources */,

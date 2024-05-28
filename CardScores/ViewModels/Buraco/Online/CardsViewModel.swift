@@ -1,6 +1,7 @@
 //Created by Halbus Development
 
 import Foundation
+import Combine
 
 final class CardsViewModel: ObservableObject {
     @Published var onlineBuracoRepo: OnlineBuracoRepository
@@ -27,6 +28,7 @@ final class CardsViewModel: ObservableObject {
     @Published var isGameStarted: Bool = false
     @Published var allPlayersReady: Bool = false
     @Published var shouldInvitePlayers: Bool = false
+    @Published var isReceivingInvite: Bool = false
     
     // MARK: - CARD / DISCARD LOGICS
     @Published var isBuyingFromDeckRefill: Bool = true
@@ -58,7 +60,9 @@ final class CardsViewModel: ObservableObject {
         playerID: "",
         playerEmail: "",
         deckPlayer: [],
-        playerTurn: ""
+        playerTurn: "",
+        isInvitedToPlay: false,
+        readyToPlay: false
     )
     
     @Published var onlinePlayerTwo: OnlinePlayerModel = OnlinePlayerModel(
@@ -67,7 +71,9 @@ final class CardsViewModel: ObservableObject {
         playerID: "",
         playerEmail: "",
         deckPlayer: [],
-        playerTurn: ""
+        playerTurn: "",
+        isInvitedToPlay: false,
+        readyToPlay: false
     )
     
     @Published var onlinePlayerThree: OnlinePlayerModel = OnlinePlayerModel(
@@ -76,7 +82,9 @@ final class CardsViewModel: ObservableObject {
         playerID: "",
         playerEmail: "",
         deckPlayer: [],
-        playerTurn: ""
+        playerTurn: "",
+        isInvitedToPlay: false,
+        readyToPlay: false
     )
     
     @Published var onlinePlayerFour: OnlinePlayerModel = OnlinePlayerModel(
@@ -85,7 +93,9 @@ final class CardsViewModel: ObservableObject {
         playerID: "",
         playerEmail: "",
         deckPlayer: [],
-        playerTurn: ""
+        playerTurn: "",
+        isInvitedToPlay: false,
+        readyToPlay: false
     )
 
     @Published var auxDiscardDeck: CardModel = CardModel(
@@ -95,9 +105,12 @@ final class CardsViewModel: ObservableObject {
         backColor: ""   
     )
    
-
     init() {
-        onlineBuracoRepo = OnlineBuracoRepository()
+        self.onlineBuracoRepo = OnlineBuracoRepository()
+    }
+    
+    func listenInvitation() {
+//        self.onlineBuracoRepo.startListening()
     }
 
     func preparingDecks() {
@@ -158,7 +171,9 @@ final class CardsViewModel: ObservableObject {
                             playerID: self.playerOne.friendId,
                             playerEmail: self.playerOne.friendEmail,
                             deckPlayer: self.onlineBuracoModel.deckPlayerOne,
-                            playerTurn: self.playerOne.friendId
+                            playerTurn: self.playerOne.friendId,
+                            isInvitedToPlay: true,
+                            readyToPlay: false
                         )
                         
                         self.onlinePlayerTwo = OnlinePlayerModel(
@@ -167,7 +182,9 @@ final class CardsViewModel: ObservableObject {
                             playerID: self.playerTwo.friendId,
                             playerEmail: self.playerOne.friendEmail,
                             deckPlayer: self.onlineBuracoModel.deckPlayerTwo,
-                            playerTurn: self.playerTwo.friendId
+                            playerTurn: self.playerTwo.friendId,
+                            isInvitedToPlay: true,
+                            readyToPlay: false
                         )
                         
                         self.onlinePlayerThree = OnlinePlayerModel(
@@ -176,7 +193,9 @@ final class CardsViewModel: ObservableObject {
                             playerID: self.playerThree.friendId,
                             playerEmail: self.playerThree.friendEmail,
                             deckPlayer: self.onlineBuracoModel.deckPlayerThree,
-                            playerTurn: self.playerThree.friendId
+                            playerTurn: self.playerThree.friendId,
+                            isInvitedToPlay: true,
+                            readyToPlay: false
                         )
                         
                         self.onlinePlayerFour = OnlinePlayerModel(
@@ -185,7 +204,9 @@ final class CardsViewModel: ObservableObject {
                             playerID: self.playerFour.friendId,
                             playerEmail: self.playerFour.friendEmail,
                             deckPlayer: self.onlineBuracoModel.deckPlayerFour,
-                            playerTurn: self.playerFour.friendId
+                            playerTurn: self.playerFour.friendId,
+                            isInvitedToPlay: true,
+                            readyToPlay: false
                         )
                         
                         self.createPlayers = true
@@ -198,12 +219,24 @@ final class CardsViewModel: ObservableObject {
     }
     
     func addOnlinePlayers() async throws {
+        try await listenInvitation()
         try await onlineBuracoRepo.addPlayer(onlinePlayer: onlinePlayerOne)
         try await onlineBuracoRepo.addPlayer(onlinePlayer: onlinePlayerTwo)
         try await onlineBuracoRepo.addPlayer(onlinePlayer: onlinePlayerThree)
         try await onlineBuracoRepo.addPlayer(onlinePlayer: onlinePlayerFour)
-        
-        self.shouldInvitePlayers = true
+    }
+    
+    func updateReadyToPlay(readyToPlay: Bool) {
+        onlineBuracoRepo.updateReadyToPlay(readyToPlay: readyToPlay) { result in
+            switch result {
+            case .success(let returnedValue):
+                DispatchQueue.main.async {
+                    self.showOnlineGame = returnedValue
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func getOnlineBuraco(onlineBuracoID: String) {

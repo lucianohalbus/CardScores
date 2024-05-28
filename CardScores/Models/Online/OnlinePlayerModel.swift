@@ -10,8 +10,10 @@ struct OnlinePlayerModel: Hashable, Codable, Equatable {
     var deckPlayer: [CardModel]
     var playerTurn: String
     var onlineScore: Int?
+    var isInvitedToPlay: Bool
+    var readyToPlay: Bool
     
-    init(gameID: String, playerName: String, playerID: String, playerEmail: String, deckPlayer: [CardModel], playerTurn: String, onlineScore: Int? = nil) {
+    init(gameID: String, playerName: String, playerID: String, playerEmail: String, deckPlayer: [CardModel], playerTurn: String, onlineScore: Int? = nil, isInvitedToPlay: Bool, readyToPlay: Bool) {
         self.gameID = gameID
         self.playerName = playerName
         self.playerID = playerID
@@ -19,6 +21,8 @@ struct OnlinePlayerModel: Hashable, Codable, Equatable {
         self.deckPlayer = deckPlayer
         self.playerTurn = playerTurn
         self.onlineScore = onlineScore
+        self.isInvitedToPlay = isInvitedToPlay
+        self.readyToPlay = readyToPlay
     }
     
     enum CodingKeys: String, CodingKey {
@@ -29,6 +33,8 @@ struct OnlinePlayerModel: Hashable, Codable, Equatable {
         case deckPlayer = "deckPlayer"
         case playerTurn = "playerTurn"
         case onlineScore = "onlineScore"
+        case isInvitedToPlay = "isInvitedToPlay"
+        case readyToPlay = "readyToPlay"
     }
     
     init(from decoder: any Decoder) throws {
@@ -40,7 +46,8 @@ struct OnlinePlayerModel: Hashable, Codable, Equatable {
         self.deckPlayer = try container.decode([CardModel].self, forKey: .deckPlayer)
         self.playerTurn = try container.decode(String.self, forKey: .playerTurn)
         self.onlineScore = try container.decode(Int.self, forKey: .onlineScore)
+        self.isInvitedToPlay = try container.decode(Bool.self, forKey: .isInvitedToPlay)
+        self.readyToPlay = try container.decode(Bool.self, forKey: .readyToPlay)
     }
-    
-   
+
 }
