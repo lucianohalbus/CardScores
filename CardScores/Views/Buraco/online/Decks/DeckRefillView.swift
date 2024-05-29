@@ -30,12 +30,12 @@ struct DeckRefillView: View {
      
                                     if deck.count < 1 {
                                         if cardsVM.isSecondDeckOneAvailable {
-                                            deck.append(contentsOf: cardsVM.onlineBuracoModel.deckPlayerOne)
-                                            cardsVM.onlineBuracoModel.deckPlayerOne.removeAll()
+                                            deck.append(contentsOf: cardsVM.onlineBuracoModel.playerOne.deckPlayer)
+                                            cardsVM.onlineBuracoModel.playerOne.deckPlayer.removeAll()
                                             cardsVM.isSecondDeckOneAvailable = false
                                         } else if cardsVM.isSecondDeckTwoAvailable {
-                                           deck.append(contentsOf: cardsVM.onlineBuracoModel.deckPlayerTwo)
-                                            cardsVM.onlineBuracoModel.deckPlayerTwo.removeAll()
+                                            deck.append(contentsOf: cardsVM.onlineBuracoModel.playerTwo.deckPlayer)
+                                            cardsVM.onlineBuracoModel.playerTwo.deckPlayer.removeAll()
                                             cardsVM.isSecondDeckTwoAvailable = false
                                        } else {
                                            print("gameOver!!")

@@ -65,4 +65,9 @@ class UserViewModel: ObservableObject {
 
     }
     
+    func addToInviteList() async throws {
+        try await userRepo.addToInviteList()
+        
+    }
+    
 }

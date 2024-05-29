@@ -29,6 +29,8 @@ final class CardsViewModel: ObservableObject {
     @Published var allPlayersReady: Bool = false
     @Published var shouldInvitePlayers: Bool = false
     @Published var isReceivingInvite: Bool = false
+    @Published var addPlayers: Bool = false
+    @Published var playersAdded: Bool = false
     
     // MARK: - CARD / DISCARD LOGICS
     @Published var isBuyingFromDeckRefill: Bool = true
@@ -43,61 +45,53 @@ final class CardsViewModel: ObservableObject {
     // MARK: - ONLINE DOCUMENTS
     @Published var onlineBuracoModel: OnlineBuracoModel = OnlineBuracoModel(
         id: "",
-        deckPlayerOne: [],
-        deckPlayerTwo: [],
-        deckPlayerThree: [],
-        deckPlayerFour: [],
         deckDiscard: [],
         deckSecondOne: [],
         deckSecondTwo: [],
         deckRefill: [],
-        playerTurn: ""
+        playerOne: OnlinePlayerModel(
+            playerName: "",
+            playerID: "",
+            playerEmail: "",
+            deckPlayer: [],
+            playerTurn: "",
+            isInvitedToPlay: false,
+            readyToPlay: false
+        ),
+        playerTwo: OnlinePlayerModel(
+            playerName: "",
+            playerID: "",
+            playerEmail: "",
+            deckPlayer: [],
+            playerTurn: "",
+            isInvitedToPlay: false,
+            readyToPlay: false
+        ),
+        playerThree: OnlinePlayerModel(
+            playerName: "",
+            playerID: "",
+            playerEmail: "",
+            deckPlayer: [],
+            playerTurn: "",
+            isInvitedToPlay: false,
+            readyToPlay: false
+        ),
+        playerFour: OnlinePlayerModel(
+            playerName: "",
+            playerID: "",
+            playerEmail: "",
+            deckPlayer: [],
+            playerTurn: "",
+            isInvitedToPlay: false,
+            readyToPlay: false
+        ),
+        playerTurn: "",
+        isPlayerOneInvited: false,
+        isPlayerTwoInvited: false,
+        isPlayerThreeInvited: false,
+        isPlayerFourInvited: false
     )
     
-    @Published var onlinePlayerOne: OnlinePlayerModel = OnlinePlayerModel(
-        gameID: "",
-        playerName: "",
-        playerID: "",
-        playerEmail: "",
-        deckPlayer: [],
-        playerTurn: "",
-        isInvitedToPlay: false,
-        readyToPlay: false
-    )
-    
-    @Published var onlinePlayerTwo: OnlinePlayerModel = OnlinePlayerModel(
-        gameID: "",
-        playerName: "",
-        playerID: "",
-        playerEmail: "",
-        deckPlayer: [],
-        playerTurn: "",
-        isInvitedToPlay: false,
-        readyToPlay: false
-    )
-    
-    @Published var onlinePlayerThree: OnlinePlayerModel = OnlinePlayerModel(
-        gameID: "",
-        playerName: "",
-        playerID: "",
-        playerEmail: "",
-        deckPlayer: [],
-        playerTurn: "",
-        isInvitedToPlay: false,
-        readyToPlay: false
-    )
-    
-    @Published var onlinePlayerFour: OnlinePlayerModel = OnlinePlayerModel(
-        gameID: "",
-        playerName: "",
-        playerID: "",
-        playerEmail: "",
-        deckPlayer: [],
-        playerTurn: "",
-        isInvitedToPlay: false,
-        readyToPlay: false
-    )
-
     @Published var auxDiscardDeck: CardModel = CardModel(
         id: "",
         cardCode: "",
@@ -109,24 +103,74 @@ final class CardsViewModel: ObservableObject {
         self.onlineBuracoRepo = OnlineBuracoRepository()
     }
     
-    func listenInvitation() {
-//        self.onlineBuracoRepo.startListening()
+    func listenInvitation(onlineBuracoID: String) {
+     //   BuracoSettings.share.startListening()
     }
-
-    func preparingDecks() {
-        onlineBuracoModel.deckRefill.removeAll()
-        onlineBuracoModel.deckDiscard.removeAll()
-        onlineBuracoModel.deckSecondOne.removeAll()
-        onlineBuracoModel.deckSecondTwo.removeAll()
-        onlineBuracoModel.deckPlayerOne.removeAll()
-        onlineBuracoModel.deckPlayerTwo.removeAll()
-        onlineBuracoModel.deckPlayerThree.removeAll()
-        onlineBuracoModel.deckPlayerFour.removeAll()
-        onlinePlayerOne.deckPlayer.removeAll()
-        onlinePlayerTwo.deckPlayer.removeAll()
-        onlinePlayerThree.deckPlayer.removeAll()
-        onlinePlayerFour.deckPlayer.removeAll()
+    
+    func addInitialOnlineBuraco() {
+        let initialBuraco: OnlineBuracoModel = OnlineBuracoModel(
+            id: "",
+            deckDiscard: [],
+            deckSecondOne: [],
+            deckSecondTwo: [],
+            deckRefill: [],
+            playerOne: OnlinePlayerModel(
+                playerName: "",
+                playerID: "",
+                playerEmail: "",
+                deckPlayer: [],
+                playerTurn: "",
+                isInvitedToPlay: false,
+                readyToPlay: false
+            ),
+            playerTwo: OnlinePlayerModel(
+                playerName: "",
+                playerID: "",
+                playerEmail: "",
+                deckPlayer: [],
+                playerTurn: "",
+                isInvitedToPlay: false,
+                readyToPlay: false
+            ),
+            playerThree: OnlinePlayerModel(
+                playerName: "",
+                playerID: "",
+                playerEmail: "",
+                deckPlayer: [],
+                playerTurn: "",
+                isInvitedToPlay: false,
+                readyToPlay: false
+            ),
+            playerFour: OnlinePlayerModel(
+                playerName: "",
+                playerID: "",
+                playerEmail: "",
+                deckPlayer: [],
+                playerTurn: "",
+                isInvitedToPlay: false,
+                readyToPlay: false
+            ),
+            playerTurn: "",
+            isPlayerOneInvited: false,
+            isPlayerTwoInvited: false,
+            isPlayerThreeInvited: false,
+            isPlayerFourInvited: false
+        )
         
+        onlineBuracoRepo.addInitialOnlineBuraco(onlineBuraco: initialBuraco) { result in
+            switch result {
+            case .success(let returnedItem):
+                if let returnedID = returnedItem { 
+                    self.preparingDecks(gameID: returnedID)
+                 //   self.listenInvitation(onlineBuracoID: returnedID)
+                }
+            case .failure(let error):
+                print("addInitialOnlineBuraco error. Error => \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    func preparingDecks(gameID: String) {
         var allCard: [CardModel] = []
         var sortedCards: [CardModel] = []
         
@@ -138,13 +182,13 @@ final class CardsViewModel: ObservableObject {
         for index in 0..<sortedCards.count {
             switch index {
             case 0...10:
-                onlineBuracoModel.deckPlayerOne.append(sortedCards[index])
+                onlineBuracoModel.playerOne.deckPlayer.append(sortedCards[index])
             case 11...21:
-                onlineBuracoModel.deckPlayerTwo.append(sortedCards[index])
+                onlineBuracoModel.playerTwo.deckPlayer.append(sortedCards[index])
             case 22...32:
-                onlineBuracoModel.deckPlayerThree.append(sortedCards[index])
+                onlineBuracoModel.playerThree.deckPlayer.append(sortedCards[index])
             case 33...43:
-                onlineBuracoModel.deckPlayerFour.append(sortedCards[index])
+                onlineBuracoModel.playerFour.deckPlayer.append(sortedCards[index])
             case 44...54:
                 onlineBuracoModel.deckSecondOne.append(sortedCards[index])
             case 55...65:
@@ -156,75 +200,132 @@ final class CardsViewModel: ObservableObject {
             }
         }
         
-        preparingGameTable(onlineGame: onlineBuracoModel)
-    }
-    
-    func preparingGameTable(onlineGame: OnlineBuracoModel) {
-        onlineBuracoRepo.add(onlineBuraco: onlineBuracoModel) { result in
+        let onlineBuraco: OnlineBuracoModel = OnlineBuracoModel(
+            id: gameID,
+            deckDiscard: onlineBuracoModel.deckDiscard,
+            deckSecondOne: onlineBuracoModel.deckSecondOne,
+            deckSecondTwo: onlineBuracoModel.deckSecondTwo,
+            deckRefill: onlineBuracoModel.deckRefill,
+            playerOne: OnlinePlayerModel(
+                playerName: playerOne.friendName,
+                playerID: playerOne.friendId,
+                playerEmail: playerOne.friendEmail,
+                deckPlayer: onlineBuracoModel.playerOne.deckPlayer,
+                playerTurn: playerOne.friendId
+            ),
+            playerTwo: OnlinePlayerModel(
+                playerName: playerTwo.friendName,
+                playerID: playerTwo.friendId,
+                playerEmail: playerTwo.friendEmail,
+                deckPlayer: onlineBuracoModel.playerTwo.deckPlayer,
+                playerTurn: playerTwo.friendId
+            ),
+            playerThree: OnlinePlayerModel(
+                playerName: playerThree.friendName,
+                playerID: playerThree.friendId,
+                playerEmail: playerThree.friendEmail,
+                deckPlayer: onlineBuracoModel.playerThree.deckPlayer,
+                playerTurn: playerThree.friendId
+            ),
+            playerFour: OnlinePlayerModel(
+                playerName: playerFour.friendName,
+                playerID: playerFour.friendId,
+                playerEmail: playerFour.friendEmail,
+                deckPlayer: onlineBuracoModel.playerFour.deckPlayer,
+                playerTurn: playerFour.friendId
+            ),
+            playerTurn: playerOne.friendId,
+            isPlayerOneInvited: true,
+            isPlayerTwoInvited: true,
+            isPlayerThreeInvited: true,
+            isPlayerFourInvited: true
+        )
+
+        onlineBuracoRepo.updateInitialOnlineBuraco(onlineBuraco: onlineBuraco) { result in
             switch result {
-            case .success(let returnedID):
-                if let returnedID = returnedID {
-                    DispatchQueue.main.async {
-                        self.onlinePlayerOne = OnlinePlayerModel(
-                            gameID: returnedID,
-                            playerName: self.playerOne.friendName,
-                            playerID: self.playerOne.friendId,
-                            playerEmail: self.playerOne.friendEmail,
-                            deckPlayer: self.onlineBuracoModel.deckPlayerOne,
-                            playerTurn: self.playerOne.friendId,
-                            isInvitedToPlay: true,
-                            readyToPlay: false
-                        )
-                        
-                        self.onlinePlayerTwo = OnlinePlayerModel(
-                            gameID: returnedID,
-                            playerName: self.playerTwo.friendName,
-                            playerID: self.playerTwo.friendId,
-                            playerEmail: self.playerOne.friendEmail,
-                            deckPlayer: self.onlineBuracoModel.deckPlayerTwo,
-                            playerTurn: self.playerTwo.friendId,
-                            isInvitedToPlay: true,
-                            readyToPlay: false
-                        )
-                        
-                        self.onlinePlayerThree = OnlinePlayerModel(
-                            gameID: returnedID,
-                            playerName: self.playerThree.friendName,
-                            playerID: self.playerThree.friendId,
-                            playerEmail: self.playerThree.friendEmail,
-                            deckPlayer: self.onlineBuracoModel.deckPlayerThree,
-                            playerTurn: self.playerThree.friendId,
-                            isInvitedToPlay: true,
-                            readyToPlay: false
-                        )
-                        
-                        self.onlinePlayerFour = OnlinePlayerModel(
-                            gameID: returnedID,
-                            playerName: self.playerFour.friendName,
-                            playerID: self.playerFour.friendId,
-                            playerEmail: self.playerFour.friendEmail,
-                            deckPlayer: self.onlineBuracoModel.deckPlayerFour,
-                            playerTurn: self.playerFour.friendId,
-                            isInvitedToPlay: true,
-                            readyToPlay: false
-                        )
-                        
-                        self.createPlayers = true
+            case .success(let returnedItem):
+                if let returnedBool = returnedItem {
+                   if returnedBool {
+                       self.addInviteOnlinePlayers(gameID: onlineBuraco.id)
                     }
-                } 
+                }
             case .failure(let error):
-                print(error)
+                print("Error in updateInitialOnlineBuraco: \(error)")
             }
         }
     }
     
-    func addOnlinePlayers() async throws {
-        try await listenInvitation()
-        try await onlineBuracoRepo.addPlayer(onlinePlayer: onlinePlayerOne)
-        try await onlineBuracoRepo.addPlayer(onlinePlayer: onlinePlayerTwo)
-        try await onlineBuracoRepo.addPlayer(onlinePlayer: onlinePlayerThree)
-        try await onlineBuracoRepo.addPlayer(onlinePlayer: onlinePlayerFour)
+    func addInviteOnlinePlayers(gameID: String) {
+        var invitedPlayers: [InviteModel] = []
+        
+        let invitedPlayerOne: InviteModel = InviteModel(
+            playerID: playerOne.friendId,
+            gameID: gameID,
+            isInviting: true
+        )
+        invitedPlayers.append(invitedPlayerOne)
+        
+        let invitedPlayerTwo: InviteModel = InviteModel(
+            playerID: playerTwo.friendId,
+            gameID: gameID,
+            isInviting: true
+        )
+        invitedPlayers.append(invitedPlayerTwo)
+        
+        let invitedPlayerThree: InviteModel = InviteModel(
+            playerID: playerThree.friendId,
+            gameID: gameID,
+            isInviting: true
+        )
+        invitedPlayers.append(invitedPlayerThree)
+        
+        let invitedPlayerFour: InviteModel = InviteModel(
+            playerID: playerFour.friendId,
+            gameID: gameID,
+            isInviting: false
+        )
+        invitedPlayers.append(invitedPlayerFour)
+
+        onlineBuracoRepo.invitePlayer(invitedPlayer: invitedPlayers)
+        
+        
+
     }
+    
+//    func preparingGameTable(onlineGame: OnlineBuracoModel) {
+//        onlineBuracoRepo.add(onlineBuraco: onlineGame) { result in
+//            switch result {
+//            case .success(let returnedID):
+//                if let returnedID = returnedID {
+//                    self.onlineBuracoRepo.updateOnlineBuraco(onlineBuracoID: returnedID) { result in
+//                        switch result {
+//                        case .success(let returnedResult):
+//                            if let returnedBool = returnedResult {
+//                                DispatchQueue.main.async {
+//                                    self.createPlayers = returnedBool
+//                                }
+//                            }
+//                        case .failure(let error):
+//                            print(error.localizedDescription)
+//                        }
+//                    }
+//                } 
+//            case .failure(let error):
+//                print(error)
+//            }
+//        }
+//    }
+//    
+//    func inviteOnlinePlayers() async throws {
+//        let playersID: [String] = [
+//            self.onlineBuracoModel.playerOne.playerID,
+//            self.onlineBuracoModel.playerTwo.playerID,
+//            self.onlineBuracoModel.playerThree.playerID,
+//            self.onlineBuracoModel.playerFour.playerID
+//        ]
+//        
+//        try await buracoSettings.setPlayerInviteTrue(playersID: playersID)
+//    }
     
     func updateReadyToPlay(readyToPlay: Bool) {
         onlineBuracoRepo.updateReadyToPlay(readyToPlay: readyToPlay) { result in
@@ -239,39 +340,32 @@ final class CardsViewModel: ObservableObject {
         }
     }
     
+    func getOnlinePlayers(onlineBuracoID: String) {
+        onlineBuracoRepo.getOnlinePlayer(onlineBuracoID: onlineBuracoID) { result in
+            switch result {
+            case .success(let returnedResult):
+                if let returnedPlayers = returnedResult {
+                    for player in returnedPlayers {
+                        
+                    }
+                }
+                
+                DispatchQueue.main.async {
+                    
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
     func getOnlineBuraco(onlineBuracoID: String) {
         onlineBuracoRepo.getOnlineBuraco(onlineBuracoID: onlineBuracoID) { result in
             switch result {
             case .success(let returnedDoc):
                 if let returnedDoc = returnedDoc {
                     DispatchQueue.main.async {
-                        self.onlineBuracoModel.deckRefill.removeAll()
-                        self.onlineBuracoModel.deckDiscard.removeAll()
-                        self.onlineBuracoModel.deckSecondOne.removeAll()
-                        self.onlineBuracoModel.deckSecondTwo.removeAll()
-                        self.onlineBuracoModel.deckPlayerOne.removeAll()
-                        self.onlineBuracoModel.deckPlayerTwo.removeAll()
-                        self.onlineBuracoModel.deckPlayerThree.removeAll()
-                        self.onlineBuracoModel.deckPlayerFour.removeAll()
-                        self.onlinePlayerOne.deckPlayer.removeAll()
-                        self.onlinePlayerTwo.deckPlayer.removeAll()
-                        self.onlinePlayerThree.deckPlayer.removeAll()
-                        self.onlinePlayerFour.deckPlayer.removeAll()
-                        
-                        self.onlineBuracoModel.deckRefill.append(contentsOf: returnedDoc.deckRefill)
-                        self.onlineBuracoModel.deckDiscard.append(contentsOf: returnedDoc.deckDiscard)
-                        self.onlineBuracoModel.deckSecondOne.append(contentsOf: returnedDoc.deckSecondOne)
-                        self.onlineBuracoModel.deckSecondTwo.append(contentsOf: returnedDoc.deckSecondTwo)
-                        self.onlineBuracoModel.deckPlayerOne.append(contentsOf: returnedDoc.deckPlayerOne)
-                        self.onlineBuracoModel.deckPlayerTwo.append(contentsOf: returnedDoc.deckPlayerTwo)
-                        self.onlineBuracoModel.deckPlayerThree.append(contentsOf: returnedDoc.deckPlayerThree)
-                        self.onlineBuracoModel.deckPlayerFour.append(contentsOf: returnedDoc.deckPlayerFour)
-                        self.onlinePlayerOne.deckPlayer.append(contentsOf: returnedDoc.deckPlayerOne)
-                        self.onlinePlayerTwo.deckPlayer.append(contentsOf: returnedDoc.deckPlayerTwo)
-                        self.onlinePlayerThree.deckPlayer.append(contentsOf: returnedDoc.deckPlayerThree)
-                        self.onlinePlayerFour.deckPlayer.append(contentsOf: returnedDoc.deckPlayerFour)
-                        
-                        self.isGameStarted = true
+                        self.onlineBuracoModel = returnedDoc
                     }
                 }
             case .failure(_):
@@ -294,7 +388,7 @@ final class CardsViewModel: ObservableObject {
     }
     
     func deleteCardFromDeckRefill(card: CardModel) {
-        onlineBuracoRepo.deleteCardFromDeckRefill(deckRefill: card, onlineBuracoID: onlinePlayerOne.gameID) { result in
+        onlineBuracoRepo.deleteCardFromDeckRefill(deckRefill: card, onlineBuracoID: onlineBuracoModel.id) { result in
             switch result {
             case .success(let returnedItem):
                 DispatchQueue.main.async {
@@ -307,7 +401,7 @@ final class CardsViewModel: ObservableObject {
     }
     
     func updateDeckDiscard(deckDiscard: CardModel) {
-        onlineBuracoRepo.updateDeckDiscard(deckDiscard: deckDiscard, onlineBuracoID: onlinePlayerOne.gameID) { result in
+        onlineBuracoRepo.updateDeckDiscard(deckDiscard: deckDiscard, onlineBuracoID: onlineBuracoModel.id) { result in
             switch result {
             case .success(let returnedItem):
                 DispatchQueue.main.async {

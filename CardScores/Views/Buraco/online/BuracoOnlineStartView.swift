@@ -10,8 +10,13 @@ struct BuracoOnlineStartView: View {
     @State var setSelectedButtonColor: Bool = false
     @State var cleanButtonColor: Color = Color.black
     @State var sendInvite: Bool = false
+    @State var placeHolderOne: String = "Jogador 1"
+    @State var placeHolderTwo: String = "Jogador 2"
+    @State var placeHolderThree: String = "Jogador 3"
+    @State var placeHolderFour: String = "Jogador 4"    
     @State var userProfile: ProfileModel?
     @Binding var path: [MainNavigation]
+    
     
     var gridItems = [
         GridItem(.flexible()),
@@ -38,7 +43,13 @@ struct BuracoOnlineStartView: View {
                             Spacer()
                             
                             Button("Limpar", role: .destructive) {
-                                
+                                shouldCleanTeams = true
+                                cleanButtonColor = Color.white
+                                setSelectedButtonColor = false
+                                cardsVM.playerOne = FriendsModel(friendId: "", friendEmail: "", friendName: "")
+                                cardsVM.playerTwo = FriendsModel(friendId: "", friendEmail: "", friendName: "")
+                                cardsVM.playerThree = FriendsModel(friendId: "", friendEmail: "", friendName: "")
+                                cardsVM.playerFour = FriendsModel(friendId: "", friendEmail: "", friendName: "")
                             }
                             .font(.title3)
                             .fontWeight(.bold)
@@ -49,7 +60,7 @@ struct BuracoOnlineStartView: View {
                             Spacer()
                             
                             Button("Iniciar") {
-                                cardsVM.preparingDecks()
+                                cardsVM.addInitialOnlineBuraco()
                             }
                             .font(.title3)
                             .fontWeight(.bold)
@@ -66,34 +77,21 @@ struct BuracoOnlineStartView: View {
                     .onAppear {
                         Task {
                             self.userProfile = try await userVM.getUser()
-                                                    }
-                    }
-                    .onChange(of: cardsVM.createPlayers) { newValue in
-                        Task {
-                            try await cardsVM.addOnlinePlayers()
                         }
                     }
-                    .onChange(of: cardsVM.showOnlineGame) { newValue in
+                    .onChange(of: settings.showInvitingAlert) { newValue in
                         if newValue {
-                            cardsVM.getOnlineBuraco(onlineBuracoID: settings.buracoOnlineID)
+                            self.cardsVM.isGameStarted = newValue
                         }
                     }
-                    .onChange(of: cardsVM.isGameStarted) { newValue in
-                        if newValue {
-                            path.append(.anotherChild)
-                            self.cardsVM.isGameStarted = false
-                            self.cardsVM.createPlayers = false
-                            self.cardsVM.showOnlineGame = false
-                            self.cardsVM.isReceivingInvite = false
-                            self.settings.showInvitingAlert = false
-                        }
-                    }
-                    .alert(isPresented: $settings.showInvitingAlert, content: {
+                    .alert(isPresented: $cardsVM.isGameStarted, content: {
                         Alert(
                             title: Text("Game Invite"),
                             message: Text("Click OK to play!"),
                             dismissButton: .default(Text("OK")) {
-                                cardsVM.updateReadyToPlay(readyToPlay: true)
+                              
+                                path.append(.anotherChild)
+                                cardsVM.getOnlineBuraco(onlineBuracoID: settings.gameID)
                             }
                         )
                     })
@@ -121,7 +119,7 @@ struct BuracoOnlineStartView: View {
                     .font(.title2)
                     .foregroundStyle(Color.white)
                 
-                TextField("Jogador 1", text: $cardsVM.onlinePlayerOne.playerName)
+                TextField("Jogador 1", text: $cardsVM.playerOne.friendName)
                     .disabled(true)
                     .cornerRadius(6)
                     .overlay(
@@ -130,7 +128,7 @@ struct BuracoOnlineStartView: View {
                     )
                     .minimumScaleFactor(0.4)
                 
-                TextField("Jogador 2", text: $cardsVM.onlinePlayerTwo.playerName)
+                TextField("Jogador 2", text: $cardsVM.playerTwo.friendName)
                     .disabled(true)
                     .cornerRadius(6)
                     .overlay(
@@ -152,7 +150,7 @@ struct BuracoOnlineStartView: View {
                     .font(.title2)
                     .foregroundStyle(Color.white)
                 
-                TextField("Jogador 3", text: $cardsVM.onlinePlayerThree.playerName)
+                TextField("Jogador 3", text: $cardsVM.playerThree.friendName)
                     .disabled(true)
                     .cornerRadius(6)
                     .overlay(
@@ -161,7 +159,7 @@ struct BuracoOnlineStartView: View {
                     )
                     .minimumScaleFactor(0.4)
                 
-                TextField("Jogador 4", text: $cardsVM.onlinePlayerFour.playerName)
+                TextField("Jogador 4", text: $cardsVM.playerFour.friendName)
                     .disabled(true)
                     .cornerRadius(6)
                     .overlay(
@@ -212,23 +210,26 @@ struct BuracoOnlineStartView: View {
                             setSelectedButtonColor: $setSelectedButtonColor,
                             cleanButtonColor: $cleanButtonColor) {
                             
-                            if cardsVM.onlinePlayerOne.playerName.isEmpty {
+                            if cardsVM.playerOne.friendName.isEmpty {
                                 cardsVM.playerOne = friend
-                                cardsVM.onlinePlayerOne.playerName = friend.friendName
+                                cardsVM.onlineBuracoModel.playerOne.playerName = friend.friendName
                                 setSelectedButtonColor = true
                                 cleanButtonColor = Color.black
-                            } else if cardsVM.onlinePlayerTwo.playerName.isEmpty {
+                            } else if cardsVM.playerTwo.friendName.isEmpty {
                                 cardsVM.playerTwo = friend
-                                cardsVM.onlinePlayerTwo.playerName = friend.friendName
+                                cardsVM.onlineBuracoModel.playerTwo.playerName = friend.friendName
                                 setSelectedButtonColor = true
-                            } else if cardsVM.onlinePlayerThree.playerName.isEmpty {
+                                cleanButtonColor = Color.black
+                            } else if cardsVM.playerThree.friendName.isEmpty {
                                 cardsVM.playerThree = friend
-                                cardsVM.onlinePlayerThree.playerName = friend.friendName
+                                cardsVM.onlineBuracoModel.playerThree.playerName = friend.friendName
                                 setSelectedButtonColor = true
-                            } else if cardsVM.onlinePlayerFour.playerName.isEmpty {
+                                cleanButtonColor = Color.black
+                            } else if cardsVM.playerFour.friendName.isEmpty {
                                 cardsVM.playerFour = friend
-                                cardsVM.onlinePlayerFour.playerName = friend.friendName
+                                cardsVM.onlineBuracoModel.playerFour.playerName = friend.friendName
                                 setSelectedButtonColor = true
+                                cleanButtonColor = Color.black
                             } else {
                                 setSelectedButtonColor = false
                             }

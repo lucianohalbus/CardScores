@@ -4,9 +4,9 @@ import Foundation
 import FirebaseFirestore
 
 struct FriendsModel: Codable, Hashable, Equatable {
-    let friendId: String
-    let friendEmail: String
-    let friendName: String
+    var friendId: String
+    var friendEmail: String
+    var friendName: String
     
     init(friendId: String, friendEmail: String, friendName: String) {
         self.friendId = friendId

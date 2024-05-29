@@ -287,5 +287,17 @@ class UserRepository: ObservableObject {
     func updateScores(_ score:Int64, _ friendId:String) {
         db.collection("User").document(friendId).updateData(["averageScores": FieldValue.increment(score)])
     }
+    
+    func addToInviteList() async throws {
+        if let playerID = Auth.auth().currentUser?.uid {
+            let player: InviteModel = InviteModel(
+                playerID: playerID,
+                gameID: "",
+                isInviting: false
+            )
+
+            try db.collection(Constants.invitedPlayers).document(playerID).setData(from: player)
+        }
+    }
 
 }

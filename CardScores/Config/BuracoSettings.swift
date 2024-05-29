@@ -8,19 +8,23 @@ import FirebaseAuth
 class BuracoSettings: ObservableObject {
     private var listenerRegistration: ListenerRegistration?
     @Published var showInvitingAlert: Bool = false
-    @Published var buracoOnlineID: String = ""
+    @Published var gameID: String = ""
     
     init() {
-        self.startListening()
+        startListening()
     }
     
-//    deinit {
-//        listenerRegistration?.remove()
-//    }
+    deinit {
+        listenerRegistration?.remove()
+    }
     
     func startListening() {
+        
+        self.showInvitingAlert = false
+        self.gameID = ""
+        
         if let playerID = Auth.auth().currentUser?.uid {
-            let docRef = Firestore.firestore().collection(Constants.onlinePlayers).document(playerID)
+            let docRef = Firestore.firestore().collection(Constants.invitedPlayers).document(playerID)
             listenerRegistration = docRef.addSnapshotListener { [weak self] (documentSnapshot, error) in
                 guard let self = self else { return }
                 if let error = error {
@@ -33,21 +37,18 @@ class BuracoSettings: ObservableObject {
                     return
                 }
                 
-                if let gameID = data["gameID"] as? String {
-                    DispatchQueue.main.async {
-                        self.buracoOnlineID = gameID
-                    }
-                }
-                
-                if let returnedItem = data["isInvitedToPlay"] as? Bool {
+                guard let returnedID = data["gameID"] as? String else { return }
+
+                if let returnedItem = data["isInviting"] as? Bool {
                     if returnedItem {
                         DispatchQueue.main.async {
-                            self.showInvitingAlert = true
+                            self.showInvitingAlert = returnedItem
+                            self.gameID = returnedID
                         }
                     }
                 }
             }
         }
     }
-    
+  
 }

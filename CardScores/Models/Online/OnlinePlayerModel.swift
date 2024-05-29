@@ -3,18 +3,16 @@
 import Foundation
 
 struct OnlinePlayerModel: Hashable, Codable, Equatable {
-    var gameID: String
     var playerName: String
     var playerID: String
     var playerEmail: String
     var deckPlayer: [CardModel]
     var playerTurn: String
     var onlineScore: Int?
-    var isInvitedToPlay: Bool
-    var readyToPlay: Bool
+    var isInvitedToPlay: Bool?
+    var readyToPlay: Bool?
     
-    init(gameID: String, playerName: String, playerID: String, playerEmail: String, deckPlayer: [CardModel], playerTurn: String, onlineScore: Int? = nil, isInvitedToPlay: Bool, readyToPlay: Bool) {
-        self.gameID = gameID
+    init(playerName: String, playerID: String, playerEmail: String, deckPlayer: [CardModel], playerTurn: String, onlineScore: Int? = nil, isInvitedToPlay: Bool? = false, readyToPlay: Bool? = false) {
         self.playerName = playerName
         self.playerID = playerID
         self.playerEmail = playerEmail
@@ -26,7 +24,6 @@ struct OnlinePlayerModel: Hashable, Codable, Equatable {
     }
     
     enum CodingKeys: String, CodingKey {
-        case gameID = "gameID"
         case playerName = "playerName"
         case playerID = "playerID"
         case playerEmail = "playerEmail"
@@ -39,7 +36,6 @@ struct OnlinePlayerModel: Hashable, Codable, Equatable {
     
     init(from decoder: any Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
-        self.gameID = try container.decode(String.self, forKey: .gameID)
         self.playerName = try container.decode(String.self, forKey: .playerName)
         self.playerID = try container.decode(String.self, forKey: .playerID)
         self.playerEmail = try container.decode(String.self, forKey: .playerEmail)

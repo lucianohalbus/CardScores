@@ -6,6 +6,7 @@ import FirebaseAuth
 struct MainView: View {
     @State private var showLoginView: Bool = false
     @StateObject var userVM = UserViewModel()
+    @EnvironmentObject var settings: BuracoSettings
 
     
     var body: some View {
@@ -21,6 +22,8 @@ struct MainView: View {
                     let currentUser: ProfileModel = try await userVM.getUser()
                     if !currentUser.userId.isEmpty {
                         self.showLoginView = false
+                        try await userVM.addToInviteList()
+                        settings.startListening()
                     }
                     
                 } catch {
@@ -42,4 +45,5 @@ struct MainView: View {
 
 #Preview {
     MainView()
+        .environmentObject(BuracoSettings())
 }

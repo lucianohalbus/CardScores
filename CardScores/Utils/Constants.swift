@@ -8,5 +8,6 @@ struct Constants {
     static let userList = "UserList"
     static let onlineBuraco = "OnlineBuraco"
     static let onlinePlayers = "OnlinePlayers"
+    static let invitedPlayers = "InvitedPlayers"
    
 }

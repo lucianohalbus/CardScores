@@ -230,7 +230,10 @@ struct BuracoPresencialStartView: View {
                 LazyVGrid(columns: gridItems, spacing: 10) {
                     ForEach(userVM.userProfile.friends, id: \.self) { friend in
                         
-                        FriendGridItem(friend: friend.friendName, setSelectedButtonColor: $setSelectedButtonColor, cleanButtonColor: $cleanButtonColor) {
+                        FriendGridItem(
+                            friend: friend.friendName,
+                            setSelectedButtonColor: $setSelectedButtonColor,
+                            cleanButtonColor: $cleanButtonColor) {
                             
                             if buracoMatchVM.playerOne.isEmpty {
                                 placeholderOne = friend.friendName
