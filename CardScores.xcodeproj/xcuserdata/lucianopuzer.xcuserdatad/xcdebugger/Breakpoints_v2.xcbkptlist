@@ -7,33 +7,107 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "12AB3F03-BC7A-4434-BC7C-5396BB4C7C78"
+            uuid = "229B4A86-16FD-46C6-8B35-0F7117DE60BC"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CardScores/ViewModels/Buraco/Online/CardsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "309"
-            endingLineNumber = "309"
-            landmarkName = "addInviteOnlinePlayers(gameID:)"
+            startingLineNumber = "331"
+            endingLineNumber = "331"
+            landmarkName = "getOnlineBuraco(onlineBuracoID:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "70DB4847-FA56-4725-B8B7-80733B652029"
+            uuid = "EE258207-119B-43B9-A46A-80A59F34D0E0"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../../../../Applications/OnlineBuracoRepository.swift"
+            filePath = "CardScores/Config/BuracoSettings.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "44"
-            endingLineNumber = "44"
-            landmarkName = "invitePlayer(invitedPlayer:)"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "updatePlayerInvite()"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "69368ABE-155E-4C1C-9C8F-4B6A374C912C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CardScores/Views/Buraco/online/BuracoOnlineMatchView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "201"
+            endingLineNumber = "201"
+            landmarkName = "body"
+            landmarkType = "24">
+            <Locations>
+               <Location
+                  uuid = "69368ABE-155E-4C1C-9C8F-4B6A374C912C - b32febe8110d1228"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for closure #1 @Sendable () async throws -&gt; () in closure #3 (Swift.Bool) -&gt; () in closure #1 (SwiftUI.GeometryProxy) -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in CardScores.BuracoOnlineMatchView.body.getter : some"
+                  moduleName = "CardScores"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/Views/Buraco/online/BuracoOnlineMatchView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "201"
+                  endingLineNumber = "201">
+               </Location>
+               <Location
+                  uuid = "69368ABE-155E-4C1C-9C8F-4B6A374C912C - 4459f4d70ccdf232"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for closure #1 @Sendable () async throws -&gt; () in closure #3 (Swift.Bool) -&gt; () in closure #1 (SwiftUI.GeometryProxy) -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in CardScores.BuracoOnlineMatchView.body.getter : some"
+                  moduleName = "CardScores"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/Views/Buraco/online/BuracoOnlineMatchView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "201"
+                  endingLineNumber = "201">
+               </Location>
+               <Location
+                  uuid = "69368ABE-155E-4C1C-9C8F-4B6A374C912C - eeb351b60756ce2a"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for closure #1 @Sendable () async throws -&gt; () in closure #3 (Swift.Bool) -&gt; () in closure #1 (SwiftUI.GeometryProxy) -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in CardScores.BuracoOnlineMatchView.body.getter : some"
+                  moduleName = "CardScores"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/Views/Buraco/online/BuracoOnlineMatchView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "201"
+                  endingLineNumber = "201">
+               </Location>
+               <Location
+                  uuid = "69368ABE-155E-4C1C-9C8F-4B6A374C912C - 7889645930426835"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for closure #1 @Sendable () async throws -&gt; () in closure #3 (Swift.Bool) -&gt; () in closure #1 (SwiftUI.GeometryProxy) -&gt; &lt;&lt;opaque return type of SwiftUI.View.onAppear(perform: Swift.Optional&lt;() -&gt; ()&gt;) -&gt; some&gt;&gt;.0 in CardScores.BuracoOnlineMatchView.body.getter : some"
+                  moduleName = "CardScores"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/Views/Buraco/online/BuracoOnlineMatchView.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "201"
+                  endingLineNumber = "201">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

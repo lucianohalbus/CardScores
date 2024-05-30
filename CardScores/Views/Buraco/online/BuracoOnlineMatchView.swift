@@ -195,6 +195,13 @@ struct BuracoOnlineMatchView: View {
                     cardsVM.deckRefillUpdated = false
                 }
             }
+            .onChange(of: cardsVM.isPlayerInvited) { newValue in
+                if newValue {
+                    Task {
+                       try await settings.updatePlayerInvite()
+                    }
+                }
+            }
             .onAppear {
                 Task {
                     try await cardsVM.getOnlineBuraco(onlineBuracoID: settings.gameID)

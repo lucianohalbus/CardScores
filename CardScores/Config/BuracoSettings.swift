@@ -18,8 +18,11 @@ class BuracoSettings: ObservableObject {
         listenerRegistration?.remove()
     }
     
+    func onlineDocument(onlineID: String, path: String) -> DocumentReference {
+        Firestore.firestore().collection(path).document(onlineID)
+    }
+    
     func startListening() {
-        
         self.showInvitingAlert = false
         self.gameID = ""
         
@@ -51,4 +54,19 @@ class BuracoSettings: ObservableObject {
         }
     }
   
+    func updatePlayerInvite() async throws {
+        guard let playerID = Auth.auth().currentUser?.uid else {
+            return
+        }
+
+        let data: [String:Any] = [
+            InviteModel.CodingKeys.isInviting.rawValue : false
+        ]
+        
+        try await onlineDocument(
+            onlineID: playerID,
+            path: Constants.invitedPlayers
+        ).updateData(data)
+    }
+    
 }

@@ -31,6 +31,7 @@ final class CardsViewModel: ObservableObject {
     @Published var isReceivingInvite: Bool = false
     @Published var addPlayers: Bool = false
     @Published var playersAdded: Bool = false
+    @Published var isPlayerInvited: Bool = false
     
     // MARK: - CARD / DISCARD LOGICS
     @Published var isBuyingFromDeckRefill: Bool = true
@@ -322,30 +323,12 @@ final class CardsViewModel: ObservableObject {
         }
     }
     
-    func getOnlinePlayers(onlineBuracoID: String) {
-        onlineBuracoRepo.getOnlinePlayer(onlineBuracoID: onlineBuracoID) { result in
-            switch result {
-            case .success(let returnedResult):
-                if let returnedPlayers = returnedResult {
-                    for player in returnedPlayers {
-                        
-                    }
-                }
-                
-                DispatchQueue.main.async {
-                    
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
     @MainActor
     func getOnlineBuraco(onlineBuracoID: String) async throws {
-        let onlineBuraco = try await onlineBuracoRepo.getOnlineBuraco(onlineBuracoID: onlineBuracoID)
+        let onlineBuraco = await onlineBuracoRepo.getOnlineBuraco(onlineBuracoID: onlineBuracoID)
         
         self.onlineBuracoModel = onlineBuraco
+        self.isPlayerInvited = true
     }
     
     func updatePlayerDeck(deckPlayer: [CardModel], onlinePlayer: OnlinePlayerModel) {
