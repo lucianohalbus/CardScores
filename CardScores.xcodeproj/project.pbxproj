@@ -316,7 +316,6 @@
 			children = (
 				CB5805F72BFE254800CA7DED /* presencial */,
 				CB5805F22BFE0C3400CA7DED /* online */,
-				CBB0725A2BD4AFA80026CA4E /* Ranking */,
 				CB64FCB72BCA0D5800067744 /* SubViews */,
 				CBD142FE2BA8A619000FAA55 /* ListView */,
 				CBD142FF2BA8A62B000FAA55 /* turns */,
@@ -431,6 +430,7 @@
 		CBD142FE2BA8A619000FAA55 /* ListView */ = {
 			isa = PBXGroup;
 			children = (
+				CBB0725A2BD4AFA80026CA4E /* Ranking */,
 				CB416CF72BA37924005DF9F3 /* BuracoCardView.swift */,
 				CB416CF32BA35FB6005DF9F3 /* BuracoListView.swift */,
 			);

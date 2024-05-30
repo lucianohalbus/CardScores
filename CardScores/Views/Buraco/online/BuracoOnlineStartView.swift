@@ -89,9 +89,7 @@ struct BuracoOnlineStartView: View {
                             title: Text("Game Invite"),
                             message: Text("Click OK to play!"),
                             dismissButton: .default(Text("OK")) {
-                              
                                 path.append(.anotherChild)
-                                cardsVM.getOnlineBuraco(onlineBuracoID: settings.gameID)
                             }
                         )
                     })

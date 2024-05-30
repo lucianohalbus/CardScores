@@ -5,6 +5,7 @@ import FirebaseAuth
 
 struct BuracoOnlineMatchView: View {
     @EnvironmentObject var cardsVM: CardsViewModel
+    @EnvironmentObject var settings: BuracoSettings
 
     var body: some View {
         GeometryReader { proxy in
@@ -195,7 +196,10 @@ struct BuracoOnlineMatchView: View {
                 }
             }
             .onAppear {
-             
+                Task {
+                    try await cardsVM.getOnlineBuraco(onlineBuracoID: settings.gameID)
+                }
+                
             }
         }
         .edgesIgnoringSafeArea(.all)
@@ -205,4 +209,5 @@ struct BuracoOnlineMatchView: View {
 #Preview {
     BuracoOnlineMatchView()
         .environmentObject(CardsViewModel())
+        .environmentObject(BuracoSettings())
 }

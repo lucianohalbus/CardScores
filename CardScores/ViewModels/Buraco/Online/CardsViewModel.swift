@@ -55,6 +55,7 @@ final class CardsViewModel: ObservableObject {
             playerEmail: "",
             deckPlayer: [],
             playerTurn: "",
+            onlineScore: 0,
             isInvitedToPlay: false,
             readyToPlay: false
         ),
@@ -64,6 +65,7 @@ final class CardsViewModel: ObservableObject {
             playerEmail: "",
             deckPlayer: [],
             playerTurn: "",
+            onlineScore: 0,
             isInvitedToPlay: false,
             readyToPlay: false
         ),
@@ -73,6 +75,7 @@ final class CardsViewModel: ObservableObject {
             playerEmail: "",
             deckPlayer: [],
             playerTurn: "",
+            onlineScore: 0,
             isInvitedToPlay: false,
             readyToPlay: false
         ),
@@ -82,6 +85,7 @@ final class CardsViewModel: ObservableObject {
             playerEmail: "",
             deckPlayer: [],
             playerTurn: "",
+            onlineScore: 0,
             isInvitedToPlay: false,
             readyToPlay: false
         ),
@@ -120,6 +124,7 @@ final class CardsViewModel: ObservableObject {
                 playerEmail: "",
                 deckPlayer: [],
                 playerTurn: "",
+                onlineScore: 0,
                 isInvitedToPlay: false,
                 readyToPlay: false
             ),
@@ -129,6 +134,7 @@ final class CardsViewModel: ObservableObject {
                 playerEmail: "",
                 deckPlayer: [],
                 playerTurn: "",
+                onlineScore: 0,
                 isInvitedToPlay: false,
                 readyToPlay: false
             ),
@@ -138,6 +144,7 @@ final class CardsViewModel: ObservableObject {
                 playerEmail: "",
                 deckPlayer: [],
                 playerTurn: "",
+                onlineScore: 0,
                 isInvitedToPlay: false,
                 readyToPlay: false
             ),
@@ -147,6 +154,7 @@ final class CardsViewModel: ObservableObject {
                 playerEmail: "",
                 deckPlayer: [],
                 playerTurn: "",
+                onlineScore: 0,
                 isInvitedToPlay: false,
                 readyToPlay: false
             ),
@@ -211,28 +219,40 @@ final class CardsViewModel: ObservableObject {
                 playerID: playerOne.friendId,
                 playerEmail: playerOne.friendEmail,
                 deckPlayer: onlineBuracoModel.playerOne.deckPlayer,
-                playerTurn: playerOne.friendId
+                playerTurn: playerOne.friendId,
+                onlineScore: 0,
+                isInvitedToPlay: false,
+                readyToPlay: false
             ),
             playerTwo: OnlinePlayerModel(
                 playerName: playerTwo.friendName,
                 playerID: playerTwo.friendId,
                 playerEmail: playerTwo.friendEmail,
                 deckPlayer: onlineBuracoModel.playerTwo.deckPlayer,
-                playerTurn: playerTwo.friendId
+                playerTurn: playerTwo.friendId,
+                onlineScore: 0,
+                isInvitedToPlay: false,
+                readyToPlay: false
             ),
             playerThree: OnlinePlayerModel(
                 playerName: playerThree.friendName,
                 playerID: playerThree.friendId,
                 playerEmail: playerThree.friendEmail,
                 deckPlayer: onlineBuracoModel.playerThree.deckPlayer,
-                playerTurn: playerThree.friendId
+                playerTurn: playerThree.friendId,
+                onlineScore: 0,
+                isInvitedToPlay: false,
+                readyToPlay: false
             ),
             playerFour: OnlinePlayerModel(
                 playerName: playerFour.friendName,
                 playerID: playerFour.friendId,
                 playerEmail: playerFour.friendEmail,
                 deckPlayer: onlineBuracoModel.playerFour.deckPlayer,
-                playerTurn: playerFour.friendId
+                playerTurn: playerFour.friendId,
+                onlineScore: 0,
+                isInvitedToPlay: false,
+                readyToPlay: false
             ),
             playerTurn: playerOne.friendId,
             isPlayerOneInvited: true,
@@ -359,19 +379,11 @@ final class CardsViewModel: ObservableObject {
         }
     }
     
-    func getOnlineBuraco(onlineBuracoID: String) {
-        onlineBuracoRepo.getOnlineBuraco(onlineBuracoID: onlineBuracoID) { result in
-            switch result {
-            case .success(let returnedDoc):
-                if let returnedDoc = returnedDoc {
-                    DispatchQueue.main.async {
-                        self.onlineBuracoModel = returnedDoc
-                    }
-                }
-            case .failure(_):
-                print("Error trying to get document!")
-            }
-        }
+    @MainActor
+    func getOnlineBuraco(onlineBuracoID: String) async throws {
+        let onlineBuraco = try await onlineBuracoRepo.getOnlineBuraco(onlineBuracoID: onlineBuracoID)
+        
+        self.onlineBuracoModel = onlineBuraco
     }
     
     func updatePlayerDeck(deckPlayer: [CardModel], onlinePlayer: OnlinePlayerModel) {

@@ -7,121 +7,93 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "3DFBC875-5976-432A-892B-FE8591D85534"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CardScores/ViewModels/Buraco/Online/CardsViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "363"
-            endingLineNumber = "363"
-            landmarkName = "getOnlineBuraco(onlineBuracoID:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "3DFBC875-5976-432A-892B-FE8591D85534 - aff649ca059449af"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "CardScores.CardsViewModel.getOnlineBuraco(onlineBuracoID: Swift.String) -&gt; ()"
-                  moduleName = "CardScores"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/ViewModels/Buraco/Online/CardsViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "363"
-                  endingLineNumber = "363">
-               </Location>
-               <Location
-                  uuid = "3DFBC875-5976-432A-892B-FE8591D85534 - 39f1d4c1f8d84ac6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Swift.Optional&lt;CardScores.OnlineBuracoModel&gt;, Swift.Error&gt;) -&gt; () in CardScores.CardsViewModel.getOnlineBuraco(onlineBuracoID: Swift.String) -&gt; ()"
-                  moduleName = "CardScores"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/ViewModels/Buraco/Online/CardsViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "365"
-                  endingLineNumber = "365">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "89B48520-7F08-4BA3-8C9B-6370E9C6D288"
+            uuid = "E2B37443-8CF1-43B5-B7F9-7B94E8B7B7C1"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../../../../Applications/OnlineBuracoRepository.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "94"
-            endingLineNumber = "94"
-            landmarkName = "getOnlineBuraco(onlineBuracoID:completion:)"
+            startingLineNumber = "147"
+            endingLineNumber = "147"
+            landmarkName = "getOnlineBuraco(onlineBuracoID:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C32978D1-7F9C-4639-B9A4-A91C767ECECD"
+            uuid = "1D88C123-79D5-40A2-83B2-16C43D078162"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CardScores/ViewModels/Buraco/Online/CardsViewModel.swift"
+            filePath = "../../../../Applications/OnlineBuracoRepository.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "365"
-            endingLineNumber = "365"
+            startingLineNumber = "88"
+            endingLineNumber = "88"
+            landmarkName = "getOnlineBuraco(onlineBuracoID:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A572CD39-CA8B-4A01-B30B-A33C10BE87DF"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Applications/OnlineBuracoRepository.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "146"
+            endingLineNumber = "146"
+            landmarkName = "getOnlineBuraco(onlineBuracoID:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F9DD891C-549A-46D3-9B89-C08BE59D51B4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Applications/OnlineBuracoRepository.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "150"
+            endingLineNumber = "150"
             landmarkName = "getOnlineBuraco(onlineBuracoID:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "C32978D1-7F9C-4639-B9A4-A91C767ECECD - 39f1d4c1f8d84ac6"
+                  uuid = "F9DD891C-549A-46D3-9B89-C08BE59D51B4 - d891a958c514a17e"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Swift.Optional&lt;CardScores.OnlineBuracoModel&gt;, Swift.Error&gt;) -&gt; () in CardScores.CardsViewModel.getOnlineBuraco(onlineBuracoID: Swift.String) -&gt; ()"
+                  symbolName = "(3) suspend resume partial function for CardScores.OnlineBuracoRepository.getOnlineBuraco(onlineBuracoID: Swift.String) async -&gt; CardScores.OnlineBuracoModel"
                   moduleName = "CardScores"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/ViewModels/Buraco/Online/CardsViewModel.swift"
+                  urlString = "file:///Applications/OnlineBuracoRepository.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "365"
-                  endingLineNumber = "365">
+                  startingLineNumber = "150"
+                  endingLineNumber = "150">
                </Location>
                <Location
-                  uuid = "C32978D1-7F9C-4639-B9A4-A91C767ECECD - 39f1d4c1f8d84ac6"
+                  uuid = "F9DD891C-549A-46D3-9B89-C08BE59D51B4 - 96d6bf2f1000437d"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Swift.Optional&lt;CardScores.OnlineBuracoModel&gt;, Swift.Error&gt;) -&gt; () in CardScores.CardsViewModel.getOnlineBuraco(onlineBuracoID: Swift.String) -&gt; ()"
+                  symbolName = "(4) suspend resume partial function for CardScores.OnlineBuracoRepository.getOnlineBuraco(onlineBuracoID: Swift.String) async -&gt; CardScores.OnlineBuracoModel"
                   moduleName = "CardScores"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/ViewModels/Buraco/Online/CardsViewModel.swift"
+                  urlString = "file:///Applications/OnlineBuracoRepository.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "365"
-                  endingLineNumber = "365">
-               </Location>
-               <Location
-                  uuid = "C32978D1-7F9C-4639-B9A4-A91C767ECECD - 39f1d4c1f8d84ac6"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Swift.Optional&lt;CardScores.OnlineBuracoModel&gt;, Swift.Error&gt;) -&gt; () in CardScores.CardsViewModel.getOnlineBuraco(onlineBuracoID: Swift.String) -&gt; ()"
-                  moduleName = "CardScores"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/ViewModels/Buraco/Online/CardsViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "365"
-                  endingLineNumber = "365">
+                  startingLineNumber = "150"
+                  endingLineNumber = "150">
                </Location>
             </Locations>
          </BreakpointContent>
@@ -129,79 +101,153 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C279C987-BBE8-49D1-8F58-9F833C9B2761"
+            uuid = "AB5E05C0-CADE-450F-AA36-0A0CBA966438"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CardScores/ViewModels/Buraco/Online/CardsViewModel.swift"
+            filePath = "../../../../Applications/OnlineBuracoRepository.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "372"
-            endingLineNumber = "372"
-            landmarkName = "getOnlineBuraco(onlineBuracoID:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "E867766B-29A8-447A-B7EE-E06903DD7928"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CardScores/ViewModels/Buraco/Online/CardsViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "368"
-            endingLineNumber = "368"
-            landmarkName = "getOnlineBuraco(onlineBuracoID:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "7C10027A-1454-47B6-838D-C9147D92627F"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CardScores/ViewModels/Buraco/Online/CardsViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "366"
-            endingLineNumber = "366"
+            startingLineNumber = "153"
+            endingLineNumber = "153"
             landmarkName = "getOnlineBuraco(onlineBuracoID:)"
             landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "7C10027A-1454-47B6-838D-C9147D92627F - 39f1d4c1f8d84ae5"
+                  uuid = "AB5E05C0-CADE-450F-AA36-0A0CBA966438 - d891a958c514a0dd"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Swift.Optional&lt;CardScores.OnlineBuracoModel&gt;, Swift.Error&gt;) -&gt; () in CardScores.CardsViewModel.getOnlineBuraco(onlineBuracoID: Swift.String) -&gt; ()"
+                  symbolName = "(3) suspend resume partial function for CardScores.OnlineBuracoRepository.getOnlineBuraco(onlineBuracoID: Swift.String) async -&gt; CardScores.OnlineBuracoModel"
                   moduleName = "CardScores"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/ViewModels/Buraco/Online/CardsViewModel.swift"
+                  urlString = "file:///Applications/OnlineBuracoRepository.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "366"
-                  endingLineNumber = "366">
+                  startingLineNumber = "153"
+                  endingLineNumber = "153">
                </Location>
                <Location
-                  uuid = "7C10027A-1454-47B6-838D-C9147D92627F - 39f1d4c1f8d84ae5"
+                  uuid = "AB5E05C0-CADE-450F-AA36-0A0CBA966438 - 96d6bf2f100042de"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #1 (Swift.Result&lt;Swift.Optional&lt;CardScores.OnlineBuracoModel&gt;, Swift.Error&gt;) -&gt; () in CardScores.CardsViewModel.getOnlineBuraco(onlineBuracoID: Swift.String) -&gt; ()"
+                  symbolName = "(4) suspend resume partial function for CardScores.OnlineBuracoRepository.getOnlineBuraco(onlineBuracoID: Swift.String) async -&gt; CardScores.OnlineBuracoModel"
                   moduleName = "CardScores"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/lucianopuzer/Desktop/CardScores/CardScores/ViewModels/Buraco/Online/CardsViewModel.swift"
+                  urlString = "file:///Applications/OnlineBuracoRepository.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "366"
-                  endingLineNumber = "366">
+                  startingLineNumber = "153"
+                  endingLineNumber = "153">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "32ECFB86-F381-41AF-9818-30436099A747"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Applications/OnlineBuracoRepository.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "91"
+            endingLineNumber = "91"
+            landmarkName = "getOnlineBuraco(onlineBuracoID:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "32ECFB86-F381-41AF-9818-30436099A747 - ab037ab46b4e44dd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(1) suspend resume partial function for CardScores.OnlineBuracoRepository.getOnlineBuraco(onlineBuracoID: Swift.String) async -&gt; CardScores.OnlineBuracoModel"
+                  moduleName = "CardScores"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/OnlineBuracoRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "91"
+                  endingLineNumber = "91">
+               </Location>
+               <Location
+                  uuid = "32ECFB86-F381-41AF-9818-30436099A747 - fe6cece215c414e3"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(2) await resume partial function for CardScores.OnlineBuracoRepository.getOnlineBuraco(onlineBuracoID: Swift.String) async -&gt; CardScores.OnlineBuracoModel"
+                  moduleName = "CardScores"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/OnlineBuracoRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "91"
+                  endingLineNumber = "91">
+               </Location>
+               <Location
+                  uuid = "32ECFB86-F381-41AF-9818-30436099A747 - d891a958c514b8db"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(3) suspend resume partial function for CardScores.OnlineBuracoRepository.getOnlineBuraco(onlineBuracoID: Swift.String) async -&gt; CardScores.OnlineBuracoModel"
+                  moduleName = "CardScores"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/OnlineBuracoRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "91"
+                  endingLineNumber = "91">
+               </Location>
+               <Location
+                  uuid = "32ECFB86-F381-41AF-9818-30436099A747 - 96d6bf2f10005ad8"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "(4) suspend resume partial function for CardScores.OnlineBuracoRepository.getOnlineBuraco(onlineBuracoID: Swift.String) async -&gt; CardScores.OnlineBuracoModel"
+                  moduleName = "CardScores"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Applications/OnlineBuracoRepository.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "91"
+                  endingLineNumber = "91">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "9C0183E5-8BE1-49C1-92BD-C39A1D77A99B"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Applications/OnlineBuracoRepository.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "getOnlineBuraco(onlineBuracoID:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "B7B32ACD-B25E-4B12-9434-4AB4AE114FF1"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../../../../Applications/OnlineBuracoRepository.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "93"
+            endingLineNumber = "93"
+            landmarkName = "getOnlineBuraco(onlineBuracoID:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
