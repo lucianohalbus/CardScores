@@ -302,51 +302,13 @@ final class CardsViewModel: ObservableObject {
         let invitedPlayerFour: InviteModel = InviteModel(
             playerID: playerFour.friendId,
             gameID: gameID,
-            isInviting: false
+            isInviting: true
         )
         invitedPlayers.append(invitedPlayerFour)
 
         onlineBuracoRepo.invitePlayer(invitedPlayer: invitedPlayers)
-        
-        
-
     }
-    
-//    func preparingGameTable(onlineGame: OnlineBuracoModel) {
-//        onlineBuracoRepo.add(onlineBuraco: onlineGame) { result in
-//            switch result {
-//            case .success(let returnedID):
-//                if let returnedID = returnedID {
-//                    self.onlineBuracoRepo.updateOnlineBuraco(onlineBuracoID: returnedID) { result in
-//                        switch result {
-//                        case .success(let returnedResult):
-//                            if let returnedBool = returnedResult {
-//                                DispatchQueue.main.async {
-//                                    self.createPlayers = returnedBool
-//                                }
-//                            }
-//                        case .failure(let error):
-//                            print(error.localizedDescription)
-//                        }
-//                    }
-//                } 
-//            case .failure(let error):
-//                print(error)
-//            }
-//        }
-//    }
-//    
-//    func inviteOnlinePlayers() async throws {
-//        let playersID: [String] = [
-//            self.onlineBuracoModel.playerOne.playerID,
-//            self.onlineBuracoModel.playerTwo.playerID,
-//            self.onlineBuracoModel.playerThree.playerID,
-//            self.onlineBuracoModel.playerFour.playerID
-//        ]
-//        
-//        try await buracoSettings.setPlayerInviteTrue(playersID: playersID)
-//    }
-    
+ 
     func updateReadyToPlay(readyToPlay: Bool) {
         onlineBuracoRepo.updateReadyToPlay(readyToPlay: readyToPlay) { result in
             switch result {
