@@ -17,8 +17,9 @@ struct OnlineBuracoModel: Identifiable, Codable, Equatable {
     var isPlayerTwoInvited: Bool
     var isPlayerThreeInvited: Bool
     var isPlayerFourInvited: Bool
+    var playersID: [String]
     
-    init(id: String, deckDiscard: [CardModel], deckSecondOne: [CardModel], deckSecondTwo: [CardModel], deckRefill: [CardModel], playerOne: OnlinePlayerModel, playerTwo: OnlinePlayerModel,  playerThree: OnlinePlayerModel,  playerFour: OnlinePlayerModel,  playerTurn: String, isPlayerOneInvited: Bool, isPlayerTwoInvited: Bool, isPlayerThreeInvited: Bool, isPlayerFourInvited: Bool) {
+    init(id: String, deckDiscard: [CardModel], deckSecondOne: [CardModel], deckSecondTwo: [CardModel], deckRefill: [CardModel], playerOne: OnlinePlayerModel, playerTwo: OnlinePlayerModel,  playerThree: OnlinePlayerModel,  playerFour: OnlinePlayerModel,  playerTurn: String, isPlayerOneInvited: Bool, isPlayerTwoInvited: Bool, isPlayerThreeInvited: Bool, isPlayerFourInvited: Bool, playersID: [String]) {
         self.id = id
         self.deckDiscard = deckDiscard
         self.deckSecondOne = deckSecondOne
@@ -33,6 +34,7 @@ struct OnlineBuracoModel: Identifiable, Codable, Equatable {
         self.isPlayerTwoInvited = isPlayerTwoInvited
         self.isPlayerThreeInvited = isPlayerThreeInvited
         self.isPlayerFourInvited = isPlayerFourInvited
+        self.playersID = playersID
         
     }
     
@@ -51,6 +53,7 @@ struct OnlineBuracoModel: Identifiable, Codable, Equatable {
         case isPlayerTwoInvited = "isPlayerTwoInvited"
         case isPlayerThreeInvited = "isPlayerThreeInvited"
         case isPlayerFourInvited = "isPlayerFourInvited"
+        case playersID = "playersID"
     }
     
     init(from decoder: any Decoder) throws {
@@ -68,6 +71,7 @@ struct OnlineBuracoModel: Identifiable, Codable, Equatable {
         self.isPlayerOneInvited = try container.decode(Bool.self, forKey: .isPlayerOneInvited)
         self.isPlayerTwoInvited = try container.decode(Bool.self, forKey: .isPlayerTwoInvited)
         self.isPlayerThreeInvited = try container.decode(Bool.self, forKey: .isPlayerThreeInvited)
-        self.isPlayerFourInvited = try container.decode(Bool.self, forKey: .isPlayerFourInvited)  
+        self.isPlayerFourInvited = try container.decode(Bool.self, forKey: .isPlayerFourInvited) 
+        self.playersID = try container.decode([String].self, forKey: .playersID)
     }
 }

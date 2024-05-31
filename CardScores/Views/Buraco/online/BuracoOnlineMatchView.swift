@@ -195,6 +195,14 @@ struct BuracoOnlineMatchView: View {
                     cardsVM.deckRefillUpdated = false
                 }
             }
+            .onChange(of: cardsVM.deckRefillUpdated) { newValue in
+                if newValue {
+                    Task {
+                        try await cardsVM.getOnlineBuraco(onlineBuracoID: cardsVM.onlineBuracoModel.id)
+                    }
+                    cardsVM.deckRefillUpdated = false
+                }
+            }
             .onChange(of: cardsVM.isPlayerInvited) { newValue in
                 if newValue {
                     Task {
@@ -202,11 +210,17 @@ struct BuracoOnlineMatchView: View {
                     }
                 }
             }
+            .onChange(of: settings.isOnlineBuracoUpdated) { newValue in
+                if newValue {
+                    Task {
+                        try await cardsVM.getOnlineBuraco(onlineBuracoID: settings.gameID)
+                    }
+                }
+            }
             .onAppear {
                 Task {
                     try await cardsVM.getOnlineBuraco(onlineBuracoID: settings.gameID)
                 }
-                
             }
         }
         .edgesIgnoringSafeArea(.all)

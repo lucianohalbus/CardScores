@@ -9,6 +9,8 @@ class BuracoSettings: ObservableObject {
     private var listenerRegistration: ListenerRegistration?
     @Published var showInvitingAlert: Bool = false
     @Published var gameID: String = ""
+    @Published var isOnlineBuracoUpdated: Bool = false
+    @Published var onlineBuracoModel: OnlineBuracoModel = OnlineBuracoModel(id: "", deckDiscard: [], deckSecondOne: [], deckSecondTwo: [], deckRefill: [], playerOne: OnlinePlayerModel(playerName: "", playerID: "", playerEmail: "", deckPlayer: [], playerTurn: ""), playerTwo: OnlinePlayerModel(playerName: "", playerID: "", playerEmail: "", deckPlayer: [], playerTurn: ""), playerThree: OnlinePlayerModel(playerName: "", playerID: "", playerEmail: "", deckPlayer: [], playerTurn: ""), playerFour: OnlinePlayerModel(playerName: "", playerID: "", playerEmail: "", deckPlayer: [], playerTurn: ""), playerTurn: "", isPlayerOneInvited: false, isPlayerTwoInvited: false, isPlayerThreeInvited: false, isPlayerFourInvited: false, playersID: [])
     
     init() {
         startListening()
@@ -53,7 +55,7 @@ class BuracoSettings: ObservableObject {
             }
         }
     }
-  
+    
     func updatePlayerInvite() async throws {
         guard let playerID = Auth.auth().currentUser?.uid else {
             return

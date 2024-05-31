@@ -42,8 +42,6 @@ struct DeckRefillView: View {
                                        }
                                     }
                                     
-                                    deck.removeLast()
-                                    
                                     let cardModel: CardModel = CardModel(
                                         id: card.id,
                                         cardCode: card.cardCode,
@@ -52,6 +50,7 @@ struct DeckRefillView: View {
                                     )
                                     
                                     cardsVM.deleteCardFromDeckRefill(card: cardModel)
+                                    deck.removeLast()
                                     refillButtonClicked()
                                 }
                             }, label: {
