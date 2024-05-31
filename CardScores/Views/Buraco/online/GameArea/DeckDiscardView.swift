@@ -25,7 +25,7 @@ struct DiscardAreaView: View {
                         }
        
                     ForEach(Array(zip(cardsVM.onlineBuracoModel.deckDiscard.indices, cardsVM.onlineBuracoModel.deckDiscard)), id: \.0) { index, card in
-                        ZStack {
+                        HStack {
                             Image(card.cardCode)
                                 .resizable()
                                 .frame(width: 35, height: 60)

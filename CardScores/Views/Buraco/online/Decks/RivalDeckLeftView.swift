@@ -15,15 +15,28 @@ struct RivalDeckLeftView: View {
                         ForEach(onlinePlayerModel.deckPlayer) { card in
                             HStack {
                                 Button(action: {
-                                    onSelect()
-                                    if !cardsVM.isPlayerThreeTurn {
-                                        if cardsVM.auxDeck.contains(card) {
-                                            cardsVM.auxDeck.removeAll { cards in
-                                                cards == card
-                                            }
-                                        } else {
-                                            cardsVM.auxDeck.append(card)
+                                    if cardsVM.isPlayerTwoDiscarding {
+                                        cardsVM.auxDiscardDeck = CardModel(
+                                            id: card.id,
+                                            cardCode: card.cardCode,
+                                            value: card.value,
+                                            backColor: card.backColor
+                                        )
+                                        
+                                        cardsVM.onlineBuracoModel.deckDiscard.append(cardsVM.auxDiscardDeck)
+                                        
+                                        cardsVM.onlineBuracoModel.playerOne.deckPlayer.removeAll { $0 == cardsVM.auxDiscardDeck }
+      
+                                        Task {
+                                            await cardsVM.onlineBuracoRepo.updateOnlineBuracoDecks(onlineBuraco: cardsVM.onlineBuracoModel)
                                         }
+                                        
+                                        cardsVM.auxDiscardDeck = CardModel(
+                                            id: "",
+                                            cardCode: "",
+                                            value: 0,
+                                            backColor: ""
+                                        )
                                     }
                                 }, label: {
                                     ZStack {

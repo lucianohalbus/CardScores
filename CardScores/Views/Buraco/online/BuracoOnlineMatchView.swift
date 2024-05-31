@@ -12,22 +12,22 @@ struct BuracoOnlineMatchView: View {
             ZStack {
                 if let playerId: String = Auth.auth().currentUser?.uid {
                     if playerId == cardsVM.onlineBuracoModel.playerOne.playerID {
-                        MainDeckView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerOne) { }
+                        MainDeckView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerOne)
                         RivalDeckTopView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerTwo) { }
                         RivalDeckLeftView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerThree) { }
                         RivalDeckRightView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerFour) { }
                     } else if playerId == cardsVM.onlineBuracoModel.playerTwo.playerID {
-                        MainDeckView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerTwo) { }
+                        MainDeckView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerTwo)
                         RivalDeckTopView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerOne) { }
                         RivalDeckLeftView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerThree) { }
                         RivalDeckRightView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerFour) { }
                     } else if playerId == cardsVM.onlineBuracoModel.playerThree.playerID {
-                        MainDeckView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerThree) { }
+                        MainDeckView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerThree)
                         RivalDeckTopView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerFour) { }
                         RivalDeckLeftView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerOne) { }
                         RivalDeckRightView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerTwo) { }
                     }else if playerId == cardsVM.onlineBuracoModel.playerFour.playerID {
-                        MainDeckView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerFour) { }
+                        MainDeckView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerFour)
                         RivalDeckTopView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerThree) { }
                         RivalDeckLeftView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerOne) { }
                         RivalDeckRightView(onlinePlayerModel: $cardsVM.onlineBuracoModel.playerTwo) { }

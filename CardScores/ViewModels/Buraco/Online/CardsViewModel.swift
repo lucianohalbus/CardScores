@@ -289,7 +289,7 @@ final class CardsViewModel: ObservableObject {
             playersID: [playerOne.friendId, playerTwo.friendId, playerThree.friendId, playerFour.friendId]
         )
 
-        onlineBuracoRepo.updateInitialOnlineBuraco(onlineBuraco: onlineBuraco) { result in
+        onlineBuracoRepo.updateOnlineBuraco(onlineBuraco: onlineBuraco) { result in
             switch result {
             case .success(let returnedItem):
                 if let returnedBool = returnedItem {
@@ -358,19 +358,6 @@ final class CardsViewModel: ObservableObject {
         }
     }
     
-    func updateReadyToPlay(readyToPlay: Bool) {
-        onlineBuracoRepo.updateReadyToPlay(readyToPlay: readyToPlay) { result in
-            switch result {
-            case .success(let returnedValue):
-                DispatchQueue.main.async {
-                    self.showOnlineGame = returnedValue
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-    }
-    
     func updatePlayerDeck(deckPlayer: [CardModel], onlinePlayer: OnlinePlayerModel) {
         onlineBuracoRepo.updatePlayerDeck(deckPlayer: deckPlayer, onlinePlayer: onlinePlayer) { result in
             switch result {
@@ -390,6 +377,32 @@ final class CardsViewModel: ObservableObject {
             case .success(let returnedItem):
                 DispatchQueue.main.async {
                     self.deckDiscardUpdated = returnedItem
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func deleteCardFromPlayerDeck(playerDeck: CardModel) {
+        onlineBuracoRepo.updateDeckDiscard(deckDiscard: playerDeck, onlineBuracoID: onlineBuracoModel.id) { result in
+            switch result {
+            case .success(let returnedItem):
+                DispatchQueue.main.async {
+                    
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func updateReadyToPlay(readyToPlay: Bool) {
+        onlineBuracoRepo.updateReadyToPlay(readyToPlay: readyToPlay) { result in
+            switch result {
+            case .success(let returnedValue):
+                DispatchQueue.main.async {
+                    self.showOnlineGame = returnedValue
                 }
             case .failure(let error):
                 print(error.localizedDescription)

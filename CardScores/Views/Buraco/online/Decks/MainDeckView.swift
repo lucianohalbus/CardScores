@@ -5,8 +5,6 @@ import SwiftUI
 struct MainDeckView: View {
     @EnvironmentObject var cardsVM: CardsViewModel
     @Binding var onlinePlayerModel: OnlinePlayerModel
-
-    var onSelect: () -> Void
     
     var body: some View {
         GeometryReader { proxy in
@@ -15,13 +13,27 @@ struct MainDeckView: View {
                     ForEach(onlinePlayerModel.deckPlayer) { card in
                         HStack {
                             Button(action: {
-                                onSelect()
                                 if cardsVM.isPlayerOneDiscarding {
                                     cardsVM.auxDiscardDeck = CardModel(
                                         id: card.id,
                                         cardCode: card.cardCode,
                                         value: card.value,
                                         backColor: card.backColor
+                                    )
+                                    
+                                    cardsVM.onlineBuracoModel.deckDiscard.append(cardsVM.auxDiscardDeck)
+                                    
+                                    cardsVM.onlineBuracoModel.playerOne.deckPlayer.removeAll { $0 == cardsVM.auxDiscardDeck }
+  
+                                    Task {
+                                        await cardsVM.onlineBuracoRepo.updateOnlineBuracoDecks(onlineBuraco: cardsVM.onlineBuracoModel)
+                                    }
+                                    
+                                    cardsVM.auxDiscardDeck = CardModel(
+                                        id: "",
+                                        cardCode: "",
+                                        value: 0,
+                                        backColor: ""
                                     )
                                 }
                             }, label: {
@@ -34,7 +46,9 @@ struct MainDeckView: View {
                                         .fill(Color.black)
                                         .frame(width: proxy.size.width)
                                         .frame(height: 140)
-                                        .position(x: 0, y: proxy.size.height * 0.62
+                                        .position(
+                                            x: 0,
+                                            y: proxy.size.height * 0.62
                                         )
                                 }
                             })
@@ -67,8 +81,7 @@ struct MainDeckView: View {
                 isInvitedToPlay: false,
                 readyToPlay: false
             )
-        ),
-        onSelect: {}
+        )
     )
     .environmentObject(CardsViewModel())
 }
