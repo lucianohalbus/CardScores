@@ -72,6 +72,7 @@ struct TabbarView: View {
     TabbarView(showLoginView: .constant(false))
         .environmentObject(BuracoMatchViewModel())
         .environmentObject(CardsViewModel())
+        .environmentObject(BuracoSettings())
     
 }
 

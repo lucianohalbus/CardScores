@@ -12,19 +12,19 @@ struct GameAreaOneView: View {
                         .fill(Color.gray.opacity(0.2))
                         .frame(
                             width: proxy.size.width * 0.8,
-                            height: proxy.size.height * 0.25
+                            height: proxy.size.height * 0.23
                         )
                     
                     Rectangle()
                         .fill(Color.gray.opacity(0.2))
                         .frame(
                             width: proxy.size.width * 0.75,
-                            height: proxy.size.height * 0.24
+                            height: proxy.size.height * 0.22
                         )
                 }
                 .position(
                     x: proxy.size.width * 0.5,
-                    y: proxy.size.height * 0.6
+                    y: proxy.size.height * 0.65
                 )
             }
             .frame(width: proxy.size.width, height: proxy.size.height)

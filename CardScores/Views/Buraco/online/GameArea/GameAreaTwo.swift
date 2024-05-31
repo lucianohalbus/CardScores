@@ -12,14 +12,14 @@ struct GameAreaTwoView: View {
                         .fill(Color.gray.opacity(0.2))
                         .frame(
                             width: proxy.size.width * 0.8,
-                            height: proxy.size.height * 0.28
+                            height: proxy.size.height * 0.23
                         )
                     
                     Rectangle()
                         .fill(Color.gray.opacity(0.2))
                         .frame(
                             width: proxy.size.width * 0.75,
-                            height: proxy.size.height * 0.27
+                            height: proxy.size.height * 0.22
                         )
                 }
                 .position(
