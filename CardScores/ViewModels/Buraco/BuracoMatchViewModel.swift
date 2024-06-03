@@ -92,7 +92,6 @@ final class BuracoMatchViewModel: ObservableObject {
                 if let fetchedItems = fetchedItems {
                     DispatchQueue.main.async {
                         self.rankingMatches = fetchedItems.map(BuracoFBViewModel.init)
-                        print(self.rankingMatches.count)
                     }
                 }
                 
@@ -341,7 +340,6 @@ final class BuracoMatchViewModel: ObservableObject {
         })
         
         matchesOver.forEach({
-            
             let team: String = $0.playerFour+$0.playerThree
             guard listOfTeams.contains($0.playerThree+$0.playerFour) == true else {
                 return
@@ -355,8 +353,7 @@ final class BuracoMatchViewModel: ObservableObject {
         })
         
         matchesOver.forEach({
-            
-            let team: String = $0.playerTwo+$0.playerThree
+            let team: String = $0.playerTwo+$0.playerOne
             guard listOfTeams.contains($0.playerOne+$0.playerTwo) == true else {
                 return
             }
