@@ -209,7 +209,7 @@ struct AddNewMatchTurnView: View {
                 .foregroundStyle(Color.white)
                 .bold()
             
-            Text(matchFB.finalScoreOne)
+            Text(buracoMatchVM.scoreOne)
                 .font(.caption)
                 .foregroundStyle(Int(matchFB.finalScoreOne) ?? 0 >= 0 ? Color.white : Color.red)
                 .bold()
@@ -271,7 +271,7 @@ struct AddNewMatchTurnView: View {
                 .foregroundStyle(Color.white)
                 .bold()
             
-            Text(matchFB.finalScoreTwo)
+            Text(buracoMatchVM.scoreTwo)
                 .font(.caption)
                 .foregroundStyle(Int(matchFB.finalScoreOne) ?? 0 >= 0 ? Color.white : Color.red)
                 .bold()
