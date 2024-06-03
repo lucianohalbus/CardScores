@@ -43,7 +43,11 @@ struct BuracoOnlineMatchView: View {
                     if cardsVM.onlineBuracoModel.deckRefill.count > 0 {
                         if let card = cardsVM.onlineBuracoModel.deckRefill.last {
                             if cardsVM.isPlayerOneTurn {
-                         //       cardsVM.onlinePlayerOne.deckPlayer.append(card)
+                                cardsVM.onlineBuracoModel.playerOne.deckPlayer.append(card)
+                                
+                                cardsVM.updatePlayerDeck(
+                                    playerOne: cardsVM.onlineBuracoModel.playerOne
+                                )
                                 cardsVM.isPlayerOneTurn = false
                                 cardsVM.isPlayerTwoTurn = false
                                 cardsVM.isPlayerThreeTurn = false
@@ -57,7 +61,7 @@ struct BuracoOnlineMatchView: View {
                                 cardsVM.isPlayerFourDiscarding = false
                                 cardsVM.auxDeck.removeAll()
                             } else if cardsVM.isPlayerTwoTurn {
-                         //       cardsVM.onlinePlayerTwo.deckPlayer.append(card)
+                                cardsVM.onlineBuracoModel.playerTwo.deckPlayer.append(card)
                                 cardsVM.isPlayerOneTurn = false
                                 cardsVM.isPlayerTwoTurn = false
                                 cardsVM.isPlayerThreeTurn = false
@@ -71,7 +75,7 @@ struct BuracoOnlineMatchView: View {
                                 cardsVM.isPlayerFourDiscarding = false
                                 cardsVM.auxDeck.removeAll()
                             } else if cardsVM.isPlayerThreeTurn {
-                         //       cardsVM.onlinePlayerThree.deckPlayer.append(card)
+                                cardsVM.onlineBuracoModel.playerThree.deckPlayer.append(card)
                                 cardsVM.isPlayerOneTurn = false
                                 cardsVM.isPlayerTwoTurn = false
                                 cardsVM.isPlayerThreeTurn = false
@@ -85,7 +89,7 @@ struct BuracoOnlineMatchView: View {
                                 cardsVM.isPlayerFourDiscarding = false
                                 cardsVM.auxDeck.removeAll()
                             } else if cardsVM.isPlayerFourTurn {
-                         //       cardsVM.onlinePlayerFour.deckPlayer.append(card)
+                                cardsVM.onlineBuracoModel.playerFour.deckPlayer.append(card)
                                 cardsVM.isPlayerOneTurn = false
                                 cardsVM.isPlayerTwoTurn = false
                                 cardsVM.isPlayerThreeTurn = false

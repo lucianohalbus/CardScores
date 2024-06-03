@@ -358,8 +358,8 @@ final class CardsViewModel: ObservableObject {
         }
     }
     
-    func updatePlayerDeck(deckPlayer: [CardModel], onlinePlayer: OnlinePlayerModel) {
-        onlineBuracoRepo.updatePlayerDeck(deckPlayer: deckPlayer, onlinePlayer: onlinePlayer) { result in
+    func updatePlayerDeck(playerOne: OnlinePlayerModel) {
+        onlineBuracoRepo.updatePlayerDeck(onlineBuracoID: self.onlineBuracoModel.id, playerOne: playerOne) { result in
             switch result {
             case .success(let returnedItem):
                 DispatchQueue.main.async {
