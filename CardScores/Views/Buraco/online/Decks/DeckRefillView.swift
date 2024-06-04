@@ -48,8 +48,29 @@ struct DeckRefillView: View {
                                         backColor: card.backColor
                                     )
                                     
-                                    cardsVM.deleteCardFromDeckRefill(card: cardModel)
-                                    deck.removeLast()
+                                    cardsVM.deleteCardFromDeckRefill(card: cardModel, documentID: cardsVM.onlineBuracoModel.id)
+                                    
+                                    var deckPlayer: [CardModel] = []
+                                    deckPlayer.append(contentsOf: cardsVM.onlineBuracoModel.playerOne.deckPlayer)
+                                    deckPlayer.append(card)
+                                    
+                                    let playerOne: OnlinePlayerModel = OnlinePlayerModel(
+                                        playerName: cardsVM.onlineBuracoModel.playerOne.playerName,
+                                        playerID: cardsVM.onlineBuracoModel.playerOne.playerID,
+                                        playerEmail: cardsVM.onlineBuracoModel.playerOne.playerEmail,
+                                        deckPlayer: deckPlayer,
+                                        playerTurn: cardsVM.onlineBuracoModel.playerOne.playerTurn
+                                    )
+
+                                    cardsVM.updatePlayerDeck(playerOne: playerOne, documentID: cardsVM.onlineBuracoModel.id)
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
+                                    
                                     refillButtonClicked()
                                 }
                             }, label: {

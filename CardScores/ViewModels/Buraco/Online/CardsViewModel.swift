@@ -17,6 +17,10 @@ final class CardsViewModel: ObservableObject {
     @Published var auxDeck: [CardModel] = []
     
     // MARK: - TURN LOGICS
+    @Published var cardDeletedFromDeckRefill: Bool = false
+    
+    
+    
     @Published var isSecondDeckOneAvailable: Bool = true
     @Published var isSecondDeckTwoAvailable: Bool = true
     @Published var deckPlayerUpdated: Bool = false
@@ -341,28 +345,28 @@ final class CardsViewModel: ObservableObject {
         self.isPlayerInvited = true
     }
     
-    func deleteCardFromDeckRefill(card: CardModel) {
-        onlineBuracoRepo.removeElementFromArray(documentID: onlineBuracoModel.id, fieldName: "deckRefill", element: card)
-        
-//        onlineBuracoRepo.deleteCardFromDeckRefill(deckRefill: card, onlineBuracoID: onlineBuracoModel.id) { result in
-//            switch result {
-//            case .success(let returnedItem):
-//                DispatchQueue.main.async {
-//                    self.deckRefillUpdated = returnedItem
-//                }
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//            }
-//        }
-    }
-    
-    func updatePlayerDeck(playerOne: OnlinePlayerModel) {
-        onlineBuracoRepo.updatePlayerDeck(onlineBuracoID: self.onlineBuracoModel.id, playerOne: playerOne) { result in
+    func deleteCardFromDeckRefill(card: CardModel, documentID: String) {
+        onlineBuracoRepo.removeCardFromDeck(documentID: documentID, fieldName: "deckRefill", element: card) { result in
             switch result {
             case .success(let returnedItem):
-                DispatchQueue.main.async {
-                    self.deckPlayerUpdated = returnedItem
-                }
+                print("\(returnedItem)chegou aqui no fim do deleteCardFromDeckRefill")
+//                DispatchQueue.main.async {
+//                    self.cardDeletedFromDeckRefill = returnedItem
+//                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func updatePlayerDeck(playerOne: OnlinePlayerModel, documentID: String) {
+        onlineBuracoRepo.updatePlayerDeck(onlineBuracoID: documentID, playerOne: playerOne) { result in
+            switch result {
+            case .success(let returnedItem):
+                print("\(returnedItem)chegou aqui no fim do updatePlayerDeck")
+//                DispatchQueue.main.async {
+//                    self.deckPlayerUpdated = returnedItem
+//                }
             case .failure(let error):
                 print(error.localizedDescription)
             }

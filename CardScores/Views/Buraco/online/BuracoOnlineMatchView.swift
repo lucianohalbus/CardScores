@@ -43,11 +43,23 @@ struct BuracoOnlineMatchView: View {
                     if cardsVM.onlineBuracoModel.deckRefill.count > 0 {
                         if let card = cardsVM.onlineBuracoModel.deckRefill.last {
                             if cardsVM.onlineBuracoModel.isPlayerOneTurn {
-                               // cardsVM.onlineBuracoModel.playerOne.deckPlayer.append(card)
                                 
-//                                cardsVM.updatePlayerDeck(
-//                                    playerOne: cardsVM.onlineBuracoModel.playerOne
+//                                var deckPlayer: [CardModel] = []
+//                                deckPlayer.append(contentsOf: cardsVM.onlineBuracoModel.playerOne.deckPlayer)
+//                                deckPlayer.append(card)
+//                                
+//                                let playerOne: OnlinePlayerModel = OnlinePlayerModel(
+//                                    playerName: cardsVM.onlineBuracoModel.playerOne.playerName,
+//                                    playerID: cardsVM.onlineBuracoModel.playerOne.playerID,
+//                                    playerEmail: cardsVM.onlineBuracoModel.playerOne.playerEmail,
+//                                    deckPlayer: deckPlayer,
+//                                    playerTurn: cardsVM.onlineBuracoModel.playerOne.playerTurn
 //                                )
+//
+//                                cardsVM.updatePlayerDeck(playerOne: playerOne)
+                                
+                                
+                                
                                 cardsVM.isBuyingFromDeckRefill = false
                                 cardsVM.isBuyingFromDiscards = false
                                 cardsVM.shoudDiscard = true
@@ -190,9 +202,20 @@ struct BuracoOnlineMatchView: View {
             .padding(proxy.safeAreaInsets)
             .background(Color.green, ignoresSafeAreaEdges: .all)
             .navigationBarHidden(true)
+            .onChange(of: cardsVM.cardDeletedFromDeckRefill) { newValue in
+                if newValue {
+                    Task {
+                        try await cardsVM.getOnlineBuraco(onlineBuracoID: cardsVM.onlineBuracoModel.id)
+                    }
+                    cardsVM.cardDeletedFromDeckRefill = false
+                }
+            }
             .onChange(of: cardsVM.deckPlayerUpdated) { newValue in
                 if newValue {
-                    cardsVM.deckRefillUpdated = false
+                    Task {
+                        try await cardsVM.getOnlineBuraco(onlineBuracoID: cardsVM.onlineBuracoModel.id)
+                    }
+                    cardsVM.deckPlayerUpdated = false
                 }
             }
             .onChange(of: cardsVM.deckRefillUpdated) { newValue in
