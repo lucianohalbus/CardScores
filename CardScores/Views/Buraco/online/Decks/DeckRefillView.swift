@@ -64,7 +64,14 @@ struct DeckRefillView: View {
                                     )
 
                                     cardsVM.updatePlayerDeck(playerOne: playerOne, documentID: cardsVM.onlineBuracoModel.id)
+                                    
+                                    let isTurnOneNext: Bool = false
+                                    let isTurnTwoNext: Bool = true
+                                    let isTurnThreeNext: Bool = false
+                                    let isTurnFourNext: Bool = false
 
+                                    cardsVM.updateNextTurns(turnOne: isTurnOneNext, turnTwo: isTurnTwoNext, turnThree: isTurnThreeNext, turnFour: isTurnFourNext)
+                                    
                                     refillButtonClicked()
                                 }
                             }, label: {

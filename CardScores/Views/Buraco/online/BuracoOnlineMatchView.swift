@@ -193,12 +193,12 @@ struct BuracoOnlineMatchView: View {
                     cardsVM.cardDeletedFromDeckRefill = false
                 }
             }
-            .onChange(of: cardsVM.deckPlayerUpdated) { newValue in
+            .onChange(of: cardsVM.turnUpdated) { newValue in
                 if newValue {
                     Task {
                         try await cardsVM.getOnlineBuraco(onlineBuracoID: cardsVM.onlineBuracoModel.id)
                     }
-                    cardsVM.deckPlayerUpdated = false
+                    cardsVM.turnUpdated = false
                 }
             }
             .onChange(of: cardsVM.deckRefillUpdated) { newValue in

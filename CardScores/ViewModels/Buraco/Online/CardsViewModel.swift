@@ -18,6 +18,8 @@ final class CardsViewModel: ObservableObject {
     
     // MARK: - TURN LOGICS
     @Published var cardDeletedFromDeckRefill: Bool = false
+    @Published var turnUpdated: Bool = false
+    
     
     
     
@@ -364,8 +366,22 @@ final class CardsViewModel: ObservableObject {
             switch result {
             case .success(let returnedItem):
                 print("\(returnedItem) chegou aqui no fim do updatePlayerDeck")
+//                DispatchQueue.main.async {
+//                    self.deckPlayerUpdated = returnedItem
+//                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
+    }
+    
+    func updateNextTurns(turnOne: Bool, turnTwo: Bool, turnThree: Bool, turnFour: Bool) {
+        onlineBuracoRepo.updateNextTurn(documentID: onlineBuracoModel.id, turnOne: turnOne, turnTwo: turnTwo, turnThree: turnThree, turnFour: turnFour) { result in
+            switch result {
+            case .success(let returnedItem):
+                print("\(returnedItem) chegou aqui no fim do updatePlayerDeck")
                 DispatchQueue.main.async {
-                    self.deckPlayerUpdated = returnedItem
+                    self.turnUpdated = returnedItem
                 }
             case .failure(let error):
                 print(error.localizedDescription)
