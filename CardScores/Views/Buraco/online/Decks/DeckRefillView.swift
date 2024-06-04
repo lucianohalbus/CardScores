@@ -49,29 +49,7 @@ struct DeckRefillView: View {
                                     )
                                     
                                     cardsVM.deleteCardFromDeckRefill(card: cardModel, documentID: cardsVM.onlineBuracoModel.id)
-                                    
-                                    var deckPlayer: [CardModel] = []
-                                    deckPlayer.append(contentsOf: cardsVM.onlineBuracoModel.playerOne.deckPlayer)
-                                    deckPlayer.append(card)
-                                    
-                                    let playerOne: OnlinePlayerModel = OnlinePlayerModel(
-                                        playerName: cardsVM.onlineBuracoModel.playerOne.playerName,
-                                        playerID: cardsVM.onlineBuracoModel.playerOne.playerID,
-                                        playerEmail: cardsVM.onlineBuracoModel.playerOne.playerEmail,
-                                        deckPlayer: deckPlayer,
-                                        playerTurn: cardsVM.onlineBuracoModel.playerOne.playerTurn,
-                                        onlineScore: 0
-                                    )
 
-                                    cardsVM.updatePlayerDeck(playerOne: playerOne, documentID: cardsVM.onlineBuracoModel.id)
-                                    
-                                    let isTurnOneNext: Bool = false
-                                    let isTurnTwoNext: Bool = true
-                                    let isTurnThreeNext: Bool = false
-                                    let isTurnFourNext: Bool = false
-
-                                    cardsVM.updateNextTurns(turnOne: isTurnOneNext, turnTwo: isTurnTwoNext, turnThree: isTurnThreeNext, turnFour: isTurnFourNext)
-                                    
                                     refillButtonClicked()
                                 }
                             }, label: {
