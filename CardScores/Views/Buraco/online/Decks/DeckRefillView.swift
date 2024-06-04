@@ -59,18 +59,12 @@ struct DeckRefillView: View {
                                         playerID: cardsVM.onlineBuracoModel.playerOne.playerID,
                                         playerEmail: cardsVM.onlineBuracoModel.playerOne.playerEmail,
                                         deckPlayer: deckPlayer,
-                                        playerTurn: cardsVM.onlineBuracoModel.playerOne.playerTurn
+                                        playerTurn: cardsVM.onlineBuracoModel.playerOne.playerTurn,
+                                        onlineScore: 0
                                     )
 
                                     cardsVM.updatePlayerDeck(playerOne: playerOne, documentID: cardsVM.onlineBuracoModel.id)
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
-                                    
+
                                     refillButtonClicked()
                                 }
                             }, label: {

@@ -8,11 +8,11 @@ struct OnlinePlayerModel: Hashable, Codable, Equatable {
     var playerEmail: String
     var deckPlayer: [CardModel]
     var playerTurn: String
-    var onlineScore: Int?
+    var onlineScore: Int
     var isInvitedToPlay: Bool?
     var readyToPlay: Bool?
     
-    init(playerName: String, playerID: String, playerEmail: String, deckPlayer: [CardModel], playerTurn: String, onlineScore: Int? = nil, isInvitedToPlay: Bool? = false, readyToPlay: Bool? = false) {
+    init(playerName: String, playerID: String, playerEmail: String, deckPlayer: [CardModel], playerTurn: String, onlineScore: Int, isInvitedToPlay: Bool? = false, readyToPlay: Bool? = false) {
         self.playerName = playerName
         self.playerID = playerID
         self.playerEmail = playerEmail

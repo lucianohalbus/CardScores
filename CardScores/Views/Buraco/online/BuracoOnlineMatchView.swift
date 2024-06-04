@@ -43,23 +43,6 @@ struct BuracoOnlineMatchView: View {
                     if cardsVM.onlineBuracoModel.deckRefill.count > 0 {
                         if let card = cardsVM.onlineBuracoModel.deckRefill.last {
                             if cardsVM.onlineBuracoModel.isPlayerOneTurn {
-                                
-//                                var deckPlayer: [CardModel] = []
-//                                deckPlayer.append(contentsOf: cardsVM.onlineBuracoModel.playerOne.deckPlayer)
-//                                deckPlayer.append(card)
-//                                
-//                                let playerOne: OnlinePlayerModel = OnlinePlayerModel(
-//                                    playerName: cardsVM.onlineBuracoModel.playerOne.playerName,
-//                                    playerID: cardsVM.onlineBuracoModel.playerOne.playerID,
-//                                    playerEmail: cardsVM.onlineBuracoModel.playerOne.playerEmail,
-//                                    deckPlayer: deckPlayer,
-//                                    playerTurn: cardsVM.onlineBuracoModel.playerOne.playerTurn
-//                                )
-//
-//                                cardsVM.updatePlayerDeck(playerOne: playerOne)
-                                
-                                
-                                
                                 cardsVM.isBuyingFromDeckRefill = false
                                 cardsVM.isBuyingFromDiscards = false
                                 cardsVM.shoudDiscard = true

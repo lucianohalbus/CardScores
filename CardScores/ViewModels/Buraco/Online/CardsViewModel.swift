@@ -349,7 +349,7 @@ final class CardsViewModel: ObservableObject {
         onlineBuracoRepo.removeCardFromDeck(documentID: documentID, fieldName: "deckRefill", element: card) { result in
             switch result {
             case .success(let returnedItem):
-                print("\(returnedItem)chegou aqui no fim do deleteCardFromDeckRefill")
+                print("\(returnedItem) chegou aqui no fim do deleteCardFromDeckRefill")
 //                DispatchQueue.main.async {
 //                    self.cardDeletedFromDeckRefill = returnedItem
 //                }
@@ -363,10 +363,10 @@ final class CardsViewModel: ObservableObject {
         onlineBuracoRepo.updatePlayerDeck(onlineBuracoID: documentID, playerOne: playerOne) { result in
             switch result {
             case .success(let returnedItem):
-                print("\(returnedItem)chegou aqui no fim do updatePlayerDeck")
-//                DispatchQueue.main.async {
-//                    self.deckPlayerUpdated = returnedItem
-//                }
+                print("\(returnedItem) chegou aqui no fim do updatePlayerDeck")
+                DispatchQueue.main.async {
+                    self.deckPlayerUpdated = returnedItem
+                }
             case .failure(let error):
                 print(error.localizedDescription)
             }
