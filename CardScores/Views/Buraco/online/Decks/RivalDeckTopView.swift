@@ -17,7 +17,7 @@ struct RivalDeckTopView: View {
                                 HStack {
                                     Button(action: {
                                         onSelect()
-                                        if !cardsVM.isPlayerTwoTurn {
+                                        if !cardsVM.onlineBuracoModel.isPlayerTwoTurn {
                                             if cardsVM.auxDeck.contains(card) {
                                                 cardsVM.auxDeck.removeAll { cards in
                                                     cards == card

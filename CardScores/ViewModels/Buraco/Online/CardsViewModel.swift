@@ -19,10 +19,6 @@ final class CardsViewModel: ObservableObject {
     // MARK: - TURN LOGICS
     @Published var isSecondDeckOneAvailable: Bool = true
     @Published var isSecondDeckTwoAvailable: Bool = true
-    @Published var isPlayerOneTurn: Bool = true
-    @Published var isPlayerTwoTurn: Bool = false
-    @Published var isPlayerThreeTurn: Bool = false
-    @Published var isPlayerFourTurn: Bool = false
     @Published var deckPlayerUpdated: Bool = false
     @Published var deckRefillUpdated: Bool = false
     @Published var deckDiscardUpdated: Bool = false
@@ -92,10 +88,10 @@ final class CardsViewModel: ObservableObject {
             readyToPlay: false
         ),
         playerTurn: "",
-        isPlayerOneInvited: false,
-        isPlayerTwoInvited: false,
-        isPlayerThreeInvited: false,
-        isPlayerFourInvited: false,
+        isPlayerOneTurn: false,
+        isPlayerTwoTurn: false,
+        isPlayerThreeTurn: false,
+        isPlayerFourTurn: false,
         playersID: []
     )
     
@@ -185,10 +181,10 @@ final class CardsViewModel: ObservableObject {
                 readyToPlay: false
             ),
             playerTurn: "",
-            isPlayerOneInvited: false,
-            isPlayerTwoInvited: false,
-            isPlayerThreeInvited: false,
-            isPlayerFourInvited: false,
+            isPlayerOneTurn: false,
+            isPlayerTwoTurn: false,
+            isPlayerThreeTurn: false,
+            isPlayerFourTurn: false,
             playersID: []
         )
         
@@ -282,10 +278,10 @@ final class CardsViewModel: ObservableObject {
                 readyToPlay: false
             ),
             playerTurn: playerOne.friendId,
-            isPlayerOneInvited: true,
-            isPlayerTwoInvited: true,
-            isPlayerThreeInvited: true,
-            isPlayerFourInvited: true,
+            isPlayerOneTurn: true,
+            isPlayerTwoTurn: false,
+            isPlayerThreeTurn: false,
+            isPlayerFourTurn: false,
             playersID: [playerOne.friendId, playerTwo.friendId, playerThree.friendId, playerFour.friendId]
         )
 
@@ -346,16 +342,18 @@ final class CardsViewModel: ObservableObject {
     }
     
     func deleteCardFromDeckRefill(card: CardModel) {
-        onlineBuracoRepo.deleteCardFromDeckRefill(deckRefill: card, onlineBuracoID: onlineBuracoModel.id) { result in
-            switch result {
-            case .success(let returnedItem):
-                DispatchQueue.main.async {
-                    self.deckRefillUpdated = returnedItem
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+        onlineBuracoRepo.removeElementFromArray(documentID: onlineBuracoModel.id, fieldName: "deckRefill", element: card)
+        
+//        onlineBuracoRepo.deleteCardFromDeckRefill(deckRefill: card, onlineBuracoID: onlineBuracoModel.id) { result in
+//            switch result {
+//            case .success(let returnedItem):
+//                DispatchQueue.main.async {
+//                    self.deckRefillUpdated = returnedItem
+//                }
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
     }
     
     func updatePlayerDeck(playerOne: OnlinePlayerModel) {
@@ -372,42 +370,42 @@ final class CardsViewModel: ObservableObject {
     }
     
     func updateDeckDiscard(deckDiscard: CardModel) {
-        onlineBuracoRepo.updateDeckDiscard(deckDiscard: deckDiscard, onlineBuracoID: onlineBuracoModel.id) { result in
-            switch result {
-            case .success(let returnedItem):
-                DispatchQueue.main.async {
-                    self.deckDiscardUpdated = returnedItem
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+//        onlineBuracoRepo.updateDeckDiscard(deckDiscard: deckDiscard, onlineBuracoID: onlineBuracoModel.id) { result in
+//            switch result {
+//            case .success(let returnedItem):
+//                DispatchQueue.main.async {
+//                    self.deckDiscardUpdated = returnedItem
+//                }
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
     }
     
     func deleteCardFromPlayerDeck(playerDeck: CardModel) {
-        onlineBuracoRepo.updateDeckDiscard(deckDiscard: playerDeck, onlineBuracoID: onlineBuracoModel.id) { result in
-            switch result {
-            case .success(let returnedItem):
-                DispatchQueue.main.async {
-                    
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+//        onlineBuracoRepo.updateDeckDiscard(deckDiscard: playerDeck, onlineBuracoID: onlineBuracoModel.id) { result in
+//            switch result {
+//            case .success(let returnedItem):
+//                DispatchQueue.main.async {
+//                    
+//                }
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
     }
     
     func updateReadyToPlay(readyToPlay: Bool) {
-        onlineBuracoRepo.updateReadyToPlay(readyToPlay: readyToPlay) { result in
-            switch result {
-            case .success(let returnedValue):
-                DispatchQueue.main.async {
-                    self.showOnlineGame = returnedValue
-                }
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
+//        onlineBuracoRepo.updateReadyToPlay(readyToPlay: readyToPlay) { result in
+//            switch result {
+//            case .success(let returnedValue):
+//                DispatchQueue.main.async {
+//                    self.showOnlineGame = returnedValue
+//                }
+//            case .failure(let error):
+//                print(error.localizedDescription)
+//            }
+//        }
     }
     
     @Published var cardsOne: [CardModel] = [

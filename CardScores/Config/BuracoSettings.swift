@@ -10,7 +10,7 @@ class BuracoSettings: ObservableObject {
     @Published var showInvitingAlert: Bool = false
     @Published var gameID: String = ""
     @Published var isOnlineBuracoUpdated: Bool = false
-    @Published var onlineBuracoModel: OnlineBuracoModel = OnlineBuracoModel(id: "", deckDiscard: [], deckSecondOne: [], deckSecondTwo: [], deckRefill: [], playerOne: OnlinePlayerModel(playerName: "", playerID: "", playerEmail: "", deckPlayer: [], playerTurn: ""), playerTwo: OnlinePlayerModel(playerName: "", playerID: "", playerEmail: "", deckPlayer: [], playerTurn: ""), playerThree: OnlinePlayerModel(playerName: "", playerID: "", playerEmail: "", deckPlayer: [], playerTurn: ""), playerFour: OnlinePlayerModel(playerName: "", playerID: "", playerEmail: "", deckPlayer: [], playerTurn: ""), playerTurn: "", isPlayerOneInvited: false, isPlayerTwoInvited: false, isPlayerThreeInvited: false, isPlayerFourInvited: false, playersID: [])
+    @Published var onlineBuracoModel: OnlineBuracoModel = OnlineBuracoModel(id: "", deckDiscard: [], deckSecondOne: [], deckSecondTwo: [], deckRefill: [], playerOne: OnlinePlayerModel(playerName: "", playerID: "", playerEmail: "", deckPlayer: [], playerTurn: ""), playerTwo: OnlinePlayerModel(playerName: "", playerID: "", playerEmail: "", deckPlayer: [], playerTurn: ""), playerThree: OnlinePlayerModel(playerName: "", playerID: "", playerEmail: "", deckPlayer: [], playerTurn: ""), playerFour: OnlinePlayerModel(playerName: "", playerID: "", playerEmail: "", deckPlayer: [], playerTurn: ""), playerTurn: "", isPlayerOneTurn: false, isPlayerTwoTurn: false, isPlayerThreeTurn: false, isPlayerFourTurn: false, playersID: [])
     
     init() {
         startListening()

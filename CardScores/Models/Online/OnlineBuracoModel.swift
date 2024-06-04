@@ -13,13 +13,13 @@ struct OnlineBuracoModel: Identifiable, Codable, Equatable {
     var playerThree: OnlinePlayerModel
     var playerFour: OnlinePlayerModel
     var playerTurn: String
-    var isPlayerOneInvited: Bool
-    var isPlayerTwoInvited: Bool
-    var isPlayerThreeInvited: Bool
-    var isPlayerFourInvited: Bool
+    var isPlayerOneTurn: Bool
+    var isPlayerTwoTurn: Bool
+    var isPlayerThreeTurn: Bool
+    var isPlayerFourTurn: Bool
     var playersID: [String]
     
-    init(id: String, deckDiscard: [CardModel], deckSecondOne: [CardModel], deckSecondTwo: [CardModel], deckRefill: [CardModel], playerOne: OnlinePlayerModel, playerTwo: OnlinePlayerModel,  playerThree: OnlinePlayerModel,  playerFour: OnlinePlayerModel,  playerTurn: String, isPlayerOneInvited: Bool, isPlayerTwoInvited: Bool, isPlayerThreeInvited: Bool, isPlayerFourInvited: Bool, playersID: [String]) {
+    init(id: String, deckDiscard: [CardModel], deckSecondOne: [CardModel], deckSecondTwo: [CardModel], deckRefill: [CardModel], playerOne: OnlinePlayerModel, playerTwo: OnlinePlayerModel,  playerThree: OnlinePlayerModel,  playerFour: OnlinePlayerModel,  playerTurn: String, isPlayerOneTurn: Bool, isPlayerTwoTurn: Bool, isPlayerThreeTurn: Bool, isPlayerFourTurn: Bool, playersID: [String]) {
         self.id = id
         self.deckDiscard = deckDiscard
         self.deckSecondOne = deckSecondOne
@@ -30,10 +30,10 @@ struct OnlineBuracoModel: Identifiable, Codable, Equatable {
         self.playerThree = playerThree
         self.playerFour = playerFour
         self.playerTurn = playerTurn
-        self.isPlayerOneInvited = isPlayerOneInvited
-        self.isPlayerTwoInvited = isPlayerTwoInvited
-        self.isPlayerThreeInvited = isPlayerThreeInvited
-        self.isPlayerFourInvited = isPlayerFourInvited
+        self.isPlayerOneTurn = isPlayerOneTurn
+        self.isPlayerTwoTurn = isPlayerTwoTurn
+        self.isPlayerThreeTurn = isPlayerThreeTurn
+        self.isPlayerFourTurn = isPlayerFourTurn
         self.playersID = playersID
         
     }
@@ -49,10 +49,10 @@ struct OnlineBuracoModel: Identifiable, Codable, Equatable {
         case playerTwo = "playerTwo"
         case playerThree = "playerThree"
         case playerFour = "playerFour"
-        case isPlayerOneInvited = "isPlayerOneInvited"
-        case isPlayerTwoInvited = "isPlayerTwoInvited"
-        case isPlayerThreeInvited = "isPlayerThreeInvited"
-        case isPlayerFourInvited = "isPlayerFourInvited"
+        case isPlayerOneTurn = "isPlayerOneTurn"
+        case isPlayerTwoTurn = "isPlayerTwoTurn"
+        case isPlayerThreeTurn = "isPlayerThreeTurn"
+        case isPlayerFourTurn = "isPlayerFourTurn"
         case playersID = "playersID"
     }
     
@@ -68,10 +68,10 @@ struct OnlineBuracoModel: Identifiable, Codable, Equatable {
         self.playerThree = try container.decode(OnlinePlayerModel.self, forKey: .playerThree)
         self.playerFour = try container.decode(OnlinePlayerModel.self, forKey: .playerFour)
         self.playerTurn = try container.decode(String.self, forKey: .playerTurn)
-        self.isPlayerOneInvited = try container.decode(Bool.self, forKey: .isPlayerOneInvited)
-        self.isPlayerTwoInvited = try container.decode(Bool.self, forKey: .isPlayerTwoInvited)
-        self.isPlayerThreeInvited = try container.decode(Bool.self, forKey: .isPlayerThreeInvited)
-        self.isPlayerFourInvited = try container.decode(Bool.self, forKey: .isPlayerFourInvited) 
+        self.isPlayerOneTurn = try container.decode(Bool.self, forKey: .isPlayerOneTurn)
+        self.isPlayerTwoTurn = try container.decode(Bool.self, forKey: .isPlayerTwoTurn)
+        self.isPlayerThreeTurn = try container.decode(Bool.self, forKey: .isPlayerThreeTurn)
+        self.isPlayerFourTurn = try container.decode(Bool.self, forKey: .isPlayerFourTurn) 
         self.playersID = try container.decode([String].self, forKey: .playersID)
     }
 }

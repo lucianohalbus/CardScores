@@ -7,13 +7,13 @@ struct DeckRefillView: View {
     @Binding var deck: [CardModel]
     var refillButtonClicked: () -> Void
     var isPlayerAvailable: Bool {
-        if cardsVM.isPlayerOneTurn {
+        if cardsVM.onlineBuracoModel.isPlayerOneTurn {
             return true
-        } else if cardsVM.isPlayerTwoTurn {
+        } else if cardsVM.onlineBuracoModel.isPlayerTwoTurn {
             return true
-        } else if cardsVM.isPlayerThreeTurn {
+        } else if cardsVM.onlineBuracoModel.isPlayerThreeTurn {
             return true
-        } else if cardsVM.isPlayerFourTurn {
+        } else if cardsVM.onlineBuracoModel.isPlayerFourTurn {
             return true
         }
         return false
@@ -27,7 +27,6 @@ struct DeckRefillView: View {
                         HStack {
                             Button(action: {
                                 if isPlayerAvailable {
-     
                                     if deck.count < 1 {
                                         if cardsVM.isSecondDeckOneAvailable {
                                             deck.append(contentsOf: cardsVM.onlineBuracoModel.playerOne.deckPlayer)

@@ -16,7 +16,7 @@ struct RivalDeckRightView: View {
                             HStack {
                                 Button(action: {
                                     onSelect()
-                                    if !cardsVM.isPlayerFourTurn {
+                                    if !cardsVM.onlineBuracoModel.isPlayerFourTurn {
                                         if cardsVM.auxDeck.contains(card) {
                                             cardsVM.auxDeck.removeAll { cards in
                                                 cards == card
