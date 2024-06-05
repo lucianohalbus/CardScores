@@ -43,6 +43,13 @@ struct BuracoOnlineMatchView: View {
                     if cardsVM.onlineBuracoModel.deckRefill.count > 0 {
                         if let card = cardsVM.onlineBuracoModel.deckRefill.last {
                             if cardsVM.onlineBuracoModel.isPlayerOneTurn {
+                                let isTurnOneNext: Bool = false
+                                let isTurnTwoNext: Bool = false
+                                let isTurnThreeNext: Bool = false
+                                let isTurnFourNext: Bool = false
+
+                                cardsVM.updateNextTurns(turnOne: isTurnOneNext, turnTwo: isTurnTwoNext, turnThree: isTurnThreeNext, turnFour: isTurnFourNext)
+                                
                                 var deckPlayer: [CardModel] = []
                                 deckPlayer.append(contentsOf: cardsVM.onlineBuracoModel.playerOne.deckPlayer)
                                 deckPlayer.append(card)
@@ -58,13 +65,9 @@ struct BuracoOnlineMatchView: View {
 
                                 cardsVM.updatePlayerDeck(playerOne: playerOne, documentID: cardsVM.onlineBuracoModel.id)
                                 
-                                let isTurnOneNext: Bool = false
-                                let isTurnTwoNext: Bool = true
-                                let isTurnThreeNext: Bool = false
-                                let isTurnFourNext: Bool = false
-
-                                cardsVM.updateNextTurns(turnOne: isTurnOneNext, turnTwo: isTurnTwoNext, turnThree: isTurnThreeNext, turnFour: isTurnFourNext)
-                                
+                                cardsVM.shoudDiscard = true
+                                cardsVM.isPlayerOneDiscarding = true
+      
                             } else if cardsVM.onlineBuracoModel.isPlayerTwoTurn {
                                
                             } else if cardsVM.onlineBuracoModel.isPlayerThreeTurn {
@@ -80,28 +83,46 @@ struct BuracoOnlineMatchView: View {
                     
                 } onDiscard: {
                    if cardsVM.isPlayerOneDiscarding {
-//                        cardsVM.onlineBuracoModel.deckDiscard.append(contentsOf: cardsVM.auxDeck)
-                     //   cardsVM.onlinePlayerOne.deckPlayer.removeAll { card in
-                    //        card == cardsVM.auxDeck.first
-                    //    }
-   
-                        let cardToDiscard: CardModel = cardsVM.auxDiscardDeck
-                        cardsVM.updateDeckDiscard(deckDiscard: cardToDiscard)
-                        
-                 //       cardsVM.updatePlayerDeck(deckPlayer: cardsVM.onlinePlayerOne.deckPlayer, onlinePlayer: cardsVM.onlinePlayerOne)
-//                        cardsVM.isPlayerOneTurn = false
-//                        cardsVM.isPlayerTwoTurn = false
-//                        cardsVM.isPlayerThreeTurn = true
-//                        cardsVM.isPlayerFourTurn = false
-                        cardsVM.isSecondDeckOneAvailable = true
-                        cardsVM.isSecondDeckTwoAvailable = true
-                        cardsVM.isBuyingFromDeckRefill = true
-                        cardsVM.isBuyingFromDiscards = true
-                        cardsVM.shoudDiscard = false
-                        cardsVM.isPlayerOneDiscarding = false
-                        cardsVM.isPlayerTwoDiscarding = false
-                        cardsVM.isPlayerThreeDiscarding = false
-                        cardsVM.isPlayerFourDiscarding = false
+                       
+                       var deckPlayer: [CardModel] = []
+                       deckPlayer.append(contentsOf: cardsVM.onlineBuracoModel.playerOne.deckPlayer)
+
+                       deckPlayer.removeAll { card in
+                           card == cardsVM.auxDiscardDeck
+                       }
+
+                       let playerOne: OnlinePlayerModel = OnlinePlayerModel(
+                           playerName: cardsVM.onlineBuracoModel.playerOne.playerName,
+                           playerID: cardsVM.onlineBuracoModel.playerOne.playerID,
+                           playerEmail: cardsVM.onlineBuracoModel.playerOne.playerEmail,
+                           deckPlayer: deckPlayer,
+                           playerTurn: cardsVM.onlineBuracoModel.playerOne.playerTurn,
+                           onlineScore: 0
+                       )
+
+                       cardsVM.updatePlayerDeck(playerOne: playerOne, documentID: cardsVM.onlineBuracoModel.id)
+                       
+                       cardsVM.updateDeckDiscard(deckDiscard: cardsVM.auxDiscardDeck)
+                       
+                       
+
+                       let isTurnOneNext: Bool = false
+                       let isTurnTwoNext: Bool = true
+                       let isTurnThreeNext: Bool = false
+                       let isTurnFourNext: Bool = false
+
+                       cardsVM.updateNextTurns(turnOne: isTurnOneNext, turnTwo: isTurnTwoNext, turnThree: isTurnThreeNext, turnFour: isTurnFourNext)
+                       
+                       cardsVM.isSecondDeckOneAvailable = true
+                       cardsVM.isSecondDeckTwoAvailable = true
+                       cardsVM.isBuyingFromDeckRefill = true
+                       cardsVM.isBuyingFromDiscards = true
+                       cardsVM.shoudDiscard = false
+                       cardsVM.isPlayerOneDiscarding = false
+                       cardsVM.isPlayerTwoDiscarding = false
+                       cardsVM.isPlayerThreeDiscarding = false
+                       cardsVM.isPlayerFourDiscarding = false
+  
                     } else if cardsVM.isPlayerTwoDiscarding {
                     //    cardsVM.onlineBuracoModel.deckDiscard.append(contentsOf: cardsVM.auxDeck)
 //                        cardsVM.onlinePlayerTwo.deckPlayer.removeAll { card in

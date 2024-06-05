@@ -19,6 +19,8 @@ final class CardsViewModel: ObservableObject {
     // MARK: - TURN LOGICS
     @Published var cardDeletedFromDeckRefill: Bool = false
     @Published var turnUpdated: Bool = false
+    @Published var isBuyingFromDeckRefill: Bool = true
+    @Published var isBuyingFromDiscards: Bool = true
     
     
     
@@ -37,10 +39,8 @@ final class CardsViewModel: ObservableObject {
     @Published var isPlayerInvited: Bool = false
     
     // MARK: - CARD / DISCARD LOGICS
-    @Published var isBuyingFromDeckRefill: Bool = true
-    @Published var isBuyingFromDiscards: Bool = false
     @Published var shoudDiscard: Bool = false
-    @Published var isPlayerOneDiscarding: Bool = true
+    @Published var isPlayerOneDiscarding: Bool = false
     @Published var isPlayerTwoDiscarding: Bool = false
     @Published var isPlayerThreeDiscarding: Bool = false
     @Published var isPlayerFourDiscarding: Bool = false
@@ -129,7 +129,9 @@ final class CardsViewModel: ObservableObject {
                     
                     for document in self.listeningOnlineBuraco {
                         if document.id == self.onlineBuracoModel.id {
-                            self.onlineBuracoModel = document
+                            DispatchQueue.main.async {
+                                self.onlineBuracoModel = document
+                            }
                         }
                     }
                 }
@@ -390,16 +392,16 @@ final class CardsViewModel: ObservableObject {
     }
     
     func updateDeckDiscard(deckDiscard: CardModel) {
-//        onlineBuracoRepo.updateDeckDiscard(deckDiscard: deckDiscard, onlineBuracoID: onlineBuracoModel.id) { result in
-//            switch result {
-//            case .success(let returnedItem):
-//                DispatchQueue.main.async {
-//                    self.deckDiscardUpdated = returnedItem
-//                }
-//            case .failure(let error):
-//                print(error.localizedDescription)
-//            }
-//        }
+        onlineBuracoRepo.updateDeckDiscard(deckDiscard: deckDiscard, onlineBuracoID: onlineBuracoModel.id) { result in
+            switch result {
+            case .success(let returnedItem):
+                DispatchQueue.main.async {
+                    self.deckDiscardUpdated = returnedItem
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+            }
+        }
     }
     
     func deleteCardFromPlayerDeck(playerDeck: CardModel) {

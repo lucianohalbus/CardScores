@@ -49,6 +49,8 @@ struct DeckRefillView: View {
                                     )
                                     
                                     cardsVM.deleteCardFromDeckRefill(card: cardModel, documentID: cardsVM.onlineBuracoModel.id)
+                                    
+                                    cardsVM.isBuyingFromDiscards = false
 
                                     refillButtonClicked()
                                 }

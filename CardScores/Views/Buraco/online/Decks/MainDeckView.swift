@@ -14,27 +14,14 @@ struct MainDeckView: View {
                         HStack {
                             Button(action: {
                                 if cardsVM.isPlayerOneDiscarding {
-                                    cardsVM.auxDiscardDeck = CardModel(
+                                    let cardToDiscard: CardModel = CardModel(
                                         id: card.id,
                                         cardCode: card.cardCode,
                                         value: card.value,
                                         backColor: card.backColor
                                     )
-                                    
-                                    cardsVM.onlineBuracoModel.deckDiscard.append(cardsVM.auxDiscardDeck)
-                                    
-                                    cardsVM.onlineBuracoModel.playerOne.deckPlayer.removeAll { $0 == cardsVM.auxDiscardDeck }
-  
-                                    Task {
-                                        await cardsVM.onlineBuracoRepo.updateOnlineBuracoDecks(onlineBuraco: cardsVM.onlineBuracoModel)
-                                    }
-                                    
-                                    cardsVM.auxDiscardDeck = CardModel(
-                                        id: "",
-                                        cardCode: "",
-                                        value: 0,
-                                        backColor: ""
-                                    )
+
+                                    cardsVM.auxDiscardDeck = cardToDiscard
                                 }
                             }, label: {
                                 ZStack {
