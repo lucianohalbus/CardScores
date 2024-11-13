@@ -228,11 +228,14 @@ struct BuracoMatchView: View {
                 VStack {
                     ForEach(buracoTurnVM.turns) { matchResume in
                         HStack(spacing: 5) {
-                            VStack {
+                            HStack {
+                                Text("\(matchResume.partialScoreOne ?? "")")
+                                    .foregroundColor(isPartialScoreValueNegative(value: matchResume.partialScoreOne ?? "") ? Color.red : Color.black)
+
                                 Text("\(matchResume.scoresTurnOne)")
-                                    .foregroundStyle(Int(matchResume.scoresTurnOne) ?? 0 < 0 ? Color.red : Color.black)
+                                    .foregroundStyle(Color.gray)
                             }
-                            .frame(width: 50, alignment: .trailing)
+                            .frame(width: 100, alignment: .leading)
                             
                             Spacer()
                             
@@ -241,15 +244,18 @@ struct BuracoMatchView: View {
                                     .foregroundStyle(.black)
                                     .font(.caption)
                             }
-                            .frame(width: 180, alignment: .center)
+                            .frame(width: 140, alignment: .center)
                             
                             Spacer()
                             
-                            VStack {
+                            HStack {
                                 Text("\(matchResume.scoresTurnTwo)")
-                                    .foregroundStyle(Int(matchResume.scoresTurnTwo) ?? 0 < 0 ? Color.red : Color.black)
+                                    .foregroundStyle(Color.gray)
+                                
+                                Text("\(matchResume.partialScoreTwo ?? "")")
+                                    .foregroundStyle(isPartialScoreValueNegative(value: matchResume.partialScoreTwo ?? "") ? Color.red : Color.black)
                             }
-                            .frame(width: 50, alignment: .leading)
+                            .frame(width: 100, alignment: .trailing)
                             
                         }
                         .font(.callout)
@@ -291,6 +297,17 @@ struct BuracoMatchView: View {
         .padding(.horizontal)
     }
     
+    func isPartialScoreValueNegative(value: String) -> Bool {
+        if let number: Int = Int(value) {
+            if number < 0 {
+                return true
+            } else {
+                return false
+            }
+        }
+        
+        return false
+    }
 }
 
 #Preview {

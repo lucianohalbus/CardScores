@@ -150,13 +150,17 @@ struct AddNewMatchTurnView: View {
                         
                         buracoMatchVM.update(matchId: matchFB.id, matchFB: match)
                         
-                        buracoTurnsVM.addTurn(matchTurn: MatchTurn(
+                        let newTurn: MatchTurn = MatchTurn(
                             myTime: Date(),
                             scoresTurnOne: partialScoreOne.description,
                             scoresTurnTwo: partialScoreTwo.description,
                             turnId: matchFB.id,
-                            friendsId: matchFB.friendsId
-                        ))
+                            friendsId: matchFB.friendsId,
+                            partialScoreOne: calculatedTotalScoreOne.description,
+                            partialScoreTwo: calculatedTotalScoreTwo.description
+                        )
+                        
+                        buracoTurnsVM.addTurn(matchTurn: newTurn)
                         
                         dismiss()
                     }

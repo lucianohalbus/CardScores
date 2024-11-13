@@ -13,8 +13,10 @@ struct MatchTurn: Identifiable, Hashable, Codable {
     var scoresTurnTwo: String
     var turnId: String
     var friendsId: [String]
+    var partialScoreOne: String?
+    var partialScoreTwo: String?
     
-    init(id: String? = nil, createdTime: Timestamp? = nil, myTime: Date, scoresTurnOne: String, scoresTurnTwo: String, turnId: String, friendsId: [String]) {
+    init(id: String? = nil, createdTime: Timestamp? = nil, myTime: Date, scoresTurnOne: String, scoresTurnTwo: String, turnId: String, friendsId: [String], partialScoreOne: String?, partialScoreTwo: String?) {
         self.id = id
         self.createdTime = createdTime
         self.myTime = myTime
@@ -22,6 +24,8 @@ struct MatchTurn: Identifiable, Hashable, Codable {
         self.scoresTurnTwo = scoresTurnTwo
         self.turnId = turnId
         self.friendsId = friendsId
+        self.partialScoreOne = partialScoreOne
+        self.partialScoreTwo = partialScoreTwo
     }
     
 }

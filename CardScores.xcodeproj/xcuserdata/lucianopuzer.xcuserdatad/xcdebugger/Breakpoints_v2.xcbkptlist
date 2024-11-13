@@ -7,48 +7,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2E6EAE9C-0493-49A9-B68D-A0683636A69F"
+            uuid = "B84AD37B-2296-4ED7-B0A2-9B72A47081C1"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "CardScores/ViewModels/Buraco/BuracoMatchViewModel.swift"
+            filePath = "CardScores/ViewModels/Buraco/BuracoTurnsViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "196"
-            endingLineNumber = "196"
-            landmarkName = "getTeamsRanking(matches:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "409E3555-574B-4DD8-BD69-472F90D231E2"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CardScores/ViewModels/Buraco/BuracoMatchViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "195"
-            endingLineNumber = "195"
-            landmarkName = "getTeamsRanking(matches:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "6CDB24F7-4BD5-4B39-AAB7-453B78EA4105"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CardScores/ViewModels/Buraco/BuracoMatchViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "368"
-            endingLineNumber = "368"
-            landmarkName = "getTeams(matches:)"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "addTurn(matchTurn:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
