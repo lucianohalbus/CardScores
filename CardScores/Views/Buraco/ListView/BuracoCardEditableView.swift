@@ -9,6 +9,7 @@ struct BuracoCardEditableView: View {
     
     var body: some View {
         HStack {
+            Spacer()
             Button(action: { isSelectedItem.toggle()
                 if isSelectedItem {
                     selectedItem()
@@ -16,7 +17,7 @@ struct BuracoCardEditableView: View {
             } ) {
                 Image(systemName: isSelectedItem ? "circle.fill" : "circle")
             }
-            
+            Spacer()
             VStack(spacing: 0) {
                 NavigationLink(value: buracoVM) { }
                 
@@ -60,6 +61,7 @@ struct BuracoCardEditableView: View {
                     .inset(by: 2)
                     .stroke(Color.cardColor, lineWidth: 2)
             )
+            Spacer()
         }
     }
 }
