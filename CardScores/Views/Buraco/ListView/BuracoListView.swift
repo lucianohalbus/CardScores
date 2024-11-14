@@ -8,13 +8,19 @@ struct BuracoListView: View {
     @StateObject private var loginVM = LoginViewModel()
     @Binding var path: [MainNavigation]
     @State var selectedMatch: BuracoFBViewModel = BuracoFBViewModel(matchFB: MatchFB(scoreToWin: "", playerOne: "", playerTwo: "", playerThree: "", playerFour: "", finalScoreOne: "", finalScoreTwo: "", friendsId: [""], myDate: Date(), registeredUser: false, docId: "", gameOver: false))
+    @State private var isEditing = false
+    @State private var selections: Set<BuracoFBViewModel> = []
+    @State var selectedItems: [String] = []
+    @State private var showAlert = false
     
     var body: some View {
         NavigationStack(path: $path) {
             ZStack {
                 VStack {
-                    MiniLogo()
                     
+                    MiniLogo()
+                        .offset(y: -40)
+
                     VStack {
                         if buracoMatchVM.matchesVM.isEmpty {
                             ZStack {
@@ -60,17 +66,19 @@ struct BuracoListView: View {
                                             
                                             path.append(.child(selectedMatch))
                                         }, label: {
-                                            BuracoCardView(buracoVM: matchFB)
-                                                .padding(.bottom, 10)
+                                            if isEditing {
+                                                BuracoCardEditableView(buracoVM: matchFB) {
+                                                    selectedItems.append(matchFB.id)
+                                                }
+                                                    .padding(.bottom, 10)
+                                            } else {
+                                                BuracoCardView(buracoVM: matchFB)
+                                                    .padding(.bottom, 10)
+                                            }
+                                            
                                         })
                                         
                                     }
-                                    .onDelete(perform: { idxSet in
-                                        idxSet.forEach { idx in
-                                            let match = buracoMatchVM.matchesVM[idx]
-                                            buracoMatchVM.delete(matchFB: match)
-                                        }
-                                    })
                                     .listRowInsets(EdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                                     .listRowBackground(Color.clear)
                                 }
@@ -92,6 +100,24 @@ struct BuracoListView: View {
                         
                         Spacer()
                     }
+                    .offset(y: -30)
+                    .navigationBarItems(
+                        leading: Button(action: {
+                            isEditing.toggle()
+                            if !isEditing {
+                                selectedItems.removeAll()
+                            }
+                        }) {
+                            Text(isEditing ? "Cancelar" : "Editar")
+                        },
+                        trailing: Button(action: {
+                            showAlert = true
+                        }) {
+                            Image(systemName: "trash")
+                                .foregroundColor(selectedItems.isEmpty ? .gray : .white)
+                        }
+                        .disabled(selectedItems.isEmpty)
+                    )
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -109,6 +135,26 @@ struct BuracoListView: View {
                     buracoMatchVM.getMatches()
                 }
             }
+            .onChange(of: buracoMatchVM.isSelectedItemsDeleted) { newValue in
+                if newValue {
+                    selectedItems.removeAll()
+                    isEditing.toggle()
+                    buracoMatchVM.getMatches()
+                }
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Atenção"),
+                      message: Text("Você tem certeza que deseja excluir os itens selecionados?"),
+                      primaryButton: .destructive(Text("OK")) {
+                        buracoMatchVM.deletetSelectedItens(selectedItems: selectedItems)
+                },
+                      secondaryButton: .cancel()
+                )
+            }
         }
+    }
+    
+    private func deleteSelectedItems() {
+        buracoMatchVM.deletetSelectedItens(selectedItems: selectedItems)
     }
 }
