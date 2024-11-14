@@ -185,7 +185,13 @@ final class BuracoMatchesRepository {
             })
     }
     
-    func deleteSelectedDocuments(documentIDs: [String]) {
+    func deleteSelectedDocuments(documentIDs: [String], completion: @escaping(Error?) -> Void) {
+        
+        guard !documentIDs.isEmpty else {
+            completion(NSError(domain: "document is empty", code:  105, userInfo: nil))
+            return
+        }
+        
         let db = Firestore.firestore()
         
         let batch = db.batch()
@@ -200,7 +206,8 @@ final class BuracoMatchesRepository {
                 print("Erro ao deletar documentos: \(error)")
             } else {
                 print("Documentos deletados com sucesso!")
+                completion(nil)
             }
         }
-    }
+    }    
 }

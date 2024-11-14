@@ -79,15 +79,6 @@ struct BuracoListView: View {
                                     }
                                     .listRowInsets(EdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                                     .listRowBackground(Color.clear)
-
-                                    
-//                                    .onDelete(perform: { idxSet in
-//                                        idxSet.forEach { idx in
-//                                            let match = buracoMatchVM.matchesVM[idx]
-//                                            buracoMatchVM.delete(matchFB: match)
-//                                        }
-//                                    })
-
                                 }
                                 .listStyle(.plain)
                                 .padding(.horizontal, 15)
@@ -124,10 +115,6 @@ struct BuracoListView: View {
                         }
                         .disabled(selectedItems.isEmpty)
                     )
-
-                    
-                    
-                    
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -142,6 +129,13 @@ struct BuracoListView: View {
             }
             .onChange(of: buracoMatchVM.addNewSaved) { newValue in
                 if newValue {
+                    buracoMatchVM.getMatches()
+                }
+            }
+            .onChange(of: buracoMatchVM.isSelectedItemsDeleted) { newValue in
+                if newValue {
+                    selectedItems.removeAll()
+                    isEditing.toggle()
                     buracoMatchVM.getMatches()
                 }
             }

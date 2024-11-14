@@ -18,6 +18,7 @@ final class BuracoMatchViewModel: ObservableObject {
     @Published var playersOfTheMatch: [String] = []
     @Published var isMatchRecreated: Bool = false
     @Published var listOfTeams: [TeamModel] = []
+    @Published var isSelectedItemsDeleted: Bool = false
     
     @Published var teams: [TeamModel] = []
 
@@ -546,6 +547,14 @@ final class BuracoMatchViewModel: ObservableObject {
     }
     
     func deletetSelectedItens(selectedItems: [String]) {
-        buracoRepo.deleteSelectedDocuments(documentIDs: selectedItems)
+        buracoRepo.deleteSelectedDocuments(documentIDs: selectedItems) { error in
+            if error == nil {
+                self.isSelectedItemsDeleted.toggle()
+                
+                
+            } else {
+                print(error?.localizedDescription ?? "The Matches were not deleted.")
+            }
+        }
     }
 }
