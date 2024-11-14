@@ -8,13 +8,15 @@ struct BuracoListView: View {
     @StateObject private var loginVM = LoginViewModel()
     @Binding var path: [MainNavigation]
     @State var selectedMatch: BuracoFBViewModel = BuracoFBViewModel(matchFB: MatchFB(scoreToWin: "", playerOne: "", playerTwo: "", playerThree: "", playerFour: "", finalScoreOne: "", finalScoreTwo: "", friendsId: [""], myDate: Date(), registeredUser: false, docId: "", gameOver: false))
+    @State private var isEditing = false
+    @State private var selections: Set<BuracoFBViewModel> = []
     
     var body: some View {
         NavigationStack(path: $path) {
             ZStack {
                 VStack {
                     MiniLogo()
-                    
+
                     VStack {
                         if buracoMatchVM.matchesVM.isEmpty {
                             ZStack {
@@ -60,19 +62,28 @@ struct BuracoListView: View {
                                             
                                             path.append(.child(selectedMatch))
                                         }, label: {
-                                            BuracoCardView(buracoVM: matchFB)
-                                                .padding(.bottom, 10)
+                                            if isEditing {
+                                                BuracoCardEditableView(buracoVM: matchFB)
+                                                    .padding(.bottom, 10)
+                                            } else {
+                                                BuracoCardView(buracoVM: matchFB)
+                                                    .padding(.bottom, 10)
+                                            }
+                                            
                                         })
                                         
                                     }
-                                    .onDelete(perform: { idxSet in
-                                        idxSet.forEach { idx in
-                                            let match = buracoMatchVM.matchesVM[idx]
-                                            buracoMatchVM.delete(matchFB: match)
-                                        }
-                                    })
                                     .listRowInsets(EdgeInsets.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                                     .listRowBackground(Color.clear)
+
+                                    
+//                                    .onDelete(perform: { idxSet in
+//                                        idxSet.forEach { idx in
+//                                            let match = buracoMatchVM.matchesVM[idx]
+//                                            buracoMatchVM.delete(matchFB: match)
+//                                        }
+//                                    })
+
                                 }
                                 .listStyle(.plain)
                                 .padding(.horizontal, 15)
@@ -92,6 +103,22 @@ struct BuracoListView: View {
                         
                         Spacer()
                     }
+                    .navigationBarItems(
+                        leading: Button(action: {
+                            isEditing.toggle()
+                        }) {
+                            Text(isEditing ? "Cancelar" : "Editar")
+                        },
+                        trailing: Button(action: deleteSelectedItems) {
+                            Image(systemName: "trash")
+                                .foregroundColor(selections.isEmpty ? .gray : .red)
+                        }
+                        .disabled(selections.isEmpty)
+                    )
+                    .environment(\.editMode, isEditing ? .constant(.active) : .constant(.inactive))
+                    
+                    
+                    
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -110,5 +137,10 @@ struct BuracoListView: View {
                 }
             }
         }
+    }
+    
+    private func deleteSelectedItems() {
+        buracoMatchVM.matchesVM.removeAll { selections.contains($0) }
+        selections.removeAll()
     }
 }

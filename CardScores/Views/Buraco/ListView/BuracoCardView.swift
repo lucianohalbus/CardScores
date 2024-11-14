@@ -51,3 +51,7 @@ struct BuracoCardView: View {
         )
     }
 }
+
+#Preview {
+    BuracoCardView(buracoVM: BuracoFBViewModel(matchFB: MatchFB(id: "1", scoreToWin: "10", playerOne: "Zico", playerTwo: "Leandro", playerThree: "Junior", playerFour: "Savio", finalScoreOne: "1000", finalScoreTwo: "400", friendsId: [], myDate: Date(), registeredUser: true, docId: "1", gameOver: false)))
+}
