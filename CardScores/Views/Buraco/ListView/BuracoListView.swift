@@ -16,7 +16,9 @@ struct BuracoListView: View {
         NavigationStack(path: $path) {
             ZStack {
                 VStack {
+                    
                     MiniLogo()
+                        .offset(y: -40)
 
                     VStack {
                         if buracoMatchVM.matchesVM.isEmpty {
@@ -98,6 +100,7 @@ struct BuracoListView: View {
                         
                         Spacer()
                     }
+                    .offset(y: -30)
                     .navigationBarItems(
                         leading: Button(action: {
                             isEditing.toggle()
