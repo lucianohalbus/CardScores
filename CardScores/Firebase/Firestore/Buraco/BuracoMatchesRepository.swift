@@ -184,4 +184,23 @@ final class BuracoMatchesRepository {
                 
             })
     }
+    
+    func deleteSelectedDocuments(documentIDs: [String]) {
+        let db = Firestore.firestore()
+        
+        let batch = db.batch()
+        
+        for documentID in documentIDs {
+            let documentRef = db.collection("scoresModel").document(documentID)
+            batch.deleteDocument(documentRef)
+        }
+
+        batch.commit() { error in
+            if let error = error {
+                print("Erro ao deletar documentos: \(error)")
+            } else {
+                print("Documentos deletados com sucesso!")
+            }
+        }
+    }
 }

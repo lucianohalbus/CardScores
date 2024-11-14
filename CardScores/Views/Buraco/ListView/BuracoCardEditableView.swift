@@ -5,13 +5,17 @@ import SwiftUI
 struct BuracoCardEditableView: View {
     let buracoVM: BuracoFBViewModel
     @State var isSelectedItem: Bool = false
-
+    var selectedItem : () -> Void
+    
     var body: some View {
         HStack {
-            Button(action: { isSelectedItem.toggle() } ) {
+            Button(action: { isSelectedItem.toggle()
+                if isSelectedItem {
+                    selectedItem()
+                }
+            } ) {
                 Image(systemName: isSelectedItem ? "circle.fill" : "circle")
             }
-            
             
             VStack(spacing: 0) {
                 NavigationLink(value: buracoVM) { }
@@ -61,5 +65,5 @@ struct BuracoCardEditableView: View {
 }
 
 #Preview {
-    BuracoCardEditableView(buracoVM: BuracoFBViewModel(matchFB: MatchFB(id: "1", scoreToWin: "10", playerOne: "Zico", playerTwo: "Leandro", playerThree: "Junior", playerFour: "Savio", finalScoreOne: "1000", finalScoreTwo: "400", friendsId: [], myDate: Date(), registeredUser: true, docId: "1", gameOver: false)))
+    BuracoCardEditableView(buracoVM: BuracoFBViewModel(matchFB: MatchFB(id: "1", scoreToWin: "10", playerOne: "Zico", playerTwo: "Leandro", playerThree: "Junior", playerFour: "Savio", finalScoreOne: "1000", finalScoreTwo: "400", friendsId: [], myDate: Date(), registeredUser: true, docId: "1", gameOver: false)), selectedItem: { })
 }

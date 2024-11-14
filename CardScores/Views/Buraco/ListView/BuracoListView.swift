@@ -10,6 +10,7 @@ struct BuracoListView: View {
     @State var selectedMatch: BuracoFBViewModel = BuracoFBViewModel(matchFB: MatchFB(scoreToWin: "", playerOne: "", playerTwo: "", playerThree: "", playerFour: "", finalScoreOne: "", finalScoreTwo: "", friendsId: [""], myDate: Date(), registeredUser: false, docId: "", gameOver: false))
     @State private var isEditing = false
     @State private var selections: Set<BuracoFBViewModel> = []
+    @State var selectedItems: [String] = []
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -63,7 +64,10 @@ struct BuracoListView: View {
                                             path.append(.child(selectedMatch))
                                         }, label: {
                                             if isEditing {
-                                                BuracoCardEditableView(buracoVM: matchFB)
+                                                BuracoCardEditableView(buracoVM: matchFB) {
+                                                    selectedItems.append(matchFB.id)
+                                                    print(selectedItems)
+                                                }
                                                     .padding(.bottom, 10)
                                             } else {
                                                 BuracoCardView(buracoVM: matchFB)
@@ -106,16 +110,21 @@ struct BuracoListView: View {
                     .navigationBarItems(
                         leading: Button(action: {
                             isEditing.toggle()
+                            if !isEditing {
+                                selectedItems.removeAll()
+                            }
                         }) {
                             Text(isEditing ? "Cancelar" : "Editar")
                         },
-                        trailing: Button(action: deleteSelectedItems) {
+                        trailing: Button(action: {
+                            buracoMatchVM.deletetSelectedItens(selectedItems: selectedItems)
+                        }) {
                             Image(systemName: "trash")
-                                .foregroundColor(selections.isEmpty ? .gray : .red)
+                                .foregroundColor(selectedItems.isEmpty ? .gray : .white)
                         }
-                        .disabled(selections.isEmpty)
+                        .disabled(selectedItems.isEmpty)
                     )
-                    .environment(\.editMode, isEditing ? .constant(.active) : .constant(.inactive))
+
                     
                     
                     
@@ -140,7 +149,6 @@ struct BuracoListView: View {
     }
     
     private func deleteSelectedItems() {
-        buracoMatchVM.matchesVM.removeAll { selections.contains($0) }
-        selections.removeAll()
+        buracoMatchVM.deletetSelectedItens(selectedItems: selectedItems)
     }
 }

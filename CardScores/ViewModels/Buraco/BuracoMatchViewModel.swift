@@ -544,4 +544,8 @@ final class BuracoMatchViewModel: ObservableObject {
         
         return listOfPlayers
     }
+    
+    func deletetSelectedItens(selectedItems: [String]) {
+        buracoRepo.deleteSelectedDocuments(documentIDs: selectedItems)
+    }
 }

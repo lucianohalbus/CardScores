@@ -18,6 +18,52 @@
             endingLineNumber = "40"
             landmarkName = "addTurn(matchTurn:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "B84AD37B-2296-4ED7-B0A2-9B72A47081C1 - b00dfb14e6b328df"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CardScores.BuracoTurnsViewModel.addTurn(matchTurn: CardScores.MatchTurn) -&gt; ()"
+                  moduleName = "CardScores.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucianopuzer/Library/Mobile%20Documents/com~apple~CloudDocs/Developer/Halbus/CardScores/CardScores/ViewModels/Buraco/BuracoTurnsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40">
+               </Location>
+               <Location
+                  uuid = "B84AD37B-2296-4ED7-B0A2-9B72A47081C1 - eef2236dc5997dfe"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.Result&lt;Swift.Optional&lt;CardScores.MatchTurn&gt;, Swift.Error&gt;) -&gt; () in CardScores.BuracoTurnsViewModel.addTurn(matchTurn: CardScores.MatchTurn) -&gt; ()"
+                  moduleName = "CardScores.debug.dylib"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/lucianopuzer/Library/Mobile%20Documents/com~apple~CloudDocs/Developer/Halbus/CardScores/CardScores/ViewModels/Buraco/BuracoTurnsViewModel.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "41"
+                  endingLineNumber = "41">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8C3CD9EB-2454-483F-970A-A52E0348A70C"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CardScores/Views/Buraco/ListView/BuracoListView.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "152"
+            endingLineNumber = "152"
+            landmarkName = "deleteSelectedItems()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
