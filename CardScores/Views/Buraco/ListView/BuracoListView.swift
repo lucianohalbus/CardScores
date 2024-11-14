@@ -11,6 +11,7 @@ struct BuracoListView: View {
     @State private var isEditing = false
     @State private var selections: Set<BuracoFBViewModel> = []
     @State var selectedItems: [String] = []
+    @State private var showAlert = false
     
     var body: some View {
         NavigationStack(path: $path) {
@@ -68,7 +69,6 @@ struct BuracoListView: View {
                                             if isEditing {
                                                 BuracoCardEditableView(buracoVM: matchFB) {
                                                     selectedItems.append(matchFB.id)
-                                                    print(selectedItems)
                                                 }
                                                     .padding(.bottom, 10)
                                             } else {
@@ -111,7 +111,7 @@ struct BuracoListView: View {
                             Text(isEditing ? "Cancelar" : "Editar")
                         },
                         trailing: Button(action: {
-                            buracoMatchVM.deletetSelectedItens(selectedItems: selectedItems)
+                            showAlert = true
                         }) {
                             Image(systemName: "trash")
                                 .foregroundColor(selectedItems.isEmpty ? .gray : .white)
@@ -141,6 +141,15 @@ struct BuracoListView: View {
                     isEditing.toggle()
                     buracoMatchVM.getMatches()
                 }
+            }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text("Atenção"),
+                      message: Text("Você tem certeza que deseja excluir os itens selecionados?"),
+                      primaryButton: .destructive(Text("OK")) {
+                        buracoMatchVM.deletetSelectedItens(selectedItems: selectedItems)
+                },
+                      secondaryButton: .cancel()
+                )
             }
         }
     }
