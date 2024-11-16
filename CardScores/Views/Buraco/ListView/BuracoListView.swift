@@ -18,7 +18,7 @@ struct BuracoListView: View {
             ZStack {
                 VStack {
                     
-                    MiniLogo()
+                    LogoName()
                         .offset(y: -40)
 
                     VStack {

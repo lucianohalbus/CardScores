@@ -71,7 +71,7 @@ struct BuracoMatchView: View {
                     }
                 }
             }
-            .padding(.horizontal, 5)
+            .padding(.horizontal, 10)
             .onDisappear {
                 buracoMatchVM.getMatches()
             }

@@ -78,6 +78,24 @@ struct MiniLogo: View {
     }
 }
 
+struct LogoName: View {
+    var body: some View {
+        VStack {
+            Text("Card Scores")
+                .font(.title)
+                .fontWeight(.semibold)
+                .foregroundStyle(Color.white)
+
+            Divider()
+                .frame(height: 1)
+                .frame(maxWidth: .infinity)
+                .background(Color.black)
+                .foregroundStyle(Color.white)
+        }
+        .padding(.bottom, 10)
+    }
+}
+
 struct ToolBarLogo: View {
     var body: some View {
         HStack {
@@ -99,5 +117,5 @@ struct ToolBarLogo: View {
 }
 
 #Preview {
-    MainLogo()
+    LogoName()
 }
