@@ -42,6 +42,7 @@ class UserViewModel: ObservableObject {
 
     }
     
+    @MainActor
     func addFriends(friendId: String, currentUser: ProfileModel) async {
         
         let userFriend: ProfileModel = await userRepo.getUserList(userId: friendId)
@@ -56,6 +57,7 @@ class UserViewModel: ObservableObject {
 
     }
     
+    @MainActor
     func removeFriends(friend: FriendsModel, currentUser: ProfileModel) async {
         let friendRemoved: Bool = userRepo.removeFriend(friend: friend, currentUser: currentUser)
         

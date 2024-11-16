@@ -41,7 +41,6 @@ struct BuracoMatchView: View {
                                     .cornerRadius(10)
                             }
                         }
-                        .padding(.horizontal)
                     } else {
                         VStack(spacing: 0) {
                             if let urlString = matchFB.imagePathUrl, let url = URL(string: urlString) {
@@ -69,10 +68,10 @@ struct BuracoMatchView: View {
                                 }
                             }
                         }
-                        .padding(.horizontal)
                     }
                 }
             }
+            .padding(.horizontal, 5)
             .onDisappear {
                 buracoMatchVM.getMatches()
             }
@@ -198,11 +197,10 @@ struct BuracoMatchView: View {
             }
             .font(.headline)
             .foregroundColor(.white)
-            .padding(15)
+            .padding(10)
             .background(Color.cardBackgroundColor)
             .cornerRadius(10)
         }
-        .padding(.horizontal)
     }
     
     @ViewBuilder
@@ -227,15 +225,16 @@ struct BuracoMatchView: View {
             } else {
                 VStack {
                     ForEach(buracoTurnVM.turns) { matchResume in
-                        HStack(spacing: 5) {
+                        HStack() {
                             HStack {
                                 Text("\(matchResume.partialScoreOne ?? "")")
                                     .foregroundColor(isPartialScoreValueNegative(value: matchResume.partialScoreOne ?? "") ? Color.red : Color.black)
 
                                 Text("\(matchResume.scoresTurnOne)")
                                     .foregroundStyle(Color.gray)
+                                    .font(.caption)
                             }
-                            .frame(width: 100, alignment: .leading)
+                            .frame(width: 90, alignment: .leading)
                             
                             Spacer()
                             
@@ -244,22 +243,23 @@ struct BuracoMatchView: View {
                                     .foregroundStyle(.black)
                                     .font(.caption)
                             }
-                            .frame(width: 140, alignment: .center)
+                            .frame(width: 150, alignment: .center)
                             
                             Spacer()
                             
                             HStack {
                                 Text("\(matchResume.scoresTurnTwo)")
                                     .foregroundStyle(Color.gray)
+                                    .font(.caption)
                                 
                                 Text("\(matchResume.partialScoreTwo ?? "")")
                                     .foregroundStyle(isPartialScoreValueNegative(value: matchResume.partialScoreTwo ?? "") ? Color.red : Color.black)
                             }
-                            .frame(width: 100, alignment: .trailing)
+                            .frame(width: 90, alignment: .trailing)
                             
                         }
                         .font(.callout)
-                        .padding(.horizontal, 15)
+                        .padding(.horizontal, 10)
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -294,7 +294,6 @@ struct BuracoMatchView: View {
                 }
             }
         }
-        .padding(.horizontal)
     }
     
     func isPartialScoreValueNegative(value: String) -> Bool {

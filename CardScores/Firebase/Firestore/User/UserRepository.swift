@@ -41,6 +41,7 @@ class UserRepository: ObservableObject {
       //  getUser()
     }
     
+    @MainActor
     func getUserList(userId: String) async -> ProfileModel {
         let userDoc = db.collection(Constants.userList).document(userId)
         

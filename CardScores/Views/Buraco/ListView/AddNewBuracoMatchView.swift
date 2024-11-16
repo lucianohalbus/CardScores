@@ -103,7 +103,11 @@ struct AddNewBuracoMatchView: View {
                     }
                     .onAppear {
                         Task {
-                            self.userProfile = try await userVM.getUser()
+                            do {
+                                self.userProfile = try await userVM.getUser()
+                            } catch let error {
+                                print(error.localizedDescription)
+                            }
                         }
                     }
                     .onChange(of: shouldCleanTeams) { newValue in
